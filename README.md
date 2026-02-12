@@ -1,4 +1,4 @@
-# Project Name
+# HealthFitnessPro
 > Outline a brief description of your project.
 > Live demo [_here_](https://www.example.com). <!-- If you have the project hosted somewhere, include the link here. -->
 
@@ -17,24 +17,24 @@
 
 
 ## General Information
-- Provide general information about your project here.
-- What problem does it (intend to) solve?
-- What is the purpose of your project?
-- Why did you undertake it?
+- The project consists of Diego Dominguez-Albiter, Saroj Gautam, Connor Lopez, Abhinesh Dahal, and Angel Verde-Salas.
+- We are creating a Fitness App.
+- We are creating this application to improve the fitness knowledge of the general public.
+- We undertook this project as we found fitness to be very closely correlated to health which has great importance.
 <!-- You don't have to answer all the questions - just the ones relevant to your project. -->
-
+![App Cover](./src/coverimage.png)
 
 ## Technologies Used
-- Tech 1 - version 1.0
-- Tech 2 - version 2.0
-- Tech 3 - version 3.0
+- React Native
+- FastAPI
+- ExRx.net Exercise JSON Rest API 
 
 
 ## Features
-List the ready features here:
-- Awesome feature 1
-- Awesome feature 2
-- Awesome feature 3
+List the to be ready features here:
+- Library of Exercises 
+- Exercise Templates
+- History of Exercises 
 
 
 ## Screenshots
