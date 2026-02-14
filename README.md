@@ -32,10 +32,6 @@
 
 ## Features
 List the to be ready features here:
-- Library of Exercises 
-- Exercise Templates
-- History of Exercises 
-
 
 ## Screenshots
 ![Example screenshot](./img/screenshot.png)
@@ -67,8 +63,12 @@ Room for improvement:
 - Improvement to be done 2
 
 To do:
-- Feature to be added 1
-- Feature to be added 2
+- Library of Exercises
+    * The library of exercises will be a huge catalog of different exercises a person can do and can find in depth information. This will help users who are not familar with different exercises so that they can learn a variety of them.
+- Workout Templates
+    * This will be prebuilt workouts with different exercises within them. This will be the main appeal of the application. This will be used for people who are not sure which exercises pair up together or who just want to boot up a workout without thinking of what to do beforehand.
+- History of Workouts 
+    * This will be a place in which a person may catalog the workouts which they have done previously. This is helpful for a user so that they know what they have done previously and what they must do in the future.
 
 
 ## Acknowledgements
