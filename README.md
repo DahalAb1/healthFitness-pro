@@ -22,7 +22,7 @@
 - We are creating this application to improve the fitness knowledge of the general public.
 - We undertook this project as we found fitness to be very closely correlated to health which has great importance.
 <!-- You don't have to answer all the questions - just the ones relevant to your project. -->
-![App Cover](./src/coverimage.png)
+![App Cover](./src/coverphoto.jpg)
 
 ## Technologies Used
 - React Native
