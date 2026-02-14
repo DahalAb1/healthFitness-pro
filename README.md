@@ -1,5 +1,5 @@
 # HealthFitnessPro
-> Outline a brief description of your project.
+> Our application is simple place in which a person can catalog their workouts and learn many new ones as well.
 > Live demo [_here_](https://www.example.com). <!-- If you have the project hosted somewhere, include the link here. -->
 
 ## Table of Contents
@@ -58,17 +58,17 @@ Project is: _in progress_ / _complete_ / _no longer being worked on_. If you are
 ## Room for Improvement
 Include areas you believe need improvement / could be improved. Also add TODOs for future development.
 
-Room for improvement:
+## Room for improvement:
 - Improvement to be done 1
 - Improvement to be done 2
 
-To do:
+## To do:
 - Library of Exercises
-    * The library of exercises will be a huge catalog of different exercises a person can do and can find in depth information. This will help users who are not familar with different exercises so that they can learn a variety of them.
+    - The library of exercises will be a huge catalog of different exercises a person can do and can find in depth information. This will help users who are not familar with different exercises so that they can learn a variety of them.
 - Workout Templates
-    * This will be prebuilt workouts with different exercises within them. This will be the main appeal of the application. This will be used for people who are not sure which exercises pair up together or who just want to boot up a workout without thinking of what to do beforehand.
+    - This will be prebuilt workouts with different exercises within them. This will be the main appeal of the application. This will be used for people who are not sure which exercises pair up together or who just want to boot up a workout without thinking of what to do beforehand.
 - History of Workouts 
-    * This will be a place in which a person may catalog the workouts which they have done previously. This is helpful for a user so that they know what they have done previously and what they must do in the future.
+    - This will be a place in which a person may catalog the workouts which they have done previously. This is helpful for a user so that they know what they have done previously and what they must do in the future.
 
 
 ## Acknowledgements
