@@ -1,5 +1,5 @@
-# Project Name
-> Outline a brief description of your project.
+# HealthFitnessPro
+> Our application is simple place in which a person can catalog their workouts and learn many new ones as well.
 > Live demo [_here_](https://www.example.com). <!-- If you have the project hosted somewhere, include the link here. -->
 
 ## Table of Contents
@@ -17,25 +17,21 @@
 
 
 ## General Information
-- Provide general information about your project here.
-- What problem does it (intend to) solve?
-- What is the purpose of your project?
-- Why did you undertake it?
+- The project consists of Diego Dominguez-Albiter, Saroj Gautam, Connor Lopez, Abhinesh Dahal, and Angel Verde-Salas.
+- We are creating a Fitness App.
+- We are creating this application to improve the fitness knowledge of the general public.
+- We undertook this project as we found fitness to be very closely correlated to health which has great importance.
 <!-- You don't have to answer all the questions - just the ones relevant to your project. -->
-
+![App Cover](./src/coverimage.png)
 
 ## Technologies Used
-- Tech 1 - version 1.0
-- Tech 2 - version 2.0
-- Tech 3 - version 3.0
+- React Native
+- FastAPI
+- ExRx.net Exercise JSON Rest API 
 
 
 ## Features
-List the ready features here:
-- Awesome feature 1
-- Awesome feature 2
-- Awesome feature 3
-
+List the to be ready features here:
 
 ## Screenshots
 ![Example screenshot](./img/screenshot.png)
@@ -62,13 +58,17 @@ Project is: _in progress_ / _complete_ / _no longer being worked on_. If you are
 ## Room for Improvement
 Include areas you believe need improvement / could be improved. Also add TODOs for future development.
 
-Room for improvement:
+## Room for improvement:
 - Improvement to be done 1
 - Improvement to be done 2
 
-To do:
-- Feature to be added 1
-- Feature to be added 2
+## To do:
+- Library of Exercises
+    - The library of exercises will be a huge catalog of different exercises a person can do and can find in depth information. This will help users who are not familar with different exercises so that they can learn a variety of them.
+- Workout Templates
+    - This will be prebuilt workouts with different exercises within them. This will be the main appeal of the application. This will be used for people who are not sure which exercises pair up together or who just want to boot up a workout without thinking of what to do beforehand.
+- History of Workouts 
+    - This will be a place in which a person may catalog the workouts which they have done previously. This is helpful for a user so that they know what they have done previously and what they must do in the future.
 
 
 ## Acknowledgements
