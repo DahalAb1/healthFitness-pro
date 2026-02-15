@@ -31,8 +31,27 @@
 
 
 ## Features
-List the to be ready features here:
+User Stories:
 
+1.  As a health enthusiast I would like a library of exercises so that I can know what muscles to target per exercise. 
+
+1.  As a gym enthusiast I would like some exercise templates so that I can thoroughly and consistently exercise every week. 
+
+1.  As a gym enthusiast, I want to create my own custom workout routines from the exercise library so that I can follow a personalized plan that fits my specific goals. 
+
+1.  As a dedicated athlete, I want to log my actual sets, reps, and weight during a workout so that I can see my progress over time. 
+
+1.  As a health-conscious user, I want to log my daily food intake so that I can monitor my calorie balance against my activity levels. 
+
+1.  As a runner, I want to track my distance, time, and route via GPS so that I can see a map of my run and analyze my pace. 
+
+1.  As a disciplined lifter, I want a dedicated rest timer and clock within the app, so that I don't have to switch to my phone's clock app between sets. 
+
+1.  As a mobile-first athlete, I want to access my workout library, track my runs via GPS, and receive haptic notifications, so that I can train anywhere—from the gym floor to outdoor trails—without needing a laptop. 
+
+1.  As a customer, I would like a nice and easily interpretable front page so I can navigate and use the application. 
+
+1. As a customer, I would like to have a secure account to protect sensitive information so I can use my account across platforms. 
 ## Screenshots
 ![Example screenshot](./img/screenshot.png)
 <!-- If you have screenshots you'd like to share, include them here. -->
