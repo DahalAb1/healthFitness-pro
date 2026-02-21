@@ -1,0 +1,10 @@
+This is a very rough design of the started workout page which you would get after starting an exercise template.
+
+
+It will have a simple design which will show the current exercise that must be performed.
+It will also show the previous and next exercises.
+It has a force stop button with yet not implemented ideas.
+
+It should also probably have the whole list of future exercises somewhere available as well.
+
+Each "read more" will hopefully be able to open to a video or some kind of similar thing.
