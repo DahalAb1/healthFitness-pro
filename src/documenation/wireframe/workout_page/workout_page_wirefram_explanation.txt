@@ -1,0 +1,9 @@
+This is very small overview of the workout section.
+The main idea is just to be a place in which we house the other 4 items.
+
+-Workout Templates
+-Custom Workout Templates
+-Workout Timer
+-Workout History
+
+The rest of the page is just filler for now as to make it look better in the future.
