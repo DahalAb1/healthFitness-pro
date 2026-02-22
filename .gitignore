@@ -48,3 +48,9 @@ Thumbs.db
 *.mov
 *.wmv
 
+# Python bytecode and cache files (generated automatically)
+__pycache__
+
+# Environment variables - never commit API keys
+.env
+
