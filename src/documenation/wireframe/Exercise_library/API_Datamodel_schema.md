@@ -2,12 +2,12 @@
 OFFICIAL DESIGN: API & DATA MODEL
 
 
-1. CORE EXERCISE SCHEMA
+1. EXERCISE SCHEMA
 -----------------------
 Entity: Exercise
-- id: Integer (Primary Key)
+- id: Integer 
 - name: String
-- muscle_group: String
+- exercise_type: String
 - equipment: String
 - description: Text/String
 
