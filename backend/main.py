@@ -3,9 +3,18 @@ import os
 sys.path.insert(0, os.path.dirname(__file__))
 
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from exercise_client import ExerciseClient
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["GET"],
+    allow_headers=["*"],
+)
+
 client = ExerciseClient()
 
 @app.get("/exercises")
