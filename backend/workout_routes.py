@@ -1,4 +1,4 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 from typing import List, Optional
 from models import WorkoutCreate, WorkoutSession
 
@@ -29,3 +29,11 @@ def get_workouts(user_id: Optional[int] = None):
     if user_id is None:
         return workouts_db
     return [w for w in workouts_db if w.user_id == user_id]
+
+
+@router.get("/workouts/{workout_id}", response_model=WorkoutSession)
+def get_workout_by_id(workout_id: int):
+    for w in workouts_db:
+        if w.id == workout_id:
+            return w
+    raise HTTPException(status_code=404, detail="Workout not found")
