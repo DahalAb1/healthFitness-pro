@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from typing import List
+from typing import List, Optional
 from models import WorkoutCreate, WorkoutSession
 
 router = APIRouter()
@@ -25,5 +25,7 @@ def create_workout(workout: WorkoutCreate):
 
 
 @router.get("/workouts", response_model=List[WorkoutSession])
-def get_workouts():
-    return workouts_db
+def get_workouts(user_id: Optional[int] = None):
+    if user_id is None:
+        return workouts_db
+    return [w for w in workouts_db if w.user_id == user_id]
