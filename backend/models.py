@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import List
+from typing import List, Optional
 from datetime import date
 
 
@@ -36,3 +36,26 @@ class Exercise(BaseModel):
 
 class ExerciseListResponse(BaseModel):
     exercises: List[Exercise]
+
+
+# ---- Custom Workout Models ----
+
+class CustomWorkoutExercise(BaseModel):
+    exercise_id: Optional[str] = None
+    exercise_name: str
+    sets: int
+    reps: int
+    weight: Optional[float] = None
+
+
+class UserWorkoutCreate(BaseModel):
+    user_id: int
+    name: str
+    main_muscle: Optional[str] = None
+    difficulty: Optional[str] = None
+    duration_minutes: Optional[int] = None
+    exercises: List[CustomWorkoutExercise]
+
+
+class UserWorkout(UserWorkoutCreate):
+    id: int
