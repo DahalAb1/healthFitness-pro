@@ -54,3 +54,5 @@ __pycache__
 # Environment variables - never commit API keys
 .env
 
+
+.venv/
