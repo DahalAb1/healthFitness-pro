@@ -1,0 +1,57 @@
+BACKEND OVERVIEW
+******************************************************************************
+
+This is the backend for HealthFitnessPro. It is built with FastAPI and pulls
+exercise data from the ExerciseDB API via RapidAPI. Here is a quick breakdown
+of each file so you can get up to speed fast.
+
+requirements.txt
+- All the Python libraries this project depends on.
+- If you are setting this up for the first time, run:
+  "pip install -r requirements.txt" and you are good to go.
+
+backend/exercise_client.py
+- Think of this as the middleman between our app and the ExerciseDB API.
+- It has one class (ExerciseClient) with two methods:
+    get_exercises(body_part)  : pulls a list of exercises. You can optionally
+                                filter by body part e.g. "CHEST" or "BICEPS"
+    get_exercise_by_id(id)    : pulls everything we know about one specific
+                                exercise using its unique ID
+- The API key is kept safely in the .env file.
+
+backend/main.py
+- This is the entry point of the backend. It defines what URLs the frontend
+  can call and what they get back.
+    GET /exercises             : returns a list of exercises. Add ?bodyPart=CHEST
+                                 to filter by muscle group.
+    GET /exercises/{id}        : returns the full details of one exercise.
+                                 Exercise id can be recieved from above GET /exercises method 
+- To start the server: uvicorn backend.main:app --reload
+- To test in browser:  http://127.0.0.1:8000/docs (Keep in mind to include /docs in the url otherwise you'll just see {"detail":"Not Found"} page.)
+
+backend/models.py
+- This file defines the data models used by the Workout History feature. 
+- It uses Pydantic to validate incoming request data and structure outgoing responses.
+  ExerciseEntry : represents a single exercise performed in a workout (sets, reps, weight).
+  WorkoutCreate : used when creating a new workout (no id yet).
+  WorkoutSession : represents a stored workout session, including its unique id and list of exercises.
+- These models ensure that all workout data follows a consistent structure and prevent invalid data from being saved.
+- This file also defines the data models used by the Custom Workout Creator feature.
+  CustomWorkoutExercise : represents an exercise inside a custom workout (sets, reps, optional weight, optional exercise_id).
+  UserWorkoutCreate : used when creating a new custom workout (no id yet).
+  UserWorkout : represents a stored custom workout, including its unique id and list of exercises.
+
+backend/workout_routes.py
+- This file defines the API routes related to Workout History.
+- It handles creating and retrieving workout sessions.
+  POST /workouts : creates a new workout session and assigns it a unique id.
+  GET /workouts : returns all stored workouts.
+  GET /workouts?user_id=ID : returns only workouts that belong to a specific user.
+  GET /workouts/{workout_id} : returns a single workout session by its id.
+- Workouts are currently stored in temporary in-memory storage (workouts_db list). 
+- If a workout id does not exist, a 404 error is returned.
+- This file also defines the API routes related to the Custom Workout Creator feature.
+  POST /user-workouts : creates a new custom workout and assigns it a unique id.
+  GET /user-workouts : returns all stored custom workouts.
+  GET /user-workouts?user_id=ID : returns only custom workouts that belong to a specific user.
+- Custom workouts are currently stored in temporary in-memory storage (user_workouts_db list).

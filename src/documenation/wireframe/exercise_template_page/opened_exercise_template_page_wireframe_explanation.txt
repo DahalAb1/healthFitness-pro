@@ -1,0 +1,8 @@
+Top middle is name of exercise that was chosen
+
+Paragraph under it will have further info of the workout/what it does.
+
+Start button which will take you to a started page for a workout.
+Back button on top which will take you to the exercise templates page.
+
+Under it is the Exercise List with bulleted points information.
