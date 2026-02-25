@@ -35,7 +35,7 @@ async function loadExercises(bodyPart = null) {
     const response = await fetch(url);
     const data = await response.json();
 
-    exercises = data.map(exercise => ({
+    const transformed = data.map(exercise => ({
       id: exercise.id,
       name: exercise.name,
       muscle_group: exercise.target,
@@ -44,9 +44,17 @@ async function loadExercises(bodyPart = null) {
       image_url: exercise.gifUrl
     }));
 
+    exercises.length = 0;
+    exercises.push(...transformed);
+
     console.log("Exercises loaded:", exercises);
     return exercises;
   } catch (error) {
     console.error("Failed to load exercises:", error);
   }
+}
+
+// Export for testability (CommonJS)
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = { loadExercises, exercises };
 }
