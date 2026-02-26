@@ -2,7 +2,7 @@
   "name": "health-fitness-pro",
   "version": "1.0.0",
   "description": "A comprehensive fitness application with workout tracking and exercise library",
-  "main": "script.js",
+  "main": "frontend/script.js",
   "scripts": {
     "test": "jest --config tests/jest.config.js",
     "test:watch": "jest --config tests/jest.config.js --watch",

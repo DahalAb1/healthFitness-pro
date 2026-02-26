@@ -18,6 +18,9 @@ dist/
 
 # Package files
 *.jar
+ 
+# Test coverage reports
+tests/coverage/
 
 # Maven
 target/

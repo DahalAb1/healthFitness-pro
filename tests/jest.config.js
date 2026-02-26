@@ -3,7 +3,7 @@ module.exports = {
   rootDir: '../',
   setupFilesAfterEnv: ['<rootDir>/tests/jest.setup.js'],
   collectCoverageFrom: [
-    'script.js',
+    'app/frontend/script.js',
     '!node_modules/**'
   ],
   coverageThreshold: {
@@ -14,5 +14,5 @@ module.exports = {
       statements: 70
     }
   },
-  testMatch: ['<rootDir>/tests/**/*.test.js']
+  testMatch: ['<rootDir>/tests/frontend/**/*.test.js']
 };

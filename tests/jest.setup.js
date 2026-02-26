@@ -4,7 +4,7 @@ global.exercises = [];
 try {
   // Require the script so its functions/variables are available in tests
   const path = require('path');
-  const script = require(path.resolve(__dirname, '../script.js'));
+  const script = require(path.resolve(__dirname, '../app/frontend/script.js'));
   if (script) {
     global.loadExercises = script.loadExercises;
     // Ensure global.exercises references the same array from script.js

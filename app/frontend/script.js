@@ -5,8 +5,8 @@
 //   4. To inspect responses visually: http://127.0.0.1:8000/docs
 //
 // HOW TO USE loadExercises():
-//   - loadExercises()           → fetches all exercises
-//   - loadExercises("CHEST")    → fetches only chest exercises
+//   - loadExercises()           → fetches all exercises
+//   - loadExercises("CHEST")    → fetches only chest exercises
 //   - Other body part options: "BACK", "LEGS", "SHOULDERS",
 //     "BICEPS", "TRICEPS", "ABS"
 //   - Data is stored in the global `exercises` array and also returned from the function
