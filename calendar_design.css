@@ -186,3 +186,20 @@ body {
 #addBtn:hover {
     background: #005bb5;
 }
+
+/* view box for past workout description */
+.view-box {
+    border: 2px dashed #666;
+    border-radius: 8px;
+    padding: 1.5rem;
+    background: rgba(255,255,255,0.05);
+    color: #ccc;
+    font-size: 14px;
+    line-height: 1.4;
+    text-align: center;
+}
+
+#viewBtn {
+    margin-top: 1rem;
+    width: 100%;
+}
