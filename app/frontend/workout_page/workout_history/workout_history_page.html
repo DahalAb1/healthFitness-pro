@@ -5,7 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>Workout History - Health Fitness Pro</title>
 		<link rel="stylesheet" href="../../styles.css">
-		<link rel="stylesheet" href="../../calendar/calendar_design.css">
+		<link rel="stylesheet" href="calendar/calendar_design.css">
 </head>
 <body>
 		<section class="navigation-bar">
@@ -26,25 +26,25 @@
 			<h1 class="workout-history-heading">Workout History</h1>
 			<p class="workout-history-description">View your workout history and calendar below.</p>
 
-			<!-- Calendar Component Start -->
-			<div class="calendar-page">
-					<div class="month-nav">
-							<button id="prevMonth">&lt;</button>
-							<h2 id="monthName"></h2>
-							<button id="nextMonth">&gt;</button>
-					</div>
-					<div class="month-grid" id="monthGrid">
-							<!-- headers + days injected by script -->
-					</div>
-					<section class="selected-day" id="selectedDaySection">
-							<h3 id="selectedDateHeader"></h3>
-							<!-- workout details go here -->
-					</section>
-					<div id="bottomPlaceholder" class="no-workout">
-							<p>Select a day to see or add a workout</p>
-					</div>
-			</div>
-			<!-- Calendar Component End -->
+			  <!-- Calendar Component Start -->
+			  <div class="calendar-page">
+				  <div class="month-nav">
+					  <button id="prevMonth">&lt;</button>
+					  <h2 id="monthName"></h2>
+					  <button id="nextMonth">&gt;</button>
+				  </div>
+				  <div class="month-grid" id="monthGrid">
+					  <!-- headers + days injected by script -->
+				  </div>
+				  <section class="selected-day" id="selectedDaySection">
+					  <h3 id="selectedDateHeader"></h3>
+					  <!-- workout details go here -->
+				  </section>
+				  <div id="bottomPlaceholder" class="no-workout">
+					  <p>Select a day to see or add a workout</p>
+				  </div>
+			  </div>
+			  <!-- Calendar Component End -->
 		</section>
 
 		<footer class="footer">
@@ -69,6 +69,6 @@
 			<p>&copy; 2024 Health Fitness Pro. All rights reserved.</p>
 		</footer>
 
-		<script src="../../calendar/calendar_script.js"></script>
+		<script src="calendar/calendar_script.js"></script>
 </body>
 </html>
