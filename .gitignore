@@ -51,7 +51,6 @@ Thumbs.db
 *.mov
 *.wmv
 
-<<<<<<< HEAD
 # Python bytecode and cache files (generated automatically)
 __pycache__
 
@@ -60,5 +59,4 @@ __pycache__
 
 
 .venv/
-=======
->>>>>>> origin/dev
+# Virtual environment directories
