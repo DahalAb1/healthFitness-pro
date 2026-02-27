@@ -1,0 +1,30 @@
+BACKEND OVERVIEW
+******************************************************************************
+
+This is the backend for HealthFitnessPro. It is built with FastAPI and pulls
+exercise data from the ExerciseDB API via RapidAPI. Here is a quick breakdown
+of each file so you can get up to speed fast.
+
+requirements.txt
+- All the Python libraries this project depends on.
+- If you are setting this up for the first time, run:
+  "pip install -r requirements.txt" and you are good to go.
+
+backend/exercise_client.py
+- Think of this as the middleman between our app and the ExerciseDB API.
+- It has one class (ExerciseClient) with two methods:
+    get_exercises(body_part)  : pulls a list of exercises. You can optionally
+                                filter by body part e.g. "CHEST" or "BICEPS"
+    get_exercise_by_id(id)    : pulls everything we know about one specific
+                                exercise using its unique ID
+- The API key is kept safely in the .env file.
+
+backend/main.py
+- This is the entry point of the backend. It defines what URLs the frontend
+  can call and what they get back.
+    GET /exercises             : returns a list of exercises. Add ?bodyPart=CHEST
+                                 to filter by muscle group.
+    GET /exercises/{id}        : returns the full details of one exercise.
+                                 Exercise id can be recieved from above GET /exercises method 
+- To start the server: uvicorn backend.main:app --reload
+- To test in browser:  http://127.0.0.1:8000/docs (Keep in mind to include /docs in the url otherwise you'll just see {"detail":"Not Found"} page.)
