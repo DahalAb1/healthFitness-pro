@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendar Preview</title>
+    <link rel="stylesheet" href="calendar_design.css"> 
+</head>
+<body>
+    <div class="calendar-page">
+        <!-- Month Navigation -->
+        <div class="month-nav">
+            <button id="prevMonth">&lt;</button>
+            <h2 id="monthName"></h2>
+            <button id="nextMonth">&gt;</button>
+        </div>
+
+        <!-- Calendar Grid -->
+        <div class="month-grid" id="monthGrid">
+            <!-- headers + days injected by script -->
+        </div>
+
+        <!-- Selected Date Section -->
+        <section class="selected-day" id="selectedDaySection">
+            <h3 id="selectedDateHeader"></h3>
+            <!-- workout details go here -->
+        </section>
+
+        <!-- bottom placeholder/update area -->
+        <div id="bottomPlaceholder" class="no-workout">
+            <p>Select a day to see or add a workout</p>
+        </div>
+          
+
+    </div>
+    <script src="calendar_script.js"></script></body>
+</html>
