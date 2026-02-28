@@ -1,7 +1,0 @@
-This page will be able to be reached form either a small dropdown window on the top workout navigation bar or from the workout page itself.
-
-This page will start with a small introduction to the content while also highlighting some cool parts of it.
-
-It will then have a search bar which a user can use to look for certain workouts.
-It also will just have filters which a user can choose from.
-After this will just be featured exercise templates to take up some space.
