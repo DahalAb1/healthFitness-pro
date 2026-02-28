@@ -34,15 +34,30 @@ async function loadExercises(bodyPart = null) {
 
     const response = await fetch(url);
     const data = await response.json();
+    console.log("Raw API response:", JSON.stringify(data, null, 2));
 
-    const transformed = data.map((exercise) => ({
-      id: exercise.id,
+    const list = Array.isArray(data)
+      ? data
+      : Array.isArray(data.data)
+        ? data.data
+        : Array.isArray(data.exercises)
+          ? data.exercises
+          : [];
+
+    const transformed = list.map((exercise) => ({
+      id: exercise.exerciseId || exercise.id,
       name: exercise.name,
-      muscle_group: exercise.target,
-      equipment: exercise.equipment,
-      description: exercise.instructions,
-      image_url: exercise.gifUrl,
+      muscle_group:
+        (exercise.targetMuscles && exercise.targetMuscles[0]) ||
+        (exercise.bodyParts && exercise.bodyParts[0]) ||
+        exercise.target || "",
+      equipment:
+        (exercise.equipments && exercise.equipments[0]) ||
+        exercise.equipment || "",
+      description: exercise.instructions || exercise.steps || exercise.guide || "",
+      image_url: exercise.imageUrl || exercise.gifUrl || exercise.image_url || "",
     }));
+    console.log("First exercise after transform:", transformed[0]);
 
     exercises.length = 0;
     exercises.push(...transformed);
@@ -151,7 +166,9 @@ function showExerciseDetail(exercise) {
 
   var steps = Array.isArray(exercise.description)
     ? exercise.description
-    : [exercise.description];
+    : exercise.description
+      ? [exercise.description]
+      : ["No instructions available for this exercise."];
 
   steps.forEach(function (step) {
     var li = document.createElement("li");
@@ -189,8 +206,18 @@ if (document.getElementById("exercise-grid")) {
       btn.classList.add("active");
 
       var filter = btn.dataset.filter;
+      var BODY_PART_MAP = {
+        "chest": "chest",
+        "back": "back",
+        "legs": "thighs",
+        "shoulders": "shoulders",
+        "biceps": "biceps",
+        "triceps": "triceps",
+        "abs": "waist"
+      };
+      var apiBodyPart = filter === "ALL" ? null : (BODY_PART_MAP[filter.toLowerCase()] || filter.toLowerCase());
       showLoadingSpinner();
-      await loadExercises(filter === "ALL" ? null : filter);
+      await loadExercises(apiBodyPart);
       hideLoadingSpinner();
       renderExerciseCards(exercises);
     });
