@@ -9,10 +9,13 @@ from workout_routes import router as workout_router
 
 app = FastAPI()
 
+# include the workout routes (history + custom workouts)
+app.include_router(workout_router)
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
-    allow_methods=["GET"],
+    allow_methods=["GET", "POST"],  # POST needed for form submissions
     allow_headers=["*"],
 )
 

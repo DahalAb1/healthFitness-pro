@@ -1,5 +1,5 @@
-// sample library data; in a real app this would come from backend
-const masterLibrary = [
+// fallback library data if API fails
+const fallbackLibrary = [
     {id: 1, name: 'Bench Press', equipment: 'Barbell', muscle_group: 'Chest'},
     {id: 2, name: 'Squat', equipment: 'Barbell', muscle_group: 'Legs'},
     {id: 3, name: 'Pull Up', equipment: 'Bodyweight', muscle_group: 'Back'},
@@ -7,14 +7,56 @@ const masterLibrary = [
     {id: 5, name: 'Bicep Curl', equipment: 'Dumbbell', muscle_group: 'Arms'}
 ];
 
+const masterLibrary = [];
+
 // state
 let sequence = [];
+// keep track of IDs from the library that have been chosen
+let selectedIds = [];
 
 // elements
 const libraryModal = document.getElementById('libraryModal');
 const libraryList = document.getElementById('libraryList');
 const searchInput = document.getElementById('searchInput');
 const exerciseTableBody = document.querySelector('#exerciseTable tbody');
+
+// fetch real exercises from backend
+async function loadExercisesFromBackend() {
+    try {
+        const resp = await fetch('http://localhost:8000/exercises');
+        if (!resp.ok) throw new Error('Failed to fetch exercises');
+        const json = await resp.json();
+        console.log('exercises from API:', json);
+        
+        // API returns {success, data: [...], meta: {...}}
+        const exercises = json.data || [];
+        
+        // Transform field names to match frontend expectations
+        const transformed = exercises.map(ex => ({
+            id: ex.exerciseId,
+            name: ex.name,
+            equipment: (ex.equipments && ex.equipments[0]) ? ex.equipments[0].name : '',
+            muscle_group: (ex.bodyParts && ex.bodyParts[0]) ? ex.bodyParts[0].name : ''
+        }));
+        
+        console.log('transformed exercises:', transformed);
+        return transformed;
+    } catch (err) {
+        console.error('loadExercisesFromBackend error:', err);
+        console.log('falling back to demo exercises');
+        return fallbackLibrary;  // fallback to demo if API fails
+    }
+}
+
+async function initPage() {
+    const realExercises = await loadExercisesFromBackend();
+    masterLibrary.length = 0;
+    masterLibrary.push(...realExercises);
+    console.log('masterLibrary loaded:', masterLibrary);
+}
+
+// load exercises on page load
+initPage();
 
 function openLibrary() {
     populateLibrary(masterLibrary);
@@ -51,6 +93,9 @@ function addExerciseToSequence(exercise) {
         rest_period: '60s'
     };
     sequence.push(entry);
+    if (exercise.id != null && !selectedIds.includes(exercise.id)) {
+        selectedIds.push(exercise.id);
+    }
     renderSequence();
 }
 
@@ -83,7 +128,11 @@ function attachTableListeners() {
     document.querySelectorAll('.removeBtn').forEach(btn => {
         btn.addEventListener('click', e => {
             const idx = e.target.dataset.index;
-            sequence.splice(idx, 1);
+            const removed = sequence.splice(idx, 1)[0];
+            // also drop the id from selectedIds if it exists
+            if (removed && removed.id != null) {
+                selectedIds = selectedIds.filter(i => i !== removed.id);
+            }
             renderSequence();
         });
     });
@@ -119,15 +168,47 @@ window.addEventListener('click', e => {
 });
 document.getElementById('addManualBtn').addEventListener('click', addManualEntry);
 
-document.getElementById('workoutForm').addEventListener('submit', e => {
+// send workout object to backend using Fetch API
+async function saveWorkout(data) {
+    try {
+        const resp = await fetch('http://localhost:8000/user-workouts', {
+            method: 'POST',
+            headers: {'Content-Type':'application/json'},
+            body: JSON.stringify(data)
+        });
+        if (!resp.ok) throw new Error('status ' + resp.status);
+        return await resp.json();
+    } catch (err) {
+        console.error('saveWorkout error', err);
+        throw err;
+    }
+}
+
+document.getElementById('workoutForm').addEventListener('submit', async e => {
     e.preventDefault();
+    // build the payload, including selectedIds to mimic React state
     const workout = {
-        template_name: document.getElementById('templateName').value,
+        user_id: 1, // TODO: replace with real user
+        name: document.getElementById('templateName').value,
         creator_notes: document.getElementById('creatorNotes').value,
-        exercise_sequence: sequence
+        exercise_ids: selectedIds.slice(),
+        exercises: sequence.map(entry => ({
+            exercise_id: entry.id ? String(entry.id) : undefined,
+            exercise_name: entry.name,
+            sets: Number(entry.target_sets),
+            reps: Number(entry.target_reps),
+            rest: entry.rest_period
+        }))
     };
-    console.log('Saving workout:', workout);
-    alert('Workout saved (see console)');
+    console.log('selected exercise ids:', selectedIds);
+    console.log('workout to save:', workout);
+    try {
+        const result = await saveWorkout(workout);
+        console.log('server response', result);
+        alert('Workout saved successfully');
+    } catch {
+        alert('Failed to save workout; see console');
+    }
 });
 
 // initial render
