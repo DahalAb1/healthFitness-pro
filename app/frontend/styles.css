@@ -411,3 +411,47 @@ nav {
   grid-column: 1 / -1;
   padding: 4rem 0;
 }
+
+.exercise-list {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.exercise-card {
+  display: flex;
+  gap: 1.5rem;
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  align-items: center;
+}
+
+.exercise-gif {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.exercise-info h3 {
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 0.3rem;
+}
+
+.exercise-meta {
+  font-size: 1.2rem;
+  color: #888;
+  margin-bottom: 0.3rem;
+}
+
+.exercise-sets {
+  font-size: 1.4rem;
+  color: #4caf50;
+  font-weight: 600;
+}
