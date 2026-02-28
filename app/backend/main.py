@@ -6,6 +6,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from exercise_client import ExerciseClient
 from workout_routes import router as workout_router
+from progress_routes import router as progress_router
 
 app = FastAPI()
 
@@ -15,6 +16,9 @@ app.add_middleware(
     allow_methods=["GET"],
     allow_headers=["*"],
 )
+
+app.include_router(workout_router)
+app.include_router(progress_router)
 
 client = ExerciseClient()
 
