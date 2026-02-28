@@ -12,6 +12,29 @@ from template_db import get_all_templates, get_template_by_id, create_template
 
 Base.metadata.create_all(bind=engine)
 
+# Seed default templates if the database is empty
+def seed_templates():
+    db = SessionLocal()
+    if len(get_all_templates(db)) == 0:
+        create_template(db, "Push Day", "Chest, shoulders, and triceps", [
+            {"exercise_id": "Bench Press", "target_sets": 4, "target_reps": 10},
+            {"exercise_id": "Overhead Press", "target_sets": 3, "target_reps": 12},
+            {"exercise_id": "Tricep Dips", "target_sets": 3, "target_reps": 15},
+        ])
+        create_template(db, "Pull Day", "Back and biceps", [
+            {"exercise_id": "Barbell Row", "target_sets": 4, "target_reps": 8},
+            {"exercise_id": "Pull Ups", "target_sets": 3, "target_reps": 12},
+            {"exercise_id": "Bicep Curls", "target_sets": 3, "target_reps": 10},
+        ])
+        create_template(db, "Leg Day", "Quads, hamstrings, and glutes", [
+            {"exercise_id": "Barbell Squat", "target_sets": 4, "target_reps": 10},
+            {"exercise_id": "Romanian Deadlift", "target_sets": 3, "target_reps": 12},
+            {"exercise_id": "Leg Press", "target_sets": 3, "target_reps": 15},
+        ])
+    db.close()
+
+seed_templates()
+
 app = FastAPI()
 
 app.add_middleware(

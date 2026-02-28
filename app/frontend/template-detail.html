@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Template Detail - Health Fitness Pro</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+
+    <section class="navigation-bar">
+      <nav>
+        <a class="Logo" href="index.html">Health Fitness Pro</a>
+        <ul class="nav-links">
+          <li><a href="templates.html">Workout</a></li>
+          <li><a href="page-running">Running</a></li>
+          <li><a href="page-workout-library">Workout Library</a></li>
+          <li><a href="page-calorie_tracker">Calorie Tracker</a></li>
+        </ul>
+        <div class="btn">
+          <button class="login-btn">Login</button>
+        </div>
+      </nav>
+    </section>
+
+    <section class="page-header">
+      <h1 id="template-name">Loading...</h1>
+      <p id="template-description"></p>
+    </section>
+
+    <section class="exercise-list" id="exercise-list"></section>
+
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>Product</h3>
+          <ul>
+            <li><a href="#workout">Workout</a></li>
+            <li><a href="#running">Running</a></li>
+            <li><a href="#nutrition">Nutrition</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Company</h3>
+          <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="#careers">Careers</a></li>
+          </ul>
+        </div>
+      </div>
+      <p>&copy; 2024 Health Fitness Pro. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", async () => {
+        const templateId = new URLSearchParams(window.location.search).get("id");
+        if (!templateId) {
+          document.getElementById("template-name").textContent = "Template not found";
+          return;
+        }
+
+        const template = await loadTemplateById(templateId);
+        if (!template) {
+          document.getElementById("template-name").textContent = "Template not found";
+          return;
+        }
+
+        document.getElementById("template-name").textContent = template.name;
+        document.getElementById("template-description").textContent = template.description || "";
+
+        const details = await Promise.all(
+          template.exercises.map(ex => loadExerciseById(ex.exercise_id))
+        );
+
+        const list = document.getElementById("exercise-list");
+        list.innerHTML = template.exercises.map((ex, i) => {
+          const d = details[i];
+          return `
+            <div class="exercise-card">
+              ${d && d.image_url ? `<img src="${d.image_url}" alt="${d.name}" class="exercise-gif" />` : ""}
+              <div class="exercise-info">
+                <h3>${d ? d.name : ex.exercise_id}</h3>
+                ${d ? `<p class="exercise-meta">${d.muscle_group} &middot; ${d.equipment}</p>` : ""}
+                <p class="exercise-sets">${ex.target_sets} sets x ${ex.target_reps} reps</p>
+              </div>
+            </div>
+          `;
+        }).join("");
+      });
+    </script>
+  </body>
+</html>
