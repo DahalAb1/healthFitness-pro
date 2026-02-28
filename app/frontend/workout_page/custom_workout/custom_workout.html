@@ -5,43 +5,63 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Custom Workout Creator</title>
+    <link rel="stylesheet" href="../../styles.css">
     <link rel="stylesheet" href="custom_workout.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Custom Workout Creator</h1>
-        <form id="workoutForm">
-            <div class="form-group">
-                <label for="templateName">Workout Name</label>
-                <input type="text" id="templateName" name="templateName" required />
-            </div>
-            <div class="form-group">
-                <label for="creatorNotes">Creator Notes</label>
-                <textarea id="creatorNotes" name="creatorNotes" rows="3"></textarea>
-            </div>
+        <section class="navigation-bar">
+            <nav>
+                <a class="Logo" href="../../front_page/index.html#home">Health Fitness Pro</a>
+                <ul class="nav-links">
+                    <li><a href="../../front_page/index.html#feature-hero">Workout</a></li>
+                    <li><a href="../../front_page/index.html#page-running">Running</a></li>
+                    <li><a href="../../front_page/index.html#page-workout-library">Workout Library</a></li>
+                    <li><a href="../../front_page/index.html#page-calorie_tracker">Calorie Tracker</a></li>
+                </ul>
+                <div class="btn">
+                    <button class="login-btn">Login</button>
+                </div>
+            </nav>
+        </section>
 
-            <div class="exercise-section">
-                <h2>Exercise Sequence</h2>
-                <button type="button" id="addLibraryBtn">Add From Library</button>
-                <button type="button" id="addManualBtn">Add Manually</button>
+        <section class="hero-section">
+            <h1 class="Hero heading">Custom Workout Creator</h1>
+            <p class="description">Create your own personalized workout routine by adding exercises, sets, reps, and rest periods.</p>
+        </section>
 
-                <table id="exerciseTable">
-                    <thead>
-                        <tr>
-                            <th>Exercise</th>
-                            <th>Sets</th>
-                            <th>Reps</th>
-                            <th>Rest</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-            </div>
+        <section class="features-container">
+            <form id="workoutForm">
+                <div class="form-group">
+                    <label for="templateName">Workout Name</label>
+                    <input type="text" id="templateName" name="templateName" required />
+                </div>
+                <div class="form-group">
+                    <label for="creatorNotes">Creator Notes</label>
+                    <textarea id="creatorNotes" name="creatorNotes" rows="3"></textarea>
+                </div>
 
-            <button type="submit" id="saveBtn">Save Workout</button>
-        </form>
-    </div>
+                <div class="exercise-section">
+                    <h2>Exercise Sequence</h2>
+                    <button type="button" id="addLibraryBtn">Add From Library</button>
+                    <button type="button" id="addManualBtn">Add Manually</button>
+
+                    <table id="exerciseTable">
+                        <thead>
+                            <tr>
+                                <th>Exercise</th>
+                                <th>Sets</th>
+                                <th>Reps</th>
+                                <th>Rest</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+
+                <button type="submit" id="saveBtn">Save Workout</button>
+            </form>
+        </section>
 
     <!-- modal -->
     <div id="libraryModal" class="modal hidden">
