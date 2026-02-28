@@ -53,7 +53,7 @@ function renderCalendar() {
     for (let d=1; d<=daysInMonth; d++) {
         const cell = document.createElement('div');
         cell.className='day-cell';
-        const dateStr = `${currentDate.getFullYear()}-${padded(currentDate.getMonth()+1)}-${padded(d)}`;
+        const dateStr = `${currentDate.getFullYear()}-${padded(currentDate.getMonth()+1)}-${padded(d+1)}`;
         if (dateStr === selectedDate) cell.classList.add('selected');
         if (dateStr === todayStr) cell.classList.add('today');
         cell.textContent = d;
