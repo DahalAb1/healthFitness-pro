@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field, ConfigDict, field_validator
-from typing import List
+from typing import List, Optional
 from datetime import date
 
 
@@ -62,3 +62,17 @@ class Exercise(BaseModel):
 
 class ExerciseListResponse(BaseModel):
     exercises: List[Exercise]
+
+
+class ProgressPoint(BaseModel):
+    date: date
+    weight: float
+
+class WeightProgressResponse(BaseModel):
+    user_id: int
+    exercise_name: str
+    points: List[ProgressPoint]
+    first_weight: Optional[float] = None
+    last_weight: Optional[float] = None
+    change: Optional[float] = None
+    percent_change: Optional[float] = None
