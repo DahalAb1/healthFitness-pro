@@ -2,10 +2,15 @@ import sys
 import os
 sys.path.insert(0, os.path.dirname(__file__))
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+from sqlalchemy.orm import Session
 from exercise_client import ExerciseClient
+from template_db import SessionLocal, engine, Base
+from template_db import get_all_templates, get_template_by_id, create_template
+
+Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
@@ -18,14 +23,26 @@ app.add_middleware(
 
 client = ExerciseClient()
 
-# In-memory storage for templates (will be replaced with database later)
-templates = []
-next_template_id = 1
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
+
+class ExerciseEntry(BaseModel):
+    exercise_id: str
+    target_sets: int
+    target_reps: int
 
 
 class TemplateCreate(BaseModel):
     name: str
-    exercises: list
+    description: str = None
+    exercises: list[ExerciseEntry]
+
 
 @app.get("/exercises")
 def get_exercises(bodyPart: str = None):
@@ -37,26 +54,48 @@ def get_exercise(exercise_id: str):
 
 
 @app.get("/templates")
-def get_templates():
-    return templates
+def list_templates(db: Session = Depends(get_db)):
+    rows = get_all_templates(db)
+    return [
+        {
+            "id": t.id,
+            "name": t.name,
+            "description": t.description,
+            "exercises": [
+                {"exercise_id": e.exercise_id, "target_sets": e.target_sets, "target_reps": e.target_reps}
+                for e in t.exercises
+            ],
+        }
+        for t in rows
+    ]
 
 
 @app.get("/templates/{template_id}")
-def get_template(template_id: int):
-    for template in templates:
-        if template["id"] == template_id:
-            return template
-    raise HTTPException(status_code=404, detail="Template not found")
+def get_template(template_id: int, db: Session = Depends(get_db)):
+    t = get_template_by_id(db, template_id)
+    if not t:
+        raise HTTPException(status_code=404, detail="Template not found")
+    return {
+        "id": t.id,
+        "name": t.name,
+        "description": t.description,
+        "exercises": [
+            {"exercise_id": e.exercise_id, "target_sets": e.target_sets, "target_reps": e.target_reps}
+            for e in t.exercises
+        ],
+    }
 
 
 @app.post("/templates", status_code=201)
-def create_template(template: TemplateCreate):
-    global next_template_id
-    new_template = {
-        "id": next_template_id,
-        "name": template.name,
-        "exercises": template.exercises,
+def post_template(template: TemplateCreate, db: Session = Depends(get_db)):
+    exercises = [ex.model_dump() for ex in template.exercises]
+    t = create_template(db, template.name, template.description, exercises)
+    return {
+        "id": t.id,
+        "name": t.name,
+        "description": t.description,
+        "exercises": [
+            {"exercise_id": e.exercise_id, "target_sets": e.target_sets, "target_reps": e.target_reps}
+            for e in t.exercises
+        ],
     }
-    templates.append(new_template)
-    next_template_id += 1
-    return new_template
