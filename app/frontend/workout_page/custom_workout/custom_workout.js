@@ -32,12 +32,25 @@ async function loadExercisesFromBackend() {
         const exercises = json.data || [];
         
         // Transform field names to match frontend expectations
-        const transformed = exercises.map(ex => ({
-            id: ex.exerciseId,
-            name: ex.name,
-            equipment: (ex.equipments && ex.equipments[0]) ? ex.equipments[0].name : '',
-            muscle_group: (ex.bodyParts && ex.bodyParts[0]) ? ex.bodyParts[0].name : ''
-        }));
+        const transformed = exercises.map(ex => {
+            // equipments/bodyParts may be arrays of strings or objects depending on API
+            const rawEquip = ex.equipments && ex.equipments[0];
+            const equipment = typeof rawEquip === 'string'
+                ? rawEquip
+                : (rawEquip && rawEquip.name) || '';
+
+            const rawBody = ex.bodyParts && ex.bodyParts[0];
+            const muscle_group = typeof rawBody === 'string'
+                ? rawBody
+                : (rawBody && rawBody.name) || '';
+
+            return {
+                id: ex.exerciseId,
+                name: ex.name,
+                equipment,
+                muscle_group
+            };
+        });
         
         console.log('transformed exercises:', transformed);
         return transformed;
@@ -57,6 +70,50 @@ async function initPage() {
 
 // load exercises on page load
 initPage();
+
+// load saved workouts and render
+async function loadSavedWorkouts() {
+    try {
+        const resp = await fetch('http://localhost:8000/user-workouts?user_id=1');
+        if (!resp.ok) throw new Error('failed to load saved workouts');
+        const data = await resp.json();
+        const container = document.getElementById('savedWorkoutsContainer');
+        container.innerHTML = '';
+        if (!data || data.length === 0) {
+            container.innerHTML = '<p>No saved workouts yet.</p>';
+            return;
+        }
+        // render each saved workout
+        data.slice().reverse().forEach(w => {
+            const div = document.createElement('div');
+            div.className = 'saved-workout';
+            const title = document.createElement('strong');
+            title.textContent = w.name || `Workout ${w.id}`;
+            div.appendChild(title);
+            const meta = document.createElement('div');
+            meta.style.fontSize = '0.9em';
+            meta.style.color = '#555';
+            meta.textContent = `Exercises: ${w.exercises ? w.exercises.length : (w.exercise_ids ? w.exercise_ids.length : 0)}`;
+            div.appendChild(meta);
+            // optional expand list of exercise names
+            if (w.exercises && w.exercises.length) {
+                const ul = document.createElement('ul');
+                w.exercises.forEach(ex => {
+                    const li = document.createElement('li');
+                    li.textContent = `${ex.exercise_name || ex.exercise_name} (${ex.sets}x${ex.reps})`;
+                    ul.appendChild(li);
+                });
+                div.appendChild(ul);
+            }
+            container.appendChild(div);
+        });
+    } catch (err) {
+        console.error('loadSavedWorkouts error', err);
+    }
+}
+
+// load saved workouts after page init
+loadSavedWorkouts();
 
 function openLibrary() {
     populateLibrary(masterLibrary);
@@ -206,6 +263,8 @@ document.getElementById('workoutForm').addEventListener('submit', async e => {
         const result = await saveWorkout(workout);
         console.log('server response', result);
         alert('Workout saved successfully');
+        // refresh saved workouts list
+        loadSavedWorkouts();
     } catch {
         alert('Failed to save workout; see console');
     }
