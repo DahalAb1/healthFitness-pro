@@ -1,3 +1,8 @@
+
+/* Set hero text color to white for custom workout hero section */
+.feature-hero, .workout-history-heading, .workout-history-description {
+    color: #fff;
+}
 /* Basic reset and layout */
 
 
