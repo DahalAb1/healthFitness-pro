@@ -15,7 +15,7 @@ app.include_router(workout_router)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
-    allow_methods=["GET", "POST"],  # POST needed for form submissions
+    allow_methods=["GET", "POST", "DELETE"],
     allow_headers=["*"],
 )
 

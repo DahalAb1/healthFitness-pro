@@ -126,3 +126,15 @@ def list_workouts_for_user(user_id: int) -> List[dict]:
             for row in rows
         ]
 
+
+def delete_workout(workout_id: int, user_id: int) -> bool:
+    init_db()
+    with _lock:
+        conn = _conn()
+        c = conn.cursor()
+        c.execute('DELETE FROM workouts WHERE id = ? AND user_id = ?', (workout_id, user_id))
+        conn.commit()
+        deleted = c.rowcount > 0
+        conn.close()
+        return deleted
+

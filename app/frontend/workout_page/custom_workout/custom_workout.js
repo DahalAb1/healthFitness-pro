@@ -13,6 +13,7 @@ const masterLibrary = [];
 let sequence = [];
 // keep track of IDs from the library that have been chosen
 let selectedIds = [];
+let currentWorkoutSession = null;
 
 // elements
 const libraryModal = document.getElementById('libraryModal');
@@ -71,42 +72,242 @@ async function initPage() {
 // load exercises on page load
 initPage();
 
+function applySavedWorkoutToEditor(workout) {
+    document.getElementById('templateName').value = workout.name || '';
+    document.getElementById('creatorNotes').value = workout.creator_notes || '';
+
+    const savedExercises = Array.isArray(workout.exercises) ? workout.exercises : [];
+    sequence = savedExercises.map(ex => ({
+        id: ex.exercise_id || Date.now(),
+        name: ex.exercise_name || 'Exercise',
+        target_sets: Number(ex.sets) || 3,
+        target_reps: Number(ex.reps) || 10,
+        rest_period: ex.rest || '60s'
+    }));
+
+    selectedIds = savedExercises
+        .map(ex => ex.exercise_id)
+        .filter(Boolean);
+
+    renderSequence();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function renderBeginWorkoutSession() {
+    const container = document.getElementById('beginWorkoutContainer');
+    container.innerHTML = '';
+
+    if (!currentWorkoutSession || !Array.isArray(currentWorkoutSession.exercises) || currentWorkoutSession.exercises.length === 0) {
+        container.innerHTML = '<p>Select <strong>Begin</strong> from a saved workout to start a guided session.</p>';
+        return;
+    }
+
+    const total = currentWorkoutSession.exercises.length;
+    const idx = currentWorkoutSession.currentIndex;
+    const exercise = currentWorkoutSession.exercises[idx];
+
+    const title = document.createElement('h4');
+    title.textContent = `${currentWorkoutSession.name || 'Workout'} — Exercise ${idx + 1} of ${total}`;
+    container.appendChild(title);
+
+    const details = document.createElement('p');
+    details.textContent = `${exercise.exercise_name || 'Exercise'} (${exercise.sets}x${exercise.reps})${exercise.rest ? `, Rest: ${exercise.rest}` : ''}`;
+    container.appendChild(details);
+
+    const controls = document.createElement('div');
+    controls.className = 'begin-controls';
+
+    const prevBtn = document.createElement('button');
+    prevBtn.type = 'button';
+    prevBtn.textContent = 'Previous';
+    prevBtn.disabled = idx === 0;
+    prevBtn.addEventListener('click', () => {
+        if (currentWorkoutSession.currentIndex > 0) {
+            currentWorkoutSession.currentIndex -= 1;
+            renderBeginWorkoutSession();
+        }
+    });
+    controls.appendChild(prevBtn);
+
+    const nextBtn = document.createElement('button');
+    nextBtn.type = 'button';
+    nextBtn.textContent = idx === total - 1 ? 'Finish' : 'Next';
+    nextBtn.addEventListener('click', () => {
+        if (currentWorkoutSession.currentIndex < total - 1) {
+            currentWorkoutSession.currentIndex += 1;
+            renderBeginWorkoutSession();
+        } else {
+            alert('Workout session complete! Great job.');
+            currentWorkoutSession = null;
+            renderBeginWorkoutSession();
+        }
+    });
+    controls.appendChild(nextBtn);
+
+    const loadBtn = document.createElement('button');
+    loadBtn.type = 'button';
+    loadBtn.textContent = 'Load to Editor';
+    loadBtn.addEventListener('click', () => {
+        applySavedWorkoutToEditor({
+            name: currentWorkoutSession.name,
+            creator_notes: currentWorkoutSession.creator_notes,
+            exercises: currentWorkoutSession.exercises
+        });
+    });
+    controls.appendChild(loadBtn);
+
+    container.appendChild(controls);
+}
+
+function beginSavedWorkout(workout) {
+    currentWorkoutSession = {
+        id: workout.id,
+        name: workout.name,
+        creator_notes: workout.creator_notes,
+        exercises: Array.isArray(workout.exercises) ? workout.exercises : [],
+        currentIndex: 0
+    };
+    renderBeginWorkoutSession();
+}
+
+async function deleteSavedWorkout(workoutId) {
+    const resp = await fetch(`http://localhost:8000/user-workouts/${workoutId}?user_id=1`, {
+        method: 'DELETE'
+    });
+    if (!resp.ok) {
+        throw new Error(`Failed to delete workout ${workoutId}`);
+    }
+}
+
+function renderSavedWorkoutsTable(data) {
+    const container = document.getElementById('savedWorkoutsContainer');
+    container.innerHTML = '';
+
+    if (!data || data.length === 0) {
+        container.innerHTML = '<p>No saved workouts yet.</p>';
+        return;
+    }
+
+    const table = document.createElement('table');
+    table.className = 'saved-workouts-table';
+    table.setAttribute('aria-label', 'Saved workouts table');
+
+    const caption = document.createElement('caption');
+    caption.textContent = 'Saved workouts (latest first). Use View to inspect exercises, Customize to edit, Begin to start session, or Delete to remove.';
+    table.appendChild(caption);
+
+    const thead = document.createElement('thead');
+    thead.innerHTML = `
+        <tr>
+            <th scope="col">Workout</th>
+            <th scope="col">Exercises</th>
+            <th scope="col">Actions</th>
+        </tr>
+    `;
+    table.appendChild(thead);
+
+    const tbody = document.createElement('tbody');
+
+    data.slice().reverse().forEach(w => {
+        const exerciseCount = Array.isArray(w.exercises)
+            ? w.exercises.length
+            : (Array.isArray(w.exercise_ids) ? w.exercise_ids.length : 0);
+
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${w.name || `Workout ${w.id}`}</td>
+            <td>${exerciseCount}</td>
+            <td>
+                <button type="button" class="saved-view-btn" data-id="${w.id}">View</button>
+                <button type="button" class="saved-customize-btn" data-id="${w.id}">Customize</button>
+                <button type="button" class="saved-begin-btn" data-id="${w.id}">Begin</button>
+                <button type="button" class="saved-delete-btn" data-id="${w.id}">Delete</button>
+            </td>
+        `;
+        tbody.appendChild(row);
+
+        const detailRow = document.createElement('tr');
+        detailRow.className = 'saved-detail-row hidden';
+        detailRow.dataset.id = String(w.id);
+        const detailCell = document.createElement('td');
+        detailCell.colSpan = 3;
+
+        if (exerciseCount === 0) {
+            detailCell.textContent = 'No exercises recorded.';
+        } else {
+            const list = document.createElement('ul');
+            list.className = 'saved-exercise-list';
+            (w.exercises || []).forEach(ex => {
+                const item = document.createElement('li');
+                item.textContent = `${ex.exercise_name || 'Exercise'} (${ex.sets}x${ex.reps})`;
+                list.appendChild(item);
+            });
+            detailCell.appendChild(list);
+        }
+
+        detailRow.appendChild(detailCell);
+        tbody.appendChild(detailRow);
+    });
+
+    table.appendChild(tbody);
+    container.appendChild(table);
+
+    container.querySelectorAll('.saved-view-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const id = btn.dataset.id;
+            const detailRow = container.querySelector(`.saved-detail-row[data-id="${id}"]`);
+            if (detailRow) {
+                detailRow.classList.toggle('hidden');
+            }
+        });
+    });
+
+    container.querySelectorAll('.saved-customize-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const id = Number(btn.dataset.id);
+            const workout = data.find(w => w.id === id);
+            if (!workout) return;
+            applySavedWorkoutToEditor(workout);
+            alert('Loaded workout into editor. You can now customize and Save Workout again.');
+        });
+    });
+
+    container.querySelectorAll('.saved-begin-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const id = Number(btn.dataset.id);
+            const workout = data.find(w => w.id === id);
+            if (!workout) return;
+            beginSavedWorkout(workout);
+        });
+    });
+
+    container.querySelectorAll('.saved-delete-btn').forEach(btn => {
+        btn.addEventListener('click', async () => {
+            const id = Number(btn.dataset.id);
+            const ok = confirm('Delete this saved workout?');
+            if (!ok) return;
+            try {
+                await deleteSavedWorkout(id);
+                if (currentWorkoutSession && currentWorkoutSession.id === id) {
+                    currentWorkoutSession = null;
+                    renderBeginWorkoutSession();
+                }
+                loadSavedWorkouts();
+            } catch (err) {
+                console.error('deleteSavedWorkout error', err);
+                alert('Could not delete workout.');
+            }
+        });
+    });
+}
+
 // load saved workouts and render
 async function loadSavedWorkouts() {
     try {
         const resp = await fetch('http://localhost:8000/user-workouts?user_id=1');
         if (!resp.ok) throw new Error('failed to load saved workouts');
         const data = await resp.json();
-        const container = document.getElementById('savedWorkoutsContainer');
-        container.innerHTML = '';
-        if (!data || data.length === 0) {
-            container.innerHTML = '<p>No saved workouts yet.</p>';
-            return;
-        }
-        // render each saved workout
-        data.slice().reverse().forEach(w => {
-            const div = document.createElement('div');
-            div.className = 'saved-workout';
-            const title = document.createElement('strong');
-            title.textContent = w.name || `Workout ${w.id}`;
-            div.appendChild(title);
-            const meta = document.createElement('div');
-            meta.style.fontSize = '0.9em';
-            meta.style.color = '#555';
-            meta.textContent = `Exercises: ${w.exercises ? w.exercises.length : (w.exercise_ids ? w.exercise_ids.length : 0)}`;
-            div.appendChild(meta);
-            // optional expand list of exercise names
-            if (w.exercises && w.exercises.length) {
-                const ul = document.createElement('ul');
-                w.exercises.forEach(ex => {
-                    const li = document.createElement('li');
-                    li.textContent = `${ex.exercise_name || ex.exercise_name} (${ex.sets}x${ex.reps})`;
-                    ul.appendChild(li);
-                });
-                div.appendChild(ul);
-            }
-            container.appendChild(div);
-        });
+        renderSavedWorkoutsTable(data);
     } catch (err) {
         console.error('loadSavedWorkouts error', err);
     }

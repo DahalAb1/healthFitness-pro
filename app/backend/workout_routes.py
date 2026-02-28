@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException
 from typing import List, Optional
 from models import WorkoutCreate, WorkoutSession, UserWorkoutCreate, UserWorkout
-from saved_workouts_store import list_workouts, list_workouts_for_user, add_workout
+from saved_workouts_store import list_workouts, list_workouts_for_user, add_workout, delete_workout
 
 router = APIRouter()
 
@@ -56,3 +56,11 @@ def get_user_workouts(user_id: Optional[int] = None):
     if user_id is None:
         return list_workouts()
     return list_workouts_for_user(user_id)
+
+
+@router.delete("/user-workouts/{workout_id}")
+def delete_user_workout(workout_id: int, user_id: int):
+    deleted = delete_workout(workout_id, user_id)
+    if not deleted:
+        raise HTTPException(status_code=404, detail="Workout not found")
+    return {"deleted": True, "id": workout_id}
