@@ -8,9 +8,6 @@ from exercise_client import ExerciseClient
 from workout_routes import router as workout_router
 
 app = FastAPI()
-<<<<<<< HEAD:backend/main.py
-app.include_router(workout_router)
-=======
 
 app.add_middleware(
     CORSMiddleware,
@@ -19,7 +16,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
->>>>>>> dev:app/backend/main.py
 client = ExerciseClient()
 
 @app.get("/exercises")
