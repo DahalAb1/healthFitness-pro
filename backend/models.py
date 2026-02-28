@@ -21,17 +21,32 @@ class ExerciseEntry(BaseModel):
             raise ValueError("exercise_name cannot be empty")
         return cleaned
 
-
-class WorkoutCreate(BaseModel):
+# Base model (allows empty exercises for sessions)
+class WorkoutBase(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
     user_id: int = Field(..., ge=1)
     workout_date: date
     duration_minutes: int = Field(..., ge=1, le=600)
+    exercises: List[ExerciseEntry] = Field(default_factory=list)
+
+
+# Creating a full workout requires at least 1 exercise
+class WorkoutCreate(WorkoutBase):
     exercises: List[ExerciseEntry] = Field(..., min_length=1)
 
-class WorkoutSession(WorkoutCreate):
+class WorkoutSession(WorkoutBase):
     id: int = Field(..., ge=1)
+
+class WorkoutSessionStart(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    user_id: int = Field(..., ge=1)
+    workout_date: date
+    duration_minutes: int = Field(..., ge=1, le=600)
+
+class ExerciseLogCreate(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    exercises: List[ExerciseEntry] = Field(..., min_length=1)
 
 
 # ---- Exercise Library Models ----
