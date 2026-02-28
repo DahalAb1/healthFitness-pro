@@ -1,0 +1,20 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Run Backend (Uvicorn)",
+			"type": "shell",
+			"command": ".venv\\Scripts\\uvicorn app.backend.main:app --reload",
+			"isBackground": true,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Open Frontend (index.html)",
+			"type": "shell",
+			"command": "start app\\frontend\\index.html",
+			"isBackground": false,
+			"group": "build"
+		}
+	]
+}

@@ -18,6 +18,9 @@ dist/
 
 # Package files
 *.jar
+ 
+# Test coverage reports
+tests/coverage/
 
 # Maven
 target/
@@ -54,5 +57,11 @@ __pycache__
 # Environment variables - never commit API keys
 .env
 
+<<<<<<< HEAD
 # Python virtual environment
 venv/
+=======
+
+.venv/
+# Virtual environment directories
+>>>>>>> dev
