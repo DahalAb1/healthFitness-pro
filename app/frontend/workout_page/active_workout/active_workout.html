@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Active Workout - Health Fitness Pro</title>
+    <link rel="stylesheet" href="../../styles.css" />
+    <link rel="stylesheet" href="active_workout.css" />
+</head>
+<body>
+
+    <!-- Navigation (matches existing pages) -->
+    <section class="navigation-bar">
+        <nav>
+            <a class="Logo" href="../../front_page/index.html#home">Health Fitness Pro</a>
+            <ul class="nav-links">
+                <li><a href="../../front_page/index.html#workout-features">Workout</a></li>
+                <li><a href="../../front_page/index.html#page-running">Running</a></li>
+                <li><a href="../../exercise-library.html">Workout Library</a></li>
+                <li><a href="../../front_page/index.html#page-calorie_tracker">Calorie Tracker</a></li>
+            </ul>
+            <div class="btn">
+                <button class="login-btn">Login</button>
+            </div>
+        </nav>
+    </section>
+
+    <!-- Workout header -->
+    <section class="active-workout-header">
+        <h1 id="workout-name">Loading...</h1>
+        <p id="workout-description"></p>
+        <p id="workout-progress" class="progress-indicator"></p>
+    </section>
+
+    <!-- Three-card exercise carousel -->
+    <section class="exercise-carousel" id="exercise-carousel">
+        <div class="carousel-track">
+            <div class="carousel-card card-past" id="card-past"></div>
+            <div class="carousel-card card-current" id="card-current"></div>
+            <div class="carousel-card card-future" id="card-future"></div>
+        </div>
+    </section>
+
+    <!-- Navigation controls -->
+    <section class="workout-controls">
+        <button id="btn-back" class="workout-nav-btn btn-back" disabled>Back</button>
+        <button id="btn-end" class="workout-nav-btn btn-end">End Workout</button>
+        <button id="btn-next" class="workout-nav-btn btn-next">Next</button>
+    </section>
+
+    <!-- Extension slot for future features (timer, weight logging, rest countdown) -->
+    <section class="workout-extensions" id="workout-extensions"></section>
+
+    <!-- Footer (matches existing pages) -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Product</h3>
+                <ul>
+                    <li><a href="#workout">Workout</a></li>
+                    <li><a href="#running">Running</a></li>
+                    <li><a href="#nutrition">Nutrition</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Company</h3>
+                <ul>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#careers">Careers</a></li>
+                </ul>
+            </div>
+        </div>
+        <p>&copy; 2024 Health Fitness Pro. All rights reserved.</p>
+    </footer>
+
+    <script src="../../script.js"></script>
+    <script src="active_workout.js"></script>
+</body>
+</html>

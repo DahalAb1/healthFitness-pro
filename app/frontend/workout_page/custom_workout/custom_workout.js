@@ -160,14 +160,10 @@ function renderBeginWorkoutSession() {
 }
 
 function beginSavedWorkout(workout) {
-    currentWorkoutSession = {
-        id: workout.id,
-        name: workout.name,
-        creator_notes: workout.creator_notes,
-        exercises: Array.isArray(workout.exercises) ? workout.exercises : [],
-        currentIndex: 0
-    };
-    renderBeginWorkoutSession();
+    // Store workout data for the active workout page to read
+    sessionStorage.setItem("activeWorkoutData", JSON.stringify(workout));
+    // Navigate to the dedicated active workout page
+    window.location.href = "../active_workout/active_workout.html?source=custom&id=" + workout.id;
 }
 
 async function deleteSavedWorkout(workoutId) {
