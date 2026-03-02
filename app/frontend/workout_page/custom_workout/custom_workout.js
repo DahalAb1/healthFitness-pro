@@ -473,3 +473,14 @@ document.getElementById('workoutForm').addEventListener('submit', async e => {
 
 // initial render
 renderSequence();
+
+// Export for testability (CommonJS)
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = {
+        addExerciseToSequence,
+        renderSequence,
+        saveWorkout,
+        sequence,
+        selectedIds
+    };
+}
