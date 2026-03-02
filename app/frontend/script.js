@@ -44,14 +44,19 @@ async function loadExercises(bodyPart = null) {
 
     const response = await fetch(url);
     const data = await response.json();
+    const exerciseList = Array.isArray(data)
+      ? data
+      : Array.isArray(data?.data)
+        ? data.data
+        : [];
 
-    const transformed = data.map(exercise => ({
+    const transformed = exerciseList.map(exercise => ({
       id: exercise.id,
       name: exercise.name,
-      muscle_group: exercise.target,
-      equipment: exercise.equipment,
-      description: exercise.instructions,
-      image_url: exercise.gifUrl
+      muscle_group: exercise.target || exercise.muscle_group || "",
+      equipment: exercise.equipment || "",
+      description: exercise.instructions || exercise.description || "",
+      image_url: exercise.gifUrl || exercise.image_url || ""
     }));
 
     exercises.length = 0;
@@ -70,15 +75,24 @@ async function loadExerciseById(exerciseId) {
     const exercise = await response.json();
 
     return {
-      id: exercise.id,
-      name: exercise.name,
-      muscle_group: exercise.target,
-      equipment: exercise.equipment,
-      description: exercise.instructions,
-      image_url: exercise.gifUrl
+      id: exercise.id || exerciseId,
+      name: exercise.name || exercise.exercise_id || exerciseId,
+      muscle_group: exercise.target || exercise.muscle_group || "",
+      equipment: exercise.equipment || "",
+      description: exercise.instructions || exercise.description || "",
+      image_url: exercise.gifUrl || exercise.image_url || ""
     };
   } catch (error) {
     console.error("Failed to load exercise:", error);
+  }
+}
+
+async function loadTemplateExercises(templateId) {
+  try {
+    const response = await fetch(`${BASE_URL}/templates/${templateId}/exercises`);
+    return await response.json();
+  } catch (error) {
+    console.error("Failed to load template exercises:", error);
   }
 }
 
@@ -104,5 +118,5 @@ async function loadTemplateById(templateId) {
 
 // Export for testability (CommonJS)
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { loadExercises, loadExerciseById, loadTemplates, loadTemplateById, exercises };
+  module.exports = { loadExercises, loadExerciseById, loadTemplates, loadTemplateById, loadTemplateExercises, exercises };
 }

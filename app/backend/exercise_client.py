@@ -14,15 +14,49 @@ class ExerciseClient:
             "x-rapidapi-host": self.HOST
         }
 
-    def get_exercises(self, body_part: str = None):
+    def get_exercises(self, body_part: str = None, limit: int = 10):
         url = f"{self.BASE_URL}/exercises"
-        params = {"limit": 10}
+        params = {"limit": limit}
         if body_part:
             params["bodyPart"] = body_part
         response = httpx.get(url, headers=self.headers, params=params)
-        return response.json()
+        data = response.json()
+        if isinstance(data, dict) and isinstance(data.get("data"), list):
+            return data.get("data", [])
+        if isinstance(data, list):
+            return data
+        return []
 
     def get_exercise_by_id(self, exercise_id: str):
         url = f"{self.BASE_URL}/exercises/{exercise_id}"
         response = httpx.get(url, headers=self.headers)
         return response.json()
+
+    def find_exercise_by_name(self, exercise_name: str):
+        normalized_name = exercise_name.strip().lower()
+        url = f"{self.BASE_URL}/exercises"
+
+        response = httpx.get(
+            url,
+            headers=self.headers,
+            params={"name": exercise_name, "limit": 50}
+        )
+        data = response.json()
+
+        if isinstance(data, dict) and isinstance(data.get("data"), list):
+            results = data.get("data", [])
+        elif isinstance(data, list):
+            results = data
+        else:
+            results = []
+
+        for exercise in results:
+            if str(exercise.get("name", "")).strip().lower() == normalized_name:
+                return exercise
+
+        for exercise in results:
+            candidate = str(exercise.get("name", "")).strip().lower()
+            if normalized_name in candidate or candidate in normalized_name:
+                return exercise
+
+        return None
