@@ -4,25 +4,35 @@
 //   3. Backend will be live at http://127.0.0.1:8000
 //   4. To inspect responses visually: http://127.0.0.1:8000/docs
 //
-// HOW TO USE loadExercises():
-//   - loadExercises()           → fetches all exercises
-//   - loadExercises("CHEST")    → fetches only chest exercises
-//   - Other body part options: "BACK", "LEGS", "SHOULDERS",
-//     "BICEPS", "TRICEPS", "ABS"
-//   - Data is stored in the global `exercises` array and also returned from the function
+// -- EXERCISE FUNCTIONS ---------------------------------------------------
 //
-// EACH EXERCISE OBJECT HAS THESE FIELDS:
-//   {
-//     id:           unique identifier
-//     name:         exercise name       e.g. "Bench Press"
-//     muscle_group: primary muscle      e.g. "Chest"
-//     equipment:    equipment needed    e.g. "Barbell"
-//     description:  step-by-step instructions
-//     image_url:    URL to exercise gif/image
-//   }
+// loadExercises(bodyPart?)
+//   - loadExercises()           -> fetches all exercises
+//   - loadExercises("CHEST")    -> fetches only chest exercises
+//   - Body parts: "BACK", "LEGS", "SHOULDERS", "BICEPS", "TRICEPS", "ABS"
+//   - Data is stored in the global `exercises` array and also returned
+//
+// loadExerciseById(id)
+//   - Returns a single exercise object by its ID
+//
+// EXERCISE OBJECT SHAPE:
+//   { id, name, muscle_group, equipment, description, image_url }
+//
+// -- TEMPLATE FUNCTIONS ---------------------------------------------------
+//
+// loadTemplates()
+//   - Returns all workout templates
+//   - Each template: { id, name, description, exercises[] }
+//   - Each exercise entry: { exercise_id, target_sets, target_reps }
+//
+// loadTemplateById(id)
+//   - Returns a single template by its ID
+//   - Same shape as above
 //
 
 const BASE_URL = "http://127.0.0.1:8000";
+
+// -- Exercises ------------------------------------------------------------
 
 let exercises = [];
 
@@ -66,6 +76,53 @@ async function loadExercises(bodyPart = null) {
     return exercises;
   } catch (error) {
     console.error("Failed to load exercises:", error);
+  }
+}
+
+async function loadExerciseById(exerciseId) {
+  try {
+    const response = await fetch(`${BASE_URL}/exercises/${exerciseId}`);
+    const exercise = await response.json();
+
+    return {
+      id: exercise.id || exerciseId,
+      name: exercise.name || exercise.exercise_id || exerciseId,
+      muscle_group: exercise.target || exercise.muscle_group || "",
+      equipment: exercise.equipment || "",
+      description: exercise.instructions || exercise.description || "",
+      image_url: exercise.gifUrl || exercise.image_url || ""
+    };
+  } catch (error) {
+    console.error("Failed to load exercise:", error);
+  }
+}
+
+async function loadTemplateExercises(templateId) {
+  try {
+    const response = await fetch(`${BASE_URL}/templates/${templateId}/exercises`);
+    return await response.json();
+  } catch (error) {
+    console.error("Failed to load template exercises:", error);
+  }
+}
+
+// -- Templates ------------------------------------------------------------
+
+async function loadTemplates() {
+  try {
+    const response = await fetch(`${BASE_URL}/templates`);
+    return await response.json();
+  } catch (error) {
+    console.error("Failed to load templates:", error);
+  }
+}
+
+async function loadTemplateById(templateId) {
+  try {
+    const response = await fetch(`${BASE_URL}/templates/${templateId}`);
+    return await response.json();
+  } catch (error) {
+    console.error("Failed to load template:", error);
   }
 }
 

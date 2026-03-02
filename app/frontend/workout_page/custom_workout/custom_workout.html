@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Workout Creator</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <link rel="stylesheet" href="custom_workout.css">
+</head>
+<body>
+        <section class="navigation-bar">
+            <nav>
+                <a class="Logo" href="../../front_page/index.html#home">Health Fitness Pro</a>
+                <ul class="nav-links">
+                    <li><a href="../../front_page/index.html#feature-hero">Workout</a></li>
+                    <li><a href="../../front_page/index.html#page-running">Running</a></li>
+                    <li><a href="../../front_page/index.html#page-workout-library">Workout Library</a></li>
+                    <li><a href="../../front_page/index.html#page-calorie_tracker">Calorie Tracker</a></li>
+                </ul>
+                <div class="btn">
+                    <button class="login-btn">Login</button>
+                </div>
+            </nav>
+        </section>
+        <section class="workout-history-main">
+            <div class="feature-hero">
+                <h1 class="workout-history-heading">Custom Workout Creator</h1>
+                <p class="workout-history-description">Create your own personalized workout routine by adding exercises, sets, reps, and rest periods.</p>
+            </div>
+        </section>
+
+        <section>
+            <form id="workoutForm">
+                <div class="form-group">
+                    <label for="templateName">Workout Name</label>
+                    <input type="text" id="templateName" name="templateName" required />
+                </div>
+                <div class="form-group">
+                    <label for="creatorNotes">Creator Notes</label>
+                    <textarea id="creatorNotes" name="creatorNotes" rows="3"></textarea>
+                </div>
+
+                <div class="exercise-section">
+                    <h2>Exercise Sequence</h2>
+                    <button type="button" id="addLibraryBtn">Add From Library</button>
+                    <button type="button" id="addManualBtn">Add Manually</button>
+
+                    <table id="exerciseTable">
+                        <thead>
+                            <tr>
+                                <th>Exercise</th>
+                                <th>Sets</th>
+                                <th>Reps</th>
+                                <th>Rest</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+
+                <button type="submit" id="saveBtn">Save Workout</button>
+            </form>
+        </section>
+
+        <!-- Saved workouts list -->
+        <section id="savedWorkoutsSection" style="margin-top:20px;">
+            <h3>Your Saved Workouts</h3>
+            <div id="savedWorkoutsContainer">
+                <!-- populated by JS -->
+            </div>
+        </section>
+
+        <section id="beginWorkoutSection" style="margin-top:20px;">
+            <h3>Begin Workout</h3>
+            <div id="beginWorkoutContainer">
+                <p>Select <strong>Begin</strong> from a saved workout to start a guided session.</p>
+            </div>
+        </section>
+
+    <!-- modal -->
+    <div id="libraryModal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close" id="modalClose">&times;</span>
+            <h3>Select an Exercise</h3>
+            <input type="text" id="searchInput" placeholder="Search by name, equipment, etc..." />
+            <ul id="libraryList"></ul>
+        </div>
+    </div>
+
+    <script src="custom_workout.js"></script>
+</body>
+</html>
