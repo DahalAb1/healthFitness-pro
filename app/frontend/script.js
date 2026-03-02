@@ -169,30 +169,18 @@ function renderExerciseCards(exerciseList) {
     card.setAttribute("aria-label", "View details for " + exercise.name);
 
     card.innerHTML =
-      "<img" +
-      ' class="exercise-card-image"' +
-      ' src="' +
-      exercise.image_url +
-      '"' +
-      ' alt="' +
-      exercise.name +
-      '"' +
-      ' loading="lazy"' +
-      " onerror=\"this.style.background='#e8e8e8'\"" +
-      "/>" +
-      '<div class="exercise-card-body">' +
-      '<h3 class="exercise-card-name">' +
-      exercise.name +
-      "</h3>" +
-      '<div class="exercise-card-badges">' +
-      '<span class="badge badge-muscle">' +
-      exercise.muscle_group +
-      "</span>" +
-      '<span class="badge badge-equipment">' +
-      exercise.equipment +
-      "</span>" +
-      "</div>" +
-      "</div>";
+      '<div class="exercise-card-flex">' +
+        '<img class="exercise-card-image" src="' +
+        exercise.image_url + '" alt="' +
+        exercise.name + '" loading="lazy" onerror="this.style.background=\'#e8e8e8\'" />' +
+        '<div class="exercise-card-content">' +
+          '<div class="exercise-card-name">' + exercise.name + '</div>' +
+          '<div class="exercise-card-badges">' +
+            '<span class="badge badge-muscle">' + exercise.muscle_group + '</span>' +
+            '<span class="badge badge-equipment">' + exercise.equipment + '</span>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
 
     card.addEventListener("click", function () {
       showExerciseDetail(exercise);
