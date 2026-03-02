@@ -44,20 +44,30 @@ async function loadExercises(bodyPart = null) {
 
     const response = await fetch(url);
     const data = await response.json();
-    const exerciseList = Array.isArray(data)
-      ? data
-      : Array.isArray(data?.data)
-        ? data.data
-        : [];
+    console.log("Raw API response:", JSON.stringify(data, null, 2));
 
-    const transformed = exerciseList.map(exercise => ({
-      id: exercise.id,
+    const list = Array.isArray(data)
+      ? data
+      : Array.isArray(data.data)
+        ? data.data
+        : Array.isArray(data.exercises)
+          ? data.exercises
+          : [];
+
+    const transformed = list.map((exercise) => ({
+      id: exercise.exerciseId || exercise.id,
       name: exercise.name,
-      muscle_group: exercise.target || exercise.muscle_group || "",
-      equipment: exercise.equipment || "",
-      description: exercise.instructions || exercise.description || "",
-      image_url: exercise.gifUrl || exercise.image_url || ""
+      muscle_group:
+        (exercise.targetMuscles && exercise.targetMuscles[0]) ||
+        (exercise.bodyParts && exercise.bodyParts[0]) ||
+        exercise.target || "",
+      equipment:
+        (exercise.equipments && exercise.equipments[0]) ||
+        exercise.equipment || "",
+      description: exercise.instructions || exercise.steps || exercise.guide || "",
+      image_url: exercise.imageUrl || exercise.gifUrl || exercise.image_url || "",
     }));
+    console.log("First exercise after transform:", transformed[0]);
 
     exercises.length = 0;
     exercises.push(...transformed);
@@ -117,6 +127,151 @@ async function loadTemplateById(templateId) {
 }
 
 // Export for testability (CommonJS)
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { loadExercises, loadExerciseById, loadTemplates, loadTemplateById, loadTemplateExercises, exercises };
+if (typeof module !== "undefined" && module.exports) {
+  module.exports = { loadExercises, exercises };
+}
+
+function showLoadingSpinner() {
+  var spinner = document.getElementById("loading-spinner");
+  var grid = document.getElementById("exercise-grid");
+  var empty = document.getElementById("empty-state");
+  if (spinner) spinner.classList.remove("hidden");
+  if (grid) grid.classList.add("hidden");
+  if (empty) empty.classList.add("hidden");
+}
+
+function hideLoadingSpinner() {
+  var spinner = document.getElementById("loading-spinner");
+  if (spinner) spinner.classList.add("hidden");
+}
+
+function renderExerciseCards(exerciseList) {
+  var grid = document.getElementById("exercise-grid");
+  var empty = document.getElementById("empty-state");
+  if (!grid) return;
+
+  grid.innerHTML = "";
+  if (empty) empty.classList.add("hidden");
+
+  if (!exerciseList || exerciseList.length === 0) {
+    grid.classList.add("hidden");
+    if (empty) empty.classList.remove("hidden");
+    return;
+  }
+
+  grid.classList.remove("hidden");
+
+  exerciseList.forEach(function (exercise) {
+    var card = document.createElement("div");
+    card.className = "exercise-card";
+    card.setAttribute("role", "button");
+    card.setAttribute("tabindex", "0");
+    card.setAttribute("aria-label", "View details for " + exercise.name);
+
+    card.innerHTML =
+      '<div class="exercise-card-flex">' +
+        '<img class="exercise-card-image" src="' +
+        exercise.image_url + '" alt="' +
+        exercise.name + '" loading="lazy" onerror="this.style.background=\'#e8e8e8\'" />' +
+        '<div class="exercise-card-content">' +
+          '<div class="exercise-card-name">' + exercise.name + '</div>' +
+          '<div class="exercise-card-badges">' +
+            '<span class="badge badge-muscle">' + exercise.muscle_group + '</span>' +
+            '<span class="badge badge-equipment">' + exercise.equipment + '</span>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+
+    card.addEventListener("click", function () {
+      showExerciseDetail(exercise);
+    });
+    card.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        showExerciseDetail(exercise);
+      }
+    });
+
+    grid.appendChild(card);
+  });
+}
+
+function showExerciseDetail(exercise) {
+  var modal = document.getElementById("exercise-modal");
+  if (!modal) return;
+
+  document.getElementById("modal-image").src = exercise.image_url;
+  document.getElementById("modal-image").alt = exercise.name;
+  document.getElementById("modal-name").textContent = exercise.name;
+  document.getElementById("modal-muscle").textContent = exercise.muscle_group;
+  document.getElementById("modal-equipment").textContent = exercise.equipment;
+
+  var list = document.getElementById("modal-instructions");
+  list.innerHTML = "";
+
+  var steps = Array.isArray(exercise.description)
+    ? exercise.description
+    : exercise.description
+      ? [exercise.description]
+      : ["No instructions available for this exercise."];
+
+  steps.forEach(function (step) {
+    var li = document.createElement("li");
+    li.textContent = step;
+    list.appendChild(li);
+  });
+
+  modal.classList.remove("hidden");
+  document.body.style.overflow = "hidden";
+}
+
+function closeExerciseDetail() {
+  var modal = document.getElementById("exercise-modal");
+  if (!modal) return;
+  modal.classList.add("hidden");
+  document.body.style.overflow = "";
+}
+
+if (document.getElementById("exercise-grid")) {
+  document
+    .getElementById("modal-close-btn")
+    .addEventListener("click", closeExerciseDetail);
+  document
+    .getElementById("modal-overlay")
+    .addEventListener("click", closeExerciseDetail);
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") closeExerciseDetail();
+  });
+
+  document.querySelectorAll(".filter-btn").forEach(function (btn) {
+    btn.addEventListener("click", async function () {
+      document.querySelectorAll(".filter-btn").forEach(function (b) {
+        b.classList.remove("active");
+      });
+      btn.classList.add("active");
+
+      var filter = btn.dataset.filter;
+      var BODY_PART_MAP = {
+        "chest": "chest",
+        "back": "back",
+        "legs": "thighs",
+        "shoulders": "shoulders",
+        "biceps": "biceps",
+        "triceps": "triceps",
+        "abs": "waist"
+      };
+      var apiBodyPart = filter === "ALL" ? null : (BODY_PART_MAP[filter.toLowerCase()] || filter.toLowerCase());
+      showLoadingSpinner();
+      await loadExercises(apiBodyPart);
+      hideLoadingSpinner();
+      renderExerciseCards(exercises);
+    });
+  });
+
+  (async function () {
+    showLoadingSpinner();
+    await loadExercises();
+    hideLoadingSpinner();
+    renderExerciseCards(exercises);
+  })();
 }
