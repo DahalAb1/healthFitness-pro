@@ -2,20 +2,70 @@ import sys
 import os
 sys.path.insert(0, os.path.dirname(__file__))
 
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
+from sqlalchemy.orm import Session
 from exercise_client import ExerciseClient
+from templates_database.template_db import SessionLocal, engine, Base
+from templates_database.template_db import get_all_templates, get_template_by_id, create_template
+
+Base.metadata.create_all(bind=engine)
+
+# Seed default templates if the database is empty
+def seed_templates():
+    db = SessionLocal()
+    if len(get_all_templates(db)) == 0:
+        create_template(db, "Push Day", "Chest, shoulders, and triceps", [
+            {"exercise_id": "Bench Press", "target_sets": 4, "target_reps": 10},
+            {"exercise_id": "Overhead Press", "target_sets": 3, "target_reps": 12},
+            {"exercise_id": "Tricep Dips", "target_sets": 3, "target_reps": 15},
+        ])
+        create_template(db, "Pull Day", "Back and biceps", [
+            {"exercise_id": "Barbell Row", "target_sets": 4, "target_reps": 8},
+            {"exercise_id": "Pull Ups", "target_sets": 3, "target_reps": 12},
+            {"exercise_id": "Bicep Curls", "target_sets": 3, "target_reps": 10},
+        ])
+        create_template(db, "Leg Day", "Quads, hamstrings, and glutes", [
+            {"exercise_id": "Barbell Squat", "target_sets": 4, "target_reps": 10},
+            {"exercise_id": "Romanian Deadlift", "target_sets": 3, "target_reps": 12},
+            {"exercise_id": "Leg Press", "target_sets": 3, "target_reps": 15},
+        ])
+    db.close()
+
+seed_templates()
 
 app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
-    allow_methods=["GET"],
+    allow_methods=["GET", "POST"],
     allow_headers=["*"],
 )
 
 client = ExerciseClient()
+
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
+
+class ExerciseEntry(BaseModel):
+    exercise_id: str
+    target_sets: int
+    target_reps: int
+
+
+class TemplateCreate(BaseModel):
+    name: str
+    description: str = None
+    exercises: list[ExerciseEntry]
+
 
 @app.get("/exercises")
 def get_exercises(bodyPart: str = None):
@@ -24,3 +74,51 @@ def get_exercises(bodyPart: str = None):
 @app.get("/exercises/{exercise_id}")
 def get_exercise(exercise_id: str):
     return client.get_exercise_by_id(exercise_id)
+
+
+@app.get("/templates")
+def list_templates(db: Session = Depends(get_db)):
+    rows = get_all_templates(db)
+    return [
+        {
+            "id": t.id,
+            "name": t.name,
+            "description": t.description,
+            "exercises": [
+                {"exercise_id": e.exercise_id, "target_sets": e.target_sets, "target_reps": e.target_reps}
+                for e in t.exercises
+            ],
+        }
+        for t in rows
+    ]
+
+
+@app.get("/templates/{template_id}")
+def get_template(template_id: int, db: Session = Depends(get_db)):
+    t = get_template_by_id(db, template_id)
+    if not t:
+        raise HTTPException(status_code=404, detail="Template not found")
+    return {
+        "id": t.id,
+        "name": t.name,
+        "description": t.description,
+        "exercises": [
+            {"exercise_id": e.exercise_id, "target_sets": e.target_sets, "target_reps": e.target_reps}
+            for e in t.exercises
+        ],
+    }
+
+
+@app.post("/templates", status_code=201)
+def post_template(template: TemplateCreate, db: Session = Depends(get_db)):
+    exercises = [ex.model_dump() for ex in template.exercises]
+    t = create_template(db, template.name, template.description, exercises)
+    return {
+        "id": t.id,
+        "name": t.name,
+        "description": t.description,
+        "exercises": [
+            {"exercise_id": e.exercise_id, "target_sets": e.target_sets, "target_reps": e.target_reps}
+            for e in t.exercises
+        ],
+    }

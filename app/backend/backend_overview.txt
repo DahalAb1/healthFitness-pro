@@ -26,5 +26,5 @@ backend/main.py
                                  to filter by muscle group.
     GET /exercises/{id}        : returns the full details of one exercise.
                                  Exercise id can be recieved from above GET /exercises method 
-- To start the server: uvicorn backend.main:app --reload
+- To start the server: uvicorn main:app --reload # make sure to stay in the directory where main is
 - To test in browser:  http://127.0.0.1:8000/docs (Keep in mind to include /docs in the url otherwise you'll just see {"detail":"Not Found"} page.)
