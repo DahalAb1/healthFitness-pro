@@ -7,8 +7,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
 from exercise_client import ExerciseClient
-from template_db import SessionLocal, engine, Base
-from template_db import get_all_templates, get_template_by_id, create_template
+from templates_database.template_db import SessionLocal, engine, Base
+from templates_database.template_db import get_all_templates, get_template_by_id, create_template
 
 Base.metadata.create_all(bind=engine)
 
