@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException
 from typing import List, Optional
-from app.backend.models import WorkoutCreate, WorkoutSession, UserWorkoutCreate, UserWorkout
-from app.backend.custom_workout.saved_workouts_store import list_workouts, list_workouts_for_user, add_workout, delete_workout
+from models import WorkoutCreate, WorkoutSession, UserWorkoutCreate, UserWorkout
+from custom_workout.saved_workouts_store import list_workouts, list_workouts_for_user, add_workout, delete_workout
 
 router = APIRouter()
 

@@ -7,7 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
 from exercise_client import ExerciseClient
-from app.backend.custom_workout.workout_routes import router as workout_router
+from custom_workout.workout_routes import router as workout_router
 from templates_database.template_db import SessionLocal, engine, Base
 from templates_database.template_db import get_all_templates, get_template_by_id, create_template
 
