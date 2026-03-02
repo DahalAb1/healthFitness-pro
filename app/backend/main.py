@@ -253,7 +253,8 @@ def get_real_exercises_for_template(template_name: str):
 
 @app.get("/exercises")
 def get_exercises(bodyPart: str = None):
-    return client.get_exercises(body_part=bodyPart)
+    return {"data": client.get_exercises(body_part=bodyPart)}
+
 
 @app.get("/exercises/{exercise_id}")
 def get_exercise(exercise_id: str):
