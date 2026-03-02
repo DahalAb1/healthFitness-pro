@@ -61,28 +61,24 @@
           return;
         }
 
-        const template = await loadTemplateById(templateId);
-        if (!template) {
+        const payload = await loadTemplateExercises(templateId);
+        if (!payload || !payload.exercises) {
           document.getElementById("template-name").textContent = "Template not found";
           return;
         }
 
-        document.getElementById("template-name").textContent = template.name;
-        document.getElementById("template-description").textContent = template.description || "";
-
-        const details = await Promise.all(
-          template.exercises.map(ex => loadExerciseById(ex.exercise_id))
-        );
+        document.getElementById("template-name").textContent = payload.template_name;
+        document.getElementById("template-description").textContent = payload.template_description || "";
 
         const list = document.getElementById("exercise-list");
-        list.innerHTML = template.exercises.map((ex, i) => {
-          const d = details[i];
+        list.innerHTML = payload.exercises.map(ex => {
+          const d = ex.details || {};
           return `
             <div class="exercise-card">
               ${d && d.image_url ? `<img src="${d.image_url}" alt="${d.name}" class="exercise-gif" />` : ""}
               <div class="exercise-info">
-                <h3>${d ? d.name : ex.exercise_id}</h3>
-                ${d ? `<p class="exercise-meta">${d.muscle_group} &middot; ${d.equipment}</p>` : ""}
+                <h3>${d.name || ex.exercise_id}</h3>
+                ${(d.muscle_group || d.equipment) ? `<p class="exercise-meta">${d.muscle_group || ""}${d.muscle_group && d.equipment ? " &middot; " : ""}${d.equipment || ""}</p>` : ""}
                 <p class="exercise-sets">${ex.target_sets} sets x ${ex.target_reps} reps</p>
               </div>
             </div>
