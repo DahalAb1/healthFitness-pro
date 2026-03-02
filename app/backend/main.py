@@ -7,6 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
 from exercise_client import ExerciseClient
+from app.backend.custom_workout.workout_routes import router as workout_router
 from templates_database.template_db import SessionLocal, engine, Base
 from templates_database.template_db import get_all_templates, get_template_by_id, create_template
 
@@ -37,10 +38,13 @@ seed_templates()
 
 app = FastAPI()
 
+# include the workout routes (history + custom workouts)
+app.include_router(workout_router)
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
-    allow_methods=["GET", "POST"],
+    allow_methods=["GET", "POST", "DELETE"],
     allow_headers=["*"],
 )
 
@@ -249,7 +253,8 @@ def get_real_exercises_for_template(template_name: str):
 
 @app.get("/exercises")
 def get_exercises(bodyPart: str = None):
-    return client.get_exercises(body_part=bodyPart)
+    return {"data": client.get_exercises(body_part=bodyPart)}
+
 
 @app.get("/exercises/{exercise_id}")
 def get_exercise(exercise_id: str):
