@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Workout Templates - Health Fitness Pro</title>
+    <link rel="stylesheet" href="../../styles.css" />
+  </head>
+  <body>
+
+    <section class="navigation-bar">
+      <nav>
+        <a class="Logo" href="../../front_page/index.html">Health Fitness Pro</a>
+        <ul class="nav-links">
+          <li><a href="../../front_page/index.html#workout-features">Workout</a></li>
+          <li><a href="../../front_page/index.html#running-features">Running</a></li>
+          <li><a href="../../exercise-library.html">Workout Library</a></li>
+          <li><a href="../../front_page/index.html#calorie-tracker-features">Calorie Tracker</a></li>
+        </ul>
+        <div class="btn">
+          <button class="login-btn">Login</button>
+        </div>
+      </nav>
+    </section>
+
+    <section class="page-header">
+      <h1>Workout Templates</h1>
+      <p>Choose a template to get started</p>
+    </section>
+
+    <section class="templates-container" id="templates-container">
+      <p class="loading-msg">Loading templates...</p>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>Product</h3>
+          <ul>
+            <li><a href="#workout">Workout</a></li>
+            <li><a href="#running">Running</a></li>
+            <li><a href="#nutrition">Nutrition</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Company</h3>
+          <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="#careers">Careers</a></li>
+          </ul>
+        </div>
+      </div>
+      <p>&copy; 2024 Health Fitness Pro. All rights reserved.</p>
+    </footer>
+
+    <script src="../../script.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", async () => {
+        const container = document.getElementById("templates-container");
+        const templates = await loadTemplates();
+
+        if (!templates || templates.length === 0) {
+          container.innerHTML = '<p class="empty-msg">No templates yet.</p>';
+          return;
+        }
+
+        container.innerHTML = templates.map(t => `
+          <a href="template-detail.html?id=${t.id}" class="template-card">
+            <h2>${t.name}</h2>
+            <p>${t.description || ""}</p>
+            <span class="exercise-count">${t.exercises.length} exercise${t.exercises.length !== 1 ? "s" : ""}</span>
+          </a>
+        `).join("");
+      });
+    </script>
+  </body>
+</html>

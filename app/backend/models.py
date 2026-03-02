@@ -76,3 +76,24 @@ class WeightProgressResponse(BaseModel):
     last_weight: Optional[float] = None
     change: Optional[float] = None
     percent_change: Optional[float] = None
+# ---- Custom Workout Models ----
+
+class CustomWorkoutExercise(BaseModel):
+    exercise_id: Optional[str] = None
+    exercise_name: str
+    sets: int
+    reps: int
+
+    weight: Optional[float] = None
+
+class UserWorkoutCreate(BaseModel):
+    user_id: int
+    name: str
+    main_muscle: Optional[str] = None
+    difficulty: Optional[str] = None
+    duration_minutes: Optional[int] = None
+    exercises: List[CustomWorkoutExercise]
+
+
+class UserWorkout(UserWorkoutCreate):
+    id: int

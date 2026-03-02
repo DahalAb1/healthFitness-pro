@@ -57,11 +57,6 @@ __pycache__
 # Environment variables - never commit API keys
 .env
 
-<<<<<<< HEAD
-# Python virtual environment
-venv/
-=======
 
 .venv/
 # Virtual environment directories
->>>>>>> dev

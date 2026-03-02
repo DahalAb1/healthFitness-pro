@@ -188,4 +188,147 @@ describe('Exercise Loading Functions', () => {
       }
     });
   });
+
+  describe('loadExerciseById()', () => {
+    test('should fetch a single exercise by ID', async () => {
+      const mockExercise = {
+        id: '10',
+        name: 'Bench Press',
+        target: 'Chest',
+        equipment: 'Barbell',
+        instructions: 'Press the bar up',
+        gifUrl: 'http://example.com/bench.gif'
+      };
+
+      fetch.mockResolvedValueOnce({
+        json: jest.fn().mockResolvedValueOnce(mockExercise)
+      });
+
+      const result = await loadExerciseById('10');
+
+      expect(fetch).toHaveBeenCalledWith('http://127.0.0.1:8000/exercises/10');
+      expect(result).toEqual({
+        id: '10',
+        name: 'Bench Press',
+        muscle_group: 'Chest',
+        equipment: 'Barbell',
+        description: 'Press the bar up',
+        image_url: 'http://example.com/bench.gif'
+      });
+    });
+
+    test('should handle fetch errors gracefully', async () => {
+      const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation();
+      fetch.mockRejectedValueOnce(new Error('Network error'));
+
+      const result = await loadExerciseById('999');
+
+      expect(consoleErrorSpy).toHaveBeenCalledWith(
+        'Failed to load exercise:',
+        expect.any(Error)
+      );
+      expect(result).toBeUndefined();
+      consoleErrorSpy.mockRestore();
+    });
+  });
+});
+
+describe('Template Functions', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  describe('loadTemplates()', () => {
+    test('should fetch all templates', async () => {
+      const mockTemplates = [
+        { id: 1, name: 'Push Day', description: 'Chest and triceps', exercises: [] },
+        { id: 2, name: 'Pull Day', description: 'Back and biceps', exercises: [] }
+      ];
+
+      fetch.mockResolvedValueOnce({
+        json: jest.fn().mockResolvedValueOnce(mockTemplates)
+      });
+
+      const result = await loadTemplates();
+
+      expect(fetch).toHaveBeenCalledWith('http://127.0.0.1:8000/templates');
+      expect(result).toHaveLength(2);
+      expect(result[0].name).toBe('Push Day');
+    });
+
+    test('should return templates with exercise data', async () => {
+      const mockTemplates = [
+        {
+          id: 1,
+          name: 'Push Day',
+          description: 'Chest and triceps',
+          exercises: [
+            { exercise_id: 'Bench Press', target_sets: 4, target_reps: 10 }
+          ]
+        }
+      ];
+
+      fetch.mockResolvedValueOnce({
+        json: jest.fn().mockResolvedValueOnce(mockTemplates)
+      });
+
+      const result = await loadTemplates();
+
+      expect(result[0].exercises).toHaveLength(1);
+      expect(result[0].exercises[0].exercise_id).toBe('Bench Press');
+      expect(result[0].exercises[0].target_sets).toBe(4);
+      expect(result[0].exercises[0].target_reps).toBe(10);
+    });
+
+    test('should handle fetch errors gracefully', async () => {
+      const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation();
+      fetch.mockRejectedValueOnce(new Error('Network error'));
+
+      const result = await loadTemplates();
+
+      expect(consoleErrorSpy).toHaveBeenCalledWith(
+        'Failed to load templates:',
+        expect.any(Error)
+      );
+      expect(result).toBeUndefined();
+      consoleErrorSpy.mockRestore();
+    });
+  });
+
+  describe('loadTemplateById()', () => {
+    test('should fetch a single template by ID', async () => {
+      const mockTemplate = {
+        id: 1,
+        name: 'Push Day',
+        description: 'Chest and triceps',
+        exercises: [
+          { exercise_id: 'Bench Press', target_sets: 4, target_reps: 10 }
+        ]
+      };
+
+      fetch.mockResolvedValueOnce({
+        json: jest.fn().mockResolvedValueOnce(mockTemplate)
+      });
+
+      const result = await loadTemplateById(1);
+
+      expect(fetch).toHaveBeenCalledWith('http://127.0.0.1:8000/templates/1');
+      expect(result.name).toBe('Push Day');
+      expect(result.exercises).toHaveLength(1);
+    });
+
+    test('should handle fetch errors gracefully', async () => {
+      const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation();
+      fetch.mockRejectedValueOnce(new Error('Network error'));
+
+      const result = await loadTemplateById(999);
+
+      expect(consoleErrorSpy).toHaveBeenCalledWith(
+        'Failed to load template:',
+        expect.any(Error)
+      );
+      expect(result).toBeUndefined();
+      consoleErrorSpy.mockRestore();
+    });
+  });
 });

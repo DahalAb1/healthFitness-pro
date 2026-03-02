@@ -123,3 +123,28 @@ Consider adding tests for:
 - Navigation functionality
 - UI state management
 - Integration tests with the HTML elements
+
+## Backend (Python) Testing
+
+To test the backend API endpoints (FastAPI), use pytest. These tests are located in `tests/backend/test_exercise_library.py` and require the backend dependencies to be installed in your Python virtual environment.
+
+### Setup
+1. Ensure your Python virtual environment is activated:
+   ```powershell
+   & ".venv\Scripts\Activate.ps1"
+   ```
+2. Install required Python packages (if not already):
+   ```bash
+   pip install -r requirements.txt
+   pip install pytest
+   ```
+
+### Running Backend Tests
+From the project root directory, run:
+```powershell
+& ".venv\Scripts\python.exe" -m pytest
+```
+This will discover and run all backend tests, including `tests/backend/test_exercise_library.py`.
+
+- All backend tests use FastAPI's TestClient and do not require the backend server to be running.
+- Make sure your `.env` file (with API keys) is present if required by the backend.
