@@ -28,7 +28,7 @@ let addExerciseToSequence, renderSequence, saveWorkout, sequence, selectedIds;
 describe('Custom Workout Creator', () => {
   beforeAll(() => {
     // Import the script and extract functions/variables
-    const mod = require('../../../app/frontend/workout_page/custom_workout/custom_workout.js');
+    const mod = require('..\\..\\..\\app\\frontend\\workout_page\\custom_workout\\custom_workout.js');
     addExerciseToSequence = mod.addExerciseToSequence;
     renderSequence = mod.renderSequence;
     saveWorkout = mod.saveWorkout;
