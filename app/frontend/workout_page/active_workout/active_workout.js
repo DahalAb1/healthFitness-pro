@@ -268,37 +268,67 @@ function endWorkout() {
     finishWorkout();
 }
 
-function finishWorkout() {
+async function finishWorkout() {
     state.completedAt = new Date().toISOString();
-
+  
+    // duration in minutes
+    const startedMs = Date.parse(state.startedAt || "");
+    const endedMs = Date.parse(state.completedAt || "");
+    const durationMinutes =
+      Number.isFinite(startedMs) && Number.isFinite(endedMs) && endedMs >= startedMs
+        ? Math.max(1, Math.round((endedMs - startedMs) / 60000))
+        : 1;
+  
+    // backend expects: exercise_name, sets, reps, weight
+    const exercisesToLog = state.exercises.map((ex) => {
+        const parsedSets = parseInt(ex.sets, 10);
+        const parsedReps = parseInt(ex.reps, 10);
+      
+        return {
+          exercise_name: ex.name,
+          sets: Number.isFinite(parsedSets) ? parsedSets : 0,
+          reps: Number.isFinite(parsedReps) ? parsedReps : 0,
+          weight: 0, // your UI doesn't track weight yet
+        };
+      });
+  
     const summary = {
-        source: state.source,
-        sourceId: state.sourceId,
-        name: state.name,
-        startedAt: state.startedAt,
-        completedAt: state.completedAt,
-        exercisesCompleted: state.currentIndex + 1,
-        exercisesTotal: state.exercises.length,
-        exercises: state.exercises.map(function (ex) {
-            return {
-                exerciseId: ex.exerciseId,
-                name: ex.name,
-                targetSets: ex.sets,
-                targetReps: ex.reps,
-                loggedSets: ex.loggedSets,
-            };
-        }),
+      source: state.source,
+      sourceId: state.sourceId,
+      name: state.name,
+      startedAt: state.startedAt,
+      completedAt: state.completedAt,
+      exercisesCompleted: state.currentIndex + 1,
+      exercisesTotal: state.exercises.length,
+      exercises: state.exercises.map(function (ex) {
+        return {
+          exerciseId: ex.exerciseId,
+          name: ex.name,
+          targetSets: ex.sets,
+          targetReps: ex.reps,
+          loggedSets: ex.loggedSets,
+        };
+      }),
     };
-
-    // Clean up workout data now that it's finished
+  
     sessionStorage.removeItem("activeWorkoutData");
-
-    // Store summary for future use (workout history page)
     sessionStorage.setItem("lastCompletedWorkout", JSON.stringify(summary));
-
+  
+    // NEW: log to backend so it shows on calendar
+    try {
+      await logCompletedWorkout({
+        user_id: 1,
+        duration_minutes: durationMinutes,
+        exercises: exercisesToLog,
+      });
+    } catch (err) {
+      console.error("Failed to log workout to backend:", err);
+      alert("Workout finished, but could not save to calendar. Is the backend running?");
+    }
+  
     alert("Workout complete! Great job.");
-    window.location.href = "../workout_templates/templates.html";
-}
+    window.location.href = "../workout_history/workout_history_page.html";
+  }
 
 // Wire up event listeners
 dom.btnNext.addEventListener("click", goNext);
