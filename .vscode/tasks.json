@@ -12,9 +12,21 @@
 		{
 			"label": "Open Frontend (index.html)",
 			"type": "shell",
-			"command": "start app\\frontend\\index.html",
+			"command": "start app\\frontend\\front_page\\index.html",
 			"isBackground": false,
 			"group": "build"
 		}
+        ,
+        {
+            "label": "Run Full App",
+            "dependsOn": ["Run Backend (Uvicorn)", "Open Frontend (index.html)"],
+            "dependsOrder": "parallel",
+            "group": "build",
+            "type": "shell",
+            "presentation": {
+                "reveal": "always"
+            },
+            "problemMatcher": []
+        }
 	]
 }
