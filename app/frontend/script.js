@@ -159,6 +159,11 @@ async function loadProgress() {
         const err = await response.json();
         if (err?.detail) msg = err.detail;
       } catch {}
+      // Suppress alert for 'No matching exercise entries found for that user'
+      if (msg === "No matching exercise entries found for that user") {
+        statsEl.innerHTML = `<p>No progress data found for this user and exercise.</p>`;
+        return;
+      }
       throw new Error(msg);
     }
 
@@ -202,7 +207,12 @@ async function loadProgress() {
     `;
   } catch (err) {
     statsEl.innerHTML = "";
-    alert(err.message || "Error fetching progress");
+    // Only show alert for other errors
+    if (err.message !== "No matching exercise entries found for that user") {
+      alert(err.message || "Error fetching progress");
+    } else {
+      statsEl.innerHTML = `<p>No progress data found for this user and exercise.</p>`;
+    }
   }
 }
 
