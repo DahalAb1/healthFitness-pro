@@ -65,6 +65,9 @@ async function initWorkout() {
     renderHeader();
     renderCards();
     updateButtons();
+
+    // Enrich exercises missing images (custom workouts)
+    await enrichExercisesWithImages();
 }
 
 async function loadFromTemplate(templateId) {
@@ -86,8 +89,6 @@ function loadFromCustom(workoutId) {
     state.name = data.name || "Custom Workout";
     state.description = data.creator_notes || "";
     state.exercises = (data.exercises || []).map(normalizeCustomExercise);
-
-    sessionStorage.removeItem("activeWorkoutData");
 }
 
 // --- Normalizers: convert source-specific shapes to unified format ---
@@ -119,6 +120,52 @@ function normalizeCustomExercise(ex) {
         rest: ex.rest || null,
         loggedSets: [],
     };
+}
+
+// ============================================================
+// ENRICHMENT — fetch images/details for exercises missing them
+// ============================================================
+
+async function enrichExercisesWithImages() {
+    var needsEnrichment = state.exercises.some(function (ex) {
+        return !ex.imageUrl;
+    });
+    if (!needsEnrichment) return;
+
+    try {
+        var allExercises = await loadExercises();
+        if (!allExercises || allExercises.length === 0) return;
+
+        var changed = false;
+        state.exercises.forEach(function (ex) {
+            if (ex.imageUrl) return;
+
+            var exNameLower = ex.name.trim().toLowerCase();
+            var match = allExercises.find(function (apiEx) {
+                return apiEx.name && apiEx.name.trim().toLowerCase() === exNameLower;
+            });
+
+            if (!match) {
+                match = allExercises.find(function (apiEx) {
+                    var apiName = (apiEx.name || "").trim().toLowerCase();
+                    return apiName.includes(exNameLower) || exNameLower.includes(apiName);
+                });
+            }
+
+            if (match) {
+                ex.imageUrl = match.image_url || "";
+                ex.muscleGroup = ex.muscleGroup || match.muscle_group || "";
+                ex.equipment = ex.equipment || match.equipment || "";
+                changed = true;
+            }
+        });
+
+        if (changed) {
+            renderCards();
+        }
+    } catch (err) {
+        console.error("enrichExercisesWithImages error:", err);
+    }
 }
 
 // ============================================================
@@ -242,6 +289,9 @@ function finishWorkout() {
             };
         }),
     };
+
+    // Clean up workout data now that it's finished
+    sessionStorage.removeItem("activeWorkoutData");
 
     // Store summary for future use (workout history page)
     sessionStorage.setItem("lastCompletedWorkout", JSON.stringify(summary));
