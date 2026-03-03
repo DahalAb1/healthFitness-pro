@@ -29,7 +29,115 @@
 - FastAPI
 - ExRx.net Exercise JSON Rest API 
 
+## Sprint 1 
 
+### Contributions
+
+**Diego** "Designed some of the intial frontend and UI visualization through wireframes. Created the frontend for two of the user stories. Also created unit tests for some user stories."
+
+SCRUM-50: Design – frontend UI layout -- Front Page <br>
+Jira - https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-50 <br>
+Pull Request - https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/1
+
+
+SCRUM-10: Design – ui flow -- Exercise Templates <br>
+Jira - https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-10 <br>
+Pull Request - https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/2
+
+SCRUM-54: Unit Testing Front Page <br>
+Jira - https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-54 <br>
+Pull Request - https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/18
+
+SCRUM-33: UI/Frontend Workout History <br>
+Jira - https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-33 <br>
+Pull Request - https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/22
+
+SCRUM-25: UI/Frontend Custom Workout <br>
+Jira - https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-25 <br>
+Pull Request - https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/24
+
+SCRUM-27: Unit Testing Custom Workout <br>
+Jira - https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-27 <br>
+Pull Request - https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/33
+
+SCRUM-6: Unit Testing Exercise Library <br>
+Jira - https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-6 <br>
+Pull Request - https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/32
+
+**Abhinesh** "Built the backend exercise API client and connected the frontend to the FastAPI backend. Implemented exercise templates on both backend and frontend, and wrote unit tests for template endpoints."
+
+SCRUM-53: Integration - Exercise Data Loading (ExRx API via FastAPI) <br>
+Jira - https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-53 <br>
+Pull Request - https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/7
+
+SCRUM-52: Implementation - Connect Navigation to Backend (FastAPI) <br>
+Jira - https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-52 <br>
+Pull Request - https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/21
+
+SCRUM-9: Implementation - Backend (Exercise Templates) <br>
+Jira - https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-9 <br>
+Pull Request - https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/21
+
+SCRUM-11: Implementation - Frontend (Exercise Templates) <br>
+Jira - https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-11 <br>
+Pull Request - https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/25
+
+SCRUM-12: Unit Testing - Template <br>
+Jira - https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-12 <br>
+Pull Request - https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/26
+
+
+**Angel** "Designed database schema for Exercise template, Data model and api for Exercise library and the schema for custom workout creator. Implemented the custom workoout creator andmade the UI for the Calender View"
+
+
+SCRUM-35:Calender View-WORKOUT HISTORY<br>
+Jira - https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-35<br>
+Pull Request - https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/19
+
+
+SCRUM-8: Design - Database Schema-EXERCISE TEMPLATES <br>
+Jira - https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-8 <br>
+Pull Request - https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/3
+
+SCRUM-2: Design - API & Data Model-EXERCISE LIBRARY <br>
+Jira - https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-2 <br>
+Pull Request - https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/10
+
+SCRUM-22: Design - Schema, CUSTOM WORKOUT CREATOR <br>
+Jira - https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-22 <br>
+Pull Request - https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/14
+
+SCRUM-26: Implementation-CUSTOM WORKOUT CREATOR <br>
+Jira - https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-26 <br>
+Pull Request - https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/28
+
+**Connor** "Designed UI wireframe for the workout library. Created the backend for the workout history page, custom workout creator page, and prgress tracker.
+Created backend for logging workouts, and implemented it in the frontend."
+
+SCRUM-7: Design - UI Wireframe -- Exercise Library <br>
+Jira - https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-7 <br>
+Pull Request - https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/4 
+
+SCRUM-31: Backend -- Workout History <br>
+Jira - https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-31 <br>
+Pull Request - https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/15
+
+SCRUM-24 Backend -- Custom Workout Creator <br>
+Jira - https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-24 <br>
+Pull Request - https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/16
+
+SCRUM-32: Workout Logging API -- Workout History <br>
+Jira - https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-32 <br>
+Pull Request - https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/23
+
+SCRUM-36: Progress Tracking -- Workout History <br>
+Jira - https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-36 <br>
+Pull Request - https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/27 
+
+**Saroj**
+
+### Burnup Chart
+![alt text](app\src\images\image.png)
 ## Features
 User Stories:
 
@@ -58,9 +166,59 @@ User Stories:
 
 
 ## Setup
-What are the project requirements/dependencies? Where are they listed? A requirements.txt or a Pipfile.lock file perhaps? Where is it located?
 
-Proceed to describe how to install / setup one's local environment / get started with the project.
+### Prerequisites
+- Python 3.10+
+- Node.js (for running frontend tests)
+- A [RapidAPI](https://rapidapi.com/) key for the ExerciseDB API
+
+### Dependencies
+- **Backend (Python):** Listed in `requirements.txt` — includes FastAPI, Uvicorn, SQLAlchemy, httpx, python-dotenv, and Pydantic.
+- **Frontend tests (Node):** Listed in `package.json` — includes Jest and Babel for unit testing.
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd main_application
+   ```
+
+2. **Create a Python virtual environment and install dependencies**
+   ```bash
+   python -m venv venv
+   source venv/bin/activate   # On Windows: venv\Scripts\activate
+   pip install -r requirements.txt
+   ```
+
+3. **Set up environment variables**
+
+   Create a `.env` file in the project root with your RapidAPI key:
+   ```
+   XRAPID_API_KEY=your_rapidapi_key_here
+   ```
+
+4. **Install Node dependencies** (only needed for running frontend tests)
+   ```bash
+   npm install
+   ```
+
+### Running the Application
+
+1. **Start the backend server**
+   ```bash
+   uvicorn app.backend.main:app --reload
+   ```
+   The API will be available at `http://127.0.0.1:8000` and the interactive docs at `http://127.0.0.1:8000/docs`.
+
+2. **Open the frontend**
+
+   Open `app/frontend/front_page/index.html` in your browser, or serve the `app/frontend/` directory with any static file server.
+
+### Running Tests
+```bash
+npm test
+```
 
 
 ## Usage
@@ -95,10 +253,6 @@ Give credit here.
 - This project was inspired by...
 - This project was based on [this tutorial](https://www.example.com).
 - Many thanks to...
-
-
-## Contact
-Created by [@flynerdpl](https://www.flynerd.pl/) - feel free to contact me!
 
 
 <!-- Optional -->
