@@ -227,3 +227,39 @@ body {
 
 }
 
+
+
+/* --- Added for backend-backed calendar --- */
+.day-cell {
+    position: relative;
+}
+.day-cell.has-workout {
+    background: rgba(0, 128, 255, 0.12);
+}
+.day-number {
+    z-index: 1;
+}
+.workout-badge {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    background: #0080ff;
+    color: #fff;
+    font-size: 11px;
+    line-height: 1;
+    padding: 3px 6px;
+    border-radius: 999px;
+}
+.no-workout.hidden {
+    display: none;
+}
+.exercise-list {
+    margin-top: 0.75rem;
+    padding-left: 1.25rem;
+    color: #ddd;
+}
+.workout-meta {
+    margin: 0.25rem 0 0.5rem;
+    color: #aaa;
+    font-size: 13px;
+}
