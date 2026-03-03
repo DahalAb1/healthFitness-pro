@@ -806,3 +806,28 @@ nav {
   color: #4caf50;
   font-weight: 600;
 }
+
+/* Begin Workout button (template detail page) */
+.begin-workout-btn {
+  display: block;
+  max-width: 300px;
+  margin: 2rem auto;
+  padding: 1.2rem 3.5rem;
+  font-size: 1.6rem;
+  font-weight: 600;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.begin-workout-btn:hover {
+  background-color: #45a049;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}

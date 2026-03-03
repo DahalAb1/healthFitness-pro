@@ -1,0 +1,265 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: rgb(243, 240, 238);
+    color: #fff;
+    /* Inherit font and no extra padding for nav bar consistency */
+}
+
+.calendar-page {
+    background: #1a1a1a;
+    padding: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+    border-radius: 16px;
+}
+
+.month-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.month-nav button {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+}
+
+.month-nav button:hover {
+    color: #0080ff;
+}
+
+.month-nav h2 {
+    font-size: 28px;
+    font-weight: bold;
+    margin: 0;
+    flex: 1;
+    text-align: center;
+}
+
+.month-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+}
+
+.day-header {
+    text-align: center;
+    color: #888;
+    font-weight: 600;
+    padding: 0.5rem;
+}
+
+.day-cell {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: all 0.2s;
+    font-weight: 500;
+}
+
+.day-cell:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.day-cell.selected {
+    background: #0080ff;
+    font-weight: bold;
+}
+
+/* highlight today's cell */
+.day-cell.today {
+    border: 2px solid #0080ff;
+}
+
+/* disabled edit button */
+.edit-btn[disabled] {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.selected-day {
+    border-top: 1px solid #333;
+    padding-top: 2rem;
+}
+
+.selected-day h3 {
+    color: #888;
+    font-size: 14px;
+    margin-bottom: 1.5rem;
+}
+
+.workout-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.status-badge {
+    display: inline-block;
+    background: #0080ff;
+    color: #fff;
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+    font-size: 12px;
+    margin-bottom: 0.5rem;
+}
+
+.workout-card time {
+    display: block;
+    color: #888;
+    font-size: 14px;
+    margin-bottom: 0.5rem;
+}
+
+.workout-card h4 {
+    font-size: 24px;
+    margin: 0.5rem 0;
+    font-weight: bold;
+}
+
+.workout-card p {
+    color: #aaa;
+    margin: 0.5rem 0 1.5rem;
+    font-size: 14px;
+}
+
+.workout-actions {
+    display: flex;
+    gap: 1rem;
+}
+
+.edit-btn, .start-btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 14px;
+}
+
+.edit-btn {
+    background: transparent;
+    border: 2px solid #666;
+    color: #fff;
+    flex: 1;
+}
+
+.edit-btn:hover {
+    border-color: #999;
+}
+
+.start-btn {
+    background: #0080ff;
+    color: #fff;
+    flex: 2;
+}
+
+.start-btn:hover {
+    background: #0066cc;
+}
+
+/* additional styling for add workout button */
+#addBtn {
+    margin-top: 1rem;
+    width: 100%;
+    padding: 0.75rem 1.5rem;
+    font-size: 16px;
+}
+
+#addBtn:hover {
+    background: #005bb5;
+}
+
+/* view box for past workout description */
+.view-box {
+    border: 2px dashed #666;
+    border-radius: 8px;
+    padding: 1.5rem;
+    background: rgba(255,255,255,0.05);
+    color: #ccc;
+    font-size: 14px;
+    line-height: 1.4;
+    text-align: center;
+}
+
+#viewBtn {
+    margin-top: 1rem;
+    width: 100%;
+}
+
+.feature-hero {
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  min-height: 40vh;
+
+  padding: 4rem 2rem;
+
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+
+  text-align: center;
+
+  margin: 0;
+
+  padding-top: 1rem;
+
+}
+
+
+
+/* --- Added for backend-backed calendar --- */
+.day-cell {
+    position: relative;
+}
+.day-cell.has-workout {
+    background: rgba(0, 128, 255, 0.12);
+}
+.day-number {
+    z-index: 1;
+}
+.workout-badge {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    background: #0080ff;
+    color: #fff;
+    font-size: 11px;
+    line-height: 1;
+    padding: 3px 6px;
+    border-radius: 999px;
+}
+.no-workout.hidden {
+    display: none;
+}
+.exercise-list {
+    margin-top: 0.75rem;
+    padding-left: 1.25rem;
+    color: #ddd;
+}
+.workout-meta {
+    margin: 0.25rem 0 0.5rem;
+    color: #aaa;
+    font-size: 13px;
+}

@@ -1,0 +1,273 @@
+/* =================================================================
+   custom_workout_enhancements.css
+   Visual polish layered ON TOP of custom_workout.css.
+   Does not override or remove any existing styles — only adds.
+   ================================================================= */
+
+/* --- Center all content in a max-width container --- */
+body > section:not(.navigation-bar):not(.workout-history-main) {
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 2rem 2.5rem;
+}
+
+/* --- Form section card --- */
+#workoutForm {
+    background: white;
+    border-radius: 16px;
+    padding: 2.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* --- Form inputs --- */
+.form-group label {
+    font-size: 1.4rem;
+    color: #333;
+}
+
+.form-group input[type="text"],
+.form-group textarea {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1rem 1.2rem;
+    font-size: 1.4rem;
+    transition: border-color 0.2s ease;
+}
+
+.form-group input[type="text"]:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #4caf50;
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.15);
+}
+
+/* --- Exercise section heading --- */
+.exercise-section h2 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 1.2rem;
+}
+
+/* --- Buttons: match app green theme --- */
+#addLibraryBtn,
+#addManualBtn {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    font-size: 1.3rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-right: 0.8rem;
+    margin-bottom: 1rem;
+}
+
+#addLibraryBtn:hover,
+#addManualBtn:hover {
+    background-color: #45a049;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+}
+
+#addManualBtn {
+    background-color: white;
+    color: #4caf50;
+    border: 2px solid #4caf50;
+}
+
+#addManualBtn:hover {
+    background-color: #f0faf0;
+}
+
+/* --- Exercise table polish --- */
+#exerciseTable {
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #e0e0e0;
+}
+
+#exerciseTable th {
+    background: linear-gradient(135deg, #f8f8f8, #f0f0f0);
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #555;
+    padding: 1rem;
+}
+
+#exerciseTable td {
+    padding: 1rem;
+    font-size: 1.3rem;
+}
+
+#exerciseTable td input {
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 0.6rem 0.8rem;
+    font-size: 1.3rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#exerciseTable td input:focus {
+    outline: none;
+    border-color: #4caf50;
+}
+
+/* --- Remove button in table --- */
+.removeBtn {
+    background-color: #ff6b6b !important;
+    border-radius: 50px !important;
+    padding: 0.6rem 1.4rem !important;
+    font-size: 1.2rem !important;
+}
+
+.removeBtn:hover {
+    background-color: #e55555 !important;
+}
+
+/* --- Save button --- */
+#saveBtn {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 1.2rem 3rem;
+    border-radius: 50px;
+    font-size: 1.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 1.5rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+}
+
+#saveBtn:hover {
+    background-color: #45a049;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(76, 175, 80, 0.4);
+}
+
+/* --- Saved workouts section --- */
+#savedWorkoutsSection {
+    padding-top: 0;
+}
+
+#savedWorkoutsSection h3 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.saved-workouts-table {
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #e0e0e0;
+}
+
+.saved-workouts-table th {
+    background: linear-gradient(135deg, #f8f8f8, #f0f0f0);
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #555;
+    padding: 1rem;
+}
+
+.saved-workouts-table td {
+    padding: 1rem;
+    font-size: 1.3rem;
+}
+
+/* --- Action buttons in saved workouts table --- */
+.saved-view-btn,
+.saved-customize-btn,
+.saved-begin-btn,
+.saved-delete-btn {
+    border-radius: 50px !important;
+    padding: 0.6rem 1.4rem !important;
+    font-size: 1.2rem !important;
+    font-weight: 600 !important;
+    transition: all 0.2s ease !important;
+}
+
+.saved-view-btn {
+    background-color: #667eea !important;
+}
+
+.saved-view-btn:hover {
+    background-color: #5a6fd6 !important;
+}
+
+.saved-customize-btn {
+    background-color: #764ba2 !important;
+}
+
+.saved-customize-btn:hover {
+    background-color: #6a4293 !important;
+}
+
+.saved-begin-btn {
+    background-color: #4caf50 !important;
+}
+
+.saved-begin-btn:hover {
+    background-color: #45a049 !important;
+}
+
+.saved-delete-btn {
+    background-color: #ff6b6b !important;
+}
+
+.saved-delete-btn:hover {
+    background-color: #e55555 !important;
+}
+
+/* --- Begin Workout section (kept but de-emphasized) --- */
+#beginWorkoutSection {
+    opacity: 0.6;
+}
+
+#beginWorkoutContainer {
+    border-radius: 12px;
+}
+
+/* --- Modal polish --- */
+.modal-content {
+    border-radius: 16px;
+    padding: 2.5rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content h3 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+#searchInput {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1rem 1.2rem;
+    font-size: 1.4rem;
+}
+
+#searchInput:focus {
+    outline: none;
+    border-color: #4caf50;
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.15);
+}
+
+#libraryList li {
+    padding: 1rem;
+    font-size: 1.3rem;
+    border-radius: 6px;
+    margin-bottom: 2px;
+    transition: background 0.15s ease;
+}
+
+#libraryList li:hover {
+    background: #f0faf0;
+}

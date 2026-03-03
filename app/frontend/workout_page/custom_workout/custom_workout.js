@@ -13,8 +13,6 @@ const masterLibrary = [];
 let sequence = [];
 // keep track of IDs from the library that have been chosen
 let selectedIds = [];
-let currentWorkoutSession = null;
-
 // elements
 const libraryModal = document.getElementById('libraryModal');
 const libraryList = document.getElementById('libraryList');
@@ -93,81 +91,11 @@ function applySavedWorkoutToEditor(workout) {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-function renderBeginWorkoutSession() {
-    const container = document.getElementById('beginWorkoutContainer');
-    container.innerHTML = '';
-
-    if (!currentWorkoutSession || !Array.isArray(currentWorkoutSession.exercises) || currentWorkoutSession.exercises.length === 0) {
-        container.innerHTML = '<p>Select <strong>Begin</strong> from a saved workout to start a guided session.</p>';
-        return;
-    }
-
-    const total = currentWorkoutSession.exercises.length;
-    const idx = currentWorkoutSession.currentIndex;
-    const exercise = currentWorkoutSession.exercises[idx];
-
-    const title = document.createElement('h4');
-    title.textContent = `${currentWorkoutSession.name || 'Workout'} — Exercise ${idx + 1} of ${total}`;
-    container.appendChild(title);
-
-    const details = document.createElement('p');
-    details.textContent = `${exercise.exercise_name || 'Exercise'} (${exercise.sets}x${exercise.reps})${exercise.rest ? `, Rest: ${exercise.rest}` : ''}`;
-    container.appendChild(details);
-
-    const controls = document.createElement('div');
-    controls.className = 'begin-controls';
-
-    const prevBtn = document.createElement('button');
-    prevBtn.type = 'button';
-    prevBtn.textContent = 'Previous';
-    prevBtn.disabled = idx === 0;
-    prevBtn.addEventListener('click', () => {
-        if (currentWorkoutSession.currentIndex > 0) {
-            currentWorkoutSession.currentIndex -= 1;
-            renderBeginWorkoutSession();
-        }
-    });
-    controls.appendChild(prevBtn);
-
-    const nextBtn = document.createElement('button');
-    nextBtn.type = 'button';
-    nextBtn.textContent = idx === total - 1 ? 'Finish' : 'Next';
-    nextBtn.addEventListener('click', () => {
-        if (currentWorkoutSession.currentIndex < total - 1) {
-            currentWorkoutSession.currentIndex += 1;
-            renderBeginWorkoutSession();
-        } else {
-            alert('Workout session complete! Great job.');
-            currentWorkoutSession = null;
-            renderBeginWorkoutSession();
-        }
-    });
-    controls.appendChild(nextBtn);
-
-    const loadBtn = document.createElement('button');
-    loadBtn.type = 'button';
-    loadBtn.textContent = 'Load to Editor';
-    loadBtn.addEventListener('click', () => {
-        applySavedWorkoutToEditor({
-            name: currentWorkoutSession.name,
-            creator_notes: currentWorkoutSession.creator_notes,
-            exercises: currentWorkoutSession.exercises
-        });
-    });
-    controls.appendChild(loadBtn);
-
-    container.appendChild(controls);
-}
-
 function beginSavedWorkout(workout) {
-    currentWorkoutSession = {
-        id: workout.id,
-        name: workout.name,
-        creator_notes: workout.creator_notes,
-        exercises: Array.isArray(workout.exercises) ? workout.exercises : [],
-        currentIndex: 0
-    };
-    renderBeginWorkoutSession();
+    // Store workout data for the active workout page to read
+    sessionStorage.setItem("activeWorkoutData", JSON.stringify(workout));
+    // Navigate to the dedicated active workout page
+    window.location.href = "../active_workout/active_workout.html?source=custom&id=" + workout.id;
 }
 
 async function deleteSavedWorkout(workoutId) {
@@ -288,10 +216,6 @@ function renderSavedWorkoutsTable(data) {
             if (!ok) return;
             try {
                 await deleteSavedWorkout(id);
-                if (currentWorkoutSession && currentWorkoutSession.id === id) {
-                    currentWorkoutSession = null;
-                    renderBeginWorkoutSession();
-                }
                 loadSavedWorkouts();
             } catch (err) {
                 console.error('deleteSavedWorkout error', err);
