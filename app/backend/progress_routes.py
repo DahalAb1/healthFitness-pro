@@ -1,8 +1,8 @@
 from fastapi import APIRouter, HTTPException
 from typing import Dict, List
 from datetime import date
-from models import WorkoutSession, WeightProgressResponse, ProgressPoint
-from workout_routes import workouts_db
+from models import WeightProgressResponse, ProgressPoint
+import workout_store
 
 router = APIRouter()
 
@@ -13,30 +13,17 @@ def get_weight_progress(user_id: int, exercise_name: str):
     if not ex_name:
         raise HTTPException(status_code=400, detail="exercise_name cannot be empty")
 
-    # Map date -> max weight on that date for this exercise
-    per_date_max: Dict[date, float] = {}
-
-    for w in workouts_db:
-        if w.user_id != user_id:
-            continue
-
-        # find max weight for this exercise in this workout
-        best = None
-        for ex in w.exercises:
-            if ex.exercise_name.lower() == ex_name.lower():
-                best = ex.weight if best is None else max(best, ex.weight)
-
-        if best is None:
-            continue
-
-        if w.workout_date in per_date_max:
-            per_date_max[w.workout_date] = max(per_date_max[w.workout_date], best)
-        else:
-            per_date_max[w.workout_date] = best
+    try:
+        per_date_max: Dict[str, float] = workout_store.get_weight_progress_points(
+            user_id=user_id,
+            exercise_name=ex_name,
+        )
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
 
     # Build sorted time series
     points: List[ProgressPoint] = [
-        ProgressPoint(date=d, weight=per_date_max[d])
+        ProgressPoint(date=date.fromisoformat(d), weight=per_date_max[d])
         for d in sorted(per_date_max.keys())
     ]
 
