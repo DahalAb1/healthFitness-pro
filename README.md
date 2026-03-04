@@ -25,9 +25,9 @@
 
 ## Technologies Used
 
-- React Native
 - FastAPI
-- ExRx.net Exercise JSON Rest API
+- ASCENDAPI
+- Languages - Javascript, Python, CSS, HTML
 
 ## Sprint 1
 
@@ -89,8 +89,9 @@
 
 > Developed the homepage, implemented the workout library frontend, and integrated it with the backend to ensure seamless functionality and data flow.
 
-- **SCRUM-51:** Implementation – Build Home Screen(Home Screen) - [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-51) | [PR #13] (https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/13)
-- **SCRUM-4:** Implementation – Frontend: Workout Library(Workout Library) - [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-4) | [PR #29] (https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/29) -**SCRUM-5:** Implementation – Backend Integration: Workout Library - [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-4) | [PR #30] (https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/30)
+- **SCRUM-51:** Implementation – Build Home Screen(Home Screen) - [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-51) | [PR #13](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/13)
+- **SCRUM-4:** Implementation – Frontend: Workout Library(Workout Library) - [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-4) | [PR #29](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/29) 
+- **SCRUM-5:** Implementation – Backend Integration: Workout Library - [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-4) | [PR #30](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/30)
 
 ---
 
@@ -209,12 +210,6 @@ Once the backend server is running, the app provides the following features:
 
 Project is currently: **In Progress** 🔧
 
-`Sprint 1` ████████░░░░░░░░░░░ **20%**
-
-- [x] Exercise Library
-- [x] Exercise Templates
-- [x] Custom Workout Creator
-- [x] Workout History & Logging
 
 ## Room for Improvement
 
