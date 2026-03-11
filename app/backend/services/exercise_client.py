@@ -1,8 +1,7 @@
-import httpx
-import os
-from dotenv import load_dotenv
+"""HTTP client for the external exercise database (RapidAPI)."""
 
-load_dotenv()
+import httpx
+from core.config import settings
 
 
 class ExerciseClient:
@@ -11,18 +10,14 @@ class ExerciseClient:
 
     def __init__(self):
         self.headers = {
-            "x-rapidapi-key": os.getenv("XRAPID_API_KEY"),
-            "x-rapidapi-host": self.HOST
+            "x-rapidapi-key": settings.XRAPID_API_KEY,
+            "x-rapidapi-host": self.HOST,
         }
 
     def _extract_list(self, data):
         """
-        Robustly extract the exercises list from any common response shape:
-          - plain list:                       [...]
-          - { "data": [...] }
-          - { "exercises": [...] }
-          - { "data": { "exercises": [...] } }
-          - { "data": { "data": [...] } }
+        The external API returns exercises in different shapes depending
+        on the endpoint. This normalizes all of them into a plain list.
         """
         if isinstance(data, dict):
             for key in ("data", "exercises", "items", "results", "body"):
@@ -39,6 +34,7 @@ class ExerciseClient:
         return []
 
     def get_exercises(self, body_part: str = None, limit: int = 10):
+        """Fetch exercises from the API, optionally filtered by body part."""
         url = f"{self.BASE_URL}/exercises"
         params = {"limit": 50}
         response = httpx.get(url, headers=self.headers, params=params)
@@ -55,18 +51,20 @@ class ExerciseClient:
         return all_exercises[:limit]
 
     def get_exercise_by_id(self, exercise_id: str):
+        """Fetch a single exercise by its API ID."""
         url = f"{self.BASE_URL}/exercises/{exercise_id}"
         response = httpx.get(url, headers=self.headers)
         return response.json()
 
     def find_exercise_by_name(self, exercise_name: str):
+        """Search for an exercise by name. Tries exact match first, then partial."""
         normalized_name = exercise_name.strip().lower()
         url = f"{self.BASE_URL}/exercises"
 
         response = httpx.get(
             url,
             headers=self.headers,
-            params={"name": exercise_name, "limit": 50}
+            params={"name": exercise_name, "limit": 50},
         )
         data = response.json()
 
