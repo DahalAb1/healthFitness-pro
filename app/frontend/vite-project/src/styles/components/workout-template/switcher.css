@@ -1,0 +1,32 @@
+.wt-hub-controls {
+  padding: 20px 10%;
+  text-align: center;
+  margin-top: -40px;
+  position: relative;
+  z-index: 10;
+}
+
+.wt-view-switcher {
+  display: inline-flex;
+  background: var(--surface);
+  padding: 6px;
+  border-radius: 50px;
+  border: 1px solid var(--border);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.wt-switch-btn {
+  padding: 12px 35px;
+  border-radius: 50px;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.wt-switch-btn.active {
+  background: var(--accent);
+  color: white;
+}

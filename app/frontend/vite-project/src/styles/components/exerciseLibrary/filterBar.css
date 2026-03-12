@@ -1,0 +1,42 @@
+/* ---------- FILTER BAR ---------- */
+.el-filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  padding: 28px 5%;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+
+.el-filter-btn {
+  padding: 8px 22px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border: 1px solid var(--border);
+  border-radius: 50px;
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+}
+
+.el-filter-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.el-filter-btn.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  .el-filter-bar {
+    gap: 8px;
+    padding: 20px 4%;
+  }
+}
