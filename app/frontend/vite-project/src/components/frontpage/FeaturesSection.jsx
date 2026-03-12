@@ -18,6 +18,17 @@ const features = [
     imageAlt: 'Workout Templates',
   },
   {
+    id: 'workout-templates',
+    title: 'Workout Templates',
+    description:
+      'Create and customize your own workout templates. Our intuitive interface allows you to quickly set up routines tailored to your fitness goals.' +
+      'Or choose from our expertly crafted library of templates designed by fitness professionals.',
+    btnText: 'Create a Template Or Choose from Library',
+    btnHref: '/workout-template',
+    image: fitness6,
+    imageAlt: 'Workout Templates',
+  },
+  {
     id: 'workout-tracking',
     title: 'Workout Tracking',
     description:
