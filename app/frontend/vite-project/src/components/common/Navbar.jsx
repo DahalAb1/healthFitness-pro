@@ -1,7 +1,7 @@
 function Navbar() {
   return (
     <nav className="navbar">
-      <a href="#" className="logo-container">
+      <a href="/" className="logo-container">
         <img src="coverphoto.jpg" alt="Logo" className="logo-img" />
         <span className="logo-text">Health Fitness Pro</span>
       </a>

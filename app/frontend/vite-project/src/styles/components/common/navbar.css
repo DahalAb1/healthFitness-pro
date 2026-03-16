@@ -49,3 +49,21 @@
   display: flex;
   gap: 10px;
 }
+
+.nav-auth .btn {
+  padding: 8px 14px;
+  font-size: 12px;
+  border-radius: 7px;
+  letter-spacing: 0.2px;
+}
+
+@media (max-width: 900px) {
+  .nav-auth {
+    gap: 6px;
+  }
+
+  .nav-auth .btn {
+    padding: 7px 10px;
+    font-size: 11px;
+  }
+}
