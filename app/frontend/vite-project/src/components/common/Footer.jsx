@@ -17,6 +17,7 @@ function Footer() {
           <h4>Product</h4>
           <ul>
             <li><a href="#workout">Workouts</a></li>
+            <li><a href="#templates">Workouts</a></li>
             <li><a href="#running">Running</a></li>
             <li><a href="#nutrition">Nutrition</a></li>
             <li><a href="exercise-library.html">Library</a></li>

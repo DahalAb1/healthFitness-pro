@@ -8,6 +8,7 @@ function Navbar() {
 
       <ul className="nav-links">
         <li><a href="#workout">Workout</a></li>
+        <li><a href="/workout-template">Templates</a></li>
         <li><a href="#running">Running</a></li>
         <li><a href="#nutrition">Nutrition</a></li>
         <li><a href="#library">Library</a></li>
