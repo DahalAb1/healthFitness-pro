@@ -35,3 +35,17 @@ class WorkoutTemplate(SQLModel, table=True):
         back_populates="template",
         cascade_delete=True,
     )
+
+
+# --- Request schemas ---
+
+class TemplateExerciseCreate(SQLModel):
+    exercise_id: str
+    target_sets: int
+    target_reps: int
+
+
+class TemplateCreate(SQLModel):
+    name: str
+    description: str | None = None
+    exercises: list[TemplateExerciseCreate]
