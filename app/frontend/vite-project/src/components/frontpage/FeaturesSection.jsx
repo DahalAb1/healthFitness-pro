@@ -1,24 +1,29 @@
-const features = [
+import fitness6 from '../../assets/fitness6.jpg';
+import fitness4 from '../../assets/fitness4.jpg';
+import running from '../../assets/running.jpg';
+import nutrition from '../../assets/nutrition.webp';
+import library from '../../assets/library.jpg';
 
-   {
-    id: 'workout',
+const features = [
+  {
+    id: 'workout-templates',
     title: 'Workout Templates',
     description:
       'Create and customize your own workout templates. Our intuitive interface allows you to quickly set up routines tailored to your fitness goals.' +
       'Or choose from our expertly crafted library of templates designed by fitness professionals.',
     btnText: 'Create a Template Or Choose from Library',
     btnHref: '/workout-template',
-    image: 'fitness6.jpg',
+    image: fitness6,
     imageAlt: 'Workout Templates',
   },
   {
-    id: 'workout',
+    id: 'workout-tracking',
     title: 'Workout Tracking',
     description:
       'Log your sets, reps, and weights in seconds. Our high-density interface is designed to maximize focus and minimize screen time during your session.',
     btnText: 'Log a Workout',
     btnHref: '/workout-tracking',
-    image: 'fitness4.jpg',
+    image: fitness4,
     imageAlt: 'Workout Tracking',
   },
   {
@@ -28,7 +33,7 @@ const features = [
       'Track your outdoor routes and indoor treadmill sessions with deep analytics on pace, heart rate zones, and split times.',
     btnText: 'Start Running',
     btnHref: '#',
-    image: 'running.jpg',
+    image: running,
     imageAlt: 'Running Stats',
   },
   {
@@ -38,7 +43,7 @@ const features = [
       'Fuel your body with precision. Create custom meal plans and track your macros with our comprehensive nutritional database.',
     btnText: 'Track Nutrition',
     btnHref: '#',
-    image: 'nutrition.webp',
+    image: nutrition,
     imageAlt: 'Nutrition Tracking',
   },
   {
@@ -48,7 +53,7 @@ const features = [
       'Master your form with our vast library of exercises. Each entry includes detailed targeting guides and muscle group breakdowns.',
     btnText: 'Browse Exercises',
     btnHref: 'exercise-library.html',
-    image: 'library.jpg',
+    image: library,
     imageAlt: 'Exercise Library',
   },
 ];
