@@ -1,3 +1,5 @@
+"""Application entry point – creates the FastAPI app, wires middleware and routes."""
+
 import sys
 import os
 sys.path.insert(0, os.path.dirname(__file__))
@@ -13,7 +15,7 @@ from services.template_service import seed_templates
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Runs once on startup: create tables and seed default data
+    """Startup hook: create DB tables and seed default templates."""
     create_db_and_tables()
     with Session(engine) as session:
         seed_templates(session)
