@@ -1,8 +1,5 @@
 import httpx
-import os
-from dotenv import load_dotenv
-
-load_dotenv()
+from core.config import settings
 
 
 class ExerciseClient:
@@ -11,18 +8,14 @@ class ExerciseClient:
 
     def __init__(self):
         self.headers = {
-            "x-rapidapi-key": os.getenv("XRAPID_API_KEY"),
-            "x-rapidapi-host": self.HOST
+            "x-rapidapi-key": settings.XRAPID_API_KEY,
+            "x-rapidapi-host": self.HOST,
         }
 
     def _extract_list(self, data):
         """
-        Robustly extract the exercises list from any common response shape:
-          - plain list:                       [...]
-          - { "data": [...] }
-          - { "exercises": [...] }
-          - { "data": { "exercises": [...] } }
-          - { "data": { "data": [...] } }
+        The external API returns exercises in different shapes depending
+        on the endpoint. This normalizes all of them into a plain list.
         """
         if isinstance(data, dict):
             for key in ("data", "exercises", "items", "results", "body"):
@@ -66,7 +59,7 @@ class ExerciseClient:
         response = httpx.get(
             url,
             headers=self.headers,
-            params={"name": exercise_name, "limit": 50}
+            params={"name": exercise_name, "limit": 50},
         )
         data = response.json()
 
