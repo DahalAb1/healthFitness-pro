@@ -22,6 +22,7 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(lifespan=lifespan)
 
+# change allow_origins=["*"], when we are ready to move to production. 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
