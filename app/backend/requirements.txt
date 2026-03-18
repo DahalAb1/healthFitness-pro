@@ -6,4 +6,5 @@ sqlalchemy
 sqlmodel
 pydantic-settings
 alembic
+psycopg2-binary
 pytest
