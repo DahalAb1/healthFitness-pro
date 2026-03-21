@@ -11,7 +11,7 @@ function Navbar() {
         <li><a href="/workout-template">Templates</a></li>
         <li><a href="#running">Running</a></li>
         <li><a href="#nutrition">Nutrition</a></li>
-        <li><a href="#library">Library</a></li>
+        <li><a href="/exercise-library">Library</a></li>
       </ul>
 
       <div className="nav-auth">
