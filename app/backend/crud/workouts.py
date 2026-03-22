@@ -1,3 +1,5 @@
+"""CRUD operations for workout sessions and exercises."""
+
 from datetime import date
 from sqlmodel import Session, select
 from models.workout import WorkoutSession, WorkoutExercise, ExerciseLogEntry
@@ -46,10 +48,12 @@ def append_exercises(
 
 
 def get_by_id(session: Session, workout_id: int) -> WorkoutSession | None:
+    """Fetch a single workout session by primary key."""
     return session.get(WorkoutSession, workout_id)
 
 
 def list_sessions(session: Session, user_id: int | None = None) -> list[WorkoutSession]:
+    """Return all workout sessions, optionally filtered by user ID."""
     query = select(WorkoutSession).order_by(WorkoutSession.workout_date, WorkoutSession.id)
     if user_id is not None:
         query = query.where(WorkoutSession.user_id == user_id)
@@ -57,6 +61,7 @@ def list_sessions(session: Session, user_id: int | None = None) -> list[WorkoutS
 
 
 def get_by_date(session: Session, user_id: int, workout_date: date) -> WorkoutSession | None:
+    """Find the most recent workout session for a user on a given date."""
     query = (
         select(WorkoutSession)
         .where(WorkoutSession.user_id == user_id, WorkoutSession.workout_date == workout_date)
