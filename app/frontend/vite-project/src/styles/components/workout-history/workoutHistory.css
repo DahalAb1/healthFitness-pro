@@ -1,0 +1,196 @@
+/* ===== WORKOUT HISTORY PAGE ===== */
+
+.workout-history-main {
+  background: #0F0F0F;
+  min-height: 100vh;
+  color: #FFFFFF;
+}
+
+/* --- HERO --- */
+.feature-hero {
+  position: relative;
+  padding: 80px 10%;
+  text-align: center;
+  background: linear-gradient(rgba(15, 15, 15, 0.8), rgba(15, 15, 15, 1));
+  background-size: cover;
+  background-position: center;
+  border-bottom: 1px solid #333333;
+}
+
+.workout-history-heading {
+  font-size: 2.8rem;
+  letter-spacing: -2px;
+  margin-bottom: 10px;
+  font-weight: 900;
+}
+
+.workout-history-description {
+  color: #A0A0A0;
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* --- CALENDAR --- */
+.calendar-page {
+  max-width: 1100px;
+  margin: -40px auto 40px;
+  background: #1A1A1A;
+  border: 1px solid #333333;
+  border-radius: 12px;
+  padding: 30px;
+  position: relative;
+  z-index: 10;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+
+.month-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.month-nav h2 {
+  font-size: 1.5rem;
+  color: #4A90FF;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.month-nav button {
+  background: #222;
+  border: 1px solid #333333;
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.2s;
+}
+
+.month-nav button:hover {
+  border-color: #4A90FF;
+}
+
+.month-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+}
+
+.day-header {
+  font-size: 11px;
+  font-weight: 800;
+  color: #A0A0A0;
+  text-transform: uppercase;
+  text-align: center;
+  padding-bottom: 15px;
+}
+
+.calendar-day {
+  aspect-ratio: 1;
+  background: #111;
+  border: 1px solid #333333;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+.calendar-day:hover:not(.empty) {
+  border-color: #4A90FF;
+  background: #1a1a1a;
+}
+
+.calendar-day.selected {
+  border-color: #4A90FF;
+  background: rgba(74, 144, 255, 0.1);
+  color: #4A90FF;
+  font-weight: 700;
+}
+
+.calendar-day.empty {
+  background: transparent;
+  border: none;
+  cursor: default;
+}
+
+/* --- SELECTED DAY --- */
+.selected-day {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #333333;
+}
+
+.selected-date-header {
+  font-size: 1.1rem;
+  color: #4A90FF;
+}
+
+.workout-details {
+  margin-top: 10px;
+  color: #A0A0A0;
+  font-size: 14px;
+}
+
+/* --- PROGRESS TRACKER --- */
+.progress-tracker {
+  max-width: 1100px;
+  margin: 0 auto 100px;
+  padding: 40px;
+  background: #1A1A1A;
+  border: 1px solid #333333;
+  border-radius: 12px;
+}
+
+.progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.progress-header h2 {
+  font-size: 1.4rem;
+}
+
+.time-filters {
+  display: flex;
+  gap: 5px;
+  background: #0F0F0F;
+  padding: 5px;
+  border-radius: 10px;
+  border: 1px solid #333333;
+}
+
+.filter-btn {
+  background: transparent;
+  border: none;
+  color: #A0A0A0;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: 0.2s;
+}
+
+.filter-btn.active {
+  background: #4A90FF;
+  color: white;
+}
+
+.chart-container {
+  width: 100%;
+  height: 400px;
+  background: #0F0F0F;
+  border-radius: 8px;
+  padding: 20px;
+  border: 1px solid #333333;
+}
