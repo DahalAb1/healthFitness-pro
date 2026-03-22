@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { getWorkoutByDate } from '../../utils/api';
 
 const MONTH_NAMES = [
   'January', 'February', 'March', 'April', 'May', 'June',
@@ -9,12 +10,20 @@ const DAY_LABELS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 function WorkoutCalendar() {
   const [viewDate, setViewDate] = useState(new Date());
   const [selectedDay, setSelectedDay] = useState(null);
+  const [workout, setWorkout] = useState(null);
 
   const changeMonth = (offset) => {
     const d = new Date(viewDate);
     d.setMonth(d.getMonth() + offset);
     setViewDate(d);
     setSelectedDay(null);
+    setWorkout(null);
+  };
+
+  const handleDayClick = (day) => {
+    setSelectedDay(day);
+    const date = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+    getWorkoutByDate(1, date).then((data) => setWorkout(data)).catch(() => setWorkout(null));
   };
 
   const month = viewDate.getMonth();
@@ -43,7 +52,7 @@ function WorkoutCalendar() {
             <div
               key={day}
               className={`calendar-day${selectedDay === day ? ' selected' : ''}`}
-              onClick={() => setSelectedDay(day)}
+              onClick={() => handleDayClick(day)}
             >
               {day}
             </div>
@@ -58,7 +67,9 @@ function WorkoutCalendar() {
             : 'Select a date'}
         </h3>
         <div className="workout-details">
-          No workout recorded for this date.
+          {workout
+            ? `Duration: ${workout.duration_minutes} min`
+            : 'No workout recorded for this date.'}
         </div>
       </section>
     </div>
