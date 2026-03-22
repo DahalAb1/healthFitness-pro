@@ -1,7 +1,32 @@
 
 
 <!--mockup of the workout timer make sure to integrate into the existing design system 
-and imporove on it if you want.
+and improve on it if you want.
+-->
+
+<!--
+some more important information:
+The Workout Timer is a high-intensity interval training (HIIT) tool designed for mobile-responsive performance.
+
+Key Features
+Three-Variable Configuration: Users can define Work duration, Rest duration, and the total number of Rounds.
+
+Visual Phase Indicators:
+
+Work Phase: Circle progress turns Green.
+
+Rest Phase: Circle progress turns Blue (Accent).
+
+Routine Persistence: A "Saved Routines" section allows users to store specific interval configurations 
+(e.g., "20/10 x 8") as clickable pills for instant loading.
+
+Technical Implementation
+Timer Logic: Employs setInterval to decrement timeLeft. 
+It automatically toggles the isWorkPhase boolean and increments the currentRound when the timer hits zero.
+
+SVG Synchronization: The updateUI() function syncs the timer's digital readout with the SVG circle's visual stroke, 
+ensuring the progress ring matches the remaining time linearly.
+
 -->
 
 <!DOCTYPE html>
