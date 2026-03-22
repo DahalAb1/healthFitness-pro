@@ -46,7 +46,7 @@ function CustomCreatorView() {
       user_id: 1,
       name: trimmedName,
       notes,
-      exercises: rows.map((row) => ({ name: row.exercise, sets: row.sets, reps: row.reps })),
+      exercises: rows.map((row) => ({ exercise_name: row.exercise, sets: row.sets, reps: row.reps })),
     }).then((saved) => {
       setSavedWorkouts((prev) => [...prev, saved]);
     });
