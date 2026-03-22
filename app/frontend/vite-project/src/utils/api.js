@@ -33,8 +33,3 @@ export async function postUserWorkout(data) {
   })
   return res.json()
 }
-
-export async function getProgress(userId, exerciseName) {
-  const res = await fetch(`${BASE_URL}/progress/weights?user_id=${userId}&exercise_name=${exerciseName}`)
-  return res.json()
-}
