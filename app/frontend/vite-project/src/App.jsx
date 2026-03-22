@@ -1,5 +1,6 @@
 import FrontPage from './pages/FrontPage';
 import WorkoutTemplatePage from './pages/WorkoutTemplatePage';
+import WorkoutHistoryPage from './pages/WorkoutHistoryPage';
 import ExerciseLibraryPage from './pages/ExerciseLibraryPage';
 
 function App() {
@@ -7,6 +8,10 @@ function App() {
 
   if (path === '/workout-template') {
     return <WorkoutTemplatePage />;
+  }
+
+  if (path === '/workout-history') {
+    return <WorkoutHistoryPage />;
   }
 
   if (path === '/exercise-library') {

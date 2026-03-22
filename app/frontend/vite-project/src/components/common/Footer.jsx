@@ -1,10 +1,12 @@
+import coverphoto from '../../assets/coverphoto.jpg';
+
 function Footer() {
   return (
     <footer className="footer">
       <div className="footer-grid">
         <div className="footer-brand">
           <a href="#" className="logo-container">
-            <img src="coverphoto.jpg" alt="Logo" className="logo-img" />
+            <img src={coverphoto} alt="Logo" className="logo-img" />
             <span className="logo-text">Health Fitness Pro</span>
           </a>
           <p>

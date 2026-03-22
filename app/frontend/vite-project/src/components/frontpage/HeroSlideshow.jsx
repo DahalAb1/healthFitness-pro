@@ -1,9 +1,13 @@
+
 import { useState, useEffect } from 'react';
+import fitness1 from '../../assets/fitness1.jpg';
+import fitness2 from '../../assets/fitness2.webp';
+import fitness3 from '../../assets/fitness 3.jpg';
 
 const slides = [
-  { src: 'fitness1.jpg', alt: 'Hero 1' },
-  { src: 'fitness2.webp', alt: 'Hero 2' },
-  { src: 'fitness 3.jpg', alt: 'Hero 3' },
+  { src: fitness1, alt: 'Hero 1' },
+  { src: fitness2, alt: 'Hero 2' },
+  { src: fitness3, alt: 'Hero 3' },
 ];
 
 function HeroSlideshow() {
