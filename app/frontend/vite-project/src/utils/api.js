@@ -1,4 +1,6 @@
-const BASE_URL = "http://localhost:8000"
+// import.meta.env is Vite's way of reading environment variables from the .env file.
+// The file now reads the backend URL from the .env file instead of having it hardcoded.
+const BASE_URL = import.meta.env.VITE_API_URL
 
 export async function getExercises(bodyPart) {
   const url = bodyPart && bodyPart !== "ALL"
