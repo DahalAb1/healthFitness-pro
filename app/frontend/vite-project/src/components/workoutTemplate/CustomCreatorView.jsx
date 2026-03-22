@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { postUserWorkout, getUserWorkouts } from '../../utils/api';
 
 function createEmptyRow() {
   return {
@@ -15,6 +16,10 @@ function CustomCreatorView() {
   const [notes, setNotes] = useState('');
   const [rows, setRows] = useState([createEmptyRow()]);
   const [savedWorkouts, setSavedWorkouts] = useState([]);
+
+  useEffect(() => {
+    getUserWorkouts(1).then((data) => setSavedWorkouts(data));
+  }, []);
 
   function addRow() {
     setRows((prev) => [...prev, createEmptyRow()]);
@@ -37,14 +42,14 @@ function CustomCreatorView() {
       return;
     }
 
-    setSavedWorkouts((prev) => [
-      ...prev,
-      {
-        id: crypto.randomUUID(),
-        name: trimmedName,
-        exerciseCount: rows.length,
-      },
-    ]);
+    postUserWorkout({
+      user_id: 1,
+      name: trimmedName,
+      notes,
+      exercises: rows.map((row) => ({ name: row.exercise, sets: row.sets, reps: row.reps })),
+    }).then((saved) => {
+      setSavedWorkouts((prev) => [...prev, saved]);
+    });
 
     setWorkoutName('');
     setNotes('');
