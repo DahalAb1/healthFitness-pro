@@ -60,3 +60,27 @@ class CustomWorkoutCreate(SQLModel):
     difficulty: str | None = None
     duration_minutes: int | None = None
     exercises: list[CustomWorkoutExerciseCreate]
+
+
+# --- Response schemas (include nested exercises) ---
+
+class CustomWorkoutExerciseRead(SQLModel):
+    """Exercise fields returned to the client."""
+    id: int
+    exercise_id: str | None = None
+    exercise_name: str
+    sets: int
+    reps: int
+    weight: float | None = None
+
+
+class CustomWorkoutRead(SQLModel):
+    """Custom workout with its exercises included."""
+    id: int
+    user_id: int
+    name: str
+    main_muscle: str | None = None
+    difficulty: str | None = None
+    duration_minutes: int | None = None
+    created_at: datetime | None = None
+    exercises: list[CustomWorkoutExerciseRead] = []
