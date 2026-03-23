@@ -65,3 +65,11 @@ export async function getWorkouts(userId) {
   const res = await fetch(`${BASE_URL}/workouts?user_id=${userId}`);
   return res.json();
 }
+
+export async function getProgressWeights(userId, exerciseName) {
+  const res = await fetch(
+    `${BASE_URL}/progress/weights?user_id=${userId}&exercise_name=${encodeURIComponent(exerciseName)}`
+  );
+  if (!res.ok) throw new Error('No data found');
+  return res.json();
+}
