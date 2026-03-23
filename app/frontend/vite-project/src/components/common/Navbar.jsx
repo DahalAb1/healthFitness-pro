@@ -1,24 +1,26 @@
+import { Link, NavLink } from 'react-router-dom';
 import coverphoto from '../../assets/coverphoto.jpg';
 
 function Navbar() {
   return (
     <nav className="navbar">
-      <a href="/" className="logo-container">
+      <Link to="/" className="logo-container">
         <img src={coverphoto} alt="Logo" className="logo-img" />
         <span className="logo-text">Health Fitness Pro</span>
-      </a>
+      </Link>
 
       <ul className="nav-links">
-        <li><a href="#workout">Workout</a></li>
-        <li><a href="/workout-template">Templates</a></li>
-        <li><a href="#running">Running</a></li>
-        <li><a href="#nutrition">Nutrition</a></li>
-        <li><a href="/exercise-library">Library</a></li>
+        <li><Link to="/#workout-templates">Workout</Link></li>
+        <li><NavLink to="/workout-template">Templates</NavLink></li>
+        <li><Link to="/#running">Running</Link></li>
+        <li><Link to="/#nutrition">Nutrition</Link></li>
+        <li><NavLink to="/exercise-library">Library</NavLink></li>
+        <li><NavLink to="/workout-history">History</NavLink></li>
       </ul>
 
       <div className="nav-auth">
-        <a href="login.html" className="btn">LOGIN</a>
-        <a href="signup.html" className="btn">SIGN UP</a>
+        <a href="#" className="btn">LOGIN</a>
+        <a href="#" className="btn">SIGN UP</a>
       </div>
     </nav>
   );
