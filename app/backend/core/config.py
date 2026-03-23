@@ -14,7 +14,7 @@ class Settings(BaseSettings):
 
     # Each field maps to an env var by name. Pydantic validates the type
     # and uses the default if the env var is missing.
-    DATABASE_URL: str = "sqlite:///./app.db"
+    DATABASE_URL: str
     XRAPID_API_KEY: str = ""
 
 
