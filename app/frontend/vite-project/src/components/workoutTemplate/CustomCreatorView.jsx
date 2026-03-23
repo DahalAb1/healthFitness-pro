@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { postUserWorkout, getUserWorkouts } from '../../utils/api';
+import { postUserWorkout, getUserWorkouts, deleteUserWorkout, getExercises } from '../../utils/api';
 
 function createEmptyRow() {
   return {
@@ -13,7 +13,6 @@ function createEmptyRow() {
 
 function CustomCreatorView() {
   const [workoutName, setWorkoutName] = useState('');
-  const [notes, setNotes] = useState('');
   const [rows, setRows] = useState([createEmptyRow()]);
   const [savedWorkouts, setSavedWorkouts] = useState([]);
 
@@ -45,14 +44,13 @@ function CustomCreatorView() {
     postUserWorkout({
       user_id: 1,
       name: trimmedName,
-      notes,
+      exercises: rows.map((row) => ({
       exercises: rows.map((row) => ({ exercise_name: row.exercise, sets: row.sets, reps: row.reps })),
     }).then((saved) => {
       setSavedWorkouts((prev) => [...prev, saved]);
     });
 
     setWorkoutName('');
-    setNotes('');
     setRows([createEmptyRow()]);
   }
 
@@ -69,16 +67,6 @@ function CustomCreatorView() {
             value={workoutName}
             placeholder="e.g. Hypertrophy Upper Body"
             onChange={(event) => setWorkoutName(event.target.value)}
-          />
-        </div>
-
-        <div className="wt-input-group">
-          <label htmlFor="workoutNotes">NOTES</label>
-          <textarea
-            id="workoutNotes"
-            value={notes}
-            placeholder="Add optional notes for this workout..."
-            onChange={(event) => setNotes(event.target.value)}
           />
         </div>
 
