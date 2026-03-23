@@ -68,3 +68,21 @@ class WorkoutCreate(SQLModel):
     workout_date: date
     duration_minutes: int = Field(ge=1, le=600)
     exercises: list[ExerciseLogEntry] = Field(min_length=1)
+
+
+# --- Read schemas (include relationship fields for API serialization) ---
+
+class WorkoutExerciseRead(SQLModel):
+    id: int
+    exercise_name: str
+    sets: int
+    reps: int
+    weight: float
+
+
+class WorkoutSessionRead(SQLModel):
+    id: int
+    user_id: int
+    workout_date: date
+    duration_minutes: int
+    exercises: list[WorkoutExerciseRead] = []

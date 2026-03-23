@@ -5,7 +5,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlmodel import Session
 from api.deps import get_session
 from crud import workouts as workouts_crud
-from models.workout import WorkoutCreate, WorkoutSessionStart, ExerciseLogCreate
+from models.workout import WorkoutCreate, WorkoutSessionStart, ExerciseLogCreate, WorkoutSessionRead
 
 router = APIRouter()
 
@@ -30,7 +30,7 @@ def log_exercises(workout_id: int, payload: ExerciseLogCreate, session: Session 
         raise HTTPException(status_code=404, detail="Workout not found")
 
 
-@router.get("/workouts/details")
+@router.get("/workouts/details", response_model=WorkoutSessionRead)
 def get_workout_details_by_date(user_id: int, workout_date: date, session: Session = Depends(get_session)):
     """Look up a workout by user and date. Returns 404 if none exists."""
     workout = workouts_crud.get_by_date(session, user_id, workout_date)

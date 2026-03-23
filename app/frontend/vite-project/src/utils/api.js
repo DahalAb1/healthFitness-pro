@@ -60,3 +60,8 @@ export async function logWorkout(data) {
   });
   return res.json();
 }
+
+export async function getWorkouts(userId) {
+  const res = await fetch(`${BASE_URL}/workouts?user_id=${userId}`);
+  return res.json();
+}
