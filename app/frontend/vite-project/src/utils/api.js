@@ -21,6 +21,11 @@ export async function getTemplates() {
   return res.json()
 }
 
+export async function getTemplateExercises(templateId) {
+  const res = await fetch(`${BASE_URL}/templates/${templateId}/exercises`)
+  return res.json()
+}
+
 export async function getWorkoutByDate(userId, date) {
   const res = await fetch(`${BASE_URL}/workouts/details?user_id=${userId}&workout_date=${date}`)
   return res.json()
