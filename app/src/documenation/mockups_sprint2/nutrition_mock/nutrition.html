@@ -1,3 +1,69 @@
+<!--
+
+
+
+## 1. System Overview
+The **Nutrition Hub** is a client-side web application designed for real-time nutrition tracking. It allows users to set daily caloric goals, search a food database, and organize their intake into specific meal categories using an interactive drag-and-drop interface.
+
+## 3. UI Components
+
+### 3.2 Sidebar (Control Panel)
+The sidebar serves as the configuration and data entry zone:
+Calorie Gauge:** An SVG-based circular progress bar. It visually represents the percentage of the goal reached. The center text displays the absolute value of calories remaining or exceeded.
+Goal Setting:** A numeric input field (`#goalInput`) that allows users to redefine their daily target. Changing this value triggers a recalculation of the entire UI.
+Food Search:** A text input that filters the `DB` array in real-time. Results appear as "draggable" cards.
+Quick Custom Log:** A utility to add new items to the session database without pre-defining them in the code.
+
+### 3.3 Main Log (Drop Zones)
+The workspace is divided into four functional meal sections:
+1.  **Breakfast**
+2.  **Lunch**
+3.  **Dinner**
+4.  **Misc / Snacks** (Added for flexible logging)
+
+Each section includes a **Meal Header** showing the sub-total for that specific category and a **Drop Zone** that accepts food items.
+
+---
+
+## 4. Key Functional Logic
+
+### 4.1 Drag-and-Drop Workflow
+The application utilizes the HTML5 Drag and Drop API:
+`onDrag`**: Packages the food item’s name and calorie count into a JSON string within the `dataTransfer` object.
+`hOver` / `hLeave`**: Provides visual feedback (border highlights) when a user hovers a food item over a valid meal section.
+`hDrop`**: Parses the JSON data, creates a new `.logged-item` element, and appends it to the specific meal's list.
+
+### 4.2 Calculation Engine (`calculate()`)
+This is the core logic function triggered by adding an item, removing an item, or changing the calorie goal.
+1.  **Iteration:** It loops through all four meal IDs (`breakfast`, `lunch`, `dinner`, `misc`).
+2.  **Sub-totaling:** It selects all `.logged-item` elements within those sections and sums their `data-kcal` attributes.
+3.  **UI Updates:** * Updates the specific meal kcal display.
+    * Updates the global "Today" pill.
+    * Updates the Gauge text (Remaining vs. Exceeded).
+4.  **Gauge Rendering:** Calculates the CSS `strokeDashoffset` for the SVG circle based on the percentage of `total / goal`.
+
+### 4.3 Item Removal
+Each logged item features a "✕" button. Clicking this removes the element from the DOM and immediately re-runs the `calculate()` function to ensure the gauge and totals stay accurate.
+
+
+
+## 5. Design Specifications
+Color Palette:** A "Dark Mode" aesthetic using deep grays (`#0F0F0F`, `#1A1A1A`) and high-contrast accent colors (Blue for progress, Green for success, Red for warnings).
+Typography:** Uses a system-serif stack for high readability and a clean, modern look.
+Responsiveness:** The layout uses a CSS Grid that collapses from a two-column view to a single-column stack on screens narrower than 900px.
+
+
+
+
+
+-->
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
