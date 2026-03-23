@@ -1,3 +1,5 @@
+import { useState, useEffect, useRef } from 'react';
+
 const testimonials = [
   {
     quote:
@@ -26,15 +28,37 @@ const testimonials = [
 ];
 
 function TestimonialsSection() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const scrollRef = useRef(null);
+
+  useEffect(() => {
+    const container = scrollRef.current;
+    if (!container) return;
+    const handleScroll = () => {
+      const cardWidth = container.scrollWidth / testimonials.length;
+      const index = Math.round(container.scrollLeft / cardWidth);
+      setActiveIndex(Math.min(index, testimonials.length - 1));
+    };
+    container.addEventListener('scroll', handleScroll, { passive: true });
+    return () => container.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToCard = (index) => {
+    const container = scrollRef.current;
+    if (!container) return;
+    const cardWidth = container.scrollWidth / testimonials.length;
+    container.scrollTo({ left: cardWidth * index, behavior: 'smooth' });
+  };
+
   return (
     <section className="mission-intro alt-bg">
       <div className="mission-container">
         <p className="tagline mission-tagline">Success Stories</p>
         <h2 style={{ marginBottom: '40px' }}>Trusted by Athletes</h2>
 
-        <div className="testimonials-scroll" tabIndex={0} aria-label="Testimonials carousel" role="region">
+        <div ref={scrollRef} className="testimonials-scroll" tabIndex={0} aria-label="Testimonials carousel" role="region">
           {testimonials.map((t) => (
-            <div key={t.name} className="testimonial-card" tabIndex={0} style={{scrollSnapAlign: 'center'}}>
+            <div key={t.name} className="testimonial-card" tabIndex={0} style={{ scrollSnapAlign: 'center' }}>
               <p>{t.quote}</p>
               <h4>{t.name}</h4>
               <span>{t.title}</span>
@@ -43,9 +67,14 @@ function TestimonialsSection() {
         </div>
 
         <div className="testimonials-dots">
-          <div className="dot active" />
-          <div className="dot inactive" />
-          <div className="dot inactive" />
+          {testimonials.map((_, i) => (
+            <div
+              key={i}
+              className={`dot ${i === activeIndex ? 'active' : 'inactive'}`}
+              onClick={() => scrollToCard(i)}
+              style={{ cursor: 'pointer' }}
+            />
+          ))}
         </div>
       </div>
     </section>
