@@ -51,3 +51,12 @@ export async function deleteUserWorkout(workoutId, userId) {
   });
   return res.json();
 }
+
+export async function logWorkout(data) {
+  const res = await fetch(`${BASE_URL}/workouts`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  });
+  return res.json();
+}
