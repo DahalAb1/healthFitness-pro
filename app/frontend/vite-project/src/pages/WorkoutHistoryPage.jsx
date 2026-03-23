@@ -13,7 +13,7 @@ function WorkoutHistoryPage() {
       <section className="workout-history-main">
         <WorkoutHistoryHero />
         <WorkoutCalendar />
-        <PerformanceTrends />}
+        <PerformanceTrends />
       </section>
       <Footer />
     </>
