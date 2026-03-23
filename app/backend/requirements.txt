@@ -3,4 +3,12 @@ uvicorn
 httpx
 python-dotenv
 sqlalchemy
+sqlmodel
+pydantic-settings
+alembic
+psycopg2-binary
 pytest
+python-jose[cryptography]
+passlib[bcrypt]
+email-validator
+bcrypt==4.0.1
