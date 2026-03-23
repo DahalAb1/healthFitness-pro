@@ -1,5 +1,6 @@
 """CRUD operations for user-created custom workouts."""
 
+from sqlalchemy.orm import selectinload
 from sqlmodel import Session, select, func
 from models.custom_workout import CustomWorkout, CustomWorkoutExercise, CustomWorkoutCreate
 
@@ -48,13 +49,17 @@ def create(session: Session, data: CustomWorkoutCreate) -> CustomWorkout:
     session.add(workout)
     session.commit()
     session.refresh(workout)
+    # Eagerly load exercises while session is still open
+    _ = workout.exercises
     return workout
 
 
 def list_all(session: Session) -> list[CustomWorkout]:
     """Return all custom workouts ordered by creation date."""
     return session.exec(
-        select(CustomWorkout).order_by(CustomWorkout.created_at)
+        select(CustomWorkout)
+        .options(selectinload(CustomWorkout.exercises))
+        .order_by(CustomWorkout.created_at)
     ).all()
 
 
@@ -62,6 +67,7 @@ def list_by_user(session: Session, user_id: int) -> list[CustomWorkout]:
     """Return all custom workouts belonging to a specific user."""
     return session.exec(
         select(CustomWorkout)
+        .options(selectinload(CustomWorkout.exercises))
         .where(CustomWorkout.user_id == user_id)
         .order_by(CustomWorkout.created_at)
     ).all()
