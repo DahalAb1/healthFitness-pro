@@ -13,13 +13,21 @@ function ExerciseLibraryPage() {
   const [selectedExercise, setSelectedExercise] = useState(null);
   const [exercises, setExercises] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     setLoading(true);
-    getExercises(activeFilter).then((data) => {
-      setExercises(data);
-      setLoading(false);
-    });
+    setError(null);
+    getExercises(activeFilter)
+      .then((data) => {
+        setExercises(data);
+      })
+      .catch(() => {
+        setError('Failed to load exercises. Make sure the backend is running.');
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, [activeFilter]);
 
   return (
@@ -27,11 +35,10 @@ function ExerciseLibraryPage() {
       <Navbar />
       <ExerciseLibraryHero />
       <ExerciseFilterBar activeFilter={activeFilter} onFilterChange={setActiveFilter} />
-      <ExerciseGrid
-        exercises={exercises}
-        loading={loading}
-        onSelectExercise={setSelectedExercise}
-      />
+      {error
+        ? <p style={{ textAlign: 'center', padding: '2rem', color: 'red' }}>{error}</p>
+        : <ExerciseGrid exercises={exercises} loading={loading} onSelectExercise={setSelectedExercise} />
+      }
       <Footer />
       {selectedExercise && (
         <ExerciseModal
