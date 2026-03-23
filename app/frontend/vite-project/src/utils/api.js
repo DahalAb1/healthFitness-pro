@@ -2,12 +2,18 @@
 // The file now reads the backend URL from the .env file instead of having it hardcoded.
 const BASE_URL = import.meta.env.VITE_API_URL
 
+import { BODY_PART_MAP, normalizeExercise, unwrapExerciseList } from './exerciseUtils';
+
 export async function getExercises(bodyPart) {
-  const url = bodyPart && bodyPart !== "ALL"
-    ? `${BASE_URL}/exercises?bodyPart=${bodyPart.toLowerCase()}`
-    : `${BASE_URL}/exercises`
-  const res = await fetch(url)
-  return res.json()
+  const apiBodyPart = bodyPart && bodyPart !== 'ALL'
+    ? (BODY_PART_MAP[bodyPart] ?? bodyPart.toLowerCase())
+    : null;
+  const url = apiBodyPart
+    ? `${BASE_URL}/exercises?bodyPart=${apiBodyPart}`
+    : `${BASE_URL}/exercises`;
+  const res = await fetch(url);
+  const data = await res.json();
+  return unwrapExerciseList(data).map(normalizeExercise);
 }
 
 export async function getTemplates() {
