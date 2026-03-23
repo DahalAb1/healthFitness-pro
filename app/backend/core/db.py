@@ -1,5 +1,6 @@
 from sqlmodel import SQLModel, create_engine
 from core.config import settings
+from models.user import User
 
 # The engine is the connection to the database.
 # It uses DATABASE_URL from our central settings (core/config.py).
