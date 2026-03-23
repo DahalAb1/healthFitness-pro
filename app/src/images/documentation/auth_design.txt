@@ -1,0 +1,100 @@
+USER AUTHENTICATION MODEL DESIGN (FastAPI)
+==========================================
+
+Overview
+--------
+This document describes the planned user authentication model for the workout app.
+The authentication system will allow users to create an account, log in securely,
+and access protected personal account features.
+
+The model will use JWT-based authentication with FastAPI.
+
+User Database Schema
+--------------------
+The user table will store the following fields:
+
+- id
+  Unique identifier for each user.
+
+- email
+  The user's email address. This should be unique for each account.
+
+- hashed_password
+  The user's password stored in hashed form for security.
+  Plaintext passwords will never be stored in the database.
+
+Optional future fields that may be added later:
+- created_at
+- is_active
+
+Authentication Flow
+-------------------
+1. Registration
+   - A new user provides an email and password.
+   - The backend validates the input.
+   - The password is hashed before being stored.
+   - A new user record is created in the database.
+
+2. Login
+   - The user provides their email and password.
+   - The backend finds the matching user by email.
+   - The entered password is checked against the stored hashed password.
+   - If valid, the backend generates a JWT access token.
+   - The token is returned to the frontend.
+
+3. Authenticated Requests
+   - The frontend stores the JWT token after login.
+   - When the user accesses protected account features, the token is sent in
+     the Authorization header as a Bearer token.
+   - The backend verifies the token before allowing access.
+
+JWT Design
+----------
+The app will use JSON Web Tokens (JWT) for authentication.
+
+The JWT will:
+- identify the logged-in user
+- include an expiration time
+- be signed by the backend using a secret key
+
+This allows the backend to verify that requests come from an authenticated user.
+
+Planned API Endpoints
+---------------------
+POST /register
+- Creates a new user account
+- Requires email and password
+
+POST /login
+- Authenticates a user
+- Returns a JWT access token if login is successful
+- Returns an error if credentials are invalid
+
+GET /me
+- Protected route
+- Returns information about the currently authenticated user
+
+Security Notes
+--------------
+- Passwords will not be stored in plaintext.
+- Passwords will be hashed before being saved.
+- Email addresses should be unique.
+- JWT tokens should expire after a set period of time.
+- Protected routes will require a valid Bearer token.
+- The backend secret key should be stored securely.
+
+Why This Model Was Chosen
+-------------------------
+This model was chosen because it is simple, secure, and works well with FastAPI.
+JWT-based authentication is a common approach for web and mobile applications.
+It also supports future expansion of personal account features such as profile
+management, workout history, and saved preferences.
+
+Future Expansion
+----------------
+Possible future improvements include:
+- password reset
+- email verification
+- refresh tokens
+- user profile fields
+- account settings
