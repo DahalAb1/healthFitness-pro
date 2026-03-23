@@ -120,6 +120,34 @@
   cursor: default;
 }
 
+/* Today highlight */
+.calendar-day.today {
+  border-color: #4A90FF;
+  color: #4A90FF;
+  font-weight: 700;
+}
+
+/* Days with logged workouts — dot indicator */
+.calendar-day.has-workout {
+  position: relative;
+}
+
+.calendar-day.has-workout::after {
+  content: '';
+  position: absolute;
+  bottom: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #4A90FF;
+}
+
+.calendar-day.selected.has-workout::after {
+  background: #fff;
+}
+
 /* --- SELECTED DAY --- */
 .selected-day {
   margin-top: 30px;
@@ -132,10 +160,47 @@
   color: #4A90FF;
 }
 
-.workout-details {
-  margin-top: 10px;
-  color: #A0A0A0;
+.workout-duration {
+  color: #ccc;
   font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.workout-placeholder {
+  color: #666;
+  font-size: 14px;
+}
+
+/* Exercise breakdown table */
+.exercise-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  margin-top: 8px;
+}
+
+.exercise-table th {
+  text-align: left;
+  padding: 6px 12px;
+  color: #888;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 11px;
+  border-bottom: 1px solid #333;
+}
+
+.exercise-table td {
+  padding: 8px 12px;
+  color: #ddd;
+  border-bottom: 1px solid #1f1f1f;
+}
+
+.exercise-table tr:last-child td {
+  border-bottom: none;
+}
+
+.exercise-table tr:hover td {
+  background: rgba(74, 144, 255, 0.05);
 }
 
 /* --- PROGRESS TRACKER --- */
