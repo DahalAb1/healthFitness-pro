@@ -258,4 +258,80 @@
   border-radius: 8px;
   padding: 20px;
   border: 1px solid #333333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Exercise name search */
+.trends-search {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.trends-input {
+  flex: 1;
+  background: #111;
+  border: 1px solid #333;
+  border-radius: 8px;
+  color: #fff;
+  padding: 10px 14px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.trends-input:focus {
+  border-color: #4A90FF;
+}
+
+.trends-search-btn {
+  background: #4A90FF;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.trends-search-btn:hover {
+  background: #3a7fd5;
+}
+
+/* Stats row */
+.trends-stats {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 16px;
+  font-size: 13px;
+  color: #888;
+}
+
+.trends-stats strong {
+  color: #ddd;
+}
+
+.stat-up {
+  color: #4caf50;
+  font-weight: 700;
+}
+
+.stat-down {
+  color: #f44336;
+  font-weight: 700;
+}
+
+/* Empty / error state */
+.trends-empty {
+  color: #555;
+  font-size: 14px;
+  text-align: center;
+}
+
+.trends-error {
+  color: #f44336;
 }
