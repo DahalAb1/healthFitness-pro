@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import fitness6 from '../../assets/fitness6.jpg';
 import fitness4 from '../../assets/fitness4.jpg';
 import running from '../../assets/running.jpg';
@@ -22,7 +23,7 @@ const features = [
     description:
       'Log your sets, reps, and weights in seconds. Our high-density interface is designed to maximize focus and minimize screen time during your session.',
     btnText: 'Log a Workout',
-    btnHref: '/workout-tracking',
+    btnHref: '/workout-history',
     image: fitness4,
     imageAlt: 'Workout Tracking',
   },
@@ -52,9 +53,19 @@ const features = [
     description:
       'Master your form with our vast library of exercises. Each entry includes detailed targeting guides and muscle group breakdowns.',
     btnText: 'Browse Exercises',
-    btnHref: 'exercise-library.html',
+    btnHref: '/exercise-library',
     image: library,
     imageAlt: 'Exercise Library',
+  },
+  {
+    id: 'workout-history',
+    title: 'Workout History',
+    description:
+      'Review your past workouts, track your progress over time, and visualize performance trends with interactive charts.',
+    btnText: 'View History',
+    btnHref: '/workout-history',
+    image: fitness4,
+    imageAlt: 'Workout History',
   },
 ];
 
@@ -67,9 +78,11 @@ function FeatureRow({ feature, reverse }) {
       <div className="feature-content">
         <h2>{feature.title}</h2>
         <p>{feature.description}</p>
-        <a href={feature.btnHref} className="btn">
-          {feature.btnText}
-        </a>
+        {feature.btnHref.startsWith('/') ? (
+          <Link to={feature.btnHref} className="btn">{feature.btnText}</Link>
+        ) : (
+          <a href={feature.btnHref} className="btn">{feature.btnText}</a>
+        )}
       </div>
       <div className="feature-image-container">
         <img src={feature.image} alt={feature.imageAlt} />
