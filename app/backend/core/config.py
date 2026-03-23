@@ -17,6 +17,9 @@ class Settings(BaseSettings):
     DATABASE_URL: str = "sqlite:///./app.db"
     XRAPID_API_KEY: str = ""
 
+    SECRET_KEY: str = "change-this-before-production"
+    ALGORITHM: str = "HS256"
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
 
 # Single instance used across the app
 settings = Settings()
