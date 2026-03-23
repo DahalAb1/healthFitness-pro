@@ -38,9 +38,16 @@ export async function getUserWorkouts(userId) {
 
 export async function postUserWorkout(data) {
   const res = await fetch(`${BASE_URL}/user-workouts`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data)
-  })
-  return res.json()
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  });
+  return res.json();
+}
+
+export async function deleteUserWorkout(workoutId, userId) {
+  const res = await fetch(`${BASE_URL}/user-workouts/${workoutId}?user_id=${userId}`, {
+    method: 'DELETE',
+  });
+  return res.json();
 }
