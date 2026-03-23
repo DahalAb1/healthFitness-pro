@@ -188,6 +188,97 @@
   margin-top: auto;
 }
 
+/* ── Set logger ────────────────────────────────────────────────── */
+
+.aw-set-logger {
+  margin-top: 16px;
+  border-top: 1px solid var(--border);
+  padding-top: 14px;
+}
+
+.aw-set-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.aw-set-table th {
+  text-align: center;
+  padding: 4px 6px;
+  color: #666;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+}
+
+.aw-set-table td {
+  text-align: center;
+  padding: 5px 4px;
+}
+
+.aw-set-num {
+  color: #888;
+  font-weight: 700;
+  width: 28px;
+}
+
+.aw-set-target {
+  color: #4caf50;
+  font-weight: 600;
+  width: 48px;
+}
+
+.aw-set-input {
+  width: 64px;
+  background: var(--bg);
+  border: 1px solid #333;
+  border-radius: 6px;
+  color: #fff;
+  padding: 5px 6px;
+  font-size: 13px;
+  text-align: center;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.aw-set-input:focus {
+  border-color: #4a90ff;
+}
+
+.aw-set-input:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.aw-set-check {
+  background: transparent;
+  border: 2px solid #444;
+  color: #666;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+  line-height: 1;
+}
+
+.aw-set-check:hover {
+  border-color: #4caf50;
+  color: #4caf50;
+}
+
+.aw-set-check-done {
+  background: #4caf50;
+  border-color: #4caf50;
+  color: #fff;
+}
+
+.aw-set-row-done td {
+  opacity: 0.5;
+}
+
 /* ── Controls ──────────────────────────────────────────────────── */
 
 .aw-controls {
