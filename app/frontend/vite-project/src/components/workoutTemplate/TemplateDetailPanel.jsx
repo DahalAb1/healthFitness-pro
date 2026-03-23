@@ -1,8 +1,13 @@
+import { useNavigate } from 'react-router-dom';
+
 function TemplateDetailPanel({ template, exercises, loading, onClose }) {
+  const navigate = useNavigate();
+
   function beginWorkout() {
     sessionStorage.setItem('activeWorkoutSource', 'template');
-    sessionStorage.setItem('activeWorkoutId', template.id);
-    window.location.href = `/active-workout?source=template&id=${template.id}`;
+    sessionStorage.setItem('activeWorkoutId', String(template.id));
+    sessionStorage.setItem('activeWorkoutName', template.name);
+    navigate(`/active-workout?source=template&id=${template.id}`);
   }
 
   return (

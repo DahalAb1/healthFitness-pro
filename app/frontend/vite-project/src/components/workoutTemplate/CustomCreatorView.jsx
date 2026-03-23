@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { postUserWorkout, getUserWorkouts, deleteUserWorkout, getExercises } from '../../utils/api';
 
 const BODY_PARTS = ['ALL', 'CHEST', 'BACK', 'SHOULDERS', 'ARMS', 'LEGS', 'ABS', 'CARDIO'];
@@ -15,6 +16,8 @@ function createEmptyRow() {
 }
 
 function CustomCreatorView() {
+  const navigate = useNavigate();
+
   const [workoutName, setWorkoutName] = useState('');
   const [rows, setRows] = useState([createEmptyRow()]);
   const [savedWorkouts, setSavedWorkouts] = useState([]);
@@ -122,7 +125,9 @@ function CustomCreatorView() {
   function handleBegin(workout) {
     sessionStorage.setItem('activeWorkoutSource', 'custom');
     sessionStorage.setItem('activeWorkoutId', String(workout.id));
-    window.location.href = `/active-workout?source=custom&id=${workout.id}`;
+    sessionStorage.setItem('activeWorkoutName', workout.name);
+    sessionStorage.setItem('activeWorkoutExercises', JSON.stringify(workout.exercises || []));
+    navigate(`/active-workout?source=custom&id=${workout.id}`);
   }
 
   const filteredLibrary = libraryItems.filter((ex) =>
