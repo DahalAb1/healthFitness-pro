@@ -10,7 +10,7 @@ class Settings(BaseSettings):
     """
 
     # Tells Pydantic to read values from a .env file (same as load_dotenv)
-    model_config = {"env_file": ".env"}
+    model_config = {"env_file": ".env", "extra": "ignore"}
 
     # Each field maps to an env var by name. Pydantic validates the type
     # and uses the default if the env var is missing.
