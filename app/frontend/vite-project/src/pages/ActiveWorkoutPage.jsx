@@ -4,6 +4,7 @@ import Navbar from '../components/common/Navbar';
 import Footer from '../components/common/Footer';
 import { getTemplateExercises, logWorkout, getExercises } from '../utils/api';
 import ExerciseCard from '../components/activeWorkout/ExerciseCard';
+import RestTimer from '../components/activeWorkout/RestTimer';
 import { normalizeTemplateExercise, normalizeCustomExercise } from '../components/activeWorkout/exerciseNormalizers';
 import '../styles/components/active-workout/active-workout.css';
 
@@ -216,6 +217,8 @@ function ActiveWorkoutPage() {
           <ExerciseCard exercise={exercises[currentIndex + 1]} variant="future" />
         </div>
       </section>
+
+      <RestTimer defaultSeconds={60} />
 
       <div className="aw-controls">
         <button
