@@ -2,6 +2,7 @@
 
 from datetime import date
 from sqlmodel import Session, select
+from sqlalchemy.orm import selectinload
 from models.workout import WorkoutSession, WorkoutExercise, ExerciseLogEntry
 
 
@@ -66,8 +67,12 @@ def get_by_date(session: Session, user_id: int, workout_date: date) -> WorkoutSe
         select(WorkoutSession)
         .where(WorkoutSession.user_id == user_id, WorkoutSession.workout_date == workout_date)
         .order_by(WorkoutSession.id.desc())
+        .options(selectinload(WorkoutSession.exercises))
     )
-    return session.exec(query).first()
+    result = session.exec(query).first()
+    if result:
+        _ = result.exercises  # ensure exercises are loaded before session closes
+    return result
 
 
 def get_weight_progress(

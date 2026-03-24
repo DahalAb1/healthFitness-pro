@@ -1,0 +1,10 @@
+@import './global/global.css';
+@import './global/variables.css';
+@import './global/responsive.css';
+@import './components/common/navbar.css';
+@import './components/frontpage/hero.css';
+@import './components/frontpage/mission.css';
+@import './components/frontpage/testimonials.css';
+@import './components/frontpage/features.css';
+@import './components/common/footer.css';
+@import './components/common/buttons.css';
