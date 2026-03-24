@@ -1,0 +1,10 @@
+/* --- DESIGN STANDARDS CONSTANTS --- */
+:root {
+  --background: #0F0F0F;
+  --surface: #1A1A1A;
+  --border: #333333;
+  --accent: #4A90FF;
+  --text-primary: #FFFFFF;
+  --text-secondary: #A0A0A0;
+  --radius: 12px;
+}

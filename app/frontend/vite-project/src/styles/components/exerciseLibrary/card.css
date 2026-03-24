@@ -1,0 +1,65 @@
+/* ---------- CARD ---------- */
+.el-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+  outline: none;
+}
+
+.el-card:hover,
+.el-card:focus-visible {
+  border-color: var(--accent);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px rgba(74, 144, 255, 0.15);
+}
+
+.el-card-image {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+  background: #111;
+}
+
+.el-card-body {
+  padding: 18px;
+}
+
+.el-card-name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  text-transform: capitalize;
+  line-height: 1.3;
+  margin-bottom: 10px;
+}
+
+/* ---------- BADGES (shared by card and modal) ---------- */
+.el-badges {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.el-badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 50px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: capitalize;
+  letter-spacing: 0.5px;
+}
+
+.el-badge-muscle {
+  background: rgba(74, 144, 255, 0.15);
+  color: var(--accent);
+}
+
+.el-badge-equipment {
+  background: rgba(160, 160, 160, 0.12);
+  color: var(--text-secondary);
+}

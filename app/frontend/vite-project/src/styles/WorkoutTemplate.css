@@ -1,0 +1,9 @@
+@import './global/global.css';
+@import './global/responsive.css';
+@import './components/common/navbar.css';
+@import './components/common/footer.css';
+@import './components/common/buttons.css';
+@import './components/workout-template/hero.css';
+@import './components/workout-template/switcher.css';
+@import './components/workout-template/templates.css';
+@import './components/workout-template/creator.css';
