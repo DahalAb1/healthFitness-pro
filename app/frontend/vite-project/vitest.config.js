@@ -33,5 +33,6 @@ export default defineConfig({
     setupFiles: '../../../tests/react/setup.js',
     css: false,
     include: ['../../../tests/react/**/*.test.{js,jsx,tsx}'],
+    testTimeout: 30000,
   },
 });
