@@ -1,51 +1,28 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState } from 'react';
+import { useRestTimer } from './useRestTimer';
 
-const PRESETS = [30, 60, 120];
-const DEFAULT_DURATION = 60;
+const PRESETS = [30, 60, 90, 120];
 const RADIUS = 54;
 const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
 
-function RestTimer({ onDismiss }) {
-  const [duration, setDuration] = useState(DEFAULT_DURATION);
-  const [timeLeft, setTimeLeft] = useState(DEFAULT_DURATION);
-  const [running, setRunning] = useState(true);
-  const intervalRef = useRef(null);
+function formatTime(secs) {
+  const m = Math.floor(secs / 60);
+  const s = secs % 60;
+  return `${m}:${s.toString().padStart(2, '0')}`;
+}
 
-  useEffect(() => {
-    if (running && timeLeft > 0) {
-      intervalRef.current = setInterval(() => {
-        setTimeLeft((t) => t - 1);
-      }, 1000);
-    } else {
-      clearInterval(intervalRef.current);
-    }
-    return () => clearInterval(intervalRef.current);
-  }, [running, timeLeft]);
+function RestTimer({ defaultSeconds = 60, onDismiss }) {
+  const [duration, setDuration] = useState(defaultSeconds);
+  const { remaining, isRunning, isDone, start, stop } = useRestTimer(onDismiss);
 
-  useEffect(() => {
-    if (timeLeft === 0) setRunning(false);
-  }, [timeLeft]);
+  const timeLeft = remaining !== null ? remaining : duration;
+  const progress = duration > 0 ? timeLeft / duration : 0;
+  const dashOffset = CIRCUMFERENCE * (1 - progress);
 
   function selectPreset(secs) {
     setDuration(secs);
-    setTimeLeft(secs);
-    setRunning(true);
+    start(secs);
   }
-
-  function togglePause() {
-    if (timeLeft === 0) return;
-    setRunning((r) => !r);
-  }
-
-  function reset() {
-    setTimeLeft(duration);
-    setRunning(true);
-  }
-
-  const mins = String(Math.floor(timeLeft / 60)).padStart(2, '0');
-  const secs = String(timeLeft % 60).padStart(2, '0');
-  const progress = timeLeft / duration;
-  const dashOffset = CIRCUMFERENCE * (1 - progress);
 
   return (
     <div className="aw-timer">
@@ -75,14 +52,21 @@ function RestTimer({ onDismiss }) {
             strokeDashoffset={dashOffset}
           />
         </svg>
-        <span className="aw-timer-count">{mins}:{secs}</span>
+        <span className={`aw-timer-count${isDone ? ' aw-timer-count--done' : ''}`}>
+          {formatTime(timeLeft)}
+        </span>
       </div>
 
-      <div className="aw-timer-actions">
-        <button className="aw-timer-btn" onClick={togglePause}>
-          {running ? 'Pause' : timeLeft === 0 ? 'Done' : 'Resume'}
-        </button>
-        <button className="aw-timer-btn" onClick={reset}>Reset</button>
+      {isDone && <p className="aw-timer-done-msg">Rest complete!</p>}
+
+      <div className="aw-timer-controls">
+        {isRunning ? (
+          <button className="aw-btn aw-btn-timer-stop" onClick={stop}>Stop</button>
+        ) : (
+          <button className="aw-btn aw-btn-timer-start" onClick={() => start(duration)}>
+            {isDone ? 'Restart' : 'Start Rest'}
+          </button>
+        )}
         <button className="aw-timer-btn aw-timer-btn-skip" onClick={onDismiss}>Skip</button>
       </div>
     </div>

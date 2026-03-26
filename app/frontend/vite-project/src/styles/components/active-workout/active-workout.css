@@ -366,33 +366,35 @@
   margin: 0 0 16px;
 }
 
+.aw-timer-done-msg {
+  font-size: 13px;
+  color: #4caf50;
+  font-weight: 600;
+  margin: 0 0 12px;
+}
+
 .aw-timer-presets {
   display: flex;
   justify-content: center;
-  gap: 10px;
+  gap: 8px;
   margin-bottom: 20px;
 }
 
 .aw-timer-preset {
-  padding: 6px 18px;
-  font-size: 13px;
-  font-weight: 700;
-  border-radius: 50px;
-  border: 2px solid var(--border);
   background: transparent;
+  border: 1px solid var(--border);
   color: var(--text-secondary);
+  border-radius: 99px;
+  padding: 4px 14px;
+  font-size: 12px;
+  font-weight: 600;
   cursor: pointer;
-  transition: border-color 0.2s, color 0.2s, background 0.2s;
+  transition: border-color 0.2s, color 0.2s;
 }
 
-.aw-timer-preset:hover {
-  border-color: #4caf50;
-  color: #4caf50;
-}
-
+.aw-timer-preset:hover,
 .aw-timer-preset-active {
   border-color: #4caf50;
-  background: rgba(76, 175, 80, 0.12);
   color: #4caf50;
 }
 
@@ -435,10 +437,38 @@
   letter-spacing: 0.02em;
 }
 
-.aw-timer-actions {
+.aw-timer-count--done {
+  color: #4caf50;
+}
+
+.aw-timer-controls {
   display: flex;
   justify-content: center;
   gap: 10px;
+  margin-top: 14px;
+}
+
+.aw-btn-timer-start {
+  background: #4a90ff;
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(74, 144, 255, 0.35);
+}
+
+.aw-btn-timer-start:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(74, 144, 255, 0.45);
+}
+
+.aw-btn-timer-stop {
+  background: transparent;
+  color: #ff6b6b;
+  border: 2px solid rgba(255, 107, 107, 0.4);
+  box-shadow: none;
+}
+
+.aw-btn-timer-stop:hover {
+  background: rgba(255, 107, 107, 0.1);
+  border-color: #ff6b6b;
 }
 
 .aw-timer-btn {
@@ -451,11 +481,6 @@
   color: var(--text-primary);
   cursor: pointer;
   transition: border-color 0.2s, background 0.2s;
-}
-
-.aw-timer-btn:hover {
-  border-color: #4a90ff;
-  color: #4a90ff;
 }
 
 .aw-timer-btn-skip {
