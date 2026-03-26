@@ -497,6 +497,47 @@
   color: #4caf50;
 }
 
+.aw-timer-custom {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.aw-timer-custom-input {
+  width: 100px;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  border: 1px solid var(--border);
+  border-radius: 99px;
+  background: transparent;
+  color: var(--text-primary);
+  text-align: center;
+  outline: none;
+}
+
+.aw-timer-custom-input:focus {
+  border-color: #4caf50;
+}
+
+.aw-timer-custom-btn {
+  padding: 4px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  border: 1px solid var(--border);
+  border-radius: 99px;
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.aw-timer-custom-btn:hover {
+  border-color: #4caf50;
+  color: #4caf50;
+}
+
 /* ── Responsive ────────────────────────────────────────────────── */
 
 @media (max-width: 768px) {
