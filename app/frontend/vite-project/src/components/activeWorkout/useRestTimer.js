@@ -1,7 +1,9 @@
+
 import { useState, useEffect, useRef, useCallback } from 'react';
 
 export function useRestTimer(onComplete) {
   const [remaining, setRemaining] = useState(null); // null = idle
+  const [isRunning, setIsRunning] = useState(false);
   const endTimeRef = useRef(null);
   const intervalRef = useRef(null);
 
@@ -9,14 +11,17 @@ export function useRestTimer(onComplete) {
     clearInterval(intervalRef.current);
     intervalRef.current = null;
     endTimeRef.current = null;
-    setRemaining(null);
+    setIsRunning(false);
+    // remaining is preserved so the user can resume
   }, []);
 
   const start = useCallback(
     (seconds) => {
-      stop();
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
       endTimeRef.current = Date.now() + seconds * 1000;
       setRemaining(seconds);
+      setIsRunning(true);
 
       intervalRef.current = setInterval(() => {
         const left = Math.round((endTimeRef.current - Date.now()) / 1000);
