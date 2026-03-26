@@ -492,6 +492,11 @@
   color: #ff6b6b;
 }
 
+.aw-timer-btn-save:hover {
+  border-color: #4caf50;
+  color: #4caf50;
+}
+
 /* ── Responsive ────────────────────────────────────────────────── */
 
 @media (max-width: 768px) {

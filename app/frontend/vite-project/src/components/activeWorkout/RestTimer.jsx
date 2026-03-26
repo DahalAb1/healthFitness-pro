@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useRestTimer } from './useRestTimer';
-import { getDefaultRest } from '../../utils/timerSettings';
+import { getDefaultRest, saveDefaultRest } from '../../utils/timerSettings';
 
 const PRESETS = [30, 60, 90, 120];
 const RADIUS = 54;
@@ -14,6 +14,7 @@ function formatTime(secs) {
 
 function RestTimer({ onDismiss }) {
   const [duration, setDuration] = useState(getDefaultRest);
+  const [saved, setSaved] = useState(false);
   const { remaining, isRunning, isDone, start, stop } = useRestTimer(onDismiss);
 
   const timeLeft = remaining !== null ? remaining : duration;
@@ -22,7 +23,13 @@ function RestTimer({ onDismiss }) {
 
   function selectPreset(secs) {
     setDuration(secs);
+    setSaved(false);
     start(secs);
+  }
+
+  function handleSaveDefault() {
+    saveDefaultRest(duration);
+    setSaved(true);
   }
 
   return (
@@ -69,6 +76,9 @@ function RestTimer({ onDismiss }) {
           </button>
         )}
         <button className="aw-timer-btn aw-timer-btn-skip" onClick={onDismiss}>Skip</button>
+        <button className="aw-timer-btn aw-timer-btn-save" onClick={handleSaveDefault}>
+          {saved ? 'Saved!' : 'Save as default'}
+        </button>
       </div>
     </div>
   );
