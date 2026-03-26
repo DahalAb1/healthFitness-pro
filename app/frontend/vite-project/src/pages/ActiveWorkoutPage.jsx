@@ -1,14 +1,17 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/common/Navbar';
 import Footer from '../components/common/Footer';
 import ExerciseCard from '../components/activeWorkout/ExerciseCard';
 import WorkoutHeader from '../components/activeWorkout/WorkoutHeader';
 import WorkoutControls from '../components/activeWorkout/WorkoutControls';
+import RestTimer from '../components/activeWorkout/RestTimer';
 import { useActiveWorkout } from '../hooks/useActiveWorkout';
 import '../styles/components/active-workout/active-workout.css';
 
 function ActiveWorkoutPage() {
   const navigate = useNavigate();
+  const [timerVisible, setTimerVisible] = useState(false);
   const {
     exercises,
     workoutName,
