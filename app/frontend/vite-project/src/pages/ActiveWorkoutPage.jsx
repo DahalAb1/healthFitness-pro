@@ -19,8 +19,8 @@ function ActiveWorkoutPage() {
     loading,
     finishing,
     setLogs,
-    handleNext,
-    handleBack,
+    handleNext: goNext,
+    handleBack: goBack,
     handleEnd,
     updateSetLog,
   } = useActiveWorkout();
@@ -28,6 +28,16 @@ function ActiveWorkoutPage() {
   function handleSetUpdate(exerciseIdx, setIdx, field, value) {
     if (field === 'done' && value === true) setTimerVisible(true);
     updateSetLog(exerciseIdx, setIdx, field, value);
+  }
+
+  function handleNext() {
+    setTimerVisible(false);
+    goNext();
+  }
+
+  function handleBack() {
+    setTimerVisible(false);
+    goBack();
   }
 
   const total = exercises.length;
