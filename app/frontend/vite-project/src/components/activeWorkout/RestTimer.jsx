@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useRestTimer } from './useRestTimer';
+import { getDefaultRest } from '../../utils/timerSettings';
 
 const PRESETS = [30, 60, 90, 120];
 const RADIUS = 54;
@@ -11,8 +12,8 @@ function formatTime(secs) {
   return `${m}:${s.toString().padStart(2, '0')}`;
 }
 
-function RestTimer({ defaultSeconds = 60, onDismiss }) {
-  const [duration, setDuration] = useState(defaultSeconds);
+function RestTimer({ onDismiss }) {
+  const [duration, setDuration] = useState(getDefaultRest);
   const { remaining, isRunning, isDone, start, stop } = useRestTimer(onDismiss);
 
   const timeLeft = remaining !== null ? remaining : duration;

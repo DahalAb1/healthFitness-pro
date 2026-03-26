@@ -225,7 +225,7 @@ function ActiveWorkoutPage() {
         </div>
       </section>
 
-      {timerVisible && <RestTimer defaultSeconds={60} onDismiss={() => setTimerVisible(false)} />}
+      {timerVisible && <RestTimer onDismiss={() => setTimerVisible(false)} />}
 
       <div className="aw-controls">
         <button
