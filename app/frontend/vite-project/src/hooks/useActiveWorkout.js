@@ -1,14 +1,19 @@
 import { useState, useEffect, useRef } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import Navbar from '../components/common/Navbar';
-import Footer from '../components/common/Footer';
 import { getTemplateExercises, logWorkout, getExercises } from '../utils/api';
-import ExerciseCard from '../components/activeWorkout/ExerciseCard';
-import RestTimer from '../components/activeWorkout/RestTimer';
 import { normalizeTemplateExercise, normalizeCustomExercise } from '../components/activeWorkout/exerciseNormalizers';
-import '../styles/components/active-workout/active-workout.css';
 
-function ActiveWorkoutPage() {
+function buildSetLogs(exs) {
+  return exs.map((ex) =>
+    Array.from({ length: Math.max(1, ex.sets) }, () => ({
+      weight: '',
+      reps: String(ex.reps),
+      done: false,
+    }))
+  );
+}
+
+export function useActiveWorkout() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
@@ -18,19 +23,8 @@ function ActiveWorkoutPage() {
   const [loading, setLoading] = useState(true);
   const [finishing, setFinishing] = useState(false);
   const [setLogs, setSetLogs] = useState([]);
-  const [timerVisible, setTimerVisible] = useState(false);
 
   const startedAt = useRef(Date.now());
-
-  function buildSetLogs(exs) {
-    return exs.map((ex) =>
-      Array.from({ length: Math.max(1, ex.sets) }, () => ({
-        weight: '',
-        reps: String(ex.reps),
-        done: false,
-      }))
-    );
-  }
 
   function updateSetLog(exerciseIndex, setIndex, field, value) {
     setSetLogs((prev) =>
@@ -40,11 +34,6 @@ function ActiveWorkoutPage() {
           : sets
       )
     );
-  }
-
-  function handleSetUpdate(exerciseIndex, setIndex, field, value) {
-    if (field === 'done' && value === true) setTimerVisible(true);
-    updateSetLog(exerciseIndex, setIndex, field, value);
   }
 
   useEffect(() => {
@@ -76,6 +65,7 @@ function ActiveWorkoutPage() {
       setSetLogs(buildSetLogs(normalized));
       setLoading(false);
 
+      // Enrich with images/muscle info by matching exercise names against the library
       getExercises('ALL')
         .then((libraryItems) => {
           if (!libraryItems || libraryItems.length === 0) return;
@@ -99,7 +89,7 @@ function ActiveWorkoutPage() {
             }),
           );
         })
-        .catch(() => {});
+        .catch(() => {}); // silently ignore — images are optional
     } else {
       navigate('/workout-template');
     }
@@ -116,9 +106,12 @@ function ActiveWorkoutPage() {
       const logs = setLogs[idx] || [];
       const doneLogs = logs.filter((s) => s.done);
       const active = doneLogs.length > 0 ? doneLogs : logs;
-      const avgReps = active.length > 0
-        ? Math.round(active.reduce((sum, s) => sum + (Number(s.reps) || ex.reps), 0) / active.length)
-        : ex.reps;
+      const avgReps =
+        active.length > 0
+          ? Math.round(
+              active.reduce((sum, s) => sum + (Number(s.reps) || ex.reps), 0) / active.length,
+            )
+          : ex.reps;
       const maxWeight = active.reduce((max, s) => Math.max(max, Number(s.weight) || 0), 0);
       const countSets = doneLogs.length > 0 ? doneLogs.length : ex.sets;
       return {
@@ -148,7 +141,6 @@ function ActiveWorkoutPage() {
   }
 
   function handleNext() {
-    setTimerVisible(false);
     if (currentIndex < exercises.length - 1) {
       setCurrentIndex((i) => i + 1);
     } else {
@@ -157,7 +149,6 @@ function ActiveWorkoutPage() {
   }
 
   function handleBack() {
-    setTimerVisible(false);
     if (currentIndex > 0) setCurrentIndex((i) => i - 1);
   }
 
@@ -167,89 +158,16 @@ function ActiveWorkoutPage() {
     }
   }
 
-  const total = exercises.length;
-  const isLast = currentIndex === total - 1;
-
-  if (loading) {
-    return (
-      <>
-        <Navbar />
-        <div className="aw-loading">Loading workout...</div>
-        <Footer />
-      </>
-    );
-  }
-
-  if (total === 0) {
-    return (
-      <>
-        <Navbar />
-        <div className="aw-loading">
-          No exercises found.{' '}
-          <button className="btn" onClick={() => navigate('/workout-template')}>
-            Go back
-          </button>
-        </div>
-        <Footer />
-      </>
-    );
-  }
-
-  return (
-    <>
-      <Navbar />
-
-      <header className="aw-header">
-        <h1 className="aw-header-title">{workoutName}</h1>
-        <p className="aw-header-progress">
-          Exercise {currentIndex + 1} of {total}
-        </p>
-        <div className="aw-progress-bar">
-          <div
-            className="aw-progress-fill"
-            style={{ width: `${((currentIndex + 1) / total) * 100}%` }}
-          />
-        </div>
-      </header>
-
-      <section className="aw-carousel">
-        <div className="aw-carousel-track">
-          <ExerciseCard exercise={exercises[currentIndex - 1]} variant="past" />
-          <ExerciseCard
-            exercise={exercises[currentIndex]}
-            variant="current"
-            setLogs={setLogs[currentIndex]}
-            onSetUpdate={(setIdx, field, value) => handleSetUpdate(currentIndex, setIdx, field, value)}
-          />
-          <ExerciseCard exercise={exercises[currentIndex + 1]} variant="future" />
-        </div>
-      </section>
-
-      {timerVisible && <RestTimer defaultSeconds={60} onDismiss={() => setTimerVisible(false)} />}
-
-      <div className="aw-controls">
-        <button
-          className="aw-btn aw-btn-back"
-          onClick={handleBack}
-          disabled={currentIndex === 0}
-        >
-          Back
-        </button>
-        <button className="aw-btn aw-btn-end" onClick={handleEnd}>
-          End Workout
-        </button>
-        <button
-          className={`aw-btn aw-btn-next${isLast ? ' aw-btn-finish' : ''}`}
-          onClick={handleNext}
-          disabled={finishing}
-        >
-          {isLast ? 'Finish' : 'Next'}
-        </button>
-      </div>
-
-      <Footer />
-    </>
-  );
+  return {
+    exercises,
+    workoutName,
+    currentIndex,
+    loading,
+    finishing,
+    setLogs,
+    handleNext,
+    handleBack,
+    handleEnd,
+    updateSetLog,
+  };
 }
-
-export default ActiveWorkoutPage;
