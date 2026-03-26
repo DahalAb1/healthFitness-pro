@@ -25,6 +25,11 @@ function ActiveWorkoutPage() {
     updateSetLog,
   } = useActiveWorkout();
 
+  function handleSetUpdate(exerciseIdx, setIdx, field, value) {
+    if (field === 'done' && value === true) setTimerVisible(true);
+    updateSetLog(exerciseIdx, setIdx, field, value);
+  }
+
   const total = exercises.length;
   const isLast = currentIndex === total - 1;
 
