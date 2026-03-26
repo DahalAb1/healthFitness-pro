@@ -15,7 +15,7 @@ function formatTime(secs) {
 function RestTimer({ onDismiss }) {
   const [duration, setDuration] = useState(getDefaultRest);
   const [saved, setSaved] = useState(false);
-  const { remaining, isRunning, isDone, start, stop } = useRestTimer(onDismiss);
+  const { remaining, isRunning, isPaused, isDone, start, stop } = useRestTimer(onDismiss);
 
   const timeLeft = remaining !== null ? remaining : duration;
   const progress = duration > 0 ? timeLeft / duration : 0;
@@ -70,6 +70,8 @@ function RestTimer({ onDismiss }) {
       <div className="aw-timer-controls">
         {isRunning ? (
           <button className="aw-btn aw-btn-timer-stop" onClick={stop}>Stop</button>
+        ) : isPaused ? (
+          <button className="aw-btn aw-btn-timer-start" onClick={() => start(remaining)}>Resume</button>
         ) : (
           <button className="aw-btn aw-btn-timer-start" onClick={() => start(duration)}>
             {isDone ? 'Restart' : 'Start Rest'}

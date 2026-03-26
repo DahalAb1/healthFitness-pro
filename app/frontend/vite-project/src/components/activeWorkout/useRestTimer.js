@@ -30,13 +30,14 @@ export function useRestTimer(onComplete) {
           intervalRef.current = null;
           endTimeRef.current = null;
           setRemaining(0);
+          setIsRunning(false);
           onComplete?.();
         } else {
           setRemaining(left);
         }
       }, 500);
     },
-    [stop, onComplete]
+    [onComplete]
   );
 
   // Re-sync when user returns to the tab
@@ -60,5 +61,5 @@ export function useRestTimer(onComplete) {
   // Cleanup on unmount
   useEffect(() => () => clearInterval(intervalRef.current), []);
 
-  return { remaining, isRunning: remaining !== null && remaining > 0, isDone: remaining === 0, start, stop };
+  return { remaining, isRunning, isPaused: !isRunning && remaining !== null && remaining > 0, isDone: remaining === 0, start, stop };
 }
