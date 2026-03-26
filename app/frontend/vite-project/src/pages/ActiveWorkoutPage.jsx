@@ -75,11 +75,13 @@ function ActiveWorkoutPage() {
             exercise={exercises[currentIndex]}
             variant="current"
             setLogs={setLogs[currentIndex]}
-            onSetUpdate={(setIdx, field, value) => updateSetLog(currentIndex, setIdx, field, value)}
+            onSetUpdate={(setIdx, field, value) => handleSetUpdate(currentIndex, setIdx, field, value)}
           />
           <ExerciseCard exercise={exercises[currentIndex + 1]} variant="future" />
         </div>
       </section>
+
+      {timerVisible && <RestTimer onDismiss={() => setTimerVisible(false)} />}
 
       <WorkoutControls
         onBack={handleBack}
