@@ -15,6 +15,7 @@ function formatTime(secs) {
 function RestTimer({ onDismiss }) {
   const [duration, setDuration] = useState(getDefaultRest);
   const [saved, setSaved] = useState(false);
+  const [customInput, setCustomInput] = useState('');
   const { remaining, isRunning, isPaused, isDone, start, stop } = useRestTimer(onDismiss);
 
   const timeLeft = remaining !== null ? remaining : duration;
@@ -25,6 +26,15 @@ function RestTimer({ onDismiss }) {
     setDuration(secs);
     setSaved(false);
     start(secs);
+  }
+
+  function handleCustomSubmit(e) {
+    e.preventDefault();
+    const secs = parseInt(customInput, 10);
+    if (secs > 0) {
+      selectPreset(secs);
+      setCustomInput('');
+    }
   }
 
   function handleSaveDefault() {
@@ -47,6 +57,18 @@ function RestTimer({ onDismiss }) {
           </button>
         ))}
       </div>
+
+      <form className="aw-timer-custom" onSubmit={handleCustomSubmit}>
+        <input
+          type="number"
+          min="1"
+          className="aw-timer-custom-input"
+          placeholder="Custom (s)"
+          value={customInput}
+          onChange={(e) => setCustomInput(e.target.value)}
+        />
+        <button type="submit" className="aw-timer-custom-btn">Set</button>
+      </form>
 
       <div className="aw-timer-ring-wrap">
         <svg className="aw-timer-svg" viewBox="0 0 120 120">
