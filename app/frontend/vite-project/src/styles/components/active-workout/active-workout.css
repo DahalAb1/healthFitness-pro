@@ -345,6 +345,27 @@
   box-shadow: 0 6px 20px rgba(118, 75, 162, 0.5) !important;
 }
 
+/* ── Rest Timer ────────────────────────────────────────────────── */
+
+.aw-timer {
+  max-width: 360px;
+  margin: 0 auto 32px;
+  padding: 24px 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  text-align: center;
+}
+
+.aw-timer-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+  margin: 0 0 16px;
+}
+
 /* ── Responsive ────────────────────────────────────────────────── */
 
 @media (max-width: 768px) {
