@@ -42,7 +42,6 @@ def get_weight_progress(
     percent_change = (change / first_weight) * 100.0 if first_weight > 0 else None
 
     return WeightProgressResponse(
-        user_id=current_user.id,
         exercise_name=ex_name,
         points=points,
         first_weight=first_weight,
