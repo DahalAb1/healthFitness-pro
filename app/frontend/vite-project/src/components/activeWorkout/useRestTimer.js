@@ -1,7 +1,9 @@
+
 import { useState, useEffect, useRef, useCallback } from 'react';
 
 export function useRestTimer(onComplete) {
   const [remaining, setRemaining] = useState(null); // null = idle
+  const [isRunning, setIsRunning] = useState(false);
   const endTimeRef = useRef(null);
   const intervalRef = useRef(null);
 
@@ -9,14 +11,17 @@ export function useRestTimer(onComplete) {
     clearInterval(intervalRef.current);
     intervalRef.current = null;
     endTimeRef.current = null;
-    setRemaining(null);
+    setIsRunning(false);
+    // remaining is preserved so the user can resume
   }, []);
 
   const start = useCallback(
     (seconds) => {
-      stop();
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
       endTimeRef.current = Date.now() + seconds * 1000;
       setRemaining(seconds);
+      setIsRunning(true);
 
       intervalRef.current = setInterval(() => {
         const left = Math.round((endTimeRef.current - Date.now()) / 1000);
@@ -25,13 +30,14 @@ export function useRestTimer(onComplete) {
           intervalRef.current = null;
           endTimeRef.current = null;
           setRemaining(0);
+          setIsRunning(false);
           onComplete?.();
         } else {
           setRemaining(left);
         }
       }, 500);
     },
-    [stop, onComplete]
+    [onComplete]
   );
 
   // Re-sync when user returns to the tab
@@ -55,5 +61,5 @@ export function useRestTimer(onComplete) {
   // Cleanup on unmount
   useEffect(() => () => clearInterval(intervalRef.current), []);
 
-  return { remaining, isRunning: remaining !== null && remaining > 0, isDone: remaining === 0, start, stop };
+  return { remaining, isRunning, isPaused: !isRunning && remaining !== null && remaining > 0, isDone: remaining === 0, start, stop };
 }
