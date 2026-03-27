@@ -17,12 +17,6 @@ class UserRegister(SQLModel):
     password: str = Field(min_length=8, max_length=128)
 
 
-# Request model for login
-class UserLogin(SQLModel):
-    email: EmailStr
-    password: str
-
-
 # Response model (what we return to frontend)
 class UserRead(SQLModel):
     id: int
