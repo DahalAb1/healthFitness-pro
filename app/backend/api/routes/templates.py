@@ -2,9 +2,10 @@
 
 from fastapi import APIRouter, Depends, HTTPException
 from sqlmodel import Session
-from api.deps import get_session
+from api.deps import get_session, get_current_user
 from crud import templates as templates_crud
 from models.template import TemplateCreate
+from models.user import User
 from services.exercise_client import ExerciseClient
 from services.exercise_service import resolve_exercise
 from services.template_service import get_real_exercises_for_template
@@ -78,7 +79,11 @@ def get_template_exercises(template_id: int, session: Session = Depends(get_sess
 
 
 @router.post("/templates", status_code=201)
-def create_template(template: TemplateCreate, session: Session = Depends(get_session)):
+def create_template(
+    template: TemplateCreate,
+    session: Session = Depends(get_session),
+    current_user: User = Depends(get_current_user),
+):
     """Create a new workout template with its exercises."""
     exercises = [ex.model_dump() for ex in template.exercises]
     t = templates_crud.create(
