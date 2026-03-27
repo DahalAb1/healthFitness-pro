@@ -1,59 +1,16 @@
 from fastapi import APIRouter, Depends, HTTPException, status
-from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
+from fastapi.security import OAuth2PasswordRequestForm
 from sqlmodel import Session, select
 
-from core.db import engine
+from api.deps import get_current_user, get_session
 from core.security import (
     create_access_token,
-    decode_access_token,
     hash_password,
     verify_password,
 )
-from models.user import User, UserLogin, UserRead, UserRegister, TokenResponse
+from models.user import User, UserRead, UserRegister, TokenResponse
 
 router = APIRouter(tags=["auth"])
-security = HTTPBearer()
-
-
-def get_session():
-    """Create a database session for each request."""
-    with Session(engine) as session:
-        yield session
-
-
-def get_current_user(
-    credentials: HTTPAuthorizationCredentials = Depends(security),
-    session: Session = Depends(get_session),
-) -> User:
-    """
-    Read the Bearer token, decode it, and return the matching user.
-    Used by protected routes like /me.
-    """
-    token = credentials.credentials
-
-    try:
-        payload = decode_access_token(token)
-        email = payload.get("sub")
-
-        if not email:
-            raise HTTPException(
-                status_code=status.HTTP_401_UNAUTHORIZED,
-                detail="Invalid token",
-            )
-    except Exception:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid or expired token",
-        )
-
-    user = session.exec(select(User).where(User.email == email)).first()
-    if not user:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="User not found",
-        )
-
-    return user
 
 
 @router.post("/register", response_model=UserRead, status_code=status.HTTP_201_CREATED)
@@ -79,11 +36,14 @@ def register(data: UserRegister, session: Session = Depends(get_session)):
 
 
 @router.post("/login", response_model=TokenResponse)
-def login(data: UserLogin, session: Session = Depends(get_session)):
+def login(
+    form_data: OAuth2PasswordRequestForm = Depends(),
+    session: Session = Depends(get_session),
+):
     """Verify login credentials and return a JWT access token."""
-    user = session.exec(select(User).where(User.email == data.email)).first()
+    user = session.exec(select(User).where(User.email == form_data.username)).first()
 
-    if not user or not verify_password(data.password, user.hashed_password):
+    if not user or not verify_password(form_data.password, user.hashed_password):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid email or password",
