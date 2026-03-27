@@ -54,7 +54,6 @@ class CustomWorkoutExerciseCreate(SQLModel):
 
 class CustomWorkoutCreate(SQLModel):
     """Schema for creating a new custom workout."""
-    user_id: int
     name: str
     main_muscle: str | None = None
     difficulty: str | None = None
