@@ -1,5 +1,5 @@
 /* Nutrition Hub Styles */
-:root {
+.nutrition-hub-container {
   --background: #0F0F0F;
   --surface: #1A1A1A;
   --surface-alt: #222222;
@@ -352,7 +352,7 @@
   opacity: 1;
 }
 
-.btn {
+.nutrition-hub-container .btn {
   width: 100%;
   padding: 12px;
   border-radius: 10px;
@@ -364,14 +364,14 @@
   transition: 0.2s;
 }
 
-.btn-add {
+.nutrition-hub-container .btn-add {
   background: var(--surface-alt);
   color: var(--text-secondary);
   border: 1px solid var(--border);
   margin-top: 10px;
 }
 
-.btn-add:hover {
+.nutrition-hub-container .btn-add:hover {
   background: var(--border);
   color: var(--text-primary);
 }
