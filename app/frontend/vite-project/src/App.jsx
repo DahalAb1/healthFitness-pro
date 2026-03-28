@@ -5,6 +5,7 @@ import WorkoutTemplatePage from './pages/WorkoutTemplatePage';
 import WorkoutHistoryPage from './pages/WorkoutHistoryPage';
 import ExerciseLibraryPage from './pages/ExerciseLibraryPage';
 import ActiveWorkoutPage from './pages/ActiveWorkoutPage';
+import NutritionPage from './pages/NutritionPage';
 import SettingsPage from './pages/SettingsPage';
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
       <Route path="/workout-history" element={<WorkoutHistoryPage />} />
       <Route path="/exercise-library" element={<ExerciseLibraryPage />} />
       <Route path="/active-workout" element={<ActiveWorkoutPage />} />
+      <Route path="/nutrition" element={<NutritionPage />} />
       <Route path="/settings" element={<SettingsPage />} />
       <Route path="*" element={<FrontPage />} />
     </Routes>

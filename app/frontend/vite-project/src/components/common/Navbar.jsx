@@ -13,7 +13,7 @@ function Navbar() {
         <li><Link to="/#workout-templates">Workout</Link></li>
         <li><NavLink to="/workout-template">Templates</NavLink></li>
         <li><Link to="/#running">Running</Link></li>
-        <li><Link to="/#nutrition">Nutrition</Link></li>
+        <li><NavLink to="/nutrition">Nutrition</NavLink></li>
         <li><NavLink to="/exercise-library">Library</NavLink></li>
         <li><NavLink to="/workout-history">History</NavLink></li>
         <li><NavLink to="/settings">Settings</NavLink></li>

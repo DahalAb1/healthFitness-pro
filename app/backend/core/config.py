@@ -16,6 +16,8 @@ class Settings(BaseSettings):
     # and uses the default if the env var is missing.
     DATABASE_URL: str
     XRAPID_API_KEY: str = ""
+    FATSECRET_CLIENT_ID: str = ""
+    FATSECRET_CLIENT_SECRET: str = ""
 
 
 # Single instance used across the app
