@@ -7,6 +7,7 @@ import ExerciseLibraryPage from './pages/ExerciseLibraryPage';
 import ActiveWorkoutPage from './pages/ActiveWorkoutPage';
 import NutritionPage from './pages/NutritionPage';
 import SettingsPage from './pages/SettingsPage';
+import LoginPage from './pages/LoginPage';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
       <Route path="/active-workout" element={<ActiveWorkoutPage />} />
       <Route path="/nutrition" element={<NutritionPage />} />
       <Route path="/settings" element={<SettingsPage />} />
+      <Route path="/login" element={<LoginPage />} />
       <Route path="*" element={<FrontPage />} />
     </Routes>
     </>

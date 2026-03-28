@@ -20,7 +20,7 @@ function Navbar() {
       </ul>
 
       <div className="nav-auth">
-        <a href="#" className="btn">LOGIN</a>
+        <Link to="/login" className="btn">LOGIN</Link>
         <a href="#" className="btn">SIGN UP</a>
       </div>
     </nav>
