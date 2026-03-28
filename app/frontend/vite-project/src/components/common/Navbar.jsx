@@ -1,7 +1,14 @@
 import { Link, NavLink } from 'react-router-dom';
 import coverphoto from '../../assets/coverphoto.jpg';
+import { useAuth } from '../../context/useAuth';
 
 function Navbar() {
+  const { user, avatar } = useAuth();
+
+  const initials = user
+    ? (user.display_name || user.email?.split('@')[0] || '?').slice(0, 2).toUpperCase()
+    : null;
+
   return (
     <nav className="navbar">
       <Link to="/" className="logo-container">
@@ -20,11 +27,16 @@ function Navbar() {
       </ul>
 
       <div className="nav-auth">
-        <Link to="/login" className="btn">LOGIN</Link>
-        <Link to="/signup" className="btn">SIGN UP</Link>
-        <Link to="/account" className="nav-avatar" aria-label="Account">
-          JD
-        </Link>
+        {user ? (
+          <Link to="/account" className="nav-avatar" aria-label="Account">
+            {avatar ? <img src={avatar} alt="Profile" /> : initials}
+          </Link>
+        ) : (
+          <>
+            <Link to="/login" className="btn">LOGIN</Link>
+            <Link to="/signup" className="btn">SIGN UP</Link>
+          </>
+        )}
       </div>
     </nav>
   );
