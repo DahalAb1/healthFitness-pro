@@ -1,6 +1,38 @@
+/**
+ * SRP: responsible only for the custom food entry form.
+ */
+function CustomFoodForm({ customName, customKcal, onCustomNameChange, onCustomKcalChange, onAddCustom }) {
+  return (
+    <div style={{ marginTop: '25px', paddingTop: '20px', borderTop: '1px solid var(--border)' }}>
+      <label>Quick Custom Log</label>
+      <input
+        type="text"
+        placeholder="Food Name"
+        value={customName}
+        onChange={(e) => onCustomNameChange(e.target.value)}
+        style={{ marginBottom: '8px', width: '100%' }}
+      />
+      <input
+        type="number"
+        placeholder="Calories"
+        value={customKcal}
+        onChange={(e) => onCustomKcalChange(e.target.value)}
+        style={{ width: '100%' }}
+      />
+      <button className="btn btn-add" onClick={onAddCustom}>
+        Add to Results
+      </button>
+    </div>
+  );
+}
+
+/**
+ * SRP: responsible for displaying the food search input and live results list.
+ * Delegates the custom-entry form to CustomFoodForm.
+ */
 function FoodSearch({
   searchQuery, onSearchChange,
-  searchResults, onDragStart,
+  searchResults, isSearching, onDragStart,
   customName, customKcal,
   onCustomNameChange, onCustomKcalChange,
   onAddCustom,
@@ -19,11 +51,18 @@ function FoodSearch({
       </div>
 
       <div className="results-area">
-        {searchResults.map((food, idx) => {
-          // Split "Chicken Breast (100g)" into label "Chicken Breast" and portion "100g"
-          const match = food.name.match(/^(.+?)(?:\s*\(([^)]+)\))?$/);
-          const label = match?.[1] ?? food.name;
-          const portion = match?.[2] ?? null;
+        {isSearching && (
+          <p className="drop-placeholder">Searching...</p>
+        )}
+        {!isSearching && searchQuery.trim() && searchResults.length === 0 && (
+          <p className="drop-placeholder">No results found.</p>
+        )}
+        {!isSearching && searchResults.map((food, idx) => {
+          const label = food.name;
+          const portion = food.serving_description || (() => {
+            const match = food.name.match(/\(([^)]+)\)$/);
+            return match?.[1] ?? null;
+          })();
           return (
             <div
               key={idx}
@@ -41,26 +80,13 @@ function FoodSearch({
         })}
       </div>
 
-      <div style={{ marginTop: '25px', paddingTop: '20px', borderTop: '1px solid var(--border)' }}>
-        <label>Quick Custom Log</label>
-        <input
-          type="text"
-          placeholder="Food Name"
-          value={customName}
-          onChange={(e) => onCustomNameChange(e.target.value)}
-          style={{ marginBottom: '8px', width: '100%' }}
-        />
-        <input
-          type="number"
-          placeholder="Calories"
-          value={customKcal}
-          onChange={(e) => onCustomKcalChange(e.target.value)}
-          style={{ width: '100%' }}
-        />
-        <button className="btn btn-add" onClick={onAddCustom}>
-          Add to Results
-        </button>
-      </div>
+      <CustomFoodForm
+        customName={customName}
+        customKcal={customKcal}
+        onCustomNameChange={onCustomNameChange}
+        onCustomKcalChange={onCustomKcalChange}
+        onAddCustom={onAddCustom}
+      />
     </div>
   );
 }
