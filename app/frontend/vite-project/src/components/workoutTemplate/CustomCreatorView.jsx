@@ -99,41 +99,6 @@ function CustomCreatorView() {
     setWorkoutName('');
     setRows([createEmptyRow()]);
   }
-
-  function handleDelete(workout) {
-    if (!window.confirm(`Delete "${workout.name}"?`)) return;
-    deleteUserWorkout(workout.id, 1).then(() => {
-      setSavedWorkouts((prev) => prev.filter((w) => w.id !== workout.id));
-    });
-  }
-
-  function handleCustomize(workout) {
-    setWorkoutName(workout.name);
-    setRows(
-      (workout.exercises || []).map((ex) => ({
-        id: crypto.randomUUID(),
-        exerciseId: ex.exercise_id || null,
-        exercise: ex.exercise_name || '',
-        sets: ex.sets || 3,
-        reps: ex.reps || 10,
-        rest: '60s',
-      })),
-    );
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  function handleBegin(workout) {
-    sessionStorage.setItem('activeWorkoutSource', 'custom');
-    sessionStorage.setItem('activeWorkoutId', String(workout.id));
-    sessionStorage.setItem('activeWorkoutName', workout.name);
-    sessionStorage.setItem('activeWorkoutExercises', JSON.stringify(workout.exercises || []));
-    navigate(`/active-workout?source=custom&id=${workout.id}`);
-  }
-
-  const filteredLibrary = libraryItems.filter((ex) =>
-    ex.name?.toLowerCase().includes(librarySearch.toLowerCase()),
-  );
-
   return (
     <section className="wt-view-content active">
       <div className="wt-card">
@@ -208,7 +173,6 @@ function CustomCreatorView() {
             </tbody>
           </table>
         </div>
-
         <button
           type="button"
           className="btn wt-btn-full wt-btn-add"

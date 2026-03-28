@@ -31,7 +31,6 @@ class ProgressPoint(SQLModel):
 
 class WeightProgressResponse(SQLModel):
     """Full progress report for a user's exercise over time."""
-    user_id: int
     exercise_name: str
     points: list[ProgressPoint]
     first_weight: float | None = None

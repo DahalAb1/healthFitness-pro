@@ -44,7 +44,6 @@ class WorkoutSession(SQLModel, table=True):
 
 class WorkoutSessionStart(SQLModel):
     """Schema for starting a session without exercises."""
-    user_id: int = Field(ge=1)
     workout_date: date
     duration_minutes: int = Field(ge=1, le=600)
 
@@ -64,25 +63,6 @@ class ExerciseLogCreate(SQLModel):
 
 class WorkoutCreate(SQLModel):
     """Schema for creating a full session with exercises in one step."""
-    user_id: int = Field(ge=1)
     workout_date: date
     duration_minutes: int = Field(ge=1, le=600)
     exercises: list[ExerciseLogEntry] = Field(min_length=1)
-
-
-# --- Read schemas (include relationship fields for API serialization) ---
-
-class WorkoutExerciseRead(SQLModel):
-    id: int
-    exercise_name: str
-    sets: int
-    reps: int
-    weight: float
-
-
-class WorkoutSessionRead(SQLModel):
-    id: int
-    user_id: int
-    workout_date: date
-    duration_minutes: int
-    exercises: list[WorkoutExerciseRead] = []

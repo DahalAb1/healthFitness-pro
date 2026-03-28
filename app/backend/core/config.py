@@ -14,11 +14,14 @@ class Settings(BaseSettings):
 
     # Each field maps to an env var by name. Pydantic validates the type
     # and uses the default if the env var is missing.
-    DATABASE_URL: str
+    DATABASE_URL: str = "sqlite:///./app.db"
     XRAPID_API_KEY: str = ""
     FATSECRET_CLIENT_ID: str = ""
     FATSECRET_CLIENT_SECRET: str = ""
 
+    SECRET_KEY: str = "change-this-before-production"
+    ALGORITHM: str = "HS256"
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
 
 # Single instance used across the app
 settings = Settings()
