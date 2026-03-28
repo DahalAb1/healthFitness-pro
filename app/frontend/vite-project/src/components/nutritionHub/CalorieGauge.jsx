@@ -1,6 +1,17 @@
 const CIRCUMFERENCE = 2 * Math.PI * 62;
 
-function CalorieGauge({ goal, onGoalChange, strokeDashOffset, circleStroke, remaining }) {
+/**
+ * SRP: owns all the display logic for the circular calorie gauge.
+ * ISP: accepts only the data it needs (total, goal) — derived visual
+ *      values are computed internally, not leaked to the parent.
+ */
+function CalorieGauge({ total, goal, onGoalChange }) {
+  const remaining = goal - total;
+  const pct = Math.min((total / goal) * 100, 100);
+  const strokeDashOffset = CIRCUMFERENCE - (pct / 100) * CIRCUMFERENCE;
+  const circleStroke =
+    total > goal ? 'var(--danger)' : total === goal ? 'var(--success)' : 'var(--accent)';
+
   return (
     <div className="sidebar-card">
       <div className="gauge-container">
