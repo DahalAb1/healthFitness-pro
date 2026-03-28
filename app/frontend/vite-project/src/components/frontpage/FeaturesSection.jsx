@@ -43,7 +43,7 @@ const features = [
     description:
       'Fuel your body with precision. Create custom meal plans and track your macros with our comprehensive nutritional database.',
     btnText: 'Track Nutrition',
-    btnHref: '#',
+    btnHref: '/nutrition',
     image: nutrition,
     imageAlt: 'Nutrition Tracking',
   },
