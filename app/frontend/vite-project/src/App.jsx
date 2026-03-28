@@ -10,10 +10,11 @@ import SettingsPage from './pages/SettingsPage';
 import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUpPage';
 import AccountPage from './pages/AccountPage';
+import { AuthProvider } from './context/AuthContext';
 
 function App() {
   return (
-    <>
+    <AuthProvider>
       <ScrollToTop />
       <Routes>
       <Route path="/" element={<FrontPage />} />
@@ -28,7 +29,7 @@ function App() {
       <Route path="/account" element={<AccountPage />} />
       <Route path="*" element={<FrontPage />} />
     </Routes>
-    </>
+    </AuthProvider>
   );
 }
 

@@ -8,7 +8,7 @@ from core.security import (
     hash_password,
     verify_password,
 )
-from models.user import User, UserRead, UserRegister, TokenResponse
+from models.user import User, UserRead, UserRegister, UserUpdate, TokenResponse
 
 router = APIRouter(tags=["auth"])
 
@@ -56,4 +56,20 @@ def login(
 @router.get("/me", response_model=UserRead)
 def me(current_user: User = Depends(get_current_user)):
     """Return the currently authenticated user."""
+    return current_user
+
+
+@router.patch("/me", response_model=UserRead)
+def update_me(
+    data: UserUpdate,
+    current_user: User = Depends(get_current_user),
+    session: Session = Depends(get_session),
+):
+    """Update profile fields for the currently authenticated user."""
+    updates = data.model_dump(exclude_unset=True)
+    for field, value in updates.items():
+        setattr(current_user, field, value)
+    session.add(current_user)
+    session.commit()
+    session.refresh(current_user)
     return current_user
