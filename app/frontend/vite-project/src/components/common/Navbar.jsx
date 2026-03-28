@@ -21,7 +21,7 @@ function Navbar() {
 
       <div className="nav-auth">
         <Link to="/login" className="btn">LOGIN</Link>
-        <a href="#" className="btn">SIGN UP</a>
+        <Link to="/signup" className="btn">SIGN UP</Link>
       </div>
     </nav>
   );
