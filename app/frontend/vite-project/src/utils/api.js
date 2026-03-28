@@ -52,6 +52,13 @@ export async function deleteUserWorkout(workoutId, userId) {
   return res.json();
 }
 
+export async function searchFoods(query, page = 0, maxResults = 20) {
+  const res = await fetch(
+    `${BASE_URL}/nutrition/search?q=${encodeURIComponent(query)}&page=${page}&max_results=${maxResults}`
+  );
+  return res.json();
+}
+
 export async function logWorkout(data) {
   const res = await fetch(`${BASE_URL}/workouts`, {
     method: 'POST',

@@ -1,0 +1,74 @@
+import { useState, useEffect } from 'react';
+import { searchFoods } from '../utils/api';
+
+/**
+ * Encapsulates all food search concerns:
+ *  - debounced API queries
+ *  - local custom-food management
+ *  - merging API results with custom entries
+ *
+ * SRP: this hook is the single source of truth for search state.
+ * DIP: NutritionHub depends on this abstraction, not on the API directly.
+ */
+export function useFoodSearch() {
+  const [searchQuery, setSearchQuery] = useState('');
+  const [apiResults, setApiResults] = useState([]);
+  const [isSearching, setIsSearching] = useState(false);
+  const [customFoods, setCustomFoods] = useState([]);
+  const [customName, setCustomName] = useState('');
+  const [customKcal, setCustomKcal] = useState('');
+
+  useEffect(() => {
+    if (!searchQuery.trim()) {
+      setApiResults([]);
+      return;
+    }
+    const timer = setTimeout(async () => {
+      setIsSearching(true);
+      try {
+        const data = await searchFoods(searchQuery.trim());
+        const normalized = (data.foods ?? []).map(f => ({
+          name: f.food_name,
+          kcal: Math.round(f.calories ?? 0),
+          serving_description: f.serving_description ?? '',
+        }));
+        setApiResults(normalized);
+      } catch {
+        setApiResults([]);
+      } finally {
+        setIsSearching(false);
+      }
+    }, 500);
+    return () => clearTimeout(timer);
+  }, [searchQuery]);
+
+  const filteredCustomFoods = searchQuery.trim()
+    ? customFoods.filter(f => f.name.toLowerCase().includes(searchQuery.toLowerCase()))
+    : customFoods;
+
+  const searchResults = [...filteredCustomFoods, ...apiResults];
+
+  const handleAddCustom = () => {
+    if (customName && customKcal) {
+      setCustomFoods(prev => [
+        { name: customName, kcal: parseInt(customKcal), serving_description: '' },
+        ...prev,
+      ]);
+      setSearchQuery(customName);
+      setCustomName('');
+      setCustomKcal('');
+    }
+  };
+
+  return {
+    searchQuery,
+    setSearchQuery,
+    searchResults,
+    isSearching,
+    customName,
+    setCustomName,
+    customKcal,
+    setCustomKcal,
+    handleAddCustom,
+  };
+}
