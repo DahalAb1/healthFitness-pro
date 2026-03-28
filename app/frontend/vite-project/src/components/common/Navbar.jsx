@@ -22,6 +22,9 @@ function Navbar() {
       <div className="nav-auth">
         <Link to="/login" className="btn">LOGIN</Link>
         <Link to="/signup" className="btn">SIGN UP</Link>
+        <Link to="/account" className="nav-avatar" aria-label="Account">
+          JD
+        </Link>
       </div>
     </nav>
   );

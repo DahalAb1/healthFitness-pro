@@ -147,15 +147,15 @@
 }
 
 .auth-logo-img {
-  width: 52px;
-  height: 52px;
-  border-radius: 14px;
+  width: 64px;
+  height: 64px;
+  border-radius: 24px;
   object-fit: cover;
   box-shadow: 0 4px 14px rgba(74, 144, 255, 0.25);
 }
 
 .auth-brand-name {
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: 2.5px;

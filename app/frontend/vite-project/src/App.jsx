@@ -9,6 +9,7 @@ import NutritionPage from './pages/NutritionPage';
 import SettingsPage from './pages/SettingsPage';
 import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUpPage';
+import AccountPage from './pages/AccountPage';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
       <Route path="/settings" element={<SettingsPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signup" element={<SignUpPage />} />
+      <Route path="/account" element={<AccountPage />} />
       <Route path="*" element={<FrontPage />} />
     </Routes>
     </>
