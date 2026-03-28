@@ -8,6 +8,7 @@ import ActiveWorkoutPage from './pages/ActiveWorkoutPage';
 import NutritionPage from './pages/NutritionPage';
 import SettingsPage from './pages/SettingsPage';
 import LoginPage from './pages/LoginPage';
+import SignUpPage from './pages/SignUpPage';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
       <Route path="/nutrition" element={<NutritionPage />} />
       <Route path="/settings" element={<SettingsPage />} />
       <Route path="/login" element={<LoginPage />} />
+      <Route path="/signup" element={<SignUpPage />} />
       <Route path="*" element={<FrontPage />} />
     </Routes>
     </>

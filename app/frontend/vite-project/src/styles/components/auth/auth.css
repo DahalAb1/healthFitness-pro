@@ -36,10 +36,11 @@
   position: absolute;
   inset: 0;
   background: linear-gradient(
-    160deg,
-    rgba(8, 8, 8, 0.1) 0%,
-    rgba(8, 8, 8, 0.2) 35%,
-    rgba(8, 8, 8, 0.88) 100%
+    170deg,
+    rgba(8, 8, 8, 0.08) 0%,
+    rgba(8, 8, 8, 0.15) 30%,
+    rgba(8, 8, 8, 0.72) 60%,
+    rgba(8, 8, 8, 0.97) 100%
   );
   z-index: 1;
 }
@@ -61,34 +62,37 @@
 
 .auth-slide-tag {
   display: inline-block;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 900;
   letter-spacing: 3px;
-  color: #4A90FF;
-  background: rgba(74, 144, 255, 0.12);
-  border: 1px solid rgba(74, 144, 255, 0.35);
-  padding: 5px 14px;
+  color: #fff;
+  background: rgba(74, 144, 255, 0.6);
+  border: 1px solid rgba(74, 144, 255, 0.8);
+  padding: 6px 16px;
   border-radius: 20px;
-  margin-bottom: 18px;
+  margin-bottom: 20px;
   text-transform: uppercase;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.5);
 }
 
 .auth-slide-headline {
-  font-size: 2.1rem;
-  font-weight: 800;
+  font-size: 2.4rem;
+  font-weight: 900;
   color: #ffffff;
   letter-spacing: -0.5px;
-  line-height: 1.2;
-  margin: 0 0 12px;
+  line-height: 1.18;
+  margin: 0 0 14px;
   max-width: 500px;
+  text-shadow: 0 2px 20px rgba(0,0,0,0.7);
 }
 
 .auth-slide-sub {
-  font-size: 15px;
-  color: rgba(255, 255, 255, 0.58);
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.82);
   margin: 0 0 32px;
   max-width: 440px;
-  line-height: 1.6;
+  line-height: 1.65;
+  text-shadow: 0 1px 8px rgba(0,0,0,0.6);
 }
 
 /* Dot indicators */
@@ -136,24 +140,35 @@
 
 /* Brand */
 .auth-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
   margin-bottom: 40px;
 }
 
+.auth-logo-img {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  object-fit: cover;
+  box-shadow: 0 4px 14px rgba(74, 144, 255, 0.25);
+}
+
 .auth-brand-name {
-  font-size: 13px;
+  font-size: 16px;
   font-weight: 900;
   text-transform: uppercase;
-  letter-spacing: 2px;
+  letter-spacing: 2.5px;
   color: #4A90FF;
 }
 
 /* Heading */
 .auth-heading {
-  font-size: 2rem;
-  font-weight: 800;
+  font-size: 2.3rem;
+  font-weight: 900;
   letter-spacing: -1px;
   margin: 0 0 8px;
-  background: linear-gradient(to right, #fff 40%, #666);
+  background: linear-gradient(to right, #fff 50%, #888);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
