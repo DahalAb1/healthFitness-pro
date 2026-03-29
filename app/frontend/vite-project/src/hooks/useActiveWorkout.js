@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { getTemplateExercises, logWorkout, getExercises } from '../utils/api';
 import { useAuth } from '../context/useAuth';
-import { normalizeTemplateExercise, normalizeCustomExercise } from '../components/activeWorkout/exerciseNormalizers';
+import { normalizeTemplateExercise, normalizeCustomExercise } from '../utils/exerciseNormalizers';
 
 function buildSetLogs(exs) {
   return exs.map((ex) =>
@@ -25,6 +25,7 @@ export function useActiveWorkout() {
   const [loading, setLoading] = useState(true);
   const [finishing, setFinishing] = useState(false);
   const [setLogs, setSetLogs] = useState([]);
+  const [timerVisible, setTimerVisible] = useState(false);
 
   const startedAt = useRef(Date.now());
 
@@ -125,6 +126,7 @@ export function useActiveWorkout() {
     });
 
     try {
+      if (!token) throw new Error('Not authenticated');
       await logWorkout({
         workout_date: today,
         duration_minutes: durationMinutes,
@@ -132,7 +134,7 @@ export function useActiveWorkout() {
       }, token);
     } catch (err) {
       console.error('Failed to log workout:', err);
-      window.alert('Workout finished, but could not save to history. Is the backend running?');
+      window.alert('Workout finished, but could not save to history. Please make sure you are logged in and the backend is running.');
     }
 
     sessionStorage.removeItem('activeWorkoutName');
@@ -141,7 +143,13 @@ export function useActiveWorkout() {
     navigate('/workout-history');
   }
 
+  function handleSetUpdate(exerciseIndex, setIndex, field, value) {
+    if (field === 'done' && value === true) setTimerVisible(true);
+    updateSetLog(exerciseIndex, setIndex, field, value);
+  }
+
   function handleNext() {
+    setTimerVisible(false);
     if (currentIndex < exercises.length - 1) {
       setCurrentIndex((i) => i + 1);
     } else {
@@ -150,6 +158,7 @@ export function useActiveWorkout() {
   }
 
   function handleBack() {
+    setTimerVisible(false);
     if (currentIndex > 0) setCurrentIndex((i) => i - 1);
   }
 
@@ -166,9 +175,11 @@ export function useActiveWorkout() {
     loading,
     finishing,
     setLogs,
+    timerVisible,
+    setTimerVisible,
+    handleSetUpdate,
     handleNext,
     handleBack,
     handleEnd,
-    updateSetLog,
   };
 }

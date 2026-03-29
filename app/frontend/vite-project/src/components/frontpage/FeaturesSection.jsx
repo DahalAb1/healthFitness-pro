@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import fitness6 from '../../assets/fitness6.jpg';
 import fitness4 from '../../assets/fitness4.jpg';
-import running from '../../assets/running.jpg';
 import nutrition from '../../assets/nutrition.webp';
 import library from '../../assets/library.jpg';
 
@@ -26,16 +25,6 @@ const features = [
     btnHref: '/workout-history',
     image: fitness4,
     imageAlt: 'Workout Tracking',
-  },
-  {
-    id: 'running',
-    title: 'Running & GPS',
-    description:
-      'Track your outdoor routes and indoor treadmill sessions with deep analytics on pace, heart rate zones, and split times.',
-    btnText: 'Start Running',
-    btnHref: '#',
-    image: running,
-    imageAlt: 'Running Stats',
   },
   {
     id: 'nutrition',

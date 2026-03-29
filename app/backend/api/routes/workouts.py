@@ -6,7 +6,7 @@ from sqlmodel import Session
 from api.deps import get_session, get_current_user
 from crud import workouts as workouts_crud
 from models.user import User
-from models.workout import WorkoutCreate, WorkoutSessionStart, ExerciseLogCreate
+from models.workout import WorkoutCreate, WorkoutSessionStart, ExerciseLogCreate, WorkoutSessionRead
 
 router = APIRouter()
 
@@ -44,7 +44,7 @@ def log_exercises(
         raise HTTPException(status_code=404, detail="Workout not found")
 
 
-@router.get("/workouts/details")
+@router.get("/workouts/details", response_model=WorkoutSessionRead)
 def get_workout_details_by_date(
     workout_date: date,
     session: Session = Depends(get_session),
@@ -57,7 +57,7 @@ def get_workout_details_by_date(
     return workout
 
 
-@router.post("/workouts", status_code=201)
+@router.post("/workouts", status_code=201, response_model=WorkoutSessionRead)
 def create_workout(
     payload: WorkoutCreate,
     session: Session = Depends(get_session),
@@ -70,7 +70,7 @@ def create_workout(
         workout_date=payload.workout_date,
         duration_minutes=payload.duration_minutes,
     )
-    workouts_crud.append_exercises(session, workout.id, payload.exercises)
+    workout = workouts_crud.append_exercises(session, workout.id, payload.exercises)
     return workout
 
 

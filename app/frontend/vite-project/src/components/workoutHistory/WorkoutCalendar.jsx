@@ -1,63 +1,19 @@
-import { useState, useEffect } from 'react';
-import { getWorkoutByDate, getWorkouts } from '../../utils/api';
-import { useAuth } from '../../context/useAuth';
+import { useWorkoutCalendar } from '../../hooks/useWorkoutCalendar';
+import WorkoutSessionDetail from './WorkoutSessionDetail';
 
 const MONTH_NAMES = [
   'January', 'February', 'March', 'April', 'May', 'June',
   'July', 'August', 'September', 'October', 'November', 'December',
 ];
 const DAY_LABELS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-const TODAY = new Date();
 
 function WorkoutCalendar() {
-  const { token } = useAuth();
-  const [viewDate, setViewDate] = useState(new Date());
-  const [selectedDay, setSelectedDay] = useState(null);
-  const [workout, setWorkout] = useState(null);
-  const [workoutDays, setWorkoutDays] = useState(new Set());
-  const [loadingDetail, setLoadingDetail] = useState(false);
-
-  const month = viewDate.getMonth();
-  const year = viewDate.getFullYear();
-
-  const isCurrentMonth = year === TODAY.getFullYear() && month === TODAY.getMonth();
-  const todayDay = isCurrentMonth ? TODAY.getDate() : null;
-
-  // Pre-load which days in this month have workouts
-  useEffect(() => {
-    if (!token) return;
-    getWorkouts(token)
-      .then((sessions) => {
-        const days = new Set();
-        sessions.forEach((s) => {
-          const [y, m, d] = s.workout_date.split('-').map(Number);
-          if (y === year && m === month + 1) days.add(d);
-        });
-        setWorkoutDays(days);
-      })
-      .catch(() => {});
-  }, [year, month, token]);
-  const changeMonth = (offset) => {
-    const d = new Date(viewDate);
-    d.setMonth(d.getMonth() + offset);
-    setViewDate(d);
-    setSelectedDay(null);
-    setWorkout(null);
-  };
-
-  const handleDayClick = (day) => {
-    setSelectedDay(day);
-    setWorkout(null);
-    const date = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-    setLoadingDetail(true);
-    getWorkoutByDate(token, date)
-      .then((data) => setWorkout(data))
-      .catch(() => setWorkout(null))
-      .finally(() => setLoadingDetail(false));
-  };
-
-  const firstDay = new Date(year, month, 1).getDay();
-  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const {
+    month, year, todayDay,
+    selectedDay, workout, workoutDays, loadingDetail,
+    firstDay, daysInMonth,
+    changeMonth, handleDayClick,
+  } = useWorkoutCalendar();
 
   return (
     <div className="calendar-page">
@@ -90,51 +46,13 @@ function WorkoutCalendar() {
         })}
       </div>
 
-      <section className="selected-day">
-        <h3 className="selected-date-header">
-          {selectedDay
-            ? `${MONTH_NAMES[month]} ${selectedDay}, ${year}`
-            : 'Select a date'}
-        </h3>
-        <div className="workout-details">
-          {!selectedDay && (
-            <p className="workout-placeholder">Click a day to view workout details.</p>
-          )}
-          {selectedDay && loadingDetail && <p className="workout-placeholder">Loading…</p>}
-          {selectedDay && !loadingDetail && !workout && (
-            <p className="workout-placeholder">No workout recorded for this date.</p>
-          )}
-          {selectedDay && !loadingDetail && workout && (
-            <>
-              <p className="workout-duration">Duration: {workout.duration_minutes} min</p>
-              {workout.exercises && workout.exercises.length > 0 ? (
-                <table className="exercise-table">
-                  <thead>
-                    <tr>
-                      <th>Exercise</th>
-                      <th>Sets</th>
-                      <th>Reps</th>
-                      <th>Weight</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {workout.exercises.map((ex, idx) => (
-                      <tr key={idx}>
-                        <td>{ex.exercise_name}</td>
-                        <td>{ex.sets}</td>
-                        <td>{ex.reps}</td>
-                        <td>{ex.weight} lbs</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              ) : (
-                <p className="workout-placeholder">No exercises logged for this session.</p>
-              )}
-            </>
-          )}
-        </div>
-      </section>
+      <WorkoutSessionDetail
+        month={month}
+        year={year}
+        selectedDay={selectedDay}
+        loadingDetail={loadingDetail}
+        workout={workout}
+      />
     </div>
   );
 }

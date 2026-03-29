@@ -6,6 +6,7 @@ import AccountAvatar from '../components/account/AccountAvatar';
 import PersonalInfoSection from '../components/account/PersonalInfoSection';
 import AppSettingsSection from '../components/account/AppSettingsSection';
 import SecuritySection from '../components/account/SecuritySection';
+import WorkoutSettingsSection from '../components/account/WorkoutSettingsSection';
 import { useAuth } from '../context/useAuth';
 import { useAccountProfile } from '../hooks/useAccountProfile';
 import '../styles/pages/account.css';
@@ -43,6 +44,7 @@ function AccountPage() {
 
           <PersonalInfoSection profile={profile} set={set} />
           <AppSettingsSection profile={profile} set={set} />
+          <WorkoutSettingsSection />
           <SecuritySection onSignOut={handleSignOut} />
 
           <div className="account-footer">
