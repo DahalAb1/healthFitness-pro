@@ -3,7 +3,7 @@
  * Interface Segregation: only receives the props it uses — no form-wide state.
  * Reusable across LoginPage and SignUpPage.
  */
-export default function PasswordInput({ label = 'Password', value, onChange, show, onToggleShow, placeholder = '••••••••' }) {
+export default function PasswordInput({ label = 'Password', value, onChange, show, onToggleShow, placeholder = '••••••••', inputClassName = '' }) {
   return (
     <div className="auth-field">
       <label>{label}</label>
@@ -13,6 +13,7 @@ export default function PasswordInput({ label = 'Password', value, onChange, sho
           placeholder={placeholder}
           value={value}
           onChange={onChange}
+          className={inputClassName || undefined}
           required
         />
         <button
