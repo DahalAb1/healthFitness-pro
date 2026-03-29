@@ -15,6 +15,10 @@ vi.mock('@/utils/api', () => ({
   getExercises: vi.fn(),
 }));
 
+vi.mock('@/context/useAuth', () => ({
+  useAuth: () => ({ token: 'test-token', user: { id: 1 } }),
+}));
+
 import CustomCreatorView from '@/components/workoutTemplate/CustomCreatorView';
 import { getUserWorkouts, postUserWorkout, deleteUserWorkout, getExercises } from '@/utils/api';
 
@@ -90,7 +94,8 @@ describe('CustomCreatorView', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Save Workout' }));
     await waitFor(() =>
       expect(postUserWorkout).toHaveBeenCalledWith(
-        expect.objectContaining({ name: 'Upper Body Push', user_id: 1 }),
+        expect.objectContaining({ name: 'Upper Body Push' }),
+        'test-token',
       ),
     );
   });
@@ -166,7 +171,9 @@ describe('CustomCreatorView', () => {
     renderView();
     await waitFor(() => expect(screen.getByText('My Leg Day')).toBeInTheDocument());
     fireEvent.click(screen.getByRole('button', { name: 'Delete' }));
-    await waitFor(() => expect(deleteUserWorkout).toHaveBeenCalledWith(10, 1));
+    await waitFor(() => expect(screen.getByRole('button', { name: 'Sure?' })).toBeInTheDocument());
+    fireEvent.click(screen.getByRole('button', { name: 'Sure?' }));
+    await waitFor(() => expect(deleteUserWorkout).toHaveBeenCalledWith(10, 'test-token'));
   });
 
   it('toggles exercise list when "View"/"Hide" is clicked', async () => {

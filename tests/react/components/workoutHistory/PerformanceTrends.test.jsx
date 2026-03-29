@@ -20,7 +20,11 @@ vi.mock('@/utils/api', () => ({
   getProgressWeights: vi.fn(),
 }));
 
-import PerformanceTrends from '@/components/workoutHistory/PerformanceTrends';
+vi.mock('@/context/useAuth', () => ({
+  useAuth: () => ({ token: 'test-token' }),
+}));
+
+import PerformanceTrends from '@/components/history/PerformanceTrends';
 import { getProgressWeights } from '@/utils/api';
 
 function renderComponent() {
@@ -64,7 +68,7 @@ describe('PerformanceTrends', () => {
       target: { value: 'Bench Press' },
     });
     fireEvent.click(screen.getByRole('button', { name: 'Load' }));
-    await waitFor(() => expect(getProgressWeights).toHaveBeenCalledWith(1, 'Bench Press'));
+    await waitFor(() => expect(getProgressWeights).toHaveBeenCalledWith('test-token', 'Bench Press'));
   });
 
   it('does not call the API when the input is blank', () => {

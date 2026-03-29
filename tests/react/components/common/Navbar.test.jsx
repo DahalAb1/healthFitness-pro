@@ -1,5 +1,10 @@
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
+
+vi.mock('@/context/useAuth', () => ({
+  useAuth: () => ({ user: null, avatar: null }),
+}));
+
 import { MemoryRouter } from 'react-router-dom';
 import Navbar from '@/components/common/Navbar';
 
