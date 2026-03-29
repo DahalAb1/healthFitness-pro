@@ -30,7 +30,7 @@ RUN npm ci
 COPY app/frontend/vite-project/ ./
 
 # Bake the API URL so the built JS points to /api (proxied by Nginx)
-ENV VITE_API_URL=http://localhost:8000
+ENV VITE_API_URL=""
 RUN npm run build
 
 # ---------- Final backend image ----------
@@ -38,6 +38,7 @@ FROM base AS runtime
 
 COPY --from=deps /usr/local /usr/local
 COPY app ./app
+COPY --from=frontend-build /frontend/dist /app/static
 
 RUN mkdir -p /app/data
 
