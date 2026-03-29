@@ -140,7 +140,7 @@ export function useActiveWorkout() {
     sessionStorage.removeItem('activeWorkoutName');
     sessionStorage.removeItem('activeWorkoutExercises');
 
-    navigate('/workout-history');
+    navigate('/history');
   }
 
   function handleSetUpdate(exerciseIndex, setIndex, field, value) {

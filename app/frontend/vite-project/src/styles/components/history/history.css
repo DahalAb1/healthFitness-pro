@@ -1,6 +1,6 @@
 /* ===== WORKOUT HISTORY PAGE ===== */
 
-.workout-history-main {
+.history-main {
   background: #0F0F0F;
   min-height: 100vh;
   color: #FFFFFF;
@@ -17,14 +17,14 @@
   border-bottom: 1px solid #333333;
 }
 
-.workout-history-heading {
+.history-heading {
   font-size: 2.8rem;
   letter-spacing: -2px;
   margin-bottom: 10px;
   font-weight: 900;
 }
 
-.workout-history-description {
+.history-description {
   color: #A0A0A0;
   font-size: 1.1rem;
   max-width: 600px;
@@ -127,7 +127,7 @@
   font-weight: 700;
 }
 
-/* Days with logged workouts — dot indicator */
+/* Days with logged workouts — blue dot indicator */
 .calendar-day.has-workout {
   position: relative;
 }
@@ -136,8 +136,8 @@
   content: '';
   position: absolute;
   bottom: 5px;
-  left: 50%;
-  transform: translateX(-50%);
+  left: calc(50% - 5px);
+  transform: none;
   width: 5px;
   height: 5px;
   border-radius: 50%;
@@ -148,11 +148,72 @@
   background: #fff;
 }
 
+/* Days with nutrition logs — green dot indicator */
+.calendar-day.has-nutrition {
+  position: relative;
+}
+
+.calendar-day.has-nutrition::before {
+  content: '';
+  position: absolute;
+  bottom: 5px;
+  left: calc(50% + 2px);
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #4AFF8C;
+}
+
+.calendar-day.selected.has-nutrition::before {
+  background: #fff;
+}
+
+/* When a day has only nutrition (no workout), center the dot */
+.calendar-day.has-nutrition:not(.has-workout)::before {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
 /* --- SELECTED DAY --- */
 .selected-day {
   margin-top: 30px;
   padding-top: 20px;
   border-top: 1px solid #333333;
+}
+
+/* Section blocks inside the detail (Workout / Nutrition) */
+.day-detail-section {
+  margin-bottom: 24px;
+}
+
+.day-detail-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #A0A0A0;
+  padding-bottom: 8px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #2a2a2a;
+}
+
+.day-detail-section-total {
+  color: #4A90FF;
+  font-weight: 700;
+}
+
+.day-detail-meal {
+  margin-bottom: 16px;
+}
+
+.day-detail-meal-kcal {
+  font-size: 12px;
+  color: #4AFF8C;
+  font-weight: 700;
+  margin-left: 10px;
 }
 
 .selected-date-header {

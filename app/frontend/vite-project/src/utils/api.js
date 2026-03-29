@@ -95,3 +95,44 @@ export async function getProgressWeights(token, exerciseName) {
   if (!res.ok) throw new Error('No data found');
   return res.json();
 }
+
+// ---------------------------------------------------------------------------
+// Nutrition meal log
+// ---------------------------------------------------------------------------
+
+export async function getMealLogs(token, date) {
+  const res = await fetch(`${BASE_URL}/nutrition/logs?log_date=${date}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  if (!res.ok) throw new Error(`getMealLogs failed: ${res.status}`);
+  return res.json();
+}
+
+export async function getNutritionActiveDates(token, year, month) {
+  const res = await fetch(`${BASE_URL}/nutrition/logs/active-dates?year=${year}&month=${month}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  if (!res.ok) throw new Error(`getNutritionActiveDates failed: ${res.status}`);
+  return res.json(); // { days: [1, 5, 14, ...] }
+}
+
+export async function addMealLog(token, entry) {
+  const res = await fetch(`${BASE_URL}/nutrition/logs`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(entry),
+  });
+  if (!res.ok) throw new Error(`addMealLog failed: ${res.status}`);
+  return res.json();
+}
+
+export async function deleteMealLog(token, logId) {
+  const res = await fetch(`${BASE_URL}/nutrition/logs/${logId}`, {
+    method: 'DELETE',
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  if (!res.ok) throw new Error(`deleteMealLog failed: ${res.status}`);
+}

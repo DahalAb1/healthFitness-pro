@@ -1,15 +1,17 @@
 import { useState, useEffect } from 'react';
-import { getWorkoutByDate, getWorkouts } from '../utils/api';
+import { getWorkoutByDate, getWorkouts, getMealLogs, getNutritionActiveDates } from '../utils/api';
 import { useAuth } from '../context/useAuth';
 
 const TODAY = new Date();
 
-export function useWorkoutCalendar() {
+export function useCalendar() {
   const { token } = useAuth();
   const [viewDate, setViewDate] = useState(new Date());
   const [selectedDay, setSelectedDay] = useState(null);
   const [workout, setWorkout] = useState(null);
+  const [mealLogs, setMealLogs] = useState([]);
   const [workoutDays, setWorkoutDays] = useState(new Set());
+  const [nutritionDays, setNutritionDays] = useState(new Set());
   const [loadingDetail, setLoadingDetail] = useState(false);
 
   const month = viewDate.getMonth();
@@ -20,14 +22,18 @@ export function useWorkoutCalendar() {
 
   useEffect(() => {
     if (!token) return;
-    getWorkouts(token)
-      .then((sessions) => {
-        const days = new Set();
+    Promise.all([
+      getWorkouts(token),
+      getNutritionActiveDates(token, year, month + 1),
+    ])
+      .then(([sessions, nutData]) => {
+        const workout_d = new Set();
         sessions.forEach((s) => {
           const [y, m, d] = s.workout_date.split('-').map(Number);
-          if (y === year && m === month + 1) days.add(d);
+          if (y === year && m === month + 1) workout_d.add(d);
         });
-        setWorkoutDays(days);
+        setWorkoutDays(workout_d);
+        setNutritionDays(new Set(nutData.days));
       })
       .catch(() => {});
   }, [year, month, token]);
@@ -38,16 +44,23 @@ export function useWorkoutCalendar() {
     setViewDate(d);
     setSelectedDay(null);
     setWorkout(null);
+    setMealLogs([]);
   }
 
   function handleDayClick(day) {
     setSelectedDay(day);
     setWorkout(null);
+    setMealLogs([]);
     const date = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
     setLoadingDetail(true);
-    getWorkoutByDate(token, date)
-      .then((data) => setWorkout(data))
-      .catch(() => setWorkout(null))
+    Promise.all([
+      getWorkoutByDate(token, date).catch(() => null),
+      getMealLogs(token, date).catch(() => []),
+    ])
+      .then(([workoutData, logs]) => {
+        setWorkout(workoutData);
+        setMealLogs(logs);
+      })
       .finally(() => setLoadingDetail(false));
   }
 
@@ -60,7 +73,9 @@ export function useWorkoutCalendar() {
     todayDay,
     selectedDay,
     workout,
+    mealLogs,
     workoutDays,
+    nutritionDays,
     loadingDetail,
     firstDay,
     daysInMonth,

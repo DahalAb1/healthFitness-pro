@@ -1,5 +1,5 @@
-import { useWorkoutCalendar } from '../../hooks/useWorkoutCalendar';
-import WorkoutSessionDetail from './WorkoutSessionDetail';
+import { useCalendar } from '../../hooks/useCalendar';
+import SessionDetail from './SessionDetail';
 
 const MONTH_NAMES = [
   'January', 'February', 'March', 'April', 'May', 'June',
@@ -7,13 +7,13 @@ const MONTH_NAMES = [
 ];
 const DAY_LABELS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
-function WorkoutCalendar() {
+function Calendar() {
   const {
     month, year, todayDay,
-    selectedDay, workout, workoutDays, loadingDetail,
+    selectedDay, workout, mealLogs, workoutDays, nutritionDays, loadingDetail,
     firstDay, daysInMonth,
     changeMonth, handleDayClick,
-  } = useWorkoutCalendar();
+  } = useCalendar();
 
   return (
     <div className="calendar-page">
@@ -37,6 +37,7 @@ function WorkoutCalendar() {
             selectedDay === day ? 'selected' : '',
             todayDay === day ? 'today' : '',
             workoutDays.has(day) ? 'has-workout' : '',
+            nutritionDays.has(day) ? 'has-nutrition' : '',
           ].filter(Boolean).join(' ');
           return (
             <div key={day} className={classes} onClick={() => handleDayClick(day)}>
@@ -46,15 +47,16 @@ function WorkoutCalendar() {
         })}
       </div>
 
-      <WorkoutSessionDetail
+      <SessionDetail
         month={month}
         year={year}
         selectedDay={selectedDay}
         loadingDetail={loadingDetail}
         workout={workout}
+        mealLogs={mealLogs}
       />
     </div>
   );
 }
 
-export default WorkoutCalendar;
+export default Calendar;
