@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { getTemplateExercises, logWorkout, getExercises } from '../utils/api';
+import { useAuth } from '../context/useAuth';
 import { normalizeTemplateExercise, normalizeCustomExercise } from '../components/activeWorkout/exerciseNormalizers';
 
 function buildSetLogs(exs) {
@@ -16,6 +17,7 @@ function buildSetLogs(exs) {
 export function useActiveWorkout() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+  const { token } = useAuth();
 
   const [exercises, setExercises] = useState([]);
   const [workoutName, setWorkoutName] = useState('');
@@ -124,11 +126,10 @@ export function useActiveWorkout() {
 
     try {
       await logWorkout({
-        user_id: 1,
         workout_date: today,
         duration_minutes: durationMinutes,
         exercises: exercisesToLog,
-      });
+      }, token);
     } catch (err) {
       console.error('Failed to log workout:', err);
       window.alert('Workout finished, but could not save to history. Is the backend running?');

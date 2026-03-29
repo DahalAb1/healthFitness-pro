@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { getWorkoutByDate, getWorkouts } from '../../utils/api';
+import { useAuth } from '../../context/useAuth';
 
 const MONTH_NAMES = [
   'January', 'February', 'March', 'April', 'May', 'June',
@@ -9,6 +10,7 @@ const DAY_LABELS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 const TODAY = new Date();
 
 function WorkoutCalendar() {
+  const { token } = useAuth();
   const [viewDate, setViewDate] = useState(new Date());
   const [selectedDay, setSelectedDay] = useState(null);
   const [workout, setWorkout] = useState(null);
@@ -23,7 +25,8 @@ function WorkoutCalendar() {
 
   // Pre-load which days in this month have workouts
   useEffect(() => {
-    getWorkouts(1)
+    if (!token) return;
+    getWorkouts(token)
       .then((sessions) => {
         const days = new Set();
         sessions.forEach((s) => {
@@ -33,8 +36,7 @@ function WorkoutCalendar() {
         setWorkoutDays(days);
       })
       .catch(() => {});
-  }, [year, month]);
-
+  }, [year, month, token]);
   const changeMonth = (offset) => {
     const d = new Date(viewDate);
     d.setMonth(d.getMonth() + offset);
@@ -48,7 +50,7 @@ function WorkoutCalendar() {
     setWorkout(null);
     const date = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
     setLoadingDetail(true);
-    getWorkoutByDate(1, date)
+    getWorkoutByDate(token, date)
       .then((data) => setWorkout(data))
       .catch(() => setWorkout(null))
       .finally(() => setLoadingDetail(false));
