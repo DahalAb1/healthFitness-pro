@@ -55,10 +55,10 @@ export function useAccountProfile() {
   }, [token]);
 
   /** Returns an onChange handler that updates local state and persists to backend. */
-  const set = (key, backendKey) => (val) => {
+  const set = useCallback((key, backendKey) => (val) => {
     setProfile((p) => ({ ...p, [key]: val }));
     saveProfile({ [backendKey]: val });
-  };
+  }, [saveProfile]);
 
   return { profile, heightInches, weightLbs, setHeightInches, setWeightLbs, set, saveProfile };
 }
