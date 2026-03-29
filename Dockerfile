@@ -30,7 +30,7 @@ RUN npm ci
 COPY app/frontend/vite-project/ ./
 
 # Bake the API URL so the built JS points to /api (proxied by Nginx)
-ENV VITE_API_URL=http://localhost:8000
+ENV VITE_API_URL=""
 RUN npm run build
 
 # ---------- Final backend image ----------
@@ -38,9 +38,11 @@ FROM base AS runtime
 
 COPY --from=deps /usr/local /usr/local
 COPY app ./app
+COPY --from=frontend-build /frontend/dist /app/static
 
 RUN mkdir -p /app/data
 
-EXPOSE 8000
+ENV PORT=8080
+EXPOSE ${PORT}
 
-CMD ["uvicorn", "app.backend.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD uvicorn app.backend.main:app --host 0.0.0.0 --port $PORT
