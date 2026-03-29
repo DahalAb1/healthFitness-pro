@@ -1,14 +1,16 @@
-function WorkoutControls({ onBack, onEndWorkout, onNext, isBackDisabled, isLast, finishing }) {
+function WorkoutControls({ onBack, onEnd, onNext, currentIndex, total, finishing }) {
+  const isLast = currentIndex === total - 1;
+
   return (
     <div className="aw-controls">
       <button
         className="aw-btn aw-btn-back"
         onClick={onBack}
-        disabled={isBackDisabled}
+        disabled={currentIndex === 0}
       >
         Back
       </button>
-      <button className="aw-btn aw-btn-end" onClick={onEndWorkout}>
+      <button className="aw-btn aw-btn-end" onClick={onEnd}>
         End Workout
       </button>
       <button
