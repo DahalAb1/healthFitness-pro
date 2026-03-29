@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { postUserWorkout, getUserWorkouts, deleteUserWorkout, getExercises } from '../../utils/api';
+import { useAuth } from '../../context/useAuth';
 
 const BODY_PARTS = ['ALL', 'CHEST', 'BACK', 'SHOULDERS', 'ARMS', 'LEGS', 'ABS', 'CARDIO'];
 
@@ -17,7 +18,7 @@ function createEmptyRow() {
 
 function CustomCreatorView() {
   const navigate = useNavigate();
-
+  const { token } = useAuth();
   const [workoutName, setWorkoutName] = useState('');
   const [rows, setRows] = useState([createEmptyRow()]);
   const [savedWorkouts, setSavedWorkouts] = useState([]);
@@ -39,8 +40,9 @@ function CustomCreatorView() {
   const [libraryLoading, setLibraryLoading] = useState(false);
 
   useEffect(() => {
-    getUserWorkouts(1).then((data) => setSavedWorkouts(Array.isArray(data) ? data : []));
-  }, []);
+    if (!token) return;
+    getUserWorkouts(token).then((data) => setSavedWorkouts(Array.isArray(data) ? data : []));
+  }, [token]);
 
   useEffect(() => {
     if (!showLibrary) return;
@@ -84,7 +86,6 @@ function CustomCreatorView() {
     }
 
     postUserWorkout({
-      user_id: 1,
       name: trimmedName,
       exercises: rows.map((row) => ({
         exercise_id: row.exerciseId || null,
@@ -92,7 +93,7 @@ function CustomCreatorView() {
         sets: row.sets,
         reps: row.reps,
       })),
-    }).then((saved) => {
+    }, token).then((saved) => {
       setSavedWorkouts((prev) => [...prev, saved]);
     });
 

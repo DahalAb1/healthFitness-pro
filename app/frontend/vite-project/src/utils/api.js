@@ -26,23 +26,30 @@ export async function getTemplateExercises(templateId) {
   return res.json()
 }
 
-export async function getWorkoutByDate(userId, date) {
-  const res = await fetch(`${BASE_URL}/workouts/details?user_id=${userId}&workout_date=${date}`)
-  return res.json()
-}
-
-export async function getUserWorkouts(userId) {
-  const res = await fetch(`${BASE_URL}/user-workouts?user_id=${userId}`)
-  return res.json()
-}
-
-export async function postUserWorkout(data) {
-  const res = await fetch(`${BASE_URL}/user-workouts`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data),
+export async function getWorkoutByDate(token, date) {
+  const res = await fetch(`${BASE_URL}/workouts/details?workout_date=${date}`, {
+    headers: { Authorization: `Bearer ${token}` },
   });
   return res.json();
+}
+
+export async function getUserWorkouts(token) {
+  const res = await fetch(`${BASE_URL}/user-workouts`, {
+    headers: { Authorization: `Bearer ${token}` },
+  })
+  return res.json()
+}
+
+export async function postUserWorkout(data, token) {
+  const res = await fetch(`${BASE_URL}/user-workouts`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(data),
+  })
+  return res.json()
 }
 
 export async function deleteUserWorkout(workoutId, userId) {
@@ -59,17 +66,22 @@ export async function searchFoods(query, page = 0, maxResults = 20) {
   return res.json();
 }
 
-export async function logWorkout(data) {
+export async function logWorkout(data, token) {
   const res = await fetch(`${BASE_URL}/workouts`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
     body: JSON.stringify(data),
   });
   return res.json();
 }
 
-export async function getWorkouts(userId) {
-  const res = await fetch(`${BASE_URL}/workouts?user_id=${userId}`);
+export async function getWorkouts(token) {
+  const res = await fetch(`${BASE_URL}/workouts`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
   return res.json();
 }
 

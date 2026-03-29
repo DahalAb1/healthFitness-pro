@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Pulse Pro</title>
+    <style>
+        :root {
+            --bg: #080808;
+            --card: #121212;
+            --accent: #4A90FF;
+            --secondary: #BC4AFF;
+            --text: #ffffff;
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Matching Animated Gradient Border */
+        .outer-glow {
+            position: relative;
+            padding: 2px;
+            border-radius: 24px;
+            background: linear-gradient(45deg, var(--accent), var(--secondary), var(--accent));
+            background-size: 200% 200%;
+            animation: borderRotate 4s linear infinite;
+        }
+
+        @keyframes borderRotate {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .login-card {
+            background: var(--card);
+            padding: 50px 40px;
+            border-radius: 22px;
+            width: 380px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+            text-align: center;
+        }
+
+        .login-card h2 {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            letter-spacing: -1px;
+            background: linear-gradient(to right, #fff, #888);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .login-card p {
+            color: #555;
+            font-size: 14px;
+            margin-bottom: 35px;
+        }
+
+        .field { text-align: left; margin-bottom: 20px; }
+        
+        .field label {
+            display: block;
+            font-size: 10px;
+            font-weight: 900;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+
+        .field input {
+            width: 100%;
+            background: #1a1a1a;
+            border: 1px solid #252525;
+            padding: 16px;
+            border-radius: 12px;
+            color: white;
+            font-size: 15px;
+            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .field input:focus {
+            outline: none;
+            border-color: var(--accent);
+            background: #222;
+            box-shadow: 0 0 15px rgba(74, 144, 255, 0.2);
+        }
+
+        .forgot-link {
+            display: block;
+            text-align: right;
+            font-size: 11px;
+            color: #444;
+            margin-top: -10px;
+            margin-bottom: 25px;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+        .forgot-link:hover { color: var(--secondary); }
+
+        .btn-main {
+            width: 100%;
+            padding: 16px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 800;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 8px 20px rgba(74, 144, 255, 0.3);
+        }
+
+        .btn-main:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(74, 144, 255, 0.4);
+            background: #5ba0ff;
+        }
+
+        .signup-link {
+            margin-top: 30px;
+            font-size: 13px;
+            color: #666;
+        }
+
+        .signup-link a {
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+
+<div class="outer-glow">
+    <div class="login-card">
+        <h2>Welcome Back.</h2>
+        <p>Syncing your progress...</p>
+
+        <div class="field">
+            <label>Digital Mail</label>
+            <input type="email" placeholder="name@email.com">
+        </div>
+
+        <div class="field">
+            <label>Secure Key</label>
+            <input type="password" placeholder="••••••••">
+        </div>
+
+        <a href="#" class="forgot-link">Recover Access?</a>
+
+        <button class="btn-main">Authorize</button>
+
+        <div class="signup-link">
+            Not registered? <a href="#">Create Account</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

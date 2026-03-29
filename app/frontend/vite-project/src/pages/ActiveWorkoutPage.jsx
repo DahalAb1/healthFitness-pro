@@ -3,6 +3,7 @@ import { useSearchParams, useNavigate } from 'react-router-dom';
 import Navbar from '../components/common/Navbar';
 import Footer from '../components/common/Footer';
 import { getTemplateExercises, logWorkout, getExercises } from '../utils/api';
+import { useAuth } from '../context/useAuth';
 import ExerciseCard from '../components/activeWorkout/ExerciseCard';
 import RestTimer from '../components/activeWorkout/RestTimer';
 import { normalizeTemplateExercise, normalizeCustomExercise } from '../components/activeWorkout/exerciseNormalizers';
@@ -11,6 +12,7 @@ import '../styles/components/active-workout/active-workout.css';
 function ActiveWorkoutPage() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+  const { token } = useAuth();
 
   const [exercises, setExercises] = useState([]);
   const [workoutName, setWorkoutName] = useState('');
@@ -131,11 +133,10 @@ function ActiveWorkoutPage() {
 
     try {
       await logWorkout({
-        user_id: 1,
         workout_date: today,
         duration_minutes: durationMinutes,
         exercises: exercisesToLog,
-      });
+      }, token);
     } catch (err) {
       console.error('Failed to log workout:', err);
       window.alert('Workout finished, but could not save to history. Is the backend running?');

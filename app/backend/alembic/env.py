@@ -23,6 +23,7 @@ from sqlmodel import SQLModel
 from models.template import WorkoutTemplate, TemplateExercise  # noqa
 from models.workout import WorkoutSession, WorkoutExercise  # noqa
 from models.custom_workout import CustomWorkout, CustomWorkoutExercise  # noqa
+from models.user import User  # noqa
 
 target_metadata = SQLModel.metadata
 
