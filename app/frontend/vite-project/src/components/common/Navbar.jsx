@@ -20,7 +20,7 @@ function Navbar() {
         <li><NavLink to="/workout-template">Templates</NavLink></li>
         <li><NavLink to="/nutrition">Nutrition</NavLink></li>
         <li><NavLink to="/exercise-library">Library</NavLink></li>
-        <li><NavLink to="/workout-history">History</NavLink></li>
+        <li><NavLink to="/history">History</NavLink></li>
       </ul>
 
       <div className="nav-auth">

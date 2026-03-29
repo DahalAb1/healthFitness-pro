@@ -22,7 +22,7 @@ const features = [
     description:
       'Log your sets, reps, and weights in seconds. Our high-density interface is designed to maximize focus and minimize screen time during your session.',
     btnText: 'Log a Workout',
-    btnHref: '/workout-history',
+    btnHref: '/history',
     image: fitness4,
     imageAlt: 'Workout Tracking',
   },
@@ -47,12 +47,12 @@ const features = [
     imageAlt: 'Exercise Library',
   },
   {
-    id: 'workout-history',
-    title: 'Workout History',
+    id: 'history',
+    title: 'History',
     description:
       'Review your past workouts, track your progress over time, and visualize performance trends with interactive charts.',
     btnText: 'View History',
-    btnHref: '/workout-history',
+    btnHref: '/history',
     image: fitness4,
     imageAlt: 'Workout History',
   },
