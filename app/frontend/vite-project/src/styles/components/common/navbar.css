@@ -34,6 +34,9 @@
   display: flex;
   gap: 24px;
   list-style: none;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 .nav-links a {
   color: var(--text-secondary);

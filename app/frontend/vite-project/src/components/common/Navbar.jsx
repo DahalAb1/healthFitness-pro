@@ -23,7 +23,6 @@ function Navbar() {
         <li><NavLink to="/nutrition">Nutrition</NavLink></li>
         <li><NavLink to="/exercise-library">Library</NavLink></li>
         <li><NavLink to="/workout-history">History</NavLink></li>
-        <li><NavLink to="/settings">Settings</NavLink></li>
       </ul>
 
       <div className="nav-auth">
