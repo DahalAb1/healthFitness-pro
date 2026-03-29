@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useRestTimer } from './useRestTimer';
+import { useRestTimer } from '../../hooks/useRestTimer';
 import { getDefaultRest, saveDefaultRest } from '../../utils/timerSettings';
 
 const PRESETS = [30, 60, 90, 120];
