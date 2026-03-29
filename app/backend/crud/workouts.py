@@ -44,8 +44,15 @@ def append_exercises(
             )
         )
     session.commit()
-    session.refresh(workout)
-    return workout
+    # Re-query with selectinload so the returned object has exercises populated
+    # (session.refresh only reloads scalar columns, not relationships)
+    query = (
+        select(WorkoutSession)
+        .where(WorkoutSession.id == workout_id)
+        .options(selectinload(WorkoutSession.exercises))
+    )
+    refreshed = session.exec(query).first()
+    return refreshed
 
 
 def get_by_id(session: Session, workout_id: int) -> WorkoutSession | None:

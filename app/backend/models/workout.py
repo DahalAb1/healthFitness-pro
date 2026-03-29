@@ -66,3 +66,25 @@ class WorkoutCreate(SQLModel):
     workout_date: date
     duration_minutes: int = Field(ge=1, le=600)
     exercises: list[ExerciseLogEntry] = Field(min_length=1)
+
+
+# --- Response schemas (include related objects for API output) ---
+# SQLModel table=True models do NOT serialize Relationship fields via Pydantic.
+# These read models explicitly declare exercises so they appear in JSON responses.
+
+class WorkoutExerciseRead(SQLModel):
+    """Read schema for a logged exercise — safe to return from API endpoints."""
+    id: int | None
+    exercise_name: str
+    sets: int
+    reps: int
+    weight: float
+
+
+class WorkoutSessionRead(SQLModel):
+    """Read schema for a workout session including its exercises."""
+    id: int | None
+    user_id: int
+    workout_date: date
+    duration_minutes: int
+    exercises: list[WorkoutExerciseRead] = []
