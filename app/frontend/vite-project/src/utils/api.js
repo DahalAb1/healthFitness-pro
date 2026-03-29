@@ -75,6 +75,7 @@ export async function logWorkout(data, token) {
     },
     body: JSON.stringify(data),
   });
+  if (!res.ok) throw new Error(`logWorkout failed: ${res.status}`);
   return res.json();
 }
 
