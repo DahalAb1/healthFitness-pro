@@ -66,8 +66,7 @@ export function useCustomCreatorView() {
   }
 
   function handleDelete(workout) {
-    if (!window.confirm(`Delete "${workout.name}"?`)) return;
-    deleteUserWorkout(workout.id, user?.id).then(() => {
+    deleteUserWorkout(workout.id, token).then(() => {
       setSavedWorkouts((prev) => prev.filter((w) => w.id !== workout.id));
     });
   }

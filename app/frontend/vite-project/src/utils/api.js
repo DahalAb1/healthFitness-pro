@@ -36,25 +36,26 @@ export async function getWorkoutByDate(token, date) {
 export async function getUserWorkouts(token) {
   const res = await fetch(`${BASE_URL}/user-workouts`, {
     headers: { Authorization: `Bearer ${token}` },
-  })
-  return res.json()
+  });
+  return res.json();
 }
 
 export async function postUserWorkout(data, token) {
   const res = await fetch(`${BASE_URL}/user-workouts`, {
-    method: "POST",
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(data),
-  })
-  return res.json()
+  });
+  return res.json();
 }
 
-export async function deleteUserWorkout(workoutId, userId) {
-  const res = await fetch(`${BASE_URL}/user-workouts/${workoutId}?user_id=${userId}`, {
+export async function deleteUserWorkout(workoutId, token) {
+  const res = await fetch(`${BASE_URL}/user-workouts/${workoutId}`, {
     method: 'DELETE',
+    headers: { Authorization: `Bearer ${token}` },
   });
   return res.json();
 }
