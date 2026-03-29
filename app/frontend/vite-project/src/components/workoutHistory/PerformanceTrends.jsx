@@ -11,6 +11,7 @@ import {
   Legend,
 } from 'chart.js';
 import { getProgressWeights } from '../../utils/api';
+import { useAuth } from '../../context/useAuth';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Filler, Tooltip, Legend);
 
@@ -18,6 +19,7 @@ const FILTER_DAYS = { day: 7, week: 30, month: Infinity };
 const FILTER_LABELS = { day: '7 Days', week: '30 Days', month: 'All Time' };
 
 function PerformanceTrends() {
+  const { token } = useAuth();
   const [filter, setFilter] = useState('month');
   const [inputValue, setInputValue] = useState('');
   const [exerciseName, setExerciseName] = useState('');
@@ -27,10 +29,10 @@ function PerformanceTrends() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    if (!exerciseName) return;
+    if (!exerciseName || !token) return;
     setLoading(true);
     setError(null);
-    getProgressWeights(1, exerciseName)
+    getProgressWeights(token, exerciseName)
       .then((data) => {
         setAllPoints(data.points || []);
         setMeta(data);

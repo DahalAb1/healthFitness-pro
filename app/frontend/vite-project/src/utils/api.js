@@ -85,9 +85,10 @@ export async function getWorkouts(token) {
   return res.json();
 }
 
-export async function getProgressWeights(userId, exerciseName) {
+export async function getProgressWeights(token, exerciseName) {
   const res = await fetch(
-    `${BASE_URL}/progress/weights?user_id=${userId}&exercise_name=${encodeURIComponent(exerciseName)}`
+    `${BASE_URL}/progress/weights?exercise_name=${encodeURIComponent(exerciseName)}`,
+    { headers: { Authorization: `Bearer ${token}` } }
   );
   if (!res.ok) throw new Error('No data found');
   return res.json();
