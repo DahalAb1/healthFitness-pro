@@ -1,25 +1,8 @@
-import { useState, useEffect } from 'react';
-import { getTemplates, getTemplateExercises } from '../../utils/api';
+import { useTemplatesView } from '../../hooks/useTemplatesView';
 import TemplateDetailPanel from './TemplateDetailPanel';
 
 function TemplatesView() {
-  const [templates, setTemplates] = useState([]);
-  const [selectedTemplate, setSelectedTemplate] = useState(null);
-  const [exercises, setExercises] = useState([]);
-  const [loadingExercises, setLoadingExercises] = useState(false);
-
-  useEffect(() => {
-    getTemplates().then((data) => setTemplates(Array.isArray(data) ? data : []));
-  }, []);
-
-  function openTemplate(template) {
-    setSelectedTemplate(template);
-    setExercises([]);
-    setLoadingExercises(true);
-    getTemplateExercises(template.id)
-      .then((data) => setExercises(data.exercises || []))
-      .finally(() => setLoadingExercises(false));
-  }
+  const { templates, selectedTemplate, exercises, loadingExercises, openTemplate, closeTemplate } = useTemplatesView();
 
   return (
     <section className="wt-view-content active">
@@ -45,7 +28,7 @@ function TemplatesView() {
           template={selectedTemplate}
           exercises={exercises}
           loading={loadingExercises}
-          onClose={() => setSelectedTemplate(null)}
+          onClose={() => closeTemplate()}
         />
       )}
     </section>
