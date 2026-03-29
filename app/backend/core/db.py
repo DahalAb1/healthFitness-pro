@@ -1,6 +1,7 @@
 from sqlmodel import SQLModel, create_engine
 from core.config import settings
 from models.user import User
+from models.nutrition import MealLog  # noqa: F401 – registers table with SQLModel metadata
 
 # The engine is the connection to the database.
 # It uses DATABASE_URL from our central settings (core/config.py).
