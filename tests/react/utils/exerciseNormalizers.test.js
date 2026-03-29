@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import {
   normalizeTemplateExercise,
   normalizeCustomExercise,
-} from '@/components/activeWorkout/exerciseNormalizers';
+} from '@/utils/exerciseNormalizers';
 
 describe('normalizeTemplateExercise', () => {
   it('uses details.name as the exercise name', () => {

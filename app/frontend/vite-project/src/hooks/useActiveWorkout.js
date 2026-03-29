@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { getTemplateExercises, logWorkout, getExercises } from '../utils/api';
 import { useAuth } from '../context/useAuth';
-import { normalizeTemplateExercise, normalizeCustomExercise } from '../components/activeWorkout/exerciseNormalizers';
+import { normalizeTemplateExercise, normalizeCustomExercise } from '../utils/exerciseNormalizers';
 
 function buildSetLogs(exs) {
   return exs.map((ex) =>
