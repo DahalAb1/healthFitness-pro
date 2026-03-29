@@ -4,9 +4,13 @@ import { useRef } from 'react';
  * Single Responsibility: renders the avatar display/upload UI only.
  * Receives avatarSrc and setAvatar via props (Dependency Inversion).
  */
-export default function AccountAvatar({ avatarSrc, setAvatar, displayName }) {
+export default function AccountAvatar({
+  avatarSrc, setAvatar, displayName,
+  memberSince = 'Jan 2024',
+  planLabel = 'Pro Plan — Active',
+}) {
   const avatarInputRef = useRef(null);
-  const initials = displayName.slice(0, 2).toUpperCase();
+  const initials = displayName ? displayName.slice(0, 2).toUpperCase() : '?';
 
   const handleAvatarChange = (e) => {
     const file = e.target.files[0];
@@ -42,8 +46,8 @@ export default function AccountAvatar({ avatarSrc, setAvatar, displayName }) {
       </div>
       <div>
         <div className="account-profile-name">{displayName}</div>
-        <div className="account-profile-meta">Member since Jan 2024</div>
-        <span className="account-profile-badge">Pro Plan — Active</span>
+        <div className="account-profile-meta">Member since {memberSince}</div>
+        <span className="account-profile-badge">{planLabel}</span>
       </div>
     </div>
   );
