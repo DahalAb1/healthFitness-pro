@@ -6,6 +6,9 @@ vi.mock('@/context/useAuth', () => ({
 }));
 
 import { MemoryRouter } from 'react-router-dom';
+
+vi.mock('@/context/useAuth', () => ({ useAuth: () => ({ user: null, avatar: null }) }));
+
 import Navbar from '@/components/common/Navbar';
 
 function renderNavbar() {
