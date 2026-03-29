@@ -126,6 +126,7 @@ export function useActiveWorkout() {
     });
 
     try {
+      if (!token) throw new Error('Not authenticated');
       await logWorkout({
         workout_date: today,
         duration_minutes: durationMinutes,
@@ -133,7 +134,7 @@ export function useActiveWorkout() {
       }, token);
     } catch (err) {
       console.error('Failed to log workout:', err);
-      window.alert('Workout finished, but could not save to history. Is the backend running?');
+      window.alert('Workout finished, but could not save to history. Please make sure you are logged in and the backend is running.');
     }
 
     sessionStorage.removeItem('activeWorkoutName');
