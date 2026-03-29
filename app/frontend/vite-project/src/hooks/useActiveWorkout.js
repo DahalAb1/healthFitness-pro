@@ -25,6 +25,7 @@ export function useActiveWorkout() {
   const [loading, setLoading] = useState(true);
   const [finishing, setFinishing] = useState(false);
   const [setLogs, setSetLogs] = useState([]);
+  const [timerVisible, setTimerVisible] = useState(false);
 
   const startedAt = useRef(Date.now());
 
@@ -141,7 +142,13 @@ export function useActiveWorkout() {
     navigate('/workout-history');
   }
 
+  function handleSetUpdate(exerciseIndex, setIndex, field, value) {
+    if (field === 'done' && value === true) setTimerVisible(true);
+    updateSetLog(exerciseIndex, setIndex, field, value);
+  }
+
   function handleNext() {
+    setTimerVisible(false);
     if (currentIndex < exercises.length - 1) {
       setCurrentIndex((i) => i + 1);
     } else {
@@ -150,6 +157,7 @@ export function useActiveWorkout() {
   }
 
   function handleBack() {
+    setTimerVisible(false);
     if (currentIndex > 0) setCurrentIndex((i) => i - 1);
   }
 
@@ -166,9 +174,11 @@ export function useActiveWorkout() {
     loading,
     finishing,
     setLogs,
+    timerVisible,
+    setTimerVisible,
+    handleSetUpdate,
     handleNext,
     handleBack,
     handleEnd,
-    updateSetLog,
   };
 }
