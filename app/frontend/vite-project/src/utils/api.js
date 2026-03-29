@@ -26,9 +26,11 @@ export async function getTemplateExercises(templateId) {
   return res.json()
 }
 
-export async function getWorkoutByDate(userId, date) {
-  const res = await fetch(`${BASE_URL}/workouts/details?user_id=${userId}&workout_date=${date}`)
-  return res.json()
+export async function getWorkoutByDate(token, date) {
+  const res = await fetch(`${BASE_URL}/workouts/details?workout_date=${date}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return res.json();
 }
 
 export async function getUserWorkouts(token) {
@@ -64,17 +66,22 @@ export async function searchFoods(query, page = 0, maxResults = 20) {
   return res.json();
 }
 
-export async function logWorkout(data) {
+export async function logWorkout(data, token) {
   const res = await fetch(`${BASE_URL}/workouts`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
     body: JSON.stringify(data),
   });
   return res.json();
 }
 
-export async function getWorkouts(userId) {
-  const res = await fetch(`${BASE_URL}/workouts?user_id=${userId}`);
+export async function getWorkouts(token) {
+  const res = await fetch(`${BASE_URL}/workouts`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
   return res.json();
 }
 
