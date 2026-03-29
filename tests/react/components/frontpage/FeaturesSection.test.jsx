@@ -27,14 +27,14 @@ describe('FeaturesSection', () => {
     expect(screen.getByRole('heading', { name: 'Exercise Library' })).toBeInTheDocument();
   });
 
-  it('renders the Workout History feature heading', () => {
+  it('renders the History feature heading', () => {
     renderSection();
-    expect(screen.getByRole('heading', { name: 'Workout History' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'History' })).toBeInTheDocument();
   });
 
   it('renders 6 feature rows in total', () => {
     renderSection();
-    expect(screen.getAllByRole('heading', { level: 2 })).toHaveLength(6);
+    expect(screen.getAllByRole('heading', { level: 2 })).toHaveLength(5);
   });
 
   it('renders the "Browse Exercises" link pointing to /exercise-library', () => {
@@ -42,10 +42,10 @@ describe('FeaturesSection', () => {
     expect(screen.getByRole('link', { name: 'Browse Exercises' })).toHaveAttribute('href', '/exercise-library');
   });
 
-  it('renders the "View History" link pointing to /workout-history', () => {
+  it('renders the "View History" link pointing to /history', () => {
     renderSection();
     const links = screen.getAllByRole('link', { name: 'View History' });
-    expect(links[0]).toHaveAttribute('href', '/workout-history');
+    expect(links[0]).toHaveAttribute('href', '/history');
   });
 
   it('renders section elements with the expected ids', () => {
@@ -53,6 +53,6 @@ describe('FeaturesSection', () => {
     expect(document.querySelector('#workout-templates')).toBeInTheDocument();
     expect(document.querySelector('#workout-tracking')).toBeInTheDocument();
     expect(document.querySelector('#library')).toBeInTheDocument();
-    expect(document.querySelector('#workout-history')).toBeInTheDocument();
+    expect(document.querySelector('#history')).toBeInTheDocument();
   });
 });

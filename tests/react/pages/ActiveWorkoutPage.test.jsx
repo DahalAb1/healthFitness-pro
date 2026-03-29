@@ -20,6 +20,10 @@ vi.mock('@/utils/api', () => ({
   logWorkout: vi.fn(),
 }));
 
+vi.mock('@/context/useAuth', () => ({
+  useAuth: () => ({ token: 'test-token' }),
+}));
+
 vi.mock('@/components/common/Navbar', () => ({ default: () => <nav data-testid="navbar" /> }));
 vi.mock('@/components/common/Footer', () => ({ default: () => <footer data-testid="footer" /> }));
 vi.mock('@/components/activeWorkout/ExerciseCard', () => ({
@@ -133,7 +137,7 @@ describe('ActiveWorkoutPage', () => {
     await waitFor(() => expect(screen.getByRole('button', { name: 'Finish' })).toBeInTheDocument());
     fireEvent.click(screen.getByRole('button', { name: 'Finish' }));
     await waitFor(() => expect(logWorkout).toHaveBeenCalled());
-    expect(mockNavigate).toHaveBeenCalledWith('/workout-history');
+    expect(mockNavigate).toHaveBeenCalledWith('/history');
   });
 
   it('calls logWorkout and navigates when "End Workout" is confirmed', async () => {
@@ -143,7 +147,7 @@ describe('ActiveWorkoutPage', () => {
     );
     fireEvent.click(screen.getByRole('button', { name: 'End Workout' }));
     await waitFor(() => expect(logWorkout).toHaveBeenCalled());
-    expect(mockNavigate).toHaveBeenCalledWith('/workout-history');
+    expect(mockNavigate).toHaveBeenCalledWith('/history');
   });
 
   it('redirects to /workout-template when source param is missing', async () => {

@@ -1,11 +1,11 @@
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
-import WorkoutHistoryHero from '@/components/workoutHistory/WorkoutHistoryHero';
+import WorkoutHistoryHero from '@/components/history/HistoryHero';
 
-describe('WorkoutHistoryHero', () => {
-  it('renders the "Workout History" heading', () => {
+describe('HistoryHero', () => {
+  it('renders the "History" heading', () => {
     render(<WorkoutHistoryHero />);
-    expect(screen.getByRole('heading', { name: 'Workout History' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'History' })).toBeInTheDocument();
   });
 
   it('renders the description text', () => {

@@ -39,9 +39,7 @@ export function useCalendar() {
   }, [year, month, token]);
 
   function changeMonth(offset) {
-    const d = new Date(viewDate);
-    d.setMonth(d.getMonth() + offset);
-    setViewDate(d);
+    setViewDate(new Date(year, month + offset, 1));
     setSelectedDay(null);
     setWorkout(null);
     setMealLogs([]);
