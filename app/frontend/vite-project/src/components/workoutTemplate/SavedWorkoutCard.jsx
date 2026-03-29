@@ -1,5 +1,8 @@
+import { useState } from 'react';
+
 function SavedWorkoutCard({ workout, isExpanded, onToggle, onCustomize, onBegin, onDelete }) {
   const exerciseCount = workout.exercises?.length ?? 0;
+  const [confirmingDelete, setConfirmingDelete] = useState(false);
 
   return (
     <article className="wt-template-card">
@@ -17,8 +20,12 @@ function SavedWorkoutCard({ workout, isExpanded, onToggle, onCustomize, onBegin,
         <button type="button" className="btn wt-card-btn wt-btn-begin" onClick={onBegin}>
           Begin
         </button>
-        <button type="button" className="btn wt-card-btn wt-btn-delete" onClick={onDelete}>
-          Delete
+        <button
+          type="button"
+          className="btn wt-card-btn wt-btn-delete"
+          onClick={() => confirmingDelete ? onDelete() : setConfirmingDelete(true)}
+        >
+          {confirmingDelete ? 'Sure?' : 'Delete'}
         </button>
       </div>
 
