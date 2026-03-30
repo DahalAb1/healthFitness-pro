@@ -93,7 +93,7 @@ def build_oauth1_url(request_params: dict, send_url: str) -> str:
         urllib.parse.quote(norm_params, safe=""),
     ])
 
-    signing_key = urllib.parse.quote(settings.FATSECRET_CLIENT_SECRET, safe="") + "&"
+    signing_key = urllib.parse.quote(settings.FATSECRET_CONSUMER_SECRET, safe="") + "&"
     raw_sig = hmac.new(
         signing_key.encode(), base_string.encode(), hashlib.sha1
     ).digest()
