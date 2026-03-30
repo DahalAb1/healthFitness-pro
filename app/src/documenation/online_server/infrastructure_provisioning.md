@@ -28,9 +28,9 @@ Set up the cloud infrastructure where the HealthFitnessPro app lives. Instead of
 
 - **Runtime:** Python 3.11 (FastAPI + Uvicorn)
 - **Static files:** React build output served by FastAPI from `/app/static`
-- **Database:** SQLite (ephemeral, file-based)
+- **Database:** Supabase PostgreSQL (us-west-2)
 - **Region:** `us-central1` (Iowa) — Tier 1 pricing
-- **Resources:** 0.5 vCPU, 512 MiB memory
+- **Resources:** 1 vCPU, 512 MiB memory
 - **Scaling:** 0 to 1 instances (scale-to-zero enabled)
 
 ## Files Modified for Infrastructure
@@ -46,20 +46,21 @@ Set up the cloud infrastructure where the HealthFitnessPro app lives. Instead of
 
 Sensitive values are stored in **Google Cloud Secret Manager** (not in source code or `.env` files):
 
-| Secret                    | Purpose                 |
-| ------------------------- | ----------------------- |
-| `SECRET_KEY`              | JWT token signing       |
-| `XRAPID_API_KEY`          | RapidAPI exercise data  |
-| `FATSECRET_CLIENT_ID`     | FatSecret nutrition API |
-| `FATSECRET_CLIENT_SECRET` | FatSecret nutrition API |
+| Secret                      | Purpose                           |
+| --------------------------- | --------------------------------- |
+| `SECRET_KEY`                | JWT token signing                 |
+| `XRAPID_API_KEY`            | RapidAPI exercise data            |
+| `FATSECRET_CLIENT_ID`       | FatSecret OAuth 2.0 client ID     |
+| `FATSECRET_CLIENT_SECRET`   | FatSecret OAuth 2.0 client secret |
+| `FATSECRET_CONSUMER_SECRET` | FatSecret OAuth 1.0a signing key  |
+| `DATABASE_URL`              | Supabase PostgreSQL connection    |
 
 Non-sensitive configuration is passed as plain environment variables:
 
-| Variable                      | Value                |
-| ----------------------------- | -------------------- |
-| `DATABASE_URL`                | `sqlite:///./app.db` |
-| `ALGORITHM`                   | `HS256`              |
-| `ACCESS_TOKEN_EXPIRE_MINUTES` | `30`                 |
+| Variable                      | Value   |
+| ----------------------------- | ------- |
+| `ALGORITHM`                   | `HS256` |
+| `ACCESS_TOKEN_EXPIRE_MINUTES` | `30`    |
 
 ## Firewall / Network
 
@@ -88,6 +89,8 @@ echo -n "your-secret-key" | gcloud secrets create SECRET_KEY --data-file=-
 echo -n "your-rapidapi-key" | gcloud secrets create XRAPID_API_KEY --data-file=-
 echo -n "your-fatsecret-id" | gcloud secrets create FATSECRET_CLIENT_ID --data-file=-
 echo -n "your-fatsecret-secret" | gcloud secrets create FATSECRET_CLIENT_SECRET --data-file=-
+echo -n "your-consumer-secret" | gcloud secrets create FATSECRET_CONSUMER_SECRET --data-file=-
+echo -n "postgresql://..." | gcloud secrets create DATABASE_URL --data-file=-
 ```
 
 ### Grant Access to Secrets
@@ -95,7 +98,7 @@ echo -n "your-fatsecret-secret" | gcloud secrets create FATSECRET_CLIENT_SECRET 
 ```bash
 PROJECT_NUMBER=$(gcloud projects describe YOUR_PROJECT_ID --format='value(projectNumber)')
 
-for SECRET in SECRET_KEY XRAPID_API_KEY FATSECRET_CLIENT_ID FATSECRET_CLIENT_SECRET; do
+for SECRET in SECRET_KEY XRAPID_API_KEY FATSECRET_CLIENT_ID FATSECRET_CLIENT_SECRET FATSECRET_CONSUMER_SECRET DATABASE_URL; do
   gcloud secrets add-iam-policy-binding $SECRET \
     --member="serviceAccount:${PROJECT_NUMBER}-compute@developer.gserviceaccount.com" \
     --role="roles/secretmanager.secretAccessor"
@@ -110,12 +113,12 @@ gcloud run deploy health-fitness-app \
     --region us-central1 \
     --allow-unauthenticated \
     --memory 512Mi \
-    --cpu 0.5 \
+    --cpu 1 \
     --min-instances 0 \
     --max-instances 1 \
     --concurrency 80 \
-    --set-env-vars "DATABASE_URL=sqlite:///./app.db,ALGORITHM=HS256,ACCESS_TOKEN_EXPIRE_MINUTES=30" \
-    --set-secrets "SECRET_KEY=SECRET_KEY:latest,XRAPID_API_KEY=XRAPID_API_KEY:latest,FATSECRET_CLIENT_ID=FATSECRET_CLIENT_ID:latest,FATSECRET_CLIENT_SECRET=FATSECRET_CLIENT_SECRET:latest"
+    --set-env-vars "ALGORITHM=HS256,ACCESS_TOKEN_EXPIRE_MINUTES=30" \
+    --set-secrets "SECRET_KEY=SECRET_KEY:latest,XRAPID_API_KEY=XRAPID_API_KEY:latest,FATSECRET_CLIENT_ID=FATSECRET_CLIENT_ID:latest,FATSECRET_CLIENT_SECRET=FATSECRET_CLIENT_SECRET:latest,FATSECRET_CONSUMER_SECRET=FATSECRET_CONSUMER_SECRET:latest,DATABASE_URL=DATABASE_URL:latest"
 ```
 
 ## Acceptance Criteria

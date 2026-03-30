@@ -17,7 +17,8 @@ class Settings(BaseSettings):
     DATABASE_URL: str = "sqlite:///./app.db"
     XRAPID_API_KEY: str = ""
     FATSECRET_CLIENT_ID: str = ""
-    FATSECRET_CLIENT_SECRET: str = ""
+    FATSECRET_CLIENT_SECRET: str = ""       # OAuth 2.0 client secret
+    FATSECRET_CONSUMER_SECRET: str = ""    # OAuth 1.0a consumer secret (different!)
 
     SECRET_KEY: str = "change-this-before-production"
     ALGORITHM: str = "HS256"
