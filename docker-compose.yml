@@ -1,0 +1,57 @@
+services:
+  # ---- FastAPI backend ----
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: runtime
+    container_name: health-fitness-api
+    env_file:
+      - .env
+    environment:
+      - PORT=8000
+    ports:
+      - "8000:8000"
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+    restart: unless-stopped
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import urllib.request; urllib.request.urlopen('http://localhost:8000/docs')",
+        ]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  # ---- React frontend (Nginx) ----
+  frontend:
+    image: nginx:alpine
+    container_name: health-fitness-frontend
+    ports:
+      - "3000:80"
+    volumes:
+      - frontend-dist:/usr/share/nginx/html:ro
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - api
+      - frontend-build
+    restart: unless-stopped
+
+  # ---- One-shot: copy built React files into the volume ----
+  frontend-build:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: frontend-build
+    container_name: health-fitness-build
+    volumes:
+      - frontend-dist:/output
+    entrypoint: ["sh", "-c", "cp -r /frontend/dist/* /output/"]
+
+volumes:
+  frontend-dist:

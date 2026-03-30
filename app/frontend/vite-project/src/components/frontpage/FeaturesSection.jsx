@@ -17,16 +17,6 @@ const features = [
     imageAlt: 'Workout Templates',
   },
   {
-    id: 'workout-tracking',
-    title: 'Workout Tracking',
-    description:
-      'Log your sets, reps, and weights in seconds. Our high-density interface is designed to maximize focus and minimize screen time during your session.',
-    btnText: 'Log a Workout',
-    btnHref: '/history',
-    image: fitness4,
-    imageAlt: 'Workout Tracking',
-  },
-  {
     id: 'nutrition',
     title: 'Calorie Dashboard',
     description:

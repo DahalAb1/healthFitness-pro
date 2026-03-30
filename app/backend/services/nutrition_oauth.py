@@ -57,10 +57,6 @@ def get_bearer_token() -> str:
 
 # ── OAuth 1.0a ────────────────────────────────────────────────────────────────
 
-# FatSecret validates the HMAC-SHA1 signature against its own canonical URL
-# even when the request is routed through RapidAPI.
-_OAUTH1_SIGN_URL = "https://platform.fatsecret.com/rest/server.api"
-
 
 def build_oauth1_url(request_params: dict, send_url: str) -> str:
     """
@@ -90,14 +86,14 @@ def build_oauth1_url(request_params: dict, send_url: str) -> str:
     norm_params = "&".join(k + "=" + v for k, v in encoded_pairs)
 
     # Signature base string: METHOD & encoded_url & encoded_params
-    # Use the canonical FatSecret URL, not the RapidAPI proxy URL
+    # Sign against the URL the request is actually sent to
     base_string = "&".join([
         "GET",
-        urllib.parse.quote(_OAUTH1_SIGN_URL, safe=""),
+        urllib.parse.quote(send_url, safe=""),
         urllib.parse.quote(norm_params, safe=""),
     ])
 
-    signing_key = urllib.parse.quote(settings.FATSECRET_CLIENT_SECRET, safe="") + "&"
+    signing_key = urllib.parse.quote(settings.FATSECRET_CONSUMER_SECRET, safe="") + "&"
     raw_sig = hmac.new(
         signing_key.encode(), base_string.encode(), hashlib.sha1
     ).digest()

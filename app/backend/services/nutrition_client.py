@@ -1,8 +1,8 @@
 """HTTP client for the FatSecret food/nutrition database.
 
-Primary:  OAuth 2.0 direct to platform.fatsecret.com
-Fallback: OAuth 1.0a via fatsecret4.p.rapidapi.com (used when the
-          server IP has not yet been whitelisted for OAuth 2.0)
+Primary:  OAuth 2.0 direct to platform.fatsecret.com (requires IP whitelist)
+Fallback: OAuth 1.0a direct to platform.fatsecret.com (signature-based,
+          no IP whitelist required — works from any machine)
 """
 
 import logging
@@ -13,9 +13,7 @@ from services.nutrition_normalizers import normalize_food_summary, normalize_foo
 
 logger = logging.getLogger(__name__)
 
-_OAUTH2_URL = "https://platform.fatsecret.com/rest/server.api"
-_OAUTH1_URL = "https://fatsecret4.p.rapidapi.com/rest/server.api"
-_RAPIDAPI_HOST = "fatsecret4.p.rapidapi.com"
+_API_URL = "https://platform.fatsecret.com/rest/server.api"
 
 # FatSecret error code 21 = IP not whitelisted for OAuth 2.0
 _IP_BLOCKED_CODE = 21
@@ -44,19 +42,19 @@ class NutritionClient:
         """OAuth 2.0: bearer token, direct to FatSecret."""
         logger.info("Nutrition: trying OAuth 2.0 (direct)")
         headers = {"Authorization": f"Bearer {get_bearer_token()}"}
-        r = httpx.get(_OAUTH2_URL, headers=headers, params=params)
+        r = httpx.get(_API_URL, headers=headers, params=params)
         r.raise_for_status()
         return r.json()
 
     def _get_oauth1(self, params: dict) -> dict:
-        """OAuth 1.0a: HMAC-SHA1 signed URL via RapidAPI."""
-        logger.info("Nutrition: OAuth 2.0 IP blocked — falling back to OAuth 1.0a (RapidAPI)")
-        signed_url = build_oauth1_url(params, _OAUTH1_URL)
-        headers = {
-            "x-rapidapi-key": settings.XRAPID_API_KEY,
-            "x-rapidapi-host": _RAPIDAPI_HOST,
-        }
-        r = httpx.get(signed_url, headers=headers)
+        """OAuth 1.0a: HMAC-SHA1 signed, direct to FatSecret.
+
+        No IP whitelist is required for OAuth 1.0a — authentication is
+        purely signature-based, so this works from any machine.
+        """
+        logger.info("Nutrition: OAuth 2.0 IP blocked — falling back to OAuth 1.0a (direct)")
+        signed_url = build_oauth1_url(params, _API_URL)
+        r = httpx.get(signed_url)
         r.raise_for_status()
         return r.json()
 
