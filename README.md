@@ -132,7 +132,7 @@
 
 ---
 
-#### Connor — 
+#### Connor — Backend for User Authentication, Protection of Routes, and Implementation of Reset Function
 
 - **SCRUM-55:** Design - User Authentication Mmodel (FastAPI) - [Jira] (https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-55) | [PR #51](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/51)
 - **SCRUM-56:** Implementation - Backend Authentication (FastAPI) - [Jira] (https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-56) | [PR #53](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/53)
