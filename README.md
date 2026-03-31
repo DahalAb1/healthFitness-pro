@@ -99,6 +99,51 @@
 
 ![Burnup Chart](app/src/images/image.png)
 
+
+## Sprint 1
+
+### Contributions
+
+---
+
+#### Diego — 
+
+- **SCRUM-50:** Design - Frontend UI Layout (Front Page) — [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-50) | [PR #1](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/1)
+
+- **SCRUM-70:**
+- **SCRUM-72:**
+- **SCRUM-73:**
+- **SCRUM-74:**
+- **SCRUM-67:**
+- **SCRUM-43:**
+- **SCRUM-30:**
+- **SCRUM-49:**
+- **SCRUM-59:**
+- **SCRUM-85:**
+- **SCRUM-86:**
+---
+
+#### Abhinesh — 
+
+---
+
+#### Angel — 
+
+---
+
+#### Connor — 
+
+---
+
+#### Saroj —
+
+---
+
+
+### Burnup Chart
+
+![Burnup Chart](app/src/images/sprintBurnUp2.png)
+
 ## Features
 
 User Stories:
