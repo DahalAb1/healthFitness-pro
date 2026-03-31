@@ -106,21 +106,22 @@
 
 ---
 
-#### Diego — 
+#### Diego — React Refactoring, Unit Testing, File Clean Up
 
-- **SCRUM-50:** Design - Frontend UI Layout (Front Page) — [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-50) | [PR #1](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/1)
+> Led the charge when refactoring/migrating legacy HTML code into React. Added all the logic from the frontend which connected it to the backend after the refactor. Integrated an API for the Calorie Tracker which was used to find the different foods used for it. Updated legacy unit tests for the frontend. Added unit tests for the new features added. Also cleaned up the React files so that they were sufficiently and cleanly following SRP. This is through taking out hook logic from pages and making sure the UI is in components.
 
-- **SCRUM-70:**
-- **SCRUM-72:**
-- **SCRUM-73:**
-- **SCRUM-74:**
-- **SCRUM-67:**
-- **SCRUM-43:**
-- **SCRUM-30:**
-- **SCRUM-49:**
-- **SCRUM-59:**
-- **SCRUM-85:**
-- **SCRUM-86:**
+- **SCRUM-70:** Migrate Dashboard HTML layout to React component structure | [PR](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/39)
+- **SCRUM-72:** Migrate Library to React | [PR](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/47)
+- **SCRUM-73:** Migrate History to React | [PR](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/46)
+- **SCRUM-74:** Unit Testing Reach Functionality | [PR](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/56)
+- **SCRUM-67:** Backend Logic Consolidation + Connection to Frontend | [PR](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/54)
+- **SCRUM-43:** API Integration | [PR](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/61)
+- **SCRUM-30:** Unit Testing - Timer | [PR](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/66)
+- **SCRUM-49:** Unit Testing - Calorie Tracker | [PR](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/67)
+- **SCRUM-59:** Unit Testing - Security | [PR](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/68)
+- **SCRUM-85:** Cleaning Up Frontend Functions//SOLID Principles | [PR](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/64)
+- **SCRUM-86:** Hook Unit Tests | [PR](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/69)
+
 ---
 
 #### Abhinesh — 
