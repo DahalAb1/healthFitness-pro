@@ -100,7 +100,7 @@
 ![Burnup Chart](app/src/images/image.png)
 
 
-## Sprint 1
+## Sprint 2
 
 ### Contributions
 
