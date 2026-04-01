@@ -131,24 +131,23 @@
 
 ---
 
-#### Connor — 
+#### Connor — Backend for User Authentication, Protection of Routes, and Implementation of Reset Function
 
-> Backend for User Authentication, Protection of Routes, and Implementation of Reset Function
-
-- **SCRUM-55:** Design - User Authentication Model (FastAPI) | [PR #51](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/51)
-- **SCRUM-56:** Implementation - Backend Authentication (FastAPI) | [PR #53](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/53)
-- **SCRUM-58:** Secure API Protection (FastAPI)  | [PR #60](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/60)
-- **SCRUM-48:** Logic - History - Nutrition & Calorie Tracker | [Pr #65](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/65)
+- **SCRUM-55:** Design - User Authentication Mmodel (FastAPI) - [Jira] (https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-55) | [PR #51](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/51)
+- **SCRUM-56:** Implementation - Backend Authentication (FastAPI) - [Jira] (https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-56) | [PR #53](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/53)
+- **SCRUM-58:** Secure API Protection (FastAPI) - [Jira] (https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-58) | [PR #60](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/60)
+- **SCRUM-48:** Logic - History - Nutrition & Calorie Tracker - [jira] (https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-48) | [Pr #65](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/65)
 
 ---
 
 #### Saroj —
 
-- **SCRUM-76:** Containerization & Build Optimization | [PR #57](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/57)
-- **SCRUM-75:** Environment Configuration & Secret Management | [PR #70](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/70)
-- **SCRUM-79:** SSL/TLS and Domain Mapping | [PR #75](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/75)
-- **SCRUM-77:** Infrastructure Provisioning & Web Server Setup | [PR #72](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/72)
-- **SCRUM-78:** Post-Deployment Smoke Testing | [PR #77](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/77)
+- **SCRUM-76:** Containerization & Build Optimization - [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-76) | [PR #57](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/57)
+- **SCRUM-75:** Environment Configuration & Secret Management - [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-75) | [PR #70](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/70)
+- **SCRUM-79:** SSL/TLS and Domain Mapping - [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-79) | [PR #75](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/75)
+- **SCRUM-77:** Infrastructure Provisioning & Web Server Setup - [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-77) | [PR #72](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/72)
+- **SCRUM-78:** Post-Deployment Smoke Testing - [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-78) | [PR #77](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/77)
+
 ---
 
 ### Burnup Chart
