@@ -166,11 +166,11 @@
 ---
 ### Next Steps
 
-If we were going to continue this project for the next Sprint our next steps would be 
-- Reviewing our current exercise API and possibly swapping it out for a new one. We had a couple of issues with the API we are currently using and the information it provides us.
-- Reviewing some bugs which were found in the application during our demo by peers. This includes the Calorie Tracker storage not working when not signed in and when trying to zero the daily calories it resetting to 2000. 
-- Populating our current application with more data as it currently has a small amount of it. This means adding more exercise templates. This is tied into a new exercise API.
-- Adding more information to view in the Calorie Tracker such as protein or sugars instead of just calories.
+If we were going to continue this project for the next Sprint our next steps would be  <br>
+- Reviewing our current exercise API and possibly swapping it out for a new one. We had a couple of issues with the API we are currently using and the information it provides us. <br>
+- Reviewing some bugs which were found in the application during our demo by peers. This includes the Calorie Tracker storage not working when not signed in and when trying to zero the daily calories it resetting to 2000. <br>
+- Populating our current application with more data as it currently has a small amount of it. This means adding more exercise templates. This is tied into a new exercise API. <br>
+- Adding more information to view in the Calorie Tracker such as protein or sugars instead of just calories. <br>
 
 
 ---
