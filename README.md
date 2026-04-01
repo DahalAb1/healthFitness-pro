@@ -128,6 +128,23 @@
 ---
 
 #### Angel —
+> Designed UI of Nutrition, Account, Front page, Workout history and Timer. Implemented frontend of Workout templates and account.
+
+
+- **SCRUM-57:** implementation – frontend authentication UI| (https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-57) [PR #53](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/63)
+
+- **SCRUM-46:** implement frontend calorie tracker| (https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/62) [PR #62](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/62)
+
+- **SCRUM-45:** design nutrition page | (https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-45) [PR #52](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/52)
+
+- **SCRUM-21:** design ui timer | (https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-21) [PR #48](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/48)
+
+- **SCRUM-71:** migrate workout templates feature | (https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-71) [PR #40](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/40)
+
+- **SCRUM-69:** offical documentation for the frontend | (https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-69) [PR #38](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/38)
+
+
+
 
 ---
 
