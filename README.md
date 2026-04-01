@@ -144,8 +144,6 @@
 - **SCRUM-69:** offical documentation for the frontend | [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-69) | [PR #38](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/38)
 
 
-
-
 ---
 
 #### Connor — Backend for User Authentication, Protection of Routes, and Implementation of Reset Function
@@ -166,10 +164,21 @@
 - **SCRUM-78:** Post-Deployment Smoke Testing - [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-78) | [PR #77](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/77)
 
 ---
+### Next Steps
 
+If we were going to continue this project for the next Sprint our next steps would be 
+- Reviewing our current exercise API and possibly swapping it out for a new one. We had a couple of issues with the API we are currently using and the information it provides us.
+- Reviewing some bugs which were found in the application during our demo by peers. This includes the Calorie Tracker storage not working when not signed in and when trying to zero the daily calories it resetting to 2000. 
+- Populating our current application with more data as it currently has a small amount of it. This means adding more exercise templates. This is tied into a new exercise API.
+- Adding more information to view in the Calorie Tracker such as protein or sugars instead of just calories.
+
+
+---
 ### Burnup Chart
 
 ![Burnup Chart](app/src/images/sprintBurnUp2.png)
+
+---
 
 ## Features
 
