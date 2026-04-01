@@ -136,12 +136,14 @@
 
 ---
 
-#### Connor — Backend for User Authentication, Protection of Routes, and Implementation of Reset Function
+#### Connor — 
 
-- **SCRUM-55:** Design - User Authentication Mmodel (FastAPI) - [Jira] (https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-55) | [PR #51](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/51)
-- **SCRUM-56:** Implementation - Backend Authentication (FastAPI) - [Jira] (https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-56) | [PR #53](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/53)
-- **SCRUM-58:** Secure API Protection (FastAPI) - [Jira] (https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-58) | [PR #60](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/60)
-- **SCRUM-48:** Logic - History - Nutrition & Calorie Tracker - [jira] (https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-48) | [Pr #65](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/65)
+> Backend for User Authentication, Protection of Routes, and Implementation of Reset Function
+
+- **SCRUM-55:** Design - User Authentication Model (FastAPI) | [PR #51](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/51)
+- **SCRUM-56:** Implementation - Backend Authentication (FastAPI) | [PR #53](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/53)
+- **SCRUM-58:** Secure API Protection (FastAPI)  | [PR #60](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/60)
+- **SCRUM-48:** Logic - History - Nutrition & Calorie Tracker | [Pr #65](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/65)
 
 ---
 
