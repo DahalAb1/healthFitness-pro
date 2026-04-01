@@ -90,7 +90,7 @@
 > Developed the homepage, implemented the workout library frontend, and integrated it with the backend to ensure seamless functionality and data flow.
 
 - **SCRUM-51:** Implementation – Build Home Screen(Home Screen) - [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-51) | [PR #13](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/13)
-- **SCRUM-4:** Implementation – Frontend: Workout Library(Workout Library) - [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-4) | [PR #29](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/29) 
+- **SCRUM-4:** Implementation – Frontend: Workout Library(Workout Library) - [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-4) | [PR #29](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/29)
 - **SCRUM-5:** Implementation – Backend Integration: Workout Library - [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-4) | [PR #30](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/30)
 
 ---
@@ -98,6 +98,87 @@
 ### Burnup Chart
 
 ![Burnup Chart](app/src/images/image.png)
+
+## Sprint 2
+
+### Contributions
+
+---
+
+#### Diego — React Refactoring, Unit Testing, File Clean Up
+
+> Led the charge when refactoring/migrating legacy HTML code into React. Added all the logic from the frontend which connected it to the backend after the refactor. Integrated an API for the Calorie Tracker which was used to find the different foods used for it. Updated legacy unit tests for the frontend. Added unit tests for the new features added. Also cleaned up the React files so that they were sufficiently and cleanly following SRP. This is through taking out hook logic from pages and making sure the UI is in components.
+
+- **SCRUM-70:** Migrate Dashboard HTML layout to React component structure [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-70) | [PR](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/39)
+- **SCRUM-72:** Migrate Library to React [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-72) | [PR](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/47)
+- **SCRUM-73:** Migrate History to React [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-73) | [PR](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/46)
+- **SCRUM-74:** Unit Testing Reach Functionality [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-74) | [PR](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/56)
+- **SCRUM-67:** Backend Logic Consolidation + Connection to Frontend [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-67) | [PR](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/54)
+- **SCRUM-43:** API Integration [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-43) | [PR](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/61)
+- **SCRUM-30:** Unit Testing - Timer [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-30) | [PR](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/66)
+- **SCRUM-49:** Unit Testing - Calorie Tracker [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-49) | [PR](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/67)
+- **SCRUM-59:** Unit Testing - Security [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-59) | [PR](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/68)
+- **SCRUM-85:** Cleaning Up Frontend Functions//SOLID Principles [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-85) | [PR](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/64)
+- **SCRUM-86:** Hook Unit Tests [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-86) | [PR](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/69)
+
+---
+
+#### Abhinesh —
+
+---
+
+#### Angel —
+> Designed UI of Nutrition, Account, Front page, Workout history and Timer. Implemented frontend of Workout templates and account.
+
+
+- **SCRUM-57:** implementation – frontend authentication UI| [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-57) | [PR #53](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/63)
+
+- **SCRUM-46:** implement frontend calorie tracker| [Jira](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/62) | [PR #62](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/62)
+
+- **SCRUM-45:** design nutrition page | [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-45) | [PR #52](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/52)
+
+- **SCRUM-21:** design ui timer |[Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-21) | [PR #48](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/48)
+
+- **SCRUM-71:** migrate workout templates feature | [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-71) | [PR #40](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/40)
+
+- **SCRUM-69:** offical documentation for the frontend | [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-69) | [PR #38](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/38)
+
+
+---
+
+#### Connor — Backend for User Authentication, Protection of Routes, and Implementation of Reset Function
+
+- **SCRUM-55:** Design - User Authentication Mmodel (FastAPI) - [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-55) | [PR #51](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/51)
+- **SCRUM-56:** Implementation - Backend Authentication (FastAPI) - [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-56) | [PR #53](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/53)
+- **SCRUM-58:** Secure API Protection (FastAPI) - [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-58) | [PR #60](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/60)
+- **SCRUM-48:** Logic - History - Nutrition & Calorie Tracker - [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-48) | [Pr #65](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/65)
+
+---
+
+#### Saroj —
+
+- **SCRUM-76:** Containerization & Build Optimization - [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-76) | [PR #57](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/57)
+- **SCRUM-75:** Environment Configuration & Secret Management - [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-75) | [PR #70](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/70)
+- **SCRUM-79:** SSL/TLS and Domain Mapping - [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-79) | [PR #75](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/75)
+- **SCRUM-77:** Infrastructure Provisioning & Web Server Setup - [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-77) | [PR #72](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/72)
+- **SCRUM-78:** Post-Deployment Smoke Testing - [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-78) | [PR #77](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/77)
+
+---
+### Next Steps
+
+If we were going to continue this project for the next Sprint our next steps would be  <br>
+- Reviewing our current exercise API and possibly swapping it out for a new one. We had a couple of issues with the API we are currently using and the information it provides us. <br>
+- Reviewing some bugs which were found in the application during our demo by peers. This includes the Calorie Tracker storage not working when not signed in and when trying to zero the daily calories it resetting to 2000. <br>
+- Populating our current application with more data as it currently has a small amount of it. This means adding more exercise templates. This is tied into a new exercise API. <br>
+- Adding more information to view in the Calorie Tracker such as protein or sugars instead of just calories. <br>
+
+
+---
+### Burnup Chart
+
+![Burnup Chart](app/src/images/sprintBurnUp2.png)
+
+---
 
 ## Features
 
@@ -209,7 +290,6 @@ Once the backend server is running, the app provides the following features:
 ## Project Status
 
 Project is currently: **In Progress** 🔧
-
 
 ## Room for Improvement
 
