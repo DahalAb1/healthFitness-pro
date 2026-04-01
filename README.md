@@ -123,7 +123,18 @@
 
 ---
 
-#### Abhinesh —
+#### Abhinesh — Backend Refactor, Rest Timer & Settings
+
+> Executed a full backend architectural overhaul, restructuring into a layered app factory with dedicated API routes, service, and CRUD layers, and migrating from SQLite to Supabase PostgreSQL with Alembic migrations. Built and integrated the rest timer into the active workout flow, including a Settings page for persistent default rest durations. Also implemented the Workout In Progress page with live exercise image loading.
+
+- **SCRUM-80:** Backend Architecture Refactor (FastAPI + SQLModel + PostgreSQL) — [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-80) | [PR #41](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/41)
+- **SCRUM-66:** API Endpoints Consolidation — [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-66) | [PR #49](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/49)
+- **SCRUM-68:** Backend Code Documentation — [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-68) | [PR #45](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/45)
+- **SCRUM-65:** Backend Architecture Documentation — [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-65) | [PR #37](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/37)
+- **SCRUM-14:** Implementation - Workout In Progress Page & Exercise Image Loading — [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-14)
+- **SCRUM-23:** Implementation - RestTimer React Component — [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-23) | [PR #55](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/55)
+- **SCRUM-28:** Feature - RestTimer Full Implementation (countdown, presets, ring UI) — [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-28) | [PR #58](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/58)
+- **SCRUM-29:** Settings Page & Persistent Rest Duration — [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-29) | [PR #59](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/59)
 
 ---
 
