@@ -131,17 +131,17 @@
 > Designed UI of Nutrition, Account, Front page, Workout history and Timer. Implemented frontend of Workout templates and account.
 
 
-- **SCRUM-57:** implementation – frontend authentication UI| (https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-57) [PR #53](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/63)
+- **SCRUM-57:** implementation – frontend authentication UI| [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-57) [PR #53](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/63)
 
-- **SCRUM-46:** implement frontend calorie tracker| (https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/62) [PR #62](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/62)
+- **SCRUM-46:** implement frontend calorie tracker| [Jira](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/62) [PR #62](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/62)
 
-- **SCRUM-45:** design nutrition page | (https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-45) [PR #52](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/52)
+- **SCRUM-45:** design nutrition page | [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-45) [PR #52](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/52)
 
-- **SCRUM-21:** design ui timer | (https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-21) [PR #48](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/48)
+- **SCRUM-21:** design ui timer |[Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-21) [PR #48](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/48)
 
-- **SCRUM-71:** migrate workout templates feature | (https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-71) [PR #40](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/40)
+- **SCRUM-71:** migrate workout templates feature | [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-71) [PR #40](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/40)
 
-- **SCRUM-69:** offical documentation for the frontend | (https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-69) [PR #38](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/38)
+- **SCRUM-69:** offical documentation for the frontend | [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-69) [PR #38](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/38)
 
 
 
@@ -150,10 +150,10 @@
 
 #### Connor — Backend for User Authentication, Protection of Routes, and Implementation of Reset Function
 
-- **SCRUM-55:** Design - User Authentication Mmodel (FastAPI) - [Jira] (https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-55) | [PR #51](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/51)
-- **SCRUM-56:** Implementation - Backend Authentication (FastAPI) - [Jira] (https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-56) | [PR #53](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/53)
-- **SCRUM-58:** Secure API Protection (FastAPI) - [Jira] (https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-58) | [PR #60](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/60)
-- **SCRUM-48:** Logic - History - Nutrition & Calorie Tracker - [jira] (https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-48) | [Pr #65](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/65)
+- **SCRUM-55:** Design - User Authentication Mmodel (FastAPI) - [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-55) | [PR #51](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/51)
+- **SCRUM-56:** Implementation - Backend Authentication (FastAPI) - [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-56) | [PR #53](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/53)
+- **SCRUM-58:** Secure API Protection (FastAPI) - [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-58) | [PR #60](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/60)
+- **SCRUM-48:** Logic - History - Nutrition & Calorie Tracker - [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-48) | [Pr #65](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/65)
 
 ---
 
