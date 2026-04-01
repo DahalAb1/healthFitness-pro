@@ -90,15 +90,19 @@
 > Developed the homepage, implemented the workout library frontend, and integrated it with the backend to ensure seamless functionality and data flow.
 
 - **SCRUM-51:** Implementation – Build Home Screen(Home Screen) - [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-51) | [PR #13](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/13)
-- **SCRUM-4:** Implementation – Frontend: Workout Library(Workout Library) - [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-4) | [PR #29](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/29) 
+- **SCRUM-4:** Implementation – Frontend: Workout Library(Workout Library) - [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-4) | [PR #29](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/29)
 - **SCRUM-5:** Implementation – Backend Integration: Workout Library - [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-4) | [PR #30](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/30)
+- **SCRUM-76:** Containerization & Build Optimization - [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-76) | [PR #57](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/57)
+- **SCRUM-75:** Environment Configuration & Secret Management - [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-75) | [PR #70](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/70)
+- **SCRUM-79:** SSL/TLS and Domain Mapping - [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-79) | [PR #75](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/75)
+- **SCRUM-77:** Infrastructure Provisioning & Web Server Setup - [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-77) | [PR #72](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/72)
+- **SCRUM-78:** Post-Deployment Smoke Testing - [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-78) | [PR #77](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/77)
 
 ---
 
 ### Burnup Chart
 
 ![Burnup Chart](app/src/images/image.png)
-
 
 ## Sprint 2
 
@@ -124,11 +128,11 @@
 
 ---
 
-#### Abhinesh — 
+#### Abhinesh —
 
 ---
 
-#### Angel — 
+#### Angel —
 
 ---
 
@@ -144,7 +148,6 @@
 #### Saroj —
 
 ---
-
 
 ### Burnup Chart
 
@@ -260,7 +263,6 @@ Once the backend server is running, the app provides the following features:
 ## Project Status
 
 Project is currently: **In Progress** 🔧
-
 
 ## Room for Improvement
 
