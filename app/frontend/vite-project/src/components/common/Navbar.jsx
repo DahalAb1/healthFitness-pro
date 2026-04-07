@@ -34,20 +34,50 @@ function Navbar() {
         <span />
       </button>
 
-      <ul className="nav-links">
-        <li>
-          <NavLink to="/workout-template">Templates</NavLink>
-        </li>
-        <li>
-          <NavLink to="/nutrition">Nutrition</NavLink>
-        </li>
-        <li>
-          <NavLink to="/exercise-library">Library</NavLink>
-        </li>
-        <li>
-          <NavLink to="/history">History</NavLink>
-        </li>
-      </ul>
+      <div className={`mobile-nav ${menuOpen ? "open" : ""}`}>
+        <ul className="mobile-nav-links">
+          <li>
+            <NavLink to="/workout-template" onClick={closeMenu}>
+              Templates
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/nutrition" onClick={closeMenu}>
+              Nutrition
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/exercise-library" onClick={closeMenu}>
+              Library
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/history" onClick={closeMenu}>
+              History
+            </NavLink>
+          </li>
+          {user ? (
+            <li>
+              <NavLink to="/account" onClick={closeMenu}>
+                Account
+              </NavLink>
+            </li>
+          ) : (
+            <>
+              <li>
+                <NavLink to="/login" onClick={closeMenu}>
+                  Login
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/signup" onClick={closeMenu}>
+                  Sign Up
+                </NavLink>
+              </li>
+            </>
+          )}
+        </ul>
+      </div>
 
       <div className="nav-auth">
         {user ? (
