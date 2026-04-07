@@ -34,6 +34,22 @@ function Navbar() {
         <span />
       </button>
 
+      <ul className="nav-links">
+        {" "}
+        <li>
+          <NavLink to="/workout-template">Templates</NavLink>
+        </li>{" "}
+        <li>
+          <NavLink to="/nutrition">Nutrition</NavLink>
+        </li>{" "}
+        <li>
+          <NavLink to="/exercise-library">Library</NavLink>
+        </li>{" "}
+        <li>
+          <NavLink to="/history">History</NavLink>
+        </li>{" "}
+      </ul>
+
       <div className={`mobile-nav ${menuOpen ? "open" : ""}`}>
         <ul className="mobile-nav-links">
           <li>
