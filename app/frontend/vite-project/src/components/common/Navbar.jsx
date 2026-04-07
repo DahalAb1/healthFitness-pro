@@ -22,6 +22,18 @@ function Navbar() {
         <span className="logo-text">Health Fitness Pro</span>
       </Link>
 
+      <button
+        className="nav-toggle"
+        type="button"
+        aria-label="Toggle navigation menu"
+        aria-expanded={menuOpen}
+        onClick={() => setMenuOpen((v) => !v)}
+      >
+        <span />
+        <span />
+        <span />
+      </button>
+
       <ul className="nav-links">
         <li>
           <NavLink to="/workout-template">Templates</NavLink>
