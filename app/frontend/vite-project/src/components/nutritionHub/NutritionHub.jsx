@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import NutritionHero from './NutritionHero';
-import CalorieGauge from './CalorieGauge';
+import MacroGauge from './MacroGauge';
 import FoodSearch from './FoodSearch';
 import MealSection from './MealSection';
 import { useFoodSearch } from '../../hooks/useFoodSearch';
@@ -50,11 +50,6 @@ function NutritionPage() {
 
       <div className="log-grid">
         <div className="log-sidebar">
-          <CalorieGauge
-            total={totalCalories}
-            goal={goal}
-            onGoalChange={setGoal}
-          />
           <FoodSearch
             searchQuery={searchQuery}
             onSearchChange={setSearchQuery}
@@ -67,6 +62,37 @@ function NutritionPage() {
             onCustomKcalChange={setCustomKcal}
             onAddCustom={handleAddCustom}
           />
+          <div className="macro-gauges-row">
+            <MacroGauge
+              label="Calories"
+              unit="kcal"
+              total={totalCalories}
+              goal={goal}
+              onGoalChange={setGoal}
+              accentColor="var(--accent)"
+            />
+            <MacroGauge
+              label="Protein"
+              total={totalMacros.protein_g}
+              goal={proteinGoal}
+              onGoalChange={setProteinGoal}
+              accentColor="#4aff8c"
+            />
+            <MacroGauge
+              label="Carbs"
+              total={totalMacros.carbs_g}
+              goal={carbsGoal}
+              onGoalChange={setCarbsGoal}
+              accentColor="#ffc94a"
+            />
+            <MacroGauge
+              label="Fat"
+              total={totalMacros.fat_g}
+              goal={fatGoal}
+              onGoalChange={setFatGoal}
+              accentColor="#ff8c4a"
+            />
+          </div>
         </div>
 
         <div className="log-main">
