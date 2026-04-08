@@ -21,7 +21,7 @@ function NutritionPage() {
     handleAddCustom,
   } = useFoodSearch();
 
-  const { meals, addToMeal, removeFromMeal, totalCalories } = useMeals();
+  const { meals, addToMeal, removeFromMeal, totalCalories, totalMacros } = useMeals();
 
   const handleDragStart = (e, food) => {
     e.dataTransfer.effectAllowed = 'copy';
@@ -46,7 +46,7 @@ function NutritionPage() {
 
   return (
     <div className="container nutrition-hub-container">
-      <NutritionHero total={totalCalories} goal={goal} />
+      <NutritionHero total={totalCalories} goal={goal} totalMacros={totalMacros} />
 
       <div className="log-grid">
         <div className="log-sidebar">
