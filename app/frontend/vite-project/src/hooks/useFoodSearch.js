@@ -31,6 +31,9 @@ export function useFoodSearch() {
           name: f.food_name,
           kcal: Math.round(f.calories ?? 0),
           serving_description: f.serving_description ?? '',
+          protein_g: f.protein_g ?? null,
+          carbs_g: f.carbs_g ?? null,
+          fat_g: f.fat_g ?? null,
         }));
         setApiResults(normalized);
       } catch {
@@ -51,7 +54,7 @@ export function useFoodSearch() {
   const handleAddCustom = () => {
     if (customName && customKcal) {
       setCustomFoods(prev => [
-        { name: customName, kcal: parseInt(customKcal), serving_description: '' },
+        { name: customName, kcal: parseInt(customKcal), serving_description: '', protein_g: null, carbs_g: null, fat_g: null },
         ...prev,
       ]);
       setSearchQuery(customName);
