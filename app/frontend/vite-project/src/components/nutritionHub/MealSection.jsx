@@ -11,7 +11,6 @@ function MealSection({ mealType, items, onDragOver, onDragLeave, onDrop, onRemov
     >
       <div className="meal-header">
         <h4>{label}</h4>
-        <span style={{ fontSize: '12px', fontWeight: '700' }}>{total} kcal</span>
       </div>
       <div className="drop-zone">
         {items.length === 0 ? (
