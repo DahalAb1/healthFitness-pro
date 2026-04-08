@@ -4,6 +4,7 @@
 @import './components/common/navbar.css';
 @import './components/frontpage/hero.css';
 @import './components/frontpage/mission.css';
+@import './components/frontpage/about.css';
 @import './components/frontpage/testimonials.css';
 @import './components/frontpage/features.css';
 @import './components/common/footer.css';
