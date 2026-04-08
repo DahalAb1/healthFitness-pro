@@ -116,12 +116,12 @@
 /* --- LAYOUT --- */
 .log-grid {
   display: grid;
-  grid-template-columns: 350px 1fr;
+  grid-template-columns: 460px 1fr;
   gap: 30px;
   align-items: start;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1050px) {
   .log-grid {
     grid-template-columns: 1fr;
   }
@@ -286,7 +286,7 @@
 }
 
 .meal-header {
-  padding: 15px 20px;
+  padding: 10px 14px;
   background: rgba(255, 255, 255, 0.03);
   border-bottom: 1px solid var(--border);
   display: flex;
@@ -303,11 +303,11 @@
 }
 
 .drop-zone {
-  min-height: 100px;
-  padding: 15px;
+  min-height: 60px;
+  padding: 10px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 7px;
 }
 
 .drop-placeholder {
@@ -321,8 +321,8 @@
 
 .logged-item {
   background: #080808;
-  padding: 12px 18px;
-  border-radius: 14px;
+  padding: 8px 12px;
+  border-radius: 10px;
   border: 1px solid var(--border);
   display: flex;
   justify-content: space-between;
@@ -459,6 +459,126 @@
   border-color: rgba(255, 140, 74, 0.5) !important;
   color: #ff8c4a !important;
 }
+
+/* --- MACRO GAUGES --- */
+.macro-gauges-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.macro-gauge-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 10px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.macro-gauge-label {
+  font-size: 9px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.macro-gauge-container {
+  position: relative;
+  width: 120px;
+  height: 120px;
+}
+
+.macro-gauge-container svg {
+  transform: rotate(-90deg);
+}
+
+.macro-circle-bg {
+  fill: none;
+  stroke: #252525;
+  stroke-width: 9;
+}
+
+.macro-circle-progress {
+  fill: none;
+  stroke-width: 9;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.6s ease;
+}
+
+.macro-gauge-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  pointer-events: none;
+}
+
+.macro-gauge-value {
+  display: block;
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.macro-gauge-sub {
+  display: block;
+  font-size: 8px;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-top: 2px;
+}
+
+.macro-gauge-consumed {
+  font-size: 10px;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.macro-gauge-input-row {
+  width: 100%;
+  border-top: 1px solid var(--border);
+  padding-top: 8px;
+  margin-top: 2px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.macro-gauge-input-row label {
+  font-size: 8px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.macro-gauge-input-row input {
+  background: #080808;
+  border: 1px solid var(--border);
+  color: white;
+  padding: 6px 8px;
+  border-radius: 8px;
+  width: 100%;
+  font-size: 12px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.macro-gauge-input-row input:focus {
+  border-color: currentColor;
+}
+
+@media (max-width: 1050px) {
+  .macro-gauges-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 
 /* Logged item layout with macros */
 .logged-item-info {
