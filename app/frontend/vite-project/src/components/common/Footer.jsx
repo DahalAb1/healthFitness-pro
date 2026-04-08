@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import coverphoto from '../../assets/coverphoto.jpg';
 
 function Footer() {
@@ -5,10 +6,10 @@ function Footer() {
     <footer className="footer">
       <div className="footer-grid">
         <div className="footer-brand">
-          <a href="#" className="logo-container">
+          <Link to="/" className="logo-container">
             <img src={coverphoto} alt="Logo" className="logo-img" />
             <span className="logo-text">Health Fitness Pro</span>
-          </a>
+          </Link>
           <p>
             Professional tracking tools for athletes who demand the best from
             themselves every day.
@@ -18,34 +19,34 @@ function Footer() {
         <div className="footer-col">
           <h4>Product</h4>
           <ul>
-            <li><a href="#workout">Workouts</a></li>
-            <li><a href="#templates">Workouts</a></li>
-            <li><a href="#running">Running</a></li>
-            <li><a href="#nutrition">Nutrition</a></li>
-            <li><a href="exercise-library.html">Library</a></li>
+            <li><Link to="/workout-template">Templates</Link></li>
+            <li><Link to="/nutrition">Nutrition</Link></li>
+            <li><Link to="/exercise-library">Library</Link></li>
+            <li><Link to="/history">History</Link></li>
           </ul>
         </div>
 
         <div className="footer-col">
-          <h4>Resources</h4>
+          <h4>Social Media</h4>
           <ul>
-            <li><a href="#">Guides</a></li>
-            <li><a href="#">API Docs</a></li>
-            <li><a href="#">Support</a></li>
-            <li><a href="#">Community</a></li>
+            <li><a href="https://www.linkedin.com" target="_blank" rel="noreferrer">LinkedIn</a></li>
+            <li><a href="https://www.instagram.com" target="_blank" rel="noreferrer">Instagram</a></li>
+            <li><a href="https://www.github.com" target="_blank" rel="noreferrer">GitHub</a></li>
+            <li><a href="https://www.facebook.com" target="_blank" rel="noreferrer">Facebook</a></li>
           </ul>
         </div>
 
         <div className="footer-col">
           <h4>Company</h4>
           <ul>
-            <li><a href="#mission">About Us</a></li>
-            <li><a href="#">Privacy Policy</a></li>
-            <li><a href="#">Terms of Service</a></li>
-            <li><a href="#">Contact</a></li>
+            <li><a href="/#about-us">About Us</a></li>
+            <li><a href="mailto:support@healthfitnesspro.com">Contact</a></li>
           </ul>
         </div>
+
       </div>
+
+      
 
       <div className="footer-bottom">
         <p>&copy; 2026 Health Fitness Pro. All rights reserved.</p>
