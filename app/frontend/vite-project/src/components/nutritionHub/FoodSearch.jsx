@@ -71,9 +71,12 @@ function FoodSearch({
               onDragStart={(e) => onDragStart(e, food)}
             >
               <span className="food-name">{label}</span>
-              <div className="food-meta">
+              <div className="food-macros">
                 {portion && <span className="food-portion">{portion}</span>}
-                <span className="food-kcal">{food.kcal} kcal</span>
+                {food.protein_g != null && <span className="macro-pill macro-protein">P {Math.round(food.protein_g)}g</span>}
+                {food.carbs_g != null && <span className="macro-pill macro-carbs">C {Math.round(food.carbs_g)}g</span>}
+                {food.fat_g != null && <span className="macro-pill macro-fat">F {Math.round(food.fat_g)}g</span>}
+                <span className="macro-pill macro-kcal">{food.kcal} kcal</span>
               </div>
             </div>
           );
