@@ -12,12 +12,18 @@ import { useMeals, MEAL_TYPES } from '../../hooks/useMeals';
  */
 function NutritionPage() {
   const [goal, setGoal] = useState(2500);
+  const [proteinGoal, setProteinGoal] = useState(150);
+  const [carbsGoal, setCarbsGoal] = useState(200);
+  const [fatGoal, setFatGoal] = useState(65);
 
   const {
     searchQuery, setSearchQuery,
     searchResults, isSearching,
     customName, setCustomName,
     customKcal, setCustomKcal,
+    customProtein, setCustomProtein,
+    customCarbs, setCustomCarbs,
+    customFat, setCustomFat,
     handleAddCustom,
   } = useFoodSearch();
 
@@ -58,8 +64,14 @@ function NutritionPage() {
             onDragStart={handleDragStart}
             customName={customName}
             customKcal={customKcal}
+            customProtein={customProtein}
+            customCarbs={customCarbs}
+            customFat={customFat}
             onCustomNameChange={setCustomName}
             onCustomKcalChange={setCustomKcal}
+            onCustomProteinChange={setCustomProtein}
+            onCustomCarbsChange={setCustomCarbs}
+            onCustomFatChange={setCustomFat}
             onAddCustom={handleAddCustom}
           />
           <div className="macro-gauges-row">

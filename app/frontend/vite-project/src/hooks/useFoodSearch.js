@@ -17,6 +17,9 @@ export function useFoodSearch() {
   const [customFoods, setCustomFoods] = useState([]);
   const [customName, setCustomName] = useState('');
   const [customKcal, setCustomKcal] = useState('');
+  const [customProtein, setCustomProtein] = useState('');
+  const [customCarbs, setCustomCarbs] = useState('');
+  const [customFat, setCustomFat] = useState('');
 
   useEffect(() => {
     if (!searchQuery.trim()) {
@@ -54,12 +57,22 @@ export function useFoodSearch() {
   const handleAddCustom = () => {
     if (customName && customKcal) {
       setCustomFoods(prev => [
-        { name: customName, kcal: parseInt(customKcal), serving_description: '', protein_g: null, carbs_g: null, fat_g: null },
+        {
+          name: customName,
+          kcal: parseInt(customKcal),
+          serving_description: '',
+          protein_g: customProtein !== '' ? parseFloat(customProtein) : null,
+          carbs_g: customCarbs !== '' ? parseFloat(customCarbs) : null,
+          fat_g: customFat !== '' ? parseFloat(customFat) : null,
+        },
         ...prev,
       ]);
       setSearchQuery(customName);
       setCustomName('');
       setCustomKcal('');
+      setCustomProtein('');
+      setCustomCarbs('');
+      setCustomFat('');
     }
   };
 
@@ -72,6 +85,12 @@ export function useFoodSearch() {
     setCustomName,
     customKcal,
     setCustomKcal,
+    customProtein,
+    setCustomProtein,
+    customCarbs,
+    setCustomCarbs,
+    customFat,
+    setCustomFat,
     handleAddCustom,
   };
 }
