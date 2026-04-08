@@ -104,6 +104,9 @@ def add_meal_log(
         meal_type=data.meal_type,
         food_name=data.food_name,
         kcal=data.kcal,
+        protein_g=data.protein_g,
+        carbs_g=data.carbs_g,
+        fat_g=data.fat_g,
     )
     session.add(entry)
     session.commit()
