@@ -205,8 +205,66 @@
   font-weight: 700;
 }
 
+.day-detail-macro-text {
+  color: lightgrey;
+  font-size: 12px;
+  font-weight: 500;
+}
+
 .day-detail-meal {
   margin-bottom: 16px;
+}
+
+.day-detail-meal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.day-detail-meal-header .workout-duration {
+  margin-bottom: 0;
+}
+
+.history-macro-summary {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.history-macro-summary .macro-pill {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 20px;
+  border: 1px solid;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.history-macro-summary .macro-protein {
+  color: #4aff8c;
+  border-color: rgba(74, 255, 140, 0.35);
+  background: rgba(74, 255, 140, 0.07);
+}
+
+.history-macro-summary .macro-carbs {
+  color: #ffc94a;
+  border-color: rgba(255, 201, 74, 0.35);
+  background: rgba(255, 201, 74, 0.07);
+}
+
+.history-macro-summary .macro-fat {
+  color: #ff8c4a;
+  border-color: rgba(255, 140, 74, 0.35);
+  background: rgba(255, 140, 74, 0.07);
+}
+
+.history-macro-summary .macro-kcal {
+  color: #4A90FF;
+  border-color: rgba(74, 144, 255, 0.35);
+  background: rgba(74, 144, 255, 0.07);
 }
 
 .day-detail-meal-kcal {
@@ -238,6 +296,21 @@
   border-collapse: collapse;
   font-size: 13px;
   margin-top: 8px;
+}
+
+.exercise-table.nutrition-table {
+  table-layout: fixed;
+}
+
+.exercise-table.nutrition-table th:first-child,
+.exercise-table.nutrition-table td:first-child {
+  width: 40%;
+}
+
+.exercise-table.nutrition-table th:not(:first-child),
+.exercise-table.nutrition-table td:not(:first-child) {
+  width: 15%;
+  text-align: right;
 }
 
 .exercise-table th {

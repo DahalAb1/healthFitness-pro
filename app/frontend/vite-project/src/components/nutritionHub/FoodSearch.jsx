@@ -1,7 +1,7 @@
 /**
  * SRP: responsible only for the custom food entry form.
  */
-function CustomFoodForm({ customName, customKcal, onCustomNameChange, onCustomKcalChange, onAddCustom }) {
+function CustomFoodForm({ customName, customKcal, customProtein, customCarbs, customFat, onCustomNameChange, onCustomKcalChange, onCustomProteinChange, onCustomCarbsChange, onCustomFatChange, onAddCustom }) {
   return (
     <div style={{ marginTop: '25px', paddingTop: '20px', borderTop: '1px solid var(--border)' }}>
       <label>Quick Custom Log</label>
@@ -19,6 +19,27 @@ function CustomFoodForm({ customName, customKcal, onCustomNameChange, onCustomKc
         onChange={(e) => onCustomKcalChange(e.target.value)}
         style={{ width: '100%' }}
       />
+      <input
+        type="number"
+        placeholder="Protein (g)"
+        value={customProtein}
+        onChange={(e) => onCustomProteinChange(e.target.value)}
+        style={{ width: '100%' }}
+      />
+      <input
+        type="number"
+        placeholder="Carbs (g)"
+        value={customCarbs}
+        onChange={(e) => onCustomCarbsChange(e.target.value)}
+        style={{ width: '100%' }}
+      />
+      <input
+        type="number"
+        placeholder="Fat (g)"
+        value={customFat}
+        onChange={(e) => onCustomFatChange(e.target.value)}
+        style={{ width: '100%' }}
+      />
       <button className="btn btn-add" onClick={onAddCustom}>
         Add to Results
       </button>
@@ -33,8 +54,8 @@ function CustomFoodForm({ customName, customKcal, onCustomNameChange, onCustomKc
 function FoodSearch({
   searchQuery, onSearchChange,
   searchResults, isSearching, onDragStart,
-  customName, customKcal,
-  onCustomNameChange, onCustomKcalChange,
+  customName, customKcal, customProtein, customCarbs, customFat,
+  onCustomNameChange, onCustomKcalChange, onCustomProteinChange, onCustomCarbsChange, onCustomFatChange,
   onAddCustom,
 }) {
   return (
@@ -71,9 +92,12 @@ function FoodSearch({
               onDragStart={(e) => onDragStart(e, food)}
             >
               <span className="food-name">{label}</span>
-              <div className="food-meta">
+              <div className="food-macros">
                 {portion && <span className="food-portion">{portion}</span>}
-                <span className="food-kcal">{food.kcal} kcal</span>
+                {food.protein_g != null && <span className="macro-pill macro-protein">P {Math.round(food.protein_g)}g</span>}
+                {food.carbs_g != null && <span className="macro-pill macro-carbs">C {Math.round(food.carbs_g)}g</span>}
+                {food.fat_g != null && <span className="macro-pill macro-fat">F {Math.round(food.fat_g)}g</span>}
+                <span className="macro-pill macro-kcal">{food.kcal} kcal</span>
               </div>
             </div>
           );
@@ -83,8 +107,14 @@ function FoodSearch({
       <CustomFoodForm
         customName={customName}
         customKcal={customKcal}
+        customProtein={customProtein}
+        customCarbs={customCarbs}
+        customFat={customFat}
         onCustomNameChange={onCustomNameChange}
         onCustomKcalChange={onCustomKcalChange}
+        onCustomProteinChange={onCustomProteinChange}
+        onCustomCarbsChange={onCustomCarbsChange}
+        onCustomFatChange={onCustomFatChange}
         onAddCustom={onAddCustom}
       />
     </div>
