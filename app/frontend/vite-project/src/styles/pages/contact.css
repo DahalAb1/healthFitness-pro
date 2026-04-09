@@ -129,6 +129,18 @@
   box-shadow: 0 0 0 2px rgba(74, 144, 255, 0.2);
 }
 
+.contact-success {
+  color: #86efac;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.contact-error {
+  color: #fca5a5;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
 .contact-form .btn {
   justify-self: start;
   margin-top: 6px;
