@@ -20,7 +20,7 @@ function NutritionSection({ mealLogs }) {
       <div className="day-detail-section-header">
         <span>Nutrition</span>
         <span className="day-detail-macro-text">
-          {Math.round(totalKcal)} kcal &nbsp;·&nbsp; P {Math.round(totalProtein)}g &nbsp;·&nbsp; C {Math.round(totalCarbs)}g &nbsp;·&nbsp; F {Math.round(totalFat)}g
+          {Math.round(totalKcal)} Calories &nbsp;·&nbsp; Protein {Math.round(totalProtein)}g &nbsp;·&nbsp; Carbs {Math.round(totalCarbs)}g &nbsp;·&nbsp; Fat {Math.round(totalFat)}g
         </span>
       </div>
       {MEAL_TYPES.map(mealType => {
@@ -32,10 +32,10 @@ function NutritionSection({ mealLogs }) {
         const mealFat = items.reduce((s, i) => s + (i.fat_g ?? 0), 0);
         return (
           <div key={mealType} className="day-detail-meal">
-            <p className="workout-duration">
-              {mealType.charAt(0).toUpperCase() + mealType.slice(1)}
-              <span className="day-detail-macro-text" style={{ marginLeft: '10px', fontWeight: 400 }}>
-                {Math.round(mealKcal)} kcal &nbsp;·&nbsp; P {Math.round(mealProtein)}g &nbsp;·&nbsp; C {Math.round(mealCarbs)}g &nbsp;·&nbsp; F {Math.round(mealFat)}g
+            <p className="workout-duration" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <span>{mealType.charAt(0).toUpperCase() + mealType.slice(1)}</span>
+              <span className="day-detail-macro-text" style={{ fontWeight: 700 }}>
+                {Math.round(mealKcal)} Calories &nbsp;·&nbsp; Protein {Math.round(mealProtein)}g &nbsp;·&nbsp; Carbs {Math.round(mealCarbs)}g &nbsp;·&nbsp; Fat {Math.round(mealFat)}g
               </span>
             </p>
             <table className="exercise-table nutrition-table">
