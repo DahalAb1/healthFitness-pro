@@ -32,12 +32,18 @@
 }
 .nav-links {
   display: flex;
-  gap: 24px;
+  gap: 20px;
   list-style: none;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
+  position: static;
+  left: auto;
+  transform: none;
+  flex: 1;
+  justify-content: center;
+  margin: 0 16px;
+  padding: 0;
+  min-width: 0;
 }
+
 .nav-links a {
   color: var(--text-secondary);
   text-decoration: none;
@@ -52,6 +58,7 @@
   display: flex;
   gap: 10px;
   align-items: center;
+  margin-left: auto;
 }
 
 .nav-auth .btn {
