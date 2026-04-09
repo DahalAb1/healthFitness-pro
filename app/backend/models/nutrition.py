@@ -36,3 +36,11 @@ class MealLogRead(SQLModel):
     protein_g: float | None = None
     carbs_g: float | None = None
     fat_g: float | None = None
+
+
+class DailyTrend(SQLModel):
+    date: str
+    kcal: float
+    protein_g: float
+    carbs_g: float
+    fat_g: float

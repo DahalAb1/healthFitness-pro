@@ -9,7 +9,7 @@ from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlmodel import Session, select
 
 from api.deps import get_current_user, get_session
-from models.nutrition import MealLog, MealLogCreate, MealLogRead
+from models.nutrition import DailyTrend, MealLog, MealLogCreate, MealLogRead
 from models.user import User
 from services.nutrition_client import NutritionClient
 
@@ -116,7 +116,7 @@ def add_meal_log(
     return entry
 
 
-@router.get("/logs/trends")
+@router.get("/logs/trends", response_model=list[DailyTrend])
 def get_nutrition_trends(
     days: Optional[int] = Query(None, ge=1, description="Limit results to last N days. Omit for all time."),
     session: Session = Depends(get_session),
