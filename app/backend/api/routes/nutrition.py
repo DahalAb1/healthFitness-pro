@@ -1,4 +1,4 @@
-"""Nutrition routes – food search, macro lookup, and per-user meal logging."""
+"""Nutrition routes - food search, food lookup, and per-user meal logging."""
 
 from datetime import date as date_type
 
@@ -15,18 +15,16 @@ router = APIRouter(prefix="/nutrition", tags=["nutrition"])
 client = NutritionClient()
 
 
-@router.get("/search")
+@router.get(
+    "/search",
+    summary="Search foods",
+)
 def search_foods(
     q: str = Query(..., description="Food name or description to search for"),
     page: int = Query(0, ge=0, description="Page number for pagination"),
     max_results: int = Query(20, ge=1, le=50, description="Results per page"),
 ):
-    """
-    Search for foods by name. Returns a paginated list of food items with
-    per-serving calorie and macro summaries.
-
-    Example: GET /nutrition/search?q=chicken+breast&max_results=10
-    """
+    """Search for foods by name and return paginated nutrition results."""
     try:
         return client.search_foods(query=q, page=page, max_results=max_results)
     except (httpx.HTTPStatusError, ValueError) as exc:
@@ -35,14 +33,12 @@ def search_foods(
         raise HTTPException(status_code=503, detail=f"Nutrition API unreachable: {exc}")
 
 
-@router.get("/food/{food_id}")
+@router.get(
+    "/food/{food_id}",
+    summary="Get food by ID",
+)
 def get_food(food_id: str):
-    """
-    Retrieve full nutritional details for a specific food by its FatSecret ID,
-    including all available serving sizes and macro breakdowns.
-
-    Example: GET /nutrition/food/33691
-    """
+    """Return nutrition details for a specific food by ID."""
     try:
         return client.get_food_by_id(food_id)
     except (httpx.HTTPStatusError, ValueError) as exc:
@@ -55,15 +51,17 @@ def get_food(food_id: str):
 # Meal log – per-user daily food tracking stored in the database
 # ---------------------------------------------------------------------------
 
-@router.get("/logs/active-dates")
+@router.get(
+    "/logs/active-dates",
+    summary="Get active meal log dates",
+)
 def get_active_dates(
     year: int = Query(..., ge=2000),
     month: int = Query(..., ge=1, le=12),
     session: Session = Depends(get_session),
     current_user: User = Depends(get_current_user),
 ):
-    """Return a list of day numbers (1-31) that have at least one log entry
-    for the authenticated user in the given year/month."""
+    """Return day numbers in the given month that have meal logs for the authenticated user."""
     logs = session.exec(
         select(MealLog.log_date).where(
             MealLog.user_id == current_user.id,
@@ -76,7 +74,11 @@ def get_active_dates(
     return {"days": sorted({d.day for d in logs})}
 
 
-@router.get("/logs", response_model=list[MealLogRead])
+@router.get(
+    "/logs",
+    response_model=list[MealLogRead],
+    summary="List meal logs for a date",
+)
 def get_meal_logs(
     log_date: date_type = Query(..., description="Date to fetch logs for (YYYY-MM-DD)"),
     session: Session = Depends(get_session),
@@ -91,13 +93,18 @@ def get_meal_logs(
     ).all()
 
 
-@router.post("/logs", response_model=MealLogRead, status_code=201)
+@router.post(
+    "/logs",
+    response_model=MealLogRead,
+    status_code=201,
+    summary="Add a meal log entry",
+)
 def add_meal_log(
     data: MealLogCreate,
     session: Session = Depends(get_session),
     current_user: User = Depends(get_current_user),
 ):
-    """Add a food item to the authenticated user's meal log."""
+    """Create a meal log entry for the authenticated user."""
     entry = MealLog(
         user_id=current_user.id,
         log_date=data.log_date,
@@ -111,13 +118,17 @@ def add_meal_log(
     return entry
 
 
-@router.delete("/logs/{log_id}", status_code=204)
+@router.delete(
+    "/logs/{log_id}",
+    status_code=204,
+    summary="Delete a meal log entry",
+)
 def delete_meal_log(
     log_id: int,
     session: Session = Depends(get_session),
     current_user: User = Depends(get_current_user),
 ):
-    """Remove a meal log entry. Only the owning user may delete their entries."""
+    """Delete a meal log entry owned by the authenticated user."""
     entry = session.get(MealLog, log_id)
     if not entry or entry.user_id != current_user.id:
         raise HTTPException(status_code=404, detail="Log entry not found")
