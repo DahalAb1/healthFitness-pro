@@ -27,20 +27,10 @@ function Footer() {
         </div>
 
         <div className="footer-col">
-          <h4>Social Media</h4>
-          <ul>
-            <li><a href="https://www.linkedin.com" target="_blank" rel="noreferrer">LinkedIn</a></li>
-            <li><a href="https://www.instagram.com" target="_blank" rel="noreferrer">Instagram</a></li>
-            <li><a href="https://www.github.com" target="_blank" rel="noreferrer">GitHub</a></li>
-            <li><a href="https://www.facebook.com" target="_blank" rel="noreferrer">Facebook</a></li>
-          </ul>
-        </div>
-
-        <div className="footer-col">
           <h4>Company</h4>
           <ul>
-            <li><a href="/#about-us">About Us</a></li>
-            <li><a href="mailto:support@healthfitnesspro.com">Contact</a></li>
+            <li><Link to="/about">About Us</Link></li>
+            <li><Link to="/contact">Contact</Link></li>
           </ul>
         </div>
 

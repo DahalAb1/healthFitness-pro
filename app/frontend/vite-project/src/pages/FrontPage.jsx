@@ -1,7 +1,6 @@
 import Navbar from '../components/common/Navbar';
 import HeroSlideshow from '../components/frontpage/HeroSlideshow';
 import MissionSection from '../components/frontpage/MissionSection';
-import AboutSection from '../components/frontpage/AboutSection';
 import TestimonialsSection from '../components/frontpage/TestimonialsSection';
 import FeaturesSection from '../components/frontpage/FeaturesSection';
 import Footer from '../components/common/Footer';
@@ -12,7 +11,6 @@ function FrontPage() {
     <>
       <Navbar />
       <HeroSlideshow />
-      <AboutSection />
       <MissionSection />
       <TestimonialsSection />
       <FeaturesSection />
