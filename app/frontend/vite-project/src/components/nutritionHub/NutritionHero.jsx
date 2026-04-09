@@ -12,7 +12,7 @@ function NutritionHero({ total, goal, totalMacros }) {
         </p>
         <div className="stat-strip">
           <div className={`stat-pill${isOver ? ' over' : ''}`}>
-            TODAY: <span style={{ marginLeft: '5px' }}>{total}</span> KCAL
+            CALORIES: <span style={{ marginLeft: '5px' }}>{total}</span> KCAL
           </div>
           {totalMacros && (
             <>
