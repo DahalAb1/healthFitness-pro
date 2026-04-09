@@ -13,9 +13,14 @@ from models.user import User, UserRead, UserRegister, UserUpdate, TokenResponse
 router = APIRouter(tags=["auth"])
 
 
-@router.post("/register", response_model=UserRead, status_code=status.HTTP_201_CREATED)
+@router.post(
+    "/register",
+    response_model=UserRead,
+    status_code=status.HTTP_201_CREATED,
+    summary="Register a new user",
+)
 def register(data: UserRegister, session: Session = Depends(get_session)):
-    """Register a new user if the email is not already taken."""
+    """Create a new user account if the email is not already registered."""
     existing_user = session.exec(select(User).where(User.email == data.email)).first()
     if existing_user:
         raise HTTPException(
@@ -35,12 +40,16 @@ def register(data: UserRegister, session: Session = Depends(get_session)):
     return user
 
 
-@router.post("/login", response_model=TokenResponse)
+@router.post(
+    "/login",
+    response_model=TokenResponse,
+    summary="Authenticate a user",
+)
 def login(
     form_data: OAuth2PasswordRequestForm = Depends(),
     session: Session = Depends(get_session),
 ):
-    """Verify login credentials and return a JWT access token."""
+    """Authenticate a user and return a JWT access token."""
     user = session.exec(select(User).where(User.email == form_data.username)).first()
 
     if not user or not verify_password(form_data.password, user.hashed_password):
@@ -53,13 +62,21 @@ def login(
     return TokenResponse(access_token=token)
 
 
-@router.get("/me", response_model=UserRead)
+@router.get(
+    "/me",
+    response_model=UserRead,
+    summary="Get current user",
+)
 def me(current_user: User = Depends(get_current_user)):
     """Return the currently authenticated user."""
     return current_user
 
 
-@router.patch("/me", response_model=UserRead)
+@router.patch(
+    "/me",
+    response_model=UserRead,
+    summary="Update current user",
+)
 def update_me(
     data: UserUpdate,
     current_user: User = Depends(get_current_user),
