@@ -2,6 +2,7 @@
 
 from fastapi import APIRouter, Depends, HTTPException
 from sqlmodel import Session
+
 from api.deps import get_session, get_current_user
 from crud import templates as templates_crud
 from models.template import TemplateCreate
@@ -10,42 +11,54 @@ from services.exercise_client import ExerciseClient
 from services.exercise_service import resolve_exercise
 from services.template_service import get_real_exercises_for_template
 
-router = APIRouter()
+router = APIRouter(tags=["templates"])
 client = ExerciseClient()
 
 
 def _template_to_dict(t):
-    """Convert a template + its exercises to a response dict."""
+    """Convert a template and its exercises into a response dictionary."""
     return {
         "id": t.id,
         "name": t.name,
         "description": t.description,
         "exercises": [
-            {"exercise_id": e.exercise_id, "target_sets": e.target_sets, "target_reps": e.target_reps}
+            {
+                "exercise_id": e.exercise_id,
+                "target_sets": e.target_sets,
+                "target_reps": e.target_reps,
+            }
             for e in t.exercises
         ],
     }
 
 
-@router.get("/templates")
+@router.get(
+    "/templates",
+    summary="List workout templates",
+)
 def list_templates(session: Session = Depends(get_session)):
     """Return all workout templates with their exercises."""
     return [_template_to_dict(t) for t in templates_crud.get_all(session)]
 
 
-@router.get("/templates/{template_id}")
+@router.get(
+    "/templates/{template_id}",
+    summary="Get template by ID",
+)
 def get_template(template_id: int, session: Session = Depends(get_session)):
-    """Fetch a single template by ID. Returns 404 if not found."""
+    """Return a single workout template by ID."""
     t = templates_crud.get_by_id(session, template_id)
     if not t:
         raise HTTPException(status_code=404, detail="Template not found")
     return _template_to_dict(t)
 
 
-@router.get("/templates/{template_id}/exercises")
+@router.get(
+    "/templates/{template_id}/exercises",
+    summary="Get template exercises with details",
+)
 def get_template_exercises(template_id: int, session: Session = Depends(get_session)):
-    """Get full exercise details for a template, pulling from the external API.
-    Falls back to resolving exercises individually if bulk lookup returns nothing."""
+    """Return detailed exercise data for a template, including external API data."""
     t = templates_crud.get_by_id(session, template_id)
     if not t:
         raise HTTPException(status_code=404, detail="Template not found")
@@ -78,7 +91,11 @@ def get_template_exercises(template_id: int, session: Session = Depends(get_sess
     }
 
 
-@router.post("/templates", status_code=201)
+@router.post(
+    "/templates",
+    status_code=201,
+    summary="Create a workout template",
+)
 def create_template(
     template: TemplateCreate,
     session: Session = Depends(get_session),
