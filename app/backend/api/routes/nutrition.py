@@ -1,6 +1,8 @@
 """Nutrition routes – food search, macro lookup, and per-user meal logging."""
 
-from datetime import date as date_type
+from collections import defaultdict
+from datetime import date as date_type, timedelta
+from typing import Optional
 
 import httpx
 from fastapi import APIRouter, Depends, HTTPException, Query
@@ -112,6 +114,36 @@ def add_meal_log(
     session.commit()
     session.refresh(entry)
     return entry
+
+
+@router.get("/logs/trends")
+def get_nutrition_trends(
+    days: Optional[int] = Query(None, ge=1, description="Limit results to last N days. Omit for all time."),
+    session: Session = Depends(get_session),
+    current_user: User = Depends(get_current_user),
+):
+    """Return daily aggregated macro totals for the authenticated user."""
+    query = select(MealLog).where(MealLog.user_id == current_user.id)
+    if days is not None:
+        cutoff = date_type.today() - timedelta(days=days - 1)
+        query = query.where(MealLog.log_date >= cutoff)
+
+    logs = session.exec(query).all()
+
+    daily: dict[date_type, dict] = defaultdict(
+        lambda: {"kcal": 0.0, "protein_g": 0.0, "carbs_g": 0.0, "fat_g": 0.0}
+    )
+    for log in logs:
+        day = daily[log.log_date]
+        day["kcal"] += log.kcal or 0.0
+        day["protein_g"] += log.protein_g or 0.0
+        day["carbs_g"] += log.carbs_g or 0.0
+        day["fat_g"] += log.fat_g or 0.0
+
+    return [
+        {"date": str(d), **totals}
+        for d, totals in sorted(daily.items())
+    ]
 
 
 @router.delete("/logs/{log_id}", status_code=204)
