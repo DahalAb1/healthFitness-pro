@@ -3,6 +3,7 @@ import Footer from '../components/common/Footer';
 
 import Calendar from '../components/history/Calendar';
 import PerformanceTrends from '../components/history/PerformanceTrends';
+import NutritionTrends from '../components/history/NutritionTrends';
 import HistoryHero from '../components/history/HistoryHero';
 import '../styles/components/history/history.css';
 
@@ -14,6 +15,7 @@ function HistoryPage() {
         <HistoryHero />
         <Calendar />
         <PerformanceTrends />
+        <NutritionTrends />
       </section>
       <Footer />
     </>

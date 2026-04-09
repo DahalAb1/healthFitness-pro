@@ -12,6 +12,9 @@ class MealLog(SQLModel, table=True):
     meal_type: str = Field(max_length=20)   # breakfast | lunch | dinner | misc
     food_name: str = Field(max_length=200)
     kcal: float = Field(ge=0)
+    protein_g: float | None = Field(default=None, ge=0)
+    carbs_g: float | None = Field(default=None, ge=0)
+    fat_g: float | None = Field(default=None, ge=0)
 
 
 class MealLogCreate(SQLModel):
@@ -19,6 +22,9 @@ class MealLogCreate(SQLModel):
     meal_type: str
     food_name: str
     kcal: float
+    protein_g: float | None = None
+    carbs_g: float | None = None
+    fat_g: float | None = None
 
 
 class MealLogRead(SQLModel):
@@ -27,3 +33,14 @@ class MealLogRead(SQLModel):
     meal_type: str
     food_name: str
     kcal: float
+    protein_g: float | None = None
+    carbs_g: float | None = None
+    fat_g: float | None = None
+
+
+class DailyTrend(SQLModel):
+    date: str
+    kcal: float
+    protein_g: float
+    carbs_g: float
+    fat_g: float

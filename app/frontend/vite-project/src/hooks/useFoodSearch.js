@@ -17,6 +17,9 @@ export function useFoodSearch() {
   const [customFoods, setCustomFoods] = useState([]);
   const [customName, setCustomName] = useState('');
   const [customKcal, setCustomKcal] = useState('');
+  const [customProtein, setCustomProtein] = useState('');
+  const [customCarbs, setCustomCarbs] = useState('');
+  const [customFat, setCustomFat] = useState('');
 
   useEffect(() => {
     if (!searchQuery.trim()) {
@@ -31,6 +34,9 @@ export function useFoodSearch() {
           name: f.food_name,
           kcal: Math.round(f.calories ?? 0),
           serving_description: f.serving_description ?? '',
+          protein_g: f.protein_g ?? null,
+          carbs_g: f.carbs_g ?? null,
+          fat_g: f.fat_g ?? null,
         }));
         setApiResults(normalized);
       } catch {
@@ -51,12 +57,22 @@ export function useFoodSearch() {
   const handleAddCustom = () => {
     if (customName && customKcal) {
       setCustomFoods(prev => [
-        { name: customName, kcal: parseInt(customKcal), serving_description: '' },
+        {
+          name: customName,
+          kcal: parseInt(customKcal),
+          serving_description: '',
+          protein_g: customProtein !== '' ? parseFloat(customProtein) : null,
+          carbs_g: customCarbs !== '' ? parseFloat(customCarbs) : null,
+          fat_g: customFat !== '' ? parseFloat(customFat) : null,
+        },
         ...prev,
       ]);
       setSearchQuery(customName);
       setCustomName('');
       setCustomKcal('');
+      setCustomProtein('');
+      setCustomCarbs('');
+      setCustomFat('');
     }
   };
 
@@ -69,6 +85,12 @@ export function useFoodSearch() {
     setCustomName,
     customKcal,
     setCustomKcal,
+    customProtein,
+    setCustomProtein,
+    customCarbs,
+    setCustomCarbs,
+    customFat,
+    setCustomFat,
     handleAddCustom,
   };
 }

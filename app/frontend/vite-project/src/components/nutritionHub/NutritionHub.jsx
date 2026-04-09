@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import NutritionHero from './NutritionHero';
-import CalorieGauge from './CalorieGauge';
+import MacroGauge from './MacroGauge';
 import FoodSearch from './FoodSearch';
 import MealSection from './MealSection';
 import { useFoodSearch } from '../../hooks/useFoodSearch';
@@ -12,16 +12,22 @@ import { useMeals, MEAL_TYPES } from '../../hooks/useMeals';
  */
 function NutritionPage() {
   const [goal, setGoal] = useState(2500);
+  const [proteinGoal, setProteinGoal] = useState(150);
+  const [carbsGoal, setCarbsGoal] = useState(200);
+  const [fatGoal, setFatGoal] = useState(65);
 
   const {
     searchQuery, setSearchQuery,
     searchResults, isSearching,
     customName, setCustomName,
     customKcal, setCustomKcal,
+    customProtein, setCustomProtein,
+    customCarbs, setCustomCarbs,
+    customFat, setCustomFat,
     handleAddCustom,
   } = useFoodSearch();
 
-  const { meals, addToMeal, removeFromMeal, totalCalories } = useMeals();
+  const { meals, addToMeal, removeFromMeal, totalCalories, totalMacros } = useMeals();
 
   const handleDragStart = (e, food) => {
     e.dataTransfer.effectAllowed = 'copy';
@@ -46,15 +52,10 @@ function NutritionPage() {
 
   return (
     <div className="container nutrition-hub-container">
-      <NutritionHero total={totalCalories} goal={goal} />
+      <NutritionHero total={totalCalories} goal={goal} totalMacros={totalMacros} />
 
       <div className="log-grid">
         <div className="log-sidebar">
-          <CalorieGauge
-            total={totalCalories}
-            goal={goal}
-            onGoalChange={setGoal}
-          />
           <FoodSearch
             searchQuery={searchQuery}
             onSearchChange={setSearchQuery}
@@ -63,8 +64,14 @@ function NutritionPage() {
             onDragStart={handleDragStart}
             customName={customName}
             customKcal={customKcal}
+            customProtein={customProtein}
+            customCarbs={customCarbs}
+            customFat={customFat}
             onCustomNameChange={setCustomName}
             onCustomKcalChange={setCustomKcal}
+            onCustomProteinChange={setCustomProtein}
+            onCustomCarbsChange={setCustomCarbs}
+            onCustomFatChange={setCustomFat}
             onAddCustom={handleAddCustom}
           />
         </div>
@@ -82,6 +89,38 @@ function NutritionPage() {
             />
           ))}
         </div>
+      </div>
+
+      <div className="macro-gauges-row">
+        <MacroGauge
+          label="Calories"
+          unit="kcal"
+          total={totalCalories}
+          goal={goal}
+          onGoalChange={setGoal}
+          accentColor="var(--accent)"
+        />
+        <MacroGauge
+          label="Protein"
+          total={totalMacros.protein_g}
+          goal={proteinGoal}
+          onGoalChange={setProteinGoal}
+          accentColor="#4aff8c"
+        />
+        <MacroGauge
+          label="Carbs"
+          total={totalMacros.carbs_g}
+          goal={carbsGoal}
+          onGoalChange={setCarbsGoal}
+          accentColor="#ffc94a"
+        />
+        <MacroGauge
+          label="Fat"
+          total={totalMacros.fat_g}
+          goal={fatGoal}
+          onGoalChange={setFatGoal}
+          accentColor="#ff8c4a"
+        />
       </div>
     </div>
   );

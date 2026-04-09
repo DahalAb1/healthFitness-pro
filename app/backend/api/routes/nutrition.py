@@ -1,13 +1,15 @@
 """Nutrition routes – food search, macro lookup, and per-user meal logging."""
 
-from datetime import date as date_type
+from collections import defaultdict
+from datetime import date as date_type, timedelta
+from typing import Optional
 
 import httpx
 from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlmodel import Session, select
 
 from api.deps import get_current_user, get_session
-from models.nutrition import MealLog, MealLogCreate, MealLogRead
+from models.nutrition import DailyTrend, MealLog, MealLogCreate, MealLogRead
 from models.user import User
 from services.nutrition_client import NutritionClient
 
@@ -104,11 +106,44 @@ def add_meal_log(
         meal_type=data.meal_type,
         food_name=data.food_name,
         kcal=data.kcal,
+        protein_g=data.protein_g,
+        carbs_g=data.carbs_g,
+        fat_g=data.fat_g,
     )
     session.add(entry)
     session.commit()
     session.refresh(entry)
     return entry
+
+
+@router.get("/logs/trends", response_model=list[DailyTrend])
+def get_nutrition_trends(
+    days: Optional[int] = Query(None, ge=1, description="Limit results to last N days. Omit for all time."),
+    session: Session = Depends(get_session),
+    current_user: User = Depends(get_current_user),
+):
+    """Return daily aggregated macro totals for the authenticated user."""
+    query = select(MealLog).where(MealLog.user_id == current_user.id)
+    if days is not None:
+        cutoff = date_type.today() - timedelta(days=days - 1)
+        query = query.where(MealLog.log_date >= cutoff)
+
+    logs = session.exec(query).all()
+
+    daily: dict[date_type, dict] = defaultdict(
+        lambda: {"kcal": 0.0, "protein_g": 0.0, "carbs_g": 0.0, "fat_g": 0.0}
+    )
+    for log in logs:
+        day = daily[log.log_date]
+        day["kcal"] += log.kcal or 0.0
+        day["protein_g"] += log.protein_g or 0.0
+        day["carbs_g"] += log.carbs_g or 0.0
+        day["fat_g"] += log.fat_g or 0.0
+
+    return [
+        {"date": str(d), **totals}
+        for d, totals in sorted(daily.items())
+    ]
 
 
 @router.delete("/logs/{log_id}", status_code=204)

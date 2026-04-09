@@ -11,34 +11,51 @@ function NutritionSection({ mealLogs }) {
   const grouped = Object.fromEntries(MEAL_TYPES.map(t => [t, []]));
   mealLogs.forEach(log => { if (grouped[log.meal_type]) grouped[log.meal_type].push(log); });
   const totalKcal = mealLogs.reduce((sum, l) => sum + l.kcal, 0);
+  const totalProtein = mealLogs.reduce((sum, l) => sum + (l.protein_g ?? 0), 0);
+  const totalCarbs = mealLogs.reduce((sum, l) => sum + (l.carbs_g ?? 0), 0);
+  const totalFat = mealLogs.reduce((sum, l) => sum + (l.fat_g ?? 0), 0);
 
   return (
     <div className="day-detail-section">
       <div className="day-detail-section-header">
         <span>Nutrition</span>
-        <span className="day-detail-section-total">{Math.round(totalKcal)} kcal total</span>
+        <span className="day-detail-macro-text">
+          {Math.round(totalKcal)} Calories &nbsp;·&nbsp; Protein {Math.round(totalProtein)}g &nbsp;·&nbsp; Carbs {Math.round(totalCarbs)}g &nbsp;·&nbsp; Fat {Math.round(totalFat)}g
+        </span>
       </div>
       {MEAL_TYPES.map(mealType => {
         const items = grouped[mealType];
         if (items.length === 0) return null;
         const mealKcal = items.reduce((s, i) => s + i.kcal, 0);
+        const mealProtein = items.reduce((s, i) => s + (i.protein_g ?? 0), 0);
+        const mealCarbs = items.reduce((s, i) => s + (i.carbs_g ?? 0), 0);
+        const mealFat = items.reduce((s, i) => s + (i.fat_g ?? 0), 0);
         return (
           <div key={mealType} className="day-detail-meal">
-            <p className="workout-duration">
-              {mealType.charAt(0).toUpperCase() + mealType.slice(1)}
+            <p className="workout-duration" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <span>{mealType.charAt(0).toUpperCase() + mealType.slice(1)}</span>
+              <span className="day-detail-macro-text" style={{ fontWeight: 700 }}>
+                {Math.round(mealKcal)} Calories &nbsp;·&nbsp; Protein {Math.round(mealProtein)}g &nbsp;·&nbsp; Carbs {Math.round(mealCarbs)}g &nbsp;·&nbsp; Fat {Math.round(mealFat)}g
+              </span>
             </p>
-            <table className="exercise-table">
+            <table className="exercise-table nutrition-table">
               <thead>
                 <tr>
                   <th>Food</th>
-                  <th style={{ textAlign: 'right' }}>Kcal</th>
+                  <th>Kcal</th>
+                  <th>Protein</th>
+                  <th>Carbs</th>
+                  <th>Fat</th>
                 </tr>
               </thead>
               <tbody>
                 {items.map(item => (
                   <tr key={item.id}>
                     <td>{item.food_name}</td>
-                    <td style={{ textAlign: 'right' }}>{Math.round(item.kcal)}</td>
+                    <td>{Math.round(item.kcal)}</td>
+                    <td>{item.protein_g != null ? `${Math.round(item.protein_g)}g` : '—'}</td>
+                    <td>{item.carbs_g != null ? `${Math.round(item.carbs_g)}g` : '—'}</td>
+                    <td>{item.fat_g != null ? `${Math.round(item.fat_g)}g` : '—'}</td>
                   </tr>
                 ))}
               </tbody>
