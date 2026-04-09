@@ -33,6 +33,7 @@ export function useNutritionTrends() {
     if (maxDays === null) return allPoints;
     const cutoff = new Date();
     cutoff.setDate(cutoff.getDate() - maxDays + 1);
+    cutoff.setHours(0, 0, 0, 0);
     return allPoints.filter((p) => new Date(p.date + 'T00:00:00') >= cutoff);
   }, [allPoints, filter]);
 
