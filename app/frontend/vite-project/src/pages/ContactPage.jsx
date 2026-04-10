@@ -1,7 +1,12 @@
 import { useState } from 'react';
+import emailjs from '@emailjs/browser';
 import Navbar from '../components/common/Navbar';
 import Footer from '../components/common/Footer';
 import '../styles/App.css';
+
+// Initialize EmailJS with your Public Key
+
+emailjs.init('lOyOv582pgYxpgIkr');
 
 const socialLinks = [
   { label: 'LinkedIn', href: 'https://www.linkedin.com' },
@@ -17,25 +22,35 @@ function ContactPage() {
     subject: '',
     message: '',
   });
+  const [status, setStatus] = useState('idle');
+  const [errorMsg, setErrorMsg] = useState('');
 
   const handleChange = (event) => {
     const { name, value } = event.target;
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const { name, email, subject, message } = form;
-    const body = [
-      `Name: ${name}`,
-      `Email: ${email}`,
-      '',
-      message,
-    ].join('\n');
+    setStatus('sending');
+    setErrorMsg('');
 
-    const mailto = `mailto:support@healthfitnesspro.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    window.location.href = mailto;
+    try {
+      await emailjs.send('service_8mt6xfu', 'template_wp9u7i5', {
+        from_name: form.name,
+        from_email: form.email,
+        subject: form.subject,
+        message: form.message,
+        to_email: 'healthfitnesspro24@gmail.com',
+      });
+
+      setForm({ name: '', email: '', subject: '', message: '' });
+      setStatus('success');
+    } catch (error) {
+      setErrorMsg(error?.text || 'Failed to send message. Please try again.');
+      setStatus('error');
+    }
   };
 
   return (
@@ -106,7 +121,16 @@ function ContactPage() {
                   />
                 </div>
 
-                <button type="submit" className="btn">Send Email</button>
+                {status === 'success' && (
+                  <p className="contact-success">Message sent successfully.</p>
+                )}
+                {status === 'error' && (
+                  <p className="contact-error">{errorMsg}</p>
+                )}
+
+                <button type="submit" className="btn" disabled={status === 'sending'}>
+                  {status === 'sending' ? 'Sending...' : 'Send Email'}
+                </button>
               </form>
             </section>
           </div>
