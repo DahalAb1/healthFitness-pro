@@ -8,16 +8,26 @@ function AboutPage() {
       <Navbar />
 
       <main className="about-page">
-        <section className="about-section about-page-section">
-          <div className="about-header">
-            <p className="tagline">About Health Fitness Pro</p>
-            <h1>Built For Consistency, Backed By Results</h1>
-            <p>
-              Health Fitness Pro gives athletes and everyday lifters a single place
-              to plan workouts, track nutrition, and measure long-term progress
-              without switching between multiple apps.
-            </p>
+        <section className="about-hero">
+          <img
+            src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1200&h=500&fit=crop"
+            alt="About Health Fitness Pro"
+            className="about-hero-image"
+          />
+          <div className="about-hero-overlay">
+            <div className="about-header">
+              <p className="tagline">About Health Fitness Pro</p>
+              <h1>Built For Consistency, Backed By Results</h1>
+              <p>
+                Health Fitness Pro gives athletes and everyday lifters a single place
+                to plan workouts, track nutrition, and measure long-term progress
+                without switching between multiple apps.
+              </p>
+            </div>
           </div>
+        </section>
+
+        <section className="about-section about-page-section">
 
           <div className="about-grid">
             <article className="about-card">
