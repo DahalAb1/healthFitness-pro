@@ -12,7 +12,7 @@
 - [ ]
 
 #### History
-- [ ]
+- [ ] no bugs but performace trends is done weirdly
 
 #### Workout Templates
 - [ ] exercise bar in custom workout is useless
@@ -30,13 +30,32 @@
 - [ ] N/A could use more description but thats for other api
 
 #### Account/Profile
-- [ ]
+- [ ] a lot of those buttons dont do anything ex: gmail, workout sounds
 
 #### Navbar
 - [ ] N/A
 
 #### Footer
 - [ ] N/A
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -62,7 +81,7 @@
 - [ ]
 
 #### Exercise Library
-- [ ]
+- [ ] works as it should
 
 #### Account/Profile
 - [ ]

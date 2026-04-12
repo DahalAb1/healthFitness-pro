@@ -9,16 +9,17 @@
 - [ ] Get Started Today button does not perform its intended action. Easy fix
 
 #### Nutrition
-- [ ]
+- [ ] doesnt let you log foods
 
 #### History
-- [ ]
+- [ ] N/A
 
 #### Workout Templates
 - [ ] exercise bar in custom workout is useless
 - [ ] allows a custom template with no exercise
 - [ ] does not save custom workouts
 - [ ] not a bug but terrible UI for both pages. Overall just need a touch up
+- [ ] can not begin saved customized workout templates
 
 
 #### Active Workout
@@ -27,8 +28,6 @@
 #### Exercise Library
 - [ ] N/A could use more instructions but thats for exercise api
 
-#### Account/Profile
-- [ ] 
 
 #### Navbar
 - [ ] N/A
@@ -48,6 +47,12 @@
 
 
 
+
+
+
+
+
+
 #################################################################
 ########### What Works Well
 
@@ -58,10 +63,10 @@
 - [ ].
 
 #### History
-- [ ].
+- [ ]. works well doesnt track exercises until signed in 
 
 #### Workout Templates
-- [ ]
+- [ ] 
 
 #### Active Workout
 - [ ].
