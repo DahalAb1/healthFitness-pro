@@ -17,14 +17,17 @@
 #### Workout Templates
 - [ ] exercise bar in custom workout is useless
 - [ ] allows a custom template with no exercise
-- [ ] not a bug but terrible UI for both pages
+- [ ] does not save custom workouts
+- [ ] not a bug but terrible UI for both pages. Need a touch up
+- [ ] Did not save exercise template done in history even if signed in
 
 
 #### Active Workout
-- [ ]
+- [ ] Does its purpose but in terms of design needs Total rework. Most alarming feature we have.
+  
 
 #### Exercise Library
-- [ ]
+- [ ] N/A could use more description but thats for other api
 
 #### Account/Profile
 - [ ]
