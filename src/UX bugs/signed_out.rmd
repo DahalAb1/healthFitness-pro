@@ -15,7 +15,9 @@
 - [ ]
 
 #### Workout Templates
-- [ ]
+- [ ] exercise bar in custom workout is useless
+- [ ] allows a custom template with no exercise
+- [ ] not a bug but terrible UI for both pages
 
 #### Active Workout
 - [ ]
@@ -27,16 +29,16 @@
 - [ ] 
 
 #### Navbar
-- [ ]
+- [ ] N/A
 
 #### Footer
-- [ ]
+- [ ] N/A
 
 #### Login
-- [ ]
+- [ ] Not really a bug but a home button is required
 
 #### Sign Up
-- [ ]
+- [ ] Not really a bug but a home button is required
 
 
 
@@ -75,7 +77,7 @@
 - [ ] works well no bugs
 
 #### Login
-- [ ] works well no bugs
+- [ ] works well no bugs, 
 
 #### Sign Up
 - [ ] works well no bugs

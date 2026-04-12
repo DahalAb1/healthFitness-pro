@@ -15,7 +15,10 @@
 - [ ]
 
 #### Workout Templates
-- [ ]
+- [ ] exercise bar in custom workout is useless
+- [ ] allows a custom template with no exercise
+- [ ] not a bug but terrible UI for both pages
+
 
 #### Active Workout
 - [ ]
@@ -27,10 +30,10 @@
 - [ ]
 
 #### Navbar
-- [ ]
+- [ ] N/A
 
 #### Footer
-- [ ]
+- [ ] N/A
 
 
 
