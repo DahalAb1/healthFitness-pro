@@ -1,0 +1,81 @@
+# Signed-Out UX Review
+
+
+
+############ Bugs
+
+#### Front Page
+- [ ] Success story carousel does not go to the last dot/slide. Easy fix
+- [ ] Get Started Today button does not perform its intended action. Easy fix
+
+#### Nutrition
+- [ ]
+
+#### History
+- [ ]
+
+#### Workout Templates
+- [ ]
+
+#### Active Workout
+- [ ]
+
+#### Exercise Library
+- [ ]
+
+#### Account/Profile
+- [ ] 
+
+#### Navbar
+- [ ]
+
+#### Footer
+- [ ]
+
+#### Login
+- [ ]
+
+#### Sign Up
+- [ ]
+
+
+
+
+
+
+
+#################################################################
+########### What Works Well
+
+#### Front Page
+- [ ]
+
+#### Nutrition
+- [ ].
+
+#### History
+- [ ].
+
+#### Workout Templates
+- [ ]
+
+#### Active Workout
+- [ ].
+
+#### Exercise Library
+- [ ]
+
+#### Account/Profile
+- [ ] N/A when signed out.
+
+#### Navbar
+- [ ]  works well no bugs
+
+#### Footer
+- [ ] works well no bugs
+
+#### Login
+- [ ] works well no bugs
+
+#### Sign Up
+- [ ] works well no bugs

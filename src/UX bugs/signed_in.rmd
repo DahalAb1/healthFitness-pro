@@ -1,1 +1,71 @@
+# Signed-In UX Review
+
+
+
+############# Bugs
+
+#### Front Page
+- [ ] Success story carousel does not go to the last dot/slide. Easy fix
+- [ ] Get Started Today button does not perform its intended action. Easy fix
+
+#### Nutrition
+- [ ]
+
+#### History
+- [ ]
+
+#### Workout Templates
+- [ ]
+
+#### Active Workout
+- [ ]
+
+#### Exercise Library
+- [ ]
+
+#### Account/Profile
+- [ ]
+
+#### Navbar
+- [ ]
+
+#### Footer
+- [ ]
+
+
+
+
+
+
+############################################
+######### What Works Well
+
+#### Front Page
+- [ ] Front page buttons route correctly.
+
+#### Nutrition
+- [ ]
+
+#### History
+- [ ]
+
+#### Workout Templates
+- [ ]
+
+#### Active Workout
+- [ ]
+
+#### Exercise Library
+- [ ]
+
+#### Account/Profile
+- [ ]
+
+#### Navbar
+- [ ] NavBar works well no bugs
+
+#### Footer
+- [ ] Footer works well No bugs
+
+
 
