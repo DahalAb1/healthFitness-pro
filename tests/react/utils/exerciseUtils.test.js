@@ -10,8 +10,8 @@ describe('BODY_PART_MAP', () => {
     expect(BODY_PART_MAP.ABS).toBe('waist');
   });
 
-  it('maps LEGS to thighs', () => {
-    expect(BODY_PART_MAP.LEGS).toBe('thighs');
+  it('maps LEGS to upper legs', () => {
+    expect(BODY_PART_MAP.LEGS).toBe('upper legs');
   });
 
   it('maps BACK to back', () => {
@@ -28,18 +28,13 @@ describe('BODY_PART_MAP', () => {
 });
 
 describe('normalizeExercise', () => {
-  it('uses exerciseId when available', () => {
-    const result = normalizeExercise({ exerciseId: 'abc123', name: 'Squat' });
-    expect(result.id).toBe('abc123');
-  });
-
-  it('falls back to id when exerciseId is absent', () => {
+  it('uses id field', () => {
     const result = normalizeExercise({ id: 'xyz', name: 'Bench Press' });
     expect(result.id).toBe('xyz');
   });
 
-  it('uses targetMuscles[0] for muscle_group', () => {
-    const result = normalizeExercise({ id: '1', name: 'Curl', targetMuscles: ['biceps'] });
+  it('uses target for muscle_group', () => {
+    const result = normalizeExercise({ id: '1', name: 'Curl', target: 'biceps' });
     expect(result.muscle_group).toBe('biceps');
   });
 
@@ -54,12 +49,7 @@ describe('normalizeExercise', () => {
     expect(result.muscle_group).toBe('');
   });
 
-  it('uses equipments[0] for equipment', () => {
-    const result = normalizeExercise({ id: '1', name: 'Dumbbell Curl', equipments: ['dumbbell'] });
-    expect(result.equipment).toBe('dumbbell');
-  });
-
-  it('falls back to equipment field when equipments is absent', () => {
+  it('uses equipment field', () => {
     const result = normalizeExercise({ id: '1', name: 'Barbell Curl', equipment: 'barbell' });
     expect(result.equipment).toBe('barbell');
   });
@@ -69,9 +59,9 @@ describe('normalizeExercise', () => {
     expect(result.equipment).toBe('');
   });
 
-  it('uses instructions for description', () => {
+  it('joins instructions array for description', () => {
     const result = normalizeExercise({ id: '1', name: 'Squat', instructions: ['Stand up', 'Sit down'] });
-    expect(result.description).toEqual(['Stand up', 'Sit down']);
+    expect(result.description).toBe('Stand up Sit down');
   });
 
   it('uses gifUrl for image_url', () => {
