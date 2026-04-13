@@ -11,35 +11,21 @@ from services.exercise_client import ExerciseClient
 
 def normalize_exercise_payload(payload: dict, fallback_name: str) -> dict:
     """
-    The external API returns exercise data in inconsistent shapes.
-    This normalizes any response into a consistent format.
+    Normalizes an ExerciseDB response into a consistent format.
     """
-    data = payload.get("data") if isinstance(payload, dict) and isinstance(payload.get("data"), dict) else payload
-    if not isinstance(data, dict):
-        data = {}
+    data = payload if isinstance(payload, dict) else {}
 
-    target_muscles = data.get("targetMuscles") or []
-    equipments = data.get("equipments") or []
-
-    target = data.get("target")
-    if not target and target_muscles:
-        target = target_muscles[0].lower()
-
-    equipment = data.get("equipment")
-    if not equipment and equipments:
-        equipment = str(equipments[0]).lower()
-
-    image_url = data.get("gifUrl") or data.get("image_url") or data.get("imageUrl")
-    if not image_url and isinstance(data.get("imageUrls"), dict):
-        image_url = data.get("imageUrls", {}).get("480p") or data.get("imageUrls", {}).get("360p")
+    instructions = data.get("instructions", [])
+    if isinstance(instructions, list):
+        instructions = " ".join(instructions)
 
     return {
-        "id": data.get("id") or data.get("exerciseId") or fallback_name,
+        "id": data.get("id") or fallback_name,
         "name": data.get("name") or fallback_name,
-        "target": target or "",
-        "equipment": equipment or "",
-        "instructions": data.get("instructions") or "",
-        "gifUrl": image_url or "",
+        "target": data.get("target") or "",
+        "equipment": data.get("equipment") or "",
+        "instructions": instructions,
+        "gifUrl": data.get("gifUrl") or "",
     }
 
 
