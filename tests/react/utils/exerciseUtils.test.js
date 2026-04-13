@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { normalizeExercise, unwrapExerciseList, BODY_PART_MAP } from '@/utils/exerciseUtils';
+import { normalizeExercise, BODY_PART_MAP } from '@/utils/exerciseUtils';
 
 describe('BODY_PART_MAP', () => {
   it('maps CHEST to chest', () => {
@@ -43,10 +43,6 @@ describe('normalizeExercise', () => {
     expect(result.muscle_group).toBe('biceps');
   });
 
-  it('falls back to bodyParts[0] for muscle_group', () => {
-    const result = normalizeExercise({ id: '1', name: 'Curl', bodyParts: ['upper arms'] });
-    expect(result.muscle_group).toBe('upper arms');
-  });
 
   it('falls back to target for muscle_group', () => {
     const result = normalizeExercise({ id: '1', name: 'Curl', target: 'biceps' });
@@ -78,24 +74,9 @@ describe('normalizeExercise', () => {
     expect(result.description).toEqual(['Stand up', 'Sit down']);
   });
 
-  it('falls back to steps for description', () => {
-    const result = normalizeExercise({ id: '1', name: 'Push-up', steps: 'Do a push-up.' });
-    expect(result.description).toBe('Do a push-up.');
-  });
-
-  it('uses imageUrl for image_url', () => {
-    const result = normalizeExercise({ id: '1', name: 'Squat', imageUrl: 'http://img.test/squat.gif' });
-    expect(result.image_url).toBe('http://img.test/squat.gif');
-  });
-
-  it('falls back to gifUrl for image_url', () => {
+  it('uses gifUrl for image_url', () => {
     const result = normalizeExercise({ id: '1', name: 'Squat', gifUrl: 'http://img.test/squat.gif' });
     expect(result.image_url).toBe('http://img.test/squat.gif');
-  });
-
-  it('falls back to image_url field directly', () => {
-    const result = normalizeExercise({ id: '1', name: 'Squat', image_url: 'http://img.test/squat.png' });
-    expect(result.image_url).toBe('http://img.test/squat.png');
   });
 
   it('returns all expected keys in the normalized shape', () => {
@@ -109,27 +90,3 @@ describe('normalizeExercise', () => {
   });
 });
 
-describe('unwrapExerciseList', () => {
-  it('returns a plain array as-is', () => {
-    const arr = [{ id: 1 }, { id: 2 }];
-    expect(unwrapExerciseList(arr)).toBe(arr);
-  });
-
-  it('unwraps data.data', () => {
-    const inner = [{ id: 2 }];
-    expect(unwrapExerciseList({ data: inner })).toBe(inner);
-  });
-
-  it('unwraps data.exercises', () => {
-    const inner = [{ id: 3 }];
-    expect(unwrapExerciseList({ exercises: inner })).toBe(inner);
-  });
-
-  it('returns empty array for an unrecognised shape', () => {
-    expect(unwrapExerciseList({ foo: 'bar' })).toEqual([]);
-  });
-
-  it('returns empty array for an empty object', () => {
-    expect(unwrapExerciseList({})).toEqual([]);
-  });
-});
