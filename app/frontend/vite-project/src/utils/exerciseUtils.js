@@ -1,7 +1,7 @@
 export const BODY_PART_MAP = {
   CHEST: 'chest',
   BACK: 'back',
-  LEGS: 'thighs',
+  LEGS: 'upper legs',
   SHOULDERS: 'shoulders',
   BICEPS: 'biceps',
   TRICEPS: 'triceps',
