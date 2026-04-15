@@ -60,3 +60,68 @@ export default PageHero;
 ```
 
 ---
+## 2. Page Shell (Navbar + Footer Wrapper)
+
+Six of the nine pages use the exact same `<Navbar /> ... <Footer />` wrapper pattern. Only `ActiveWorkoutPage` already abstracts this into `WorkoutPageShell` — the other pages repeat the pattern inline.
+
+| Page | Pattern |
+|---|---|
+| `FrontPage` | `<Navbar />` + sections + `<Footer />` inline |
+| `WorkoutTemplatePage` | `<Navbar />` + content + `<Footer />` inline |
+| `ExerciseLibraryPage` | `<Navbar />` + content + `<Footer />` inline |
+| `NutritionPage` | `<Navbar />` + content + `<Footer />` inline |
+| `HistoryPage` | `<Navbar />` + content + `<Footer />` inline |
+| `AccountPage` | `<Navbar />` + content (no Footer) |
+| `ActiveWorkoutPage` | ✅ Uses `WorkoutPageShell` |
+
+### Current Example (`WorkoutPageShell.jsx` — the existing abstraction)
+```jsx
+// components/activeWorkout/WorkoutPageShell.jsx
+function WorkoutPageShell({ children }) {
+  return (
+    <>
+      <Navbar />
+      {children}
+      <Footer />
+    </>
+  );
+}
+```
+
+### What a Shared `PageShell` in `common/` Could Look Like
+```jsx
+// components/common/PageShell.jsx
+function PageShell({ children, showFooter = true }) {
+  return (
+    <>
+      <Navbar />
+      {children}
+      {showFooter && <Footer />}
+    </>
+  );
+}
+
+export default PageShell;
+```
+
+**Usage:**
+```jsx
+// NutritionPage (currently repeats Navbar/Footer)
+function NutritionPage() {
+  return (
+    <PageShell>
+      <NutritionHub />
+    </PageShell>
+  );
+}
+
+// AccountPage (no footer)
+function AccountPage() {
+  return (
+    <PageShell showFooter={false}>
+      <div className="account-page">...</div>
+    </PageShell>
+  );
+}
+```
+
