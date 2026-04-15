@@ -279,3 +279,65 @@ export default WorkoutCard;
 ```
 
 ---
+
+
+## 6. Modal / Overlay Pattern
+
+Three separate components implement the same backdrop-overlay-panel structure independently. All share: a dark backdrop `div`, a nested content panel, a close `✕`/`×` button, and click-outside-to-close logic. Only `ExerciseModal` adds an Escape-key listener.
+
+| Component | Backdrop class | Close trigger |
+|---|---|---|
+| `ExerciseModal` | `el-modal-backdrop` + `el-modal-overlay` | backdrop click + Escape key |
+| `TemplateDetailPanel` | `wt-detail-overlay` | backdrop click |
+| `ExerciseLibraryModal` | `wt-library-overlay` | backdrop click |
+
+### Current Examples (close button + backdrop)
+```jsx
+// ExerciseModal.jsx
+<div className="el-modal-backdrop" role="dialog" aria-modal="true">
+  <div className="el-modal-overlay" onClick={onClose} />
+  <div className="el-modal-content">
+    <button className="el-modal-close" onClick={onClose} aria-label="Close">&times;</button>
+    {/* content */}
+  </div>
+</div>
+
+// TemplateDetailPanel.jsx
+<div className="wt-detail-overlay" onClick={onClose}>
+  <div className="wt-detail-panel" onClick={(e) => e.stopPropagation()}>
+    <button className="wt-detail-close" onClick={onClose} aria-label="Close">✕</button>
+    {/* content */}
+  </div>
+</div>
+```
+
+### What a Common `ModalShell` Could Look Like
+```jsx
+// components/common/ModalShell.jsx
+import { useEffect } from 'react';
+
+function ModalShell({ onClose, ariaLabel, className = '', children }) {
+  useEffect(() => {
+    const handleKey = (e) => { if (e.key === 'Escape') onClose(); };
+    document.addEventListener('keydown', handleKey);
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.removeEventListener('keydown', handleKey);
+      document.body.style.overflow = '';
+    };
+  }, [onClose]);
+
+  return (
+    <div className="modal-backdrop" role="dialog" aria-modal="true" aria-label={ariaLabel}>
+      <div className="modal-overlay" onClick={onClose} />
+      <div className={`modal-panel ${className}`} onClick={(e) => e.stopPropagation()}>
+        <button className="modal-close-btn" onClick={onClose} aria-label="Close">&times;</button>
+        {children}
+      </div>
+    </div>
+  );
+}
+
+export default ModalShell;
+```
+
