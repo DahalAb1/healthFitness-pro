@@ -415,3 +415,42 @@ export default TrendChartSection;
 ```
 
 ---
+
+## 8. Exercise Muscle/Equipment Badge Pair
+
+The same two-badge pattern (`muscle_group` + `equipment`) is rendered inline in five separate places, each with slightly different class names but identical conditional logic.
+
+| Component | Badge classes |
+|---|---|
+| `exerciseLibrary/ExerciseCard` | `el-badge el-badge-muscle` / `el-badge el-badge-equipment` |
+| `exerciseLibrary/ExerciseModal` | `el-badge el-badge-muscle` / `el-badge el-badge-equipment` |
+| `activeWorkout/ExerciseCard` | `aw-badge aw-badge-muscle` / `aw-badge aw-badge-equip` |
+| `workoutTemplate/TemplateDetailPanel` | inline text joined with ` · ` |
+| `workoutTemplate/ExerciseLibraryModal` | inline text joined with ` · ` |
+
+### Current Example (repeated in each)
+```jsx
+{exercise.muscle_group && (
+  <span className="el-badge el-badge-muscle">{exercise.muscle_group}</span>
+)}
+{exercise.equipment && (
+  <span className="el-badge el-badge-equipment">{exercise.equipment}</span>
+)}
+```
+
+### What a Common `ExerciseBadges` Could Look Like
+```jsx
+// components/common/ExerciseBadges.jsx
+function ExerciseBadges({ muscleGroup, equipment, badgeClass = 'badge' }) {
+  if (!muscleGroup && !equipment) return null;
+  return (
+    <div className="exercise-badges">
+      {muscleGroup && <span className={`${badgeClass} badge-muscle`}>{muscleGroup}</span>}
+      {equipment && <span className={`${badgeClass} badge-equipment`}>{equipment}</span>}
+    </div>
+  );
+}
+
+export default ExerciseBadges;
+```
+
