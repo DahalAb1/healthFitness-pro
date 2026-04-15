@@ -341,3 +341,77 @@ function ModalShell({ onClose, ariaLabel, className = '', children }) {
 export default ModalShell;
 ```
 
+---
+
+## 7. Trend Chart Section
+
+`PerformanceTrends` and `NutritionTrends` are structurally nearly identical. Both register the same Chart.js modules, use the same `CHART_OPTIONS` shape (same grid/tick colors), share the same outer `progress-tracker` section layout, the same time-filter button row, and the same loading/error/empty/data conditional block inside `chart-container`. The only structural difference is that `NutritionTrends` adds macro-toggle buttons and `PerformanceTrends` adds a search form.
+6
+```jsx
+// PerformanceTrends.jsx — chart-container block
+<div className="chart-container">
+  {!exerciseName && !loading && <div className="trends-empty">Enter an exercise name…</div>}
+  {loading && <div className="trends-empty">Loading…</div>}
+  {!loading && error && <div className="trends-empty trends-error">{error}</div>}
+  {!loading && !error && filteredPoints.length === 0 && <div className="trends-empty">No data…</div>}
+  {!loading && !error && filteredPoints.length > 0 && <Line data={chartData} options={CHART_OPTIONS} />}
+</div>
+
+// NutritionTrends.jsx — identical structure
+<div className="chart-container">
+  {loading && <div className="trends-empty">Loading…</div>}
+  {!loading && error && <div className="trends-empty trends-error">{error}</div>}
+  {!loading && !error && filteredPoints.length === 0 && <div className="trends-empty">No data…</div>}
+  {!loading && !error && filteredPoints.length > 0 && <Line data={chartData} options={CHART_OPTIONS} />}
+</div>
+```
+
+### What a Common `TrendChartSection` Could Look Like
+```jsx
+// components/common/TrendChartSection.jsx
+import { Line } from 'react-chartjs-2';
+
+const SHARED_CHART_OPTIONS = {
+  responsive: true,
+  maintainAspectRatio: false,
+  plugins: { legend: { display: false } },
+  scales: {
+    y: { grid: { color: '#222' }, ticks: { color: '#888' } },
+    x: { grid: { display: false }, ticks: { color: '#888' } },
+  },
+};
+
+function TrendChartSection({ title, filterOptions, activeFilter, onFilterChange, loading, error, hasData, chartData, emptyMessage, chartOptions, extraControls }) {
+  return (
+    <section className="progress-tracker">
+      <div className="progress-header">
+        <h2>{title}</h2>
+        <div className="time-filters">
+          {filterOptions.map(({ key, label }) => (
+            <button
+              key={key}
+              className={`filter-btn${activeFilter === key ? ' active' : ''}`}
+              onClick={() => onFilterChange(key)}
+            >{label}</button>
+          ))}
+        </div>
+      </div>
+
+      {extraControls}
+
+      <div className="chart-container">
+        {loading && <div className="trends-empty">Loading…</div>}
+        {!loading && error && <div className="trends-empty trends-error">{error}</div>}
+        {!loading && !error && !hasData && <div className="trends-empty">{emptyMessage}</div>}
+        {!loading && !error && hasData && (
+          <Line data={chartData} options={chartOptions ?? SHARED_CHART_OPTIONS} />
+        )}
+      </div>
+    </section>
+  );
+}
+
+export default TrendChartSection;
+```
+
+---
