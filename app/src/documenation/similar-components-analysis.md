@@ -125,3 +125,67 @@ function AccountPage() {
 }
 ```
 
+---
+
+## 3. Category / Filter Button Bars
+
+Both the Exercise Library page and the Exercise Library modal inside Workout Template use a row of category filter buttons. The lists are nearly identical (muscle group names), but the components are written separately.
+
+| Component | Location | Filter Set |
+|---|---|---|
+| `ExerciseFilterBar` | ExerciseLibraryPage | ALL, CHEST, BACK, LEGS, SHOULDERS, BICEPS, TRICEPS, ABS |
+| Filter `<select>` in `ExerciseLibraryModal` | WorkoutTemplate > CustomCreatorView | ALL, CHEST, BACK, SHOULDERS, ARMS, LEGS, ABS, CARDIO |
+
+### Current Examples
+
+```jsx
+// ExerciseFilterBar.jsx — renders pill buttons
+function ExerciseFilterBar({ activeFilter, onFilterChange }) {
+  return (
+    <div className="el-filter-bar">
+      {FILTERS.map((f) => (
+        <button
+          key={f}
+          className={`el-filter-btn${activeFilter === f ? ' active' : ''}`}
+          onClick={() => onFilterChange(f)}
+        >{f}</button>
+      ))}
+    </div>
+  );
+}
+
+// ExerciseLibraryModal.jsx — renders a <select> for the same purpose
+<select
+  className="wt-library-filter"
+  value={libraryFilter}
+  onChange={(e) => onFilterChange(e.target.value)}
+>
+  {BODY_PARTS.map((bp) => (
+    <option key={bp} value={bp}>{bp}</option>
+  ))}
+</select>
+```
+
+### What a Common `CategoryFilterBar` Could Look Like
+```jsx
+// components/common/CategoryFilterBar.jsx
+function CategoryFilterBar({ options, activeFilter, onFilterChange, className = '' }) {
+  return (
+    <div className={`filter-bar ${className}`}>
+      {options.map((opt) => (
+        <button
+          key={opt}
+          className={`filter-btn${activeFilter === opt ? ' active' : ''}`}
+          onClick={() => onFilterChange(opt)}
+        >
+          {opt}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+export default CategoryFilterBar;
+```
+
+---
