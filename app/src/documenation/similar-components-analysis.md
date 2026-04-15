@@ -537,3 +537,42 @@ export default AccountSection;
 ```
 
 ---
+
+## 11. Async State Display (Loading / Empty / Error)
+
+Across the codebase, the loading → error → empty → data conditional pattern is written inline with different wrapper elements and class names in at least **7 places**, with no shared abstraction.
+
+| Location | Loading markup | Empty/error markup |
+|---|---|---|
+| `ExerciseGrid` | `<div className="el-loading"><div className="el-spinner" /> ...` | `<div className="el-empty">` |
+| `ActiveWorkoutPage` | `<div className="aw-loading">Loading workout...` | `<div className="aw-loading">No exercises found.` |
+| `PerformanceTrends` | `<div className="trends-empty">Loading…` | `<div className="trends-empty">` / `trends-error` |
+| `NutritionTrends` | `<div className="trends-empty">Loading…` | `<div className="trends-empty">` / `trends-error` |
+| `SessionDetail` | `<p className="workout-placeholder">Loading…` | `<p className="workout-placeholder">` |
+| `TemplateDetailPanel` | `<p className="wt-detail-loading">Loading exercises...` | — |
+| `ExerciseLibraryModal` | `<p className="wt-detail-loading">Loading exercises...` | `<p className="wt-detail-loading">No exercises found.` |
+
+### What a Common `AsyncState` Could Look Like
+```jsx
+// components/common/AsyncState.jsx
+function AsyncState({ loading, error, empty, loadingText = 'Loading…', errorText, emptyText, className = '', children }) {
+  if (loading) return <div className={`async-state ${className}`}>{loadingText}</div>;
+  if (error)   return <div className={`async-state async-state--error ${className}`}>{errorText || error}</div>;
+  if (empty)   return <div className={`async-state ${className}`}>{emptyText}</div>;
+  return children;
+}
+
+export default AsyncState;
+```
+
+**Usage:**
+```jsx
+// ExerciseGrid becomes:
+<AsyncState loading={loading} empty={exercises.length === 0} emptyText="No exercises found. Try a different filter.">
+  <div className="el-grid">
+    {exercises.map((ex) => <ExerciseCard key={ex.id} exercise={ex} onClick={onSelectExercise} />)}
+  </div>
+</AsyncState>
+```
+
+---
