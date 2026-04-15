@@ -189,3 +189,50 @@ export default CategoryFilterBar;
 ```
 
 ---
+
+## 4. Numeric Stepper (Edit-in-place)
+
+`HeightStepper` and `WeightStepper` in the Account page are structurally identical. Both have `−` / `+` buttons, a value display that turns into an inline `<input>` when clicked, unit-aware formatting, and a save-on-blur / Enter key handler.
+
+| Component | Value | Unit Conversion |
+|---|---|---|
+| `HeightStepper` | `heightInches` | inches ↔ cm |
+| `WeightStepper` | `weightLbs` | lbs ↔ kg |
+
+### What a Common `NumericStepper` Could Look Like
+```jsx
+// components/common/NumericStepper.jsx
+function NumericStepper({ label, displayValue, onIncrement, onDecrement, editingValue, isEditing, onStartEdit, onChange, onSave, onKey }) {
+  return (
+    <div className="account-stat-cell">
+      <div className="account-stat-label">{label}</div>
+      <div className="account-stat-stepper">
+        <button className="account-step-btn" onClick={onDecrement} aria-label="Decrease">−</button>
+        {isEditing ? (
+          <input
+            className="account-stat-input"
+            value={editingValue}
+            onChange={onChange}
+            onBlur={onSave}
+            onKeyDown={onKey}
+            autoFocus
+          />
+        ) : (
+          <span
+            className="account-stat-val account-stat-val--tap"
+            onClick={onStartEdit}
+            title="Tap to edit"
+          >
+            {displayValue}
+          </span>
+        )}
+        <button className="account-step-btn" onClick={onIncrement} aria-label="Increase">+</button>
+      </div>
+    </div>
+  );
+}
+
+export default NumericStepper;
+```
+
+---
