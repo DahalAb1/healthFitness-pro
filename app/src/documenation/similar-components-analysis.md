@@ -454,3 +454,38 @@ function ExerciseBadges({ muscleGroup, equipment, badgeClass = 'badge' }) {
 export default ExerciseBadges;
 ```
 
+---
+
+## 9. Auth Form Text Field
+
+Both `LoginPage` and `SignUpPage` repeat the same `<div className="auth-field"><label>…</label><input … /></div>` wrapper for plain text/email fields. `PasswordInput` is already abstracted, but the plain text field wrapper is the remaining inline repetition inside auth forms.
+
+```jsx
+// LoginPage.jsx
+<div className="auth-field">
+  <label>Email</label>
+  <input type="email" placeholder="name@email.com" value={email} onChange={...} required />
+</div>
+
+// SignUpPage.jsx — same pattern twice (Full Name + Email)
+<div className="auth-field">
+  <label>Full Name</label>
+  <input type="text" placeholder="Jane Doe" value={form.name} onChange={update('name')} required />
+</div>
+```
+
+### What a Common `AuthField` Could Look Like
+```jsx
+// components/auth/AuthField.jsx
+function AuthField({ label, type = 'text', placeholder, value, onChange }) {
+  return (
+    <div className="auth-field">
+      <label>{label}</label>
+      <input type={type} placeholder={placeholder} value={value} onChange={onChange} required />
+    </div>
+  );
+}
+
+export default AuthField;
+```
+---
