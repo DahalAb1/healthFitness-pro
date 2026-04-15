@@ -236,3 +236,46 @@ export default NumericStepper;
 ```
 
 ---
+
+## 5. Exercise / Workout Cards
+
+Template cards in `TemplatesView` and saved workout cards (`SavedWorkoutCard`) in `CustomCreatorView` share almost the same card shell: a title, a subtitle label, an exercise count badge, and one or more action buttons. The only differences are the set of buttons and the expandable exercise list unique to saved cards.
+
+| Component | Title Source | Badge | Actions |
+|---|---|---|---|
+| Template card (inline in `TemplatesView`) | `template.name` | exercise count | Use Template |
+| `SavedWorkoutCard` | `workout.name` | exercise count | View / Customize / Begin / Delete |
+
+### Current Template Card (inline JSX in `TemplatesView.jsx`)
+```jsx
+<article key={template.id} className="wt-template-card">
+  <h2>{template.name}</h2>
+  <p>{template.description}</p>
+  <span>{template.exercises?.length ?? 0} EXERCISES</span>
+  <button className="btn wt-btn-full" onClick={() => openTemplate(template)}>
+    Use Template
+  </button>
+</article>
+```
+
+### What a Common `WorkoutCard` Could Look Like
+```jsx
+// components/common/WorkoutCard.jsx
+function WorkoutCard({ title, subtitle, exerciseCount, actions, children }) {
+  return (
+    <article className="wt-template-card">
+      <h2>{title}</h2>
+      {subtitle && <p>{subtitle}</p>}
+      <span>{exerciseCount} EXERCISES</span>
+      <div className="wt-card-actions">
+        {actions}
+      </div>
+      {children}
+    </article>
+  );
+}
+
+export default WorkoutCard;
+```
+
+---
