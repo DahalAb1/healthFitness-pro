@@ -489,3 +489,51 @@ function AuthField({ label, type = 'text', placeholder, value, onChange }) {
 export default AuthField;
 ```
 ---
+
+## 10. Account Section Wrapper
+
+All four account section components wrap their content in the exact same two-element shell: a `<div className="account-section">` containing a `<span className="account-section-label">` heading and a `<div className="account-menu">` body. The label text is the only difference.
+
+| Component | Label text |
+|---|---|
+| `PersonalInfoSection` | "Personal Information" |
+| `AppSettingsSection` | "App Settings" |
+| `SecuritySection` | "Security & Billing" |
+| `WorkoutSettingsSection` | "Workout Settings" |
+
+```jsx
+// PersonalInfoSection.jsx
+<div className="account-section">
+  <span className="account-section-label">Personal Information</span>
+  <div className="account-menu">
+    {/* items */}
+  </div>
+</div>
+
+// AppSettingsSection.jsx — identical structure
+<div className="account-section">
+  <span className="account-section-label">App Settings</span>
+  <div className="account-menu">
+    {/* items */}
+  </div>
+</div>
+```
+
+### What a Common `AccountSection` Could Look Like
+```jsx
+// components/account/AccountSection.jsx
+function AccountSection({ label, children }) {
+  return (
+    <div className="account-section">
+      <span className="account-section-label">{label}</span>
+      <div className="account-menu">
+        {children}
+      </div>
+    </div>
+  );
+}
+
+export default AccountSection;
+```
+
+---
