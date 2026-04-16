@@ -1,6 +1,9 @@
 # Signed-In UX Review
 
 
+Per file I have two sections the bugs section and what works well section. 
+Majority of these feature work well but there are some small bugs or stuff that shouldnt be there.
+
 
 ############# Bugs
 
@@ -9,10 +12,10 @@
 - [ ] Get Started Today button does not perform its intended action. Easy fix
 
 #### Nutrition
-- [ ]
+- [ ]  N/A
 
 #### History
-- [ ] no bugs but performace trends is done weirdly
+- [ ]  performace trends is doesnt really work. Cant track exercises unless I did it wrong
 
 #### Workout Templates
 - [ ] exercise bar in custom workout is useless
@@ -38,30 +41,13 @@
 #### Footer
 - [ ] N/A
 
+ 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#
+#
 ############################################
 ######### What Works Well
 
@@ -69,22 +55,22 @@
 - [ ] Front page buttons route correctly.
 
 #### Nutrition
-- [ ]
+- [ ] Works really well!
 
 #### History
-- [ ]
+- [ ] Calorie tracker works well
 
 #### Workout Templates
-- [ ]
+- [ ] Can pick a workout
 
 #### Active Workout
-- [ ]
+- [ ] Can simulate a workout
 
 #### Exercise Library
 - [ ] works as it should
 
 #### Account/Profile
-- [ ]
+- [ ] can look at profile and edit certain features
 
 #### Navbar
 - [ ] NavBar works well no bugs

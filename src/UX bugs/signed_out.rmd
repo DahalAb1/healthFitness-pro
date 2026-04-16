@@ -1,5 +1,8 @@
 # Signed-Out UX Review
 
+Per file I have two sections the bugs section and what works well section. 
+Majority of these feature work well but there are some small bugs or stuff that shouldnt be there.
+
 
 
 ############ Bugs
@@ -9,7 +12,7 @@
 - [ ] Get Started Today button does not perform its intended action. Easy fix
 
 #### Nutrition
-- [ ] doesnt let you log foods
+- [ ] N/A
 
 #### History
 - [ ] N/A
@@ -48,28 +51,26 @@
 
 
 
-
-
-
-
-
+#
+#
+#
 #################################################################
 ########### What Works Well
 
 #### Front Page
-- [ ]
+- [ ] works as intended
 
 #### Nutrition
-- [ ].
+- [ ]. Doesnt let you log foods which makes sense 
 
 #### History
-- [ ]. works well doesnt track exercises until signed in 
+- [ ]. works well doesnt track exercises until signed in. same with foods
 
 #### Workout Templates
-- [ ] 
+- [ ] Can pick a workout
 
 #### Active Workout
-- [ ].
+- [ ]. Can simulate a workout
 
 #### Exercise Library
 - [ ] works as it should
