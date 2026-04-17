@@ -14,7 +14,8 @@ export async function getExercises(bodyPart) {
     : `${BASE_URL}/exercises`;
   const res = await fetch(url);
   const data = await res.json();
-  return unwrapExerciseList(data).map(normalizeExercise);
+  const exercises = Array.isArray(data.data) ? data.data : [];
+  return exercises.map(normalizeExercise);
 }
 
 export async function getTemplates() {
