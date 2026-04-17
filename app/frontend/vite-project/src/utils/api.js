@@ -2,11 +2,7 @@
 // The file now reads the backend URL from the .env file instead of having it hardcoded.
 const BASE_URL = import.meta.env.VITE_API_URL || "";
 
-import {
-  BODY_PART_MAP,
-  normalizeExercise,
-  unwrapExerciseList,
-} from "./exerciseUtils";
+import { BODY_PART_MAP, normalizeExercise } from "./exerciseUtils";
 
 export async function getExercises(bodyPart) {
   const apiBodyPart =
