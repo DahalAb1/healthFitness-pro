@@ -38,8 +38,7 @@ class ExerciseClient:
     def get_exercise_by_id(self, exercise_id: str):
         """Fetch a single exercise by its API ID."""
         url = f"{self.BASE_URL}/exercises/exercise/{exercise_id}"
-        response = httpx.get(url, headers=self.headers)
-        return response.json()
+        return self._get(url)
 
     def find_exercise_by_name(self, exercise_name: str):
         """Search for an exercise by name. Returns the first match or None."""
