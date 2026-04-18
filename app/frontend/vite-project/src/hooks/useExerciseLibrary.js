@@ -13,7 +13,7 @@ export function useExerciseLibrary() {
     setError(null);
     getExercises(activeFilter)
       .then((data) => setExercises(data))
-      .catch(() => setError('Failed to load exercises. Make sure the backend is running.'))
+      .catch((err) => setError(err.message || 'Failed to load exercises. Make sure the backend is running.'))
       .finally(() => setLoading(false));
   }, [activeFilter]);
 
