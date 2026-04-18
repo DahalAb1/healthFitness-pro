@@ -41,10 +41,11 @@ class ExerciseClient:
         return self._get(url)
 
     def find_exercise_by_name(self, exercise_name: str):
-        """Search for an exercise by name. Returns the first match or None."""
+        """Search for an exercise by name. Returns the first match, None, or a rate_limit error dict."""
         url = f"{self.BASE_URL}/exercises/name/{exercise_name}"
-        response = httpx.get(url, headers=self.headers)
-        results = response.json()
+        results = self._get(url)
+        if isinstance(results, dict) and results.get("error") == "rate_limit":
+            return results
         if isinstance(results, list) and results:
             return results[0]
         return None
