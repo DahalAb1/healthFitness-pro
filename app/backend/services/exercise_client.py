@@ -18,6 +18,13 @@ class ExerciseClient:
         ).json()
         self._target_muscles = set(result) if isinstance(result, list) else set()
 
+    def _get(self, url: str, params: dict = None):
+        """HTTP GET with shared headers; surfaces 429 as a structured rate_limit error."""
+        response = httpx.get(url, headers=self.headers, params=params)
+        if response.status_code == 429:
+            return {"error": "rate_limit"}
+        return response.json()
+
     def get_exercises(self, body_part: str = None, limit: int = 10):
         """Fetch exercises from the API, optionally filtered by body part."""
         if body_part in ("biceps", "triceps"):
