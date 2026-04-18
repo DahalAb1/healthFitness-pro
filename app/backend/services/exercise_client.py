@@ -33,8 +33,7 @@ class ExerciseClient:
             url = f"{self.BASE_URL}/exercises/bodyPart/{body_part}"
         else:
             url = f"{self.BASE_URL}/exercises"
-        response = httpx.get(url, headers=self.headers, params={"limit": limit})
-        return response.json()
+        return self._get(url, params={"limit": limit})
 
     def get_exercise_by_id(self, exercise_id: str):
         """Fetch a single exercise by its API ID."""
