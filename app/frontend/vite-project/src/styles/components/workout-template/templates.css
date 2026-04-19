@@ -89,8 +89,12 @@
 }
 
 @keyframes wtSlideIn {
-  from { transform: translateX(100%); }
-  to   { transform: translateX(0); }
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
 }
 
 .wt-detail-close {
@@ -103,7 +107,9 @@
   padding: 4px 8px;
 }
 
-.wt-detail-close:hover { color: var(--text-primary); }
+.wt-detail-close:hover {
+  color: var(--text-primary);
+}
 
 .wt-detail-title {
   font-size: 24px;
@@ -165,4 +171,19 @@
   font-size: 13px;
   color: var(--text-secondary);
   margin: 0;
+}
+
+@media (max-width: 600px) {
+  .wt-hub-container {
+    padding: 28px 16px 80px;
+  }
+
+  .wt-templates-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .wt-template-card {
+    padding: 20px;
+  }
 }
