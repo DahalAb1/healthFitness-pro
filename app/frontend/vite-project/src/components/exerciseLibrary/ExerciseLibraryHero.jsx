@@ -1,9 +1,12 @@
+import PageHero from '../common/PageHero';
+
 function ExerciseLibraryHero() {
   return (
-    <section className="el-hero">
-      <h1>Exercise Library</h1>
-      <p>Explore our comprehensive collection of exercises for every muscle group</p>
-    </section>
+    <PageHero
+      className="el-hero"
+      title="Exercise Library"
+      description="Explore our comprehensive collection of exercises for every muscle group"
+    />
   );
 }
 
