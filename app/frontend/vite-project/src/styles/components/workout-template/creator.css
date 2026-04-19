@@ -46,9 +46,9 @@
   border-bottom: 1px solid var(--border);
 }
 
-.wt-workout-table input[type='text'],
-.wt-workout-table input[type='number'],
-.wt-input-group input[type='text'] {
+.wt-workout-table input[type="text"],
+.wt-workout-table input[type="number"],
+.wt-input-group input[type="text"] {
   background: #0f0f0f;
   border: 1px solid var(--border);
   padding: 10px;
@@ -198,7 +198,9 @@
   text-align: left;
   cursor: pointer;
   color: var(--text-primary);
-  transition: border-color 0.2s, background 0.2s;
+  transition:
+    border-color 0.2s,
+    background 0.2s;
   width: 100%;
 }
 
@@ -256,7 +258,9 @@
   color: var(--text-primary);
 }
 
-.wt-btn-view:hover { border-color: var(--accent); }
+.wt-btn-view:hover {
+  border-color: var(--accent);
+}
 
 .wt-btn-customize {
   background: #1f1f1f;
@@ -264,7 +268,9 @@
   color: #4a90ff;
 }
 
-.wt-btn-customize:hover { border-color: #4a90ff; }
+.wt-btn-customize:hover {
+  border-color: #4a90ff;
+}
 
 .wt-btn-begin {
   background: linear-gradient(135deg, #4a90ff, #2f6fce);
@@ -279,7 +285,10 @@
   color: #ff4a4a;
 }
 
-.wt-btn-delete:hover { border-color: #ff4a4a; background: rgba(255, 74, 74, 0.08); }
+.wt-btn-delete:hover {
+  border-color: #ff4a4a;
+  background: rgba(255, 74, 74, 0.08);
+}
 
 /* ── Expanded Exercise List ────────────────────────────────────── */
 
@@ -331,5 +340,39 @@
 
   .wt-templates-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .wt-card {
+    padding: 20px 16px;
+  }
+
+  .wt-workout-table th,
+  .wt-workout-table td {
+    padding: 10px 8px;
+  }
+
+  .wt-workout-table input[type="text"],
+  .wt-workout-table input[type="number"] {
+    min-width: 96px;
+  }
+
+  .wt-library-overlay {
+    padding-top: 16px;
+  }
+
+  .wt-library-modal {
+    width: calc(100% - 16px);
+    max-height: 92vh;
+  }
+
+  .wt-library-controls {
+    flex-direction: column;
+    padding: 12px 16px;
+  }
+
+  .wt-library-list {
+    padding: 10px 16px 16px;
   }
 }
