@@ -122,3 +122,32 @@
     max-height: 92vh;
   }
 }
+
+@media (max-width: 600px) {
+  .el-modal-backdrop {
+    align-items: flex-end;
+  }
+
+  .el-modal-content {
+    width: 100%;
+    max-width: 100%;
+    max-height: 100vh;
+    border-radius: 16px 16px 0 0;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+  }
+
+  .el-modal-image {
+    max-height: 220px;
+    border-radius: 16px 16px 0 0;
+  }
+
+  .el-modal-body {
+    padding: 20px 16px 24px;
+  }
+
+  .el-modal-name {
+    font-size: 1.35rem;
+  }
+}
