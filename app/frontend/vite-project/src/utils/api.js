@@ -144,3 +144,14 @@ export async function deleteMealLog(token, logId) {
   });
   if (!res.ok) throw new Error(`deleteMealLog failed: ${res.status}`);
 }
+
+export async function getNutritionTrends(token, days) {
+  const url = days
+    ? `${BASE_URL}/nutrition/logs/trends?days=${days}`
+    : `${BASE_URL}/nutrition/logs/trends`;
+  const res = await fetch(url, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  if (!res.ok) throw new Error(`getNutritionTrends failed: ${res.status}`);
+  return res.json(); // [{ date, kcal, protein_g, carbs_g, fat_g }, ...]
+}

@@ -9,6 +9,8 @@ import NutritionPage from './pages/NutritionPage';
 import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUpPage';
 import AccountPage from './pages/AccountPage';
+import AboutPage from './pages/AboutPage';
+import ContactPage from './pages/ContactPage';
 import { AuthProvider } from './context/AuthContext';
 
 function App() {
@@ -22,6 +24,8 @@ function App() {
       <Route path="/exercise-library" element={<ExerciseLibraryPage />} />
       <Route path="/active-workout" element={<ActiveWorkoutPage />} />
       <Route path="/nutrition" element={<NutritionPage />} />
+      <Route path="/about" element={<AboutPage />} />
+      <Route path="/contact" element={<ContactPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signup" element={<SignUpPage />} />
       <Route path="/account" element={<AccountPage />} />
