@@ -135,7 +135,7 @@
   border-radius: 5px;
   background: rgba(74, 255, 140, 0.07);
   border: 1px solid rgba(74, 255, 140, 0.2);
-  color: #4AFF8C;
+  color: #4aff8c;
 }
 
 /* ---- STAT ROW ---- */
@@ -267,7 +267,7 @@
 }
 
 .account-mi-value--green {
-  color: #4AFF8C;
+  color: #4aff8c;
   opacity: 1;
 }
 
@@ -285,7 +285,7 @@
 
 /* ---- DANGER ROW ---- */
 .account-menu-item--danger .account-mi-label {
-  color: #FF4A4A;
+  color: #ff4a4a;
 }
 
 .account-menu-item--danger .account-mi-icon {
@@ -294,7 +294,7 @@
 }
 
 .account-menu-item--danger .account-mi-icon svg {
-  stroke: #FF4A4A;
+  stroke: #ff4a4a;
 }
 
 .account-menu-item--danger .account-chevron {
@@ -327,7 +327,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.15s, border-color 0.15s, color 0.15s;
+  transition:
+    background 0.15s,
+    border-color 0.15s,
+    color 0.15s;
   flex-shrink: 0;
   padding: 0;
 }
@@ -367,7 +370,10 @@
   font-weight: 600;
   font-family: inherit;
   cursor: pointer;
-  transition: background 0.15s, border-color 0.15s, color 0.15s;
+  transition:
+    background 0.15s,
+    border-color 0.15s,
+    color 0.15s;
   white-space: nowrap;
 }
 
@@ -421,7 +427,9 @@
   color: var(--text-secondary);
   opacity: 0.35;
   flex-shrink: 0;
-  transition: opacity 0.15s, color 0.15s;
+  transition:
+    opacity 0.15s,
+    color 0.15s;
 }
 
 .account-menu-item--editable:hover .account-pencil {
@@ -450,7 +458,9 @@
   color: var(--text-primary);
   font-size: 13px;
   font-family: inherit;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
   box-sizing: border-box;
 }
 
@@ -478,7 +488,9 @@
   font-weight: 700;
   cursor: pointer;
   border: none;
-  transition: background 0.15s, transform 0.1s;
+  transition:
+    background 0.15s,
+    transform 0.1s;
 }
 
 .account-edit-btn--save {
@@ -571,14 +583,18 @@
   color: #fff;
 }
 
-.account-stat-btn--save:hover { background: #5ba0ff; }
+.account-stat-btn--save:hover {
+  background: #5ba0ff;
+}
 
 .account-stat-btn--cancel {
   background: rgba(255, 255, 255, 0.08);
   color: var(--text-secondary);
 }
 
-.account-stat-btn--cancel:hover { background: rgba(255, 255, 255, 0.15); }
+.account-stat-btn--cancel:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
 
 /* ---- TOGGLE SWITCH ---- */
 .account-toggle {
@@ -588,7 +604,9 @@
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid var(--border);
   position: relative;
-  transition: background 0.25s, border-color 0.25s;
+  transition:
+    background 0.25s,
+    border-color 0.25s;
   flex-shrink: 0;
 }
 
@@ -606,9 +624,27 @@
   border-radius: 50%;
   background: #fff;
   transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
-  box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
 }
 
 .account-toggle--on .account-toggle-thumb {
   transform: translateX(16px);
+}
+
+/* ── Responsive ────────────────────────────────────────────────── */
+
+@media (max-width: 600px) {
+  .account-page {
+    padding: 24px 16px 60px;
+  }
+
+  .account-stat-row {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .account-stat-cell:not(:last-child) {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
 }
