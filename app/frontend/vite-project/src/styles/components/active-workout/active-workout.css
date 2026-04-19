@@ -73,7 +73,9 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    opacity 0.3s ease;
 }
 
 .aw-card-current {
@@ -260,7 +262,10 @@
   height: 28px;
   font-size: 14px;
   cursor: pointer;
-  transition: border-color 0.2s, color 0.2s, background 0.2s;
+  transition:
+    border-color 0.2s,
+    color 0.2s,
+    background 0.2s;
   line-height: 1;
 }
 
@@ -298,7 +303,10 @@
   border: none;
   border-radius: 50px;
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    opacity 0.2s ease;
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
@@ -389,7 +397,9 @@
   font-size: 12px;
   font-weight: 600;
   cursor: pointer;
-  transition: border-color 0.2s, color 0.2s;
+  transition:
+    border-color 0.2s,
+    color 0.2s;
 }
 
 .aw-timer-preset:hover,
@@ -480,7 +490,9 @@
   background: transparent;
   color: var(--text-primary);
   cursor: pointer;
-  transition: border-color 0.2s, background 0.2s;
+  transition:
+    border-color 0.2s,
+    background 0.2s;
 }
 
 .aw-timer-btn-skip {
@@ -530,7 +542,9 @@
   background: transparent;
   color: var(--text-secondary);
   cursor: pointer;
-  transition: border-color 0.2s, color 0.2s;
+  transition:
+    border-color 0.2s,
+    color 0.2s;
 }
 
 .aw-timer-custom-btn:hover {
@@ -541,6 +555,14 @@
 /* ── Responsive ────────────────────────────────────────────────── */
 
 @media (max-width: 768px) {
+  .aw-header {
+    padding: 32px 16px 24px;
+  }
+
+  .aw-progress-bar {
+    max-width: 100%;
+  }
+
   .aw-carousel-track {
     grid-template-columns: 1fr;
   }
