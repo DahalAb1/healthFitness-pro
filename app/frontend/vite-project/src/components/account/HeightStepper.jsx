@@ -3,8 +3,9 @@ import NumericStepper from '../common/NumericStepper';
 
 function fmtHeight(totalInches, units) {
   if (units === 'Metric') return `${Math.round(totalInches * 2.54)} cm`;
-  const ft = Math.floor(totalInches / 12);
-  const inch = totalInches % 12;
+  const rounded = Math.round(totalInches);
+  const ft = Math.floor(rounded / 12);
+  const inch = rounded % 12;
   return `${ft}'${inch}"`;
 }
 
@@ -14,19 +15,17 @@ export default function HeightStepper({ heightInches, units, onChange }) {
 
   const inc = () => {
     if (units === 'Metric') {
-      const cm = Math.round(heightInches * 2.54);
-      onChange(Math.round((cm + 1) / 2.54));
+      onChange(heightInches + 1 / 2.54);
     } else {
-      onChange(heightInches + 1);
+      onChange(Math.round(heightInches) + 1);
     }
   };
 
   const dec = () => {
     if (units === 'Metric') {
-      const cm = Math.round(heightInches * 2.54);
-      onChange(Math.max(12, Math.round((cm - 1) / 2.54)));
+      onChange(Math.max(12, heightInches - 1 / 2.54));
     } else {
-      onChange(Math.max(12, heightInches - 1));
+      onChange(Math.max(12, Math.round(heightInches) - 1));
     }
   };
 
