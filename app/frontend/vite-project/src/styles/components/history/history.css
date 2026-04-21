@@ -4,17 +4,19 @@
   background: #0f0f0f;
   min-height: 100vh;
   color: #ffffff;
-  overflow-x: clip;
+  overflow-x: hidden;
 }
 
 /* --- CALENDAR --- */
 .calendar-page {
   max-width: 1100px;
+  width: min(1100px, calc(100% - 24px));
   margin: -40px auto 40px;
   background: #1a1a1a;
   border: 1px solid #333333;
   border-radius: 12px;
   padding: 30px;
+  box-sizing: border-box;
   position: relative;
   z-index: 10;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
@@ -281,6 +283,7 @@
 
 .table-scroll {
   width: 100%;
+  max-width: 100%;
   overflow-x: auto;
 }
 
@@ -330,11 +333,13 @@
 /* --- PROGRESS TRACKER --- */
 .progress-tracker {
   max-width: 1100px;
+  width: min(1100px, calc(100% - 24px));
   margin: 0 auto 100px;
   padding: 40px;
   background: #1a1a1a;
   border: 1px solid #333333;
   border-radius: 12px;
+  box-sizing: border-box;
 }
 
 .progress-header {
@@ -348,6 +353,9 @@
 
 .progress-header h2 {
   font-size: 1.4rem;
+  margin: 0;
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 .time-filters {
@@ -389,6 +397,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
+}
+
+.chart-container canvas,
+.chart-container svg {
+  max-width: 100% !important;
 }
 
 /* Exercise name search */
@@ -400,6 +414,7 @@
 
 .trends-input {
   flex: 1;
+  min-width: 0;
   background: #111;
   border: 1px solid #333;
   border-radius: 8px;
@@ -522,10 +537,110 @@
 
 @media (max-width: 600px) {
   .table-scroll .exercise-table {
-    min-width: 500px;
+    min-width: 460px;
   }
 
   .filter-btn {
     white-space: nowrap;
+  }
+
+  .progress-header h2 {
+    font-size: 1.15rem;
+  }
+
+  .time-filters {
+    width: 100%;
+  }
+
+  .trends-search {
+    flex-wrap: wrap;
+  }
+
+  .trends-search-btn {
+    width: 100%;
+    padding: 11px 14px;
+  }
+
+  .trends-stats {
+    gap: 10px;
+  }
+}
+
+@media (max-width: 420px) {
+  .calendar-page,
+  .progress-tracker {
+    width: calc(100% - 12px);
+    margin-left: auto;
+    margin-right: auto;
+    padding: 14px 10px;
+  }
+
+  .month-nav {
+    gap: 6px;
+  }
+
+  .month-nav button {
+    width: 34px;
+    height: 34px;
+  }
+
+  .month-nav h2 {
+    font-size: 0.95rem;
+    text-align: center;
+    min-width: 0;
+  }
+
+  .day-header {
+    font-size: 9px;
+    padding-bottom: 8px;
+  }
+
+  .month-grid {
+    gap: 6px;
+  }
+
+  .calendar-day {
+    font-size: 12px;
+  }
+
+  .time-filters {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    overflow: visible;
+  }
+
+  .filter-btn {
+    white-space: normal;
+    padding: 8px 10px;
+    border: 1px solid #333333;
+    background: #0f0f0f;
+  }
+
+  .trends-search {
+    flex-direction: column;
+  }
+
+  .trends-input,
+  .trends-search-btn {
+    width: 100%;
+  }
+
+  .table-scroll .exercise-table {
+    min-width: 420px;
+  }
+
+  .exercise-table th,
+  .exercise-table td {
+    padding: 7px 10px;
+    font-size: 12px;
+  }
+
+  .chart-container {
+    height: 280px;
+    padding: 8px;
   }
 }
