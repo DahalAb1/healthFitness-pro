@@ -17,6 +17,10 @@ export async function getExercises(bodyPart) {
     ? `${BASE_URL}/exercises?bodyPart=${apiBodyPart}`
     : `${BASE_URL}/exercises`;
   const res = await fetch(url);
+  if (!res.ok) {
+    const body = await res.json().catch(() => ({}));
+    throw new Error(body.detail || `getExercises failed: ${res.status}`);
+  }
   const data = await res.json();
   return unwrapExerciseList(data).map(normalizeExercise);
 }

@@ -1,3 +1,4 @@
+import CategoryFilterBar from '../common/CategoryFilterBar';
 import { BODY_PARTS } from '../../hooks/useCustomCreatorView';
 
 function ExerciseLibraryModal({
@@ -33,15 +34,12 @@ function ExerciseLibraryModal({
             value={librarySearch}
             onChange={(e) => onSearchChange(e.target.value)}
           />
-          <select
-            className="wt-library-filter"
-            value={libraryFilter}
-            onChange={(e) => onFilterChange(e.target.value)}
-          >
-            {BODY_PARTS.map((bp) => (
-              <option key={bp} value={bp}>{bp}</option>
-            ))}
-          </select>
+          <CategoryFilterBar
+            options={BODY_PARTS}
+            activeFilter={libraryFilter}
+            onFilterChange={onFilterChange}
+            className="wt-library-filter-bar"
+          />
         </div>
 
         <div className="wt-library-list">

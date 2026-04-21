@@ -9,9 +9,9 @@ const testimonials = [
   },
   {
     quote:
-      '"The GPS tracking for my morning runs is pinpoint accurate. Finally, an app that doesn\'t feel cluttered."',
+      '"Creating custom workouts is so intuitive. I build my entire program in minutes."',
     name: '— Jordan Smith',
-    title: 'Marathon Runner',
+    title: 'Personal Trainer',
   },
   {
     quote:
@@ -34,20 +34,37 @@ function TestimonialsSection() {
   useEffect(() => {
     const container = scrollRef.current;
     if (!container) return;
+
     const handleScroll = () => {
-      const cardWidth = container.scrollWidth / testimonials.length;
-      const index = Math.round(container.scrollLeft / cardWidth);
-      setActiveIndex(Math.min(index, testimonials.length - 1));
+      const maxScroll = container.scrollWidth - container.clientWidth;
+
+      if (maxScroll <= 0) {
+        setActiveIndex(0);
+        return;
+      }
+
+      const progress = container.scrollLeft / maxScroll;
+      const index = Math.round(progress * (testimonials.length - 1));
+      setActiveIndex(Math.min(Math.max(index, 0), testimonials.length - 1));
     };
+
+    // Sync active dot on mount and resize, not just while scrolling.
+    handleScroll();
     container.addEventListener('scroll', handleScroll, { passive: true });
-    return () => container.removeEventListener('scroll', handleScroll);
+    window.addEventListener('resize', handleScroll);
+
+    return () => {
+      container.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleScroll);
+    };
   }, []);
 
   const scrollToCard = (index) => {
     const container = scrollRef.current;
     if (!container) return;
-    const cardWidth = container.scrollWidth / testimonials.length;
-    container.scrollTo({ left: cardWidth * index, behavior: 'smooth' });
+    const card = container.children[index];
+    if (!card) return;
+    container.scrollTo({ left: card.offsetLeft, behavior: 'smooth' });
   };
 
   return (
