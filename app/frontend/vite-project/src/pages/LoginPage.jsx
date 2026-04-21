@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import AuthLayout from "../components/auth/AuthLayout";
 import AuthBrand from "../components/auth/AuthBrand";
 import PasswordInput from "../components/auth/PasswordInput";
-import Navbar from "../components/common/Navbar";
 import { useLoginForm } from "../hooks/useLoginForm";
 
 /**
@@ -23,49 +22,46 @@ function LoginPage() {
   } = useLoginForm();
 
   return (
-    <>
-      <Navbar />
-      <AuthLayout>
-        <AuthBrand />
+    <AuthLayout>
+      <AuthBrand />
 
-        <h2 className="auth-heading">Welcome Back.</h2>
-        <p className="auth-subheading">Pick up right where you left off.</p>
+      <h2 className="auth-heading">Welcome Back.</h2>
+      <p className="auth-subheading">Pick up right where you left off.</p>
 
-        {error && <div className="auth-error">{error}</div>}
+      {error && <div className="auth-error">{error}</div>}
 
-        <form onSubmit={handleSubmit}>
-          <div className="auth-field">
-            <label>Email</label>
-            <input
-              type="email"
-              placeholder="name@email.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
-
-          <PasswordInput
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            show={showPw}
-            onToggleShow={() => setShowPw((v) => !v)}
+      <form onSubmit={handleSubmit}>
+        <div className="auth-field">
+          <label>Email</label>
+          <input
+            type="email"
+            placeholder="name@email.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
           />
-
-          <a href="#" className="auth-forgot-link">
-            Forgot password?
-          </a>
-
-          <button type="submit" className="auth-submit-btn" disabled={loading}>
-            {loading ? "Logging in…" : "Log In"}
-          </button>
-        </form>
-
-        <div className="auth-switch-link">
-          Don't have an account? <Link to="/signup">Sign Up</Link>
         </div>
-      </AuthLayout>
-    </>
+
+        <PasswordInput
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          show={showPw}
+          onToggleShow={() => setShowPw((v) => !v)}
+        />
+
+        <a href="#" className="auth-forgot-link">
+          Forgot password?
+        </a>
+
+        <button type="submit" className="auth-submit-btn" disabled={loading}>
+          {loading ? "Logging in…" : "Log In"}
+        </button>
+      </form>
+
+      <div className="auth-switch-link">
+        Don't have an account? <Link to="/signup">Sign Up</Link>
+      </div>
+    </AuthLayout>
   );
 }
 
