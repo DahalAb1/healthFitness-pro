@@ -1,3 +1,5 @@
+import ExerciseBadges from '../common/ExerciseBadges';
+
 function ExerciseCard({ exercise, variant, setLogs, onSetUpdate }) {
   if (!exercise) {
     return <div className={`aw-card aw-card-empty aw-card-${variant}`} />;
@@ -15,16 +17,12 @@ function ExerciseCard({ exercise, variant, setLogs, onSetUpdate }) {
       <div className="aw-card-body">
         <h3 className="aw-card-name">{exercise.name}</h3>
         <p className="aw-card-sets">{exercise.sets} sets × {exercise.reps} reps</p>
-        {(exercise.muscleGroup || exercise.equipment) && (
-          <div className="aw-card-badges">
-            {exercise.muscleGroup && (
-              <span className="aw-badge aw-badge-muscle">{exercise.muscleGroup}</span>
-            )}
-            {exercise.equipment && (
-              <span className="aw-badge aw-badge-equip">{exercise.equipment}</span>
-            )}
-          </div>
-        )}
+        <ExerciseBadges
+          muscleGroup={exercise.muscleGroup}
+          equipment={exercise.equipment}
+          badgeClass="aw-badge"
+          className="aw-card-badges"
+        />
         {exercise.rest && <p className="aw-card-rest">Rest: {exercise.rest}</p>}
 
         {isCurrent && setLogs && (
