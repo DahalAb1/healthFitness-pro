@@ -1,5 +1,6 @@
 import ModalShell from '../common/ModalShell';
 import CategoryFilterBar from '../common/CategoryFilterBar';
+import ExerciseBadges from '../common/ExerciseBadges';
 import { BODY_PARTS } from '../../hooks/useCustomCreatorView';
 
 function ExerciseLibraryModal({
@@ -56,9 +57,12 @@ function ExerciseLibraryModal({
               )}
               <div className="wt-library-item-info">
                 <strong>{ex.name}</strong>
-                {(ex.muscle_group || ex.equipment) && (
-                  <span>{[ex.muscle_group, ex.equipment].filter(Boolean).join(' · ')}</span>
-                )}
+                <ExerciseBadges
+                  muscleGroup={ex.muscle_group}
+                  equipment={ex.equipment}
+                  badgeClass="el-badge"
+                  className="wt-library-item-badges"
+                />
               </div>
             </button>
           ))}
