@@ -13,10 +13,14 @@ class ExerciseClient:
             "x-rapidapi-key": settings.XRAPID_API_KEY,
             "x-rapidapi-host": self.HOST,
         }
+        result = httpx.get(
+            f"{self.BASE_URL}/exercises/targetList", headers=self.headers
+        ).json()
+        self._target_muscles = set(result) if isinstance(result, list) else set()
 
     def get_exercises(self, body_part: str = None, limit: int = 10):
         """Fetch exercises from the API, optionally filtered by body part."""
-        if body_part in ("biceps", "triceps"):
+        if body_part in self._target_muscles:
             url = f"{self.BASE_URL}/exercises/target/{body_part}"
         elif body_part:
             url = f"{self.BASE_URL}/exercises/bodyPart/{body_part}"
