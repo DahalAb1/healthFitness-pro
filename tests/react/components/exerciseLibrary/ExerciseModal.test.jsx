@@ -61,7 +61,7 @@ describe('ExerciseModal', () => {
   it('calls onClose when the overlay backdrop is clicked', () => {
     const onClose = vi.fn();
     render(<ExerciseModal exercise={mockExercise} onClose={onClose} />);
-    fireEvent.click(document.querySelector('.el-modal-overlay'));
+    fireEvent.click(document.querySelector('.modal-backdrop'));
     expect(onClose).toHaveBeenCalledTimes(1);
   });
 
