@@ -1,3 +1,4 @@
+import ModalShell from '../common/ModalShell';
 import CategoryFilterBar from '../common/CategoryFilterBar';
 import { BODY_PARTS } from '../../hooks/useCustomCreatorView';
 
@@ -12,18 +13,14 @@ function ExerciseLibraryModal({
   onSelect,
 }) {
   return (
-    <div className="wt-library-overlay" onClick={onClose}>
-      <div className="wt-library-modal" onClick={(e) => e.stopPropagation()}>
+    <ModalShell
+      onClose={onClose}
+      ariaLabel="Add From Exercise Library"
+      className="wt-library-modal"
+      backdropClassName="wt-library-overlay"
+    >
         <div className="wt-library-header">
           <h3>Add From Exercise Library</h3>
-          <button
-            type="button"
-            className="wt-detail-close"
-            onClick={onClose}
-            aria-label="Close library"
-          >
-            ✕
-          </button>
         </div>
 
         <div className="wt-library-controls">
@@ -66,8 +63,7 @@ function ExerciseLibraryModal({
             </button>
           ))}
         </div>
-      </div>
-    </div>
+    </ModalShell>
   );
 }
 
