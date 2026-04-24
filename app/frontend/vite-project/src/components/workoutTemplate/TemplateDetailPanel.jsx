@@ -1,4 +1,7 @@
 import { useNavigate } from 'react-router-dom';
+import AsyncState from '../common/AsyncState';
+import ModalShell from '../common/ModalShell';
+import ExerciseBadges from '../common/ExerciseBadges';
 
 function TemplateDetailPanel({ template, exercises, loading, onClose }) {
   const navigate = useNavigate();
@@ -11,18 +14,19 @@ function TemplateDetailPanel({ template, exercises, loading, onClose }) {
   }
 
   return (
-    <div className="wt-detail-overlay" onClick={onClose}>
-      <div className="wt-detail-panel" onClick={(e) => e.stopPropagation()}>
-        <button className="wt-detail-close" onClick={onClose} aria-label="Close">✕</button>
+    <ModalShell
+      onClose={onClose}
+      ariaLabel={template.name}
+      className="wt-detail-panel"
+      backdropClassName="wt-detail-overlay"
+    >
 
         <h2 className="wt-detail-title">{template.name}</h2>
         {template.description && (
           <p className="wt-detail-description">{template.description}</p>
         )}
 
-        {loading ? (
-          <p className="wt-detail-loading">Loading exercises...</p>
-        ) : (
+        <AsyncState loading={loading} loadingText="Loading exercises..." className="wt-detail-loading">
           <ul className="wt-detail-exercise-list">
             {exercises.map((ex, i) => {
               const d = ex.details || {};
@@ -33,11 +37,12 @@ function TemplateDetailPanel({ template, exercises, loading, onClose }) {
                   )}
                   <div className="wt-detail-exercise-info">
                     <h4>{d.name || ex.exercise_id}</h4>
-                    {(d.muscle_group || d.equipment) && (
-                      <p className="wt-detail-exercise-meta">
-                        {[d.muscle_group, d.equipment].filter(Boolean).join(' · ')}
-                      </p>
-                    )}
+                    <ExerciseBadges
+                      muscleGroup={d.muscle_group}
+                      equipment={d.equipment}
+                      badgeClass="el-badge"
+                      className="wt-detail-exercise-meta"
+                    />
                     <p className="wt-detail-exercise-sets">
                       {ex.target_sets} sets × {ex.target_reps} reps
                     </p>
@@ -46,13 +51,12 @@ function TemplateDetailPanel({ template, exercises, loading, onClose }) {
               );
             })}
           </ul>
-        )}
+        </AsyncState>
 
         <button className="btn wt-btn-full" onClick={beginWorkout}>
           Begin Workout
         </button>
-      </div>
-    </div>
+    </ModalShell>
   );
 }
 

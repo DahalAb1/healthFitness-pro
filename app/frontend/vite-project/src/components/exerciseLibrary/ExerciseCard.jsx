@@ -1,3 +1,5 @@
+import ExerciseBadges from '../common/ExerciseBadges';
+
 function ExerciseCard({ exercise, onClick }) {
   return (
     <div
@@ -22,14 +24,12 @@ function ExerciseCard({ exercise, onClick }) {
       />
       <div className="el-card-body">
         <div className="el-card-name">{exercise.name}</div>
-        <div className="el-badges">
-          {exercise.muscle_group && (
-            <span className="el-badge el-badge-muscle">{exercise.muscle_group}</span>
-          )}
-          {exercise.equipment && (
-            <span className="el-badge el-badge-equipment">{exercise.equipment}</span>
-          )}
-        </div>
+        <ExerciseBadges
+          muscleGroup={exercise.muscle_group}
+          equipment={exercise.equipment}
+          badgeClass="el-badge"
+          className="el-badges"
+        />
       </div>
     </div>
   );

@@ -1,4 +1,5 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState } from 'react';
+import NumericStepper from '../common/NumericStepper';
 
 function fmtWeight(lbs, units) {
   if (units === 'Metric') return `${Math.round(lbs * 0.453592)} kg`;
@@ -8,11 +9,6 @@ function fmtWeight(lbs, units) {
 export default function WeightStepper({ weightLbs, units, onChange }) {
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState('');
-  const inputRef = useRef(null);
-
-  useEffect(() => {
-    if (editing && inputRef.current) inputRef.current.focus();
-  }, [editing]);
 
   const inc = () => {
     if (units === 'Metric') {
@@ -55,30 +51,17 @@ export default function WeightStepper({ weightLbs, units, onChange }) {
   };
 
   return (
-    <div className="account-stat-cell">
-      <div className="account-stat-label">Weight</div>
-      <div className="account-stat-stepper">
-        <button className="account-step-btn" onClick={dec} aria-label="Decrease">−</button>
-        {editing ? (
-          <input
-            ref={inputRef}
-            className="account-stat-input"
-            value={draft}
-            onChange={(e) => setDraft(e.target.value)}
-            onBlur={save}
-            onKeyDown={handleKey}
-          />
-        ) : (
-          <span
-            className="account-stat-val account-stat-val--tap"
-            onClick={startEdit}
-            title="Tap to edit"
-          >
-            {fmtWeight(weightLbs, units)}
-          </span>
-        )}
-        <button className="account-step-btn" onClick={inc} aria-label="Increase">+</button>
-      </div>
-    </div>
+    <NumericStepper
+      label="Weight"
+      displayValue={fmtWeight(weightLbs, units)}
+      onIncrement={inc}
+      onDecrement={dec}
+      isEditing={editing}
+      editingValue={draft}
+      onStartEdit={startEdit}
+      onChange={(e) => setDraft(e.target.value)}
+      onSave={save}
+      onKey={handleKey}
+    />
   );
 }

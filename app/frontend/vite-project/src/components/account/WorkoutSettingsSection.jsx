@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import AccountSection from './AccountSection';
 import { getDefaultRest, saveDefaultRest } from '../../utils/timerSettings';
 
 const PRESETS = [30, 60, 90, 120];
@@ -18,9 +19,7 @@ export default function WorkoutSettingsSection() {
   }
 
   return (
-    <div className="account-section">
-      <span className="account-section-label">Workout Settings</span>
-      <div className="account-menu" style={{ padding: '12px 16px', gap: '10px', display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+    <AccountSection label="Workout Settings" menuProps={{ style: { padding: '12px 16px', gap: '10px', display: 'flex', flexDirection: 'column', alignItems: 'flex-start' } }}>
         <span className="account-mi-label">Default rest timer duration</span>
         <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', alignItems: 'center', width: '100%' }}>
           {PRESETS.map((s) => (
@@ -36,7 +35,6 @@ export default function WorkoutSettingsSection() {
             {saved ? 'Saved!' : 'Save'}
           </button>
         </div>
-      </div>
-    </div>
+    </AccountSection>
   );
 }

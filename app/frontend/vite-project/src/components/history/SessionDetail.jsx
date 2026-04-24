@@ -1,3 +1,5 @@
+import AsyncState from '../common/AsyncState';
+
 const MONTH_NAMES = [
   'January', 'February', 'March', 'April', 'May', 'June',
   'July', 'August', 'September', 'October', 'November', 'December',
@@ -82,46 +84,50 @@ function SessionDetail({ month, year, selectedDay, loadingDetail, workout, mealL
         {!selectedDay && (
           <p className="workout-placeholder">Click a day to view workout and nutrition details.</p>
         )}
-        {selectedDay && loadingDetail && <p className="workout-placeholder">Loading…</p>}
-        {selectedDay && !loadingDetail && !hasWorkout && !hasNutrition && (
-          <p className="workout-placeholder">No workout or nutrition logged for this date.</p>
-        )}
-        {selectedDay && !loadingDetail && (
-          <>
-            {hasWorkout && (
-              <div className="day-detail-section">
-                <div className="day-detail-section-header">
-                  <span>Workout</span>
-                  <span className="day-detail-section-total">{workout.duration_minutes} min</span>
-                </div>
-                {workout.exercises && workout.exercises.length > 0 ? (
-                  <table className="exercise-table">
-                    <thead>
-                      <tr>
-                        <th>Exercise</th>
-                        <th>Sets</th>
-                        <th>Reps</th>
-                        <th>Weight</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {workout.exercises.map((ex, idx) => (
-                        <tr key={idx}>
-                          <td>{ex.exercise_name}</td>
-                          <td>{ex.sets}</td>
-                          <td>{ex.reps}</td>
-                          <td>{ex.weight} lbs</td>
+        {selectedDay && (
+          <AsyncState
+            loading={loadingDetail}
+            loadingText="Loading…"
+            empty={!loadingDetail && !hasWorkout && !hasNutrition}
+            emptyText="No workout or nutrition logged for this date."
+            className="workout-placeholder"
+          >
+            <>
+              {hasWorkout && (
+                <div className="day-detail-section">
+                  <div className="day-detail-section-header">
+                    <span>Workout</span>
+                    <span className="day-detail-section-total">{workout.duration_minutes} min</span>
+                  </div>
+                  {workout.exercises && workout.exercises.length > 0 ? (
+                    <table className="exercise-table">
+                      <thead>
+                        <tr>
+                          <th>Exercise</th>
+                          <th>Sets</th>
+                          <th>Reps</th>
+                          <th>Weight</th>
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                ) : (
-                  <p className="workout-placeholder">No exercises logged for this session.</p>
-                )}
-              </div>
-            )}
-            <NutritionSection mealLogs={mealLogs} />
-          </>
+                      </thead>
+                      <tbody>
+                        {workout.exercises.map((ex, idx) => (
+                          <tr key={idx}>
+                            <td>{ex.exercise_name}</td>
+                            <td>{ex.sets}</td>
+                            <td>{ex.reps}</td>
+                            <td>{ex.weight} lbs</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  ) : (
+                    <p className="workout-placeholder">No exercises logged for this session.</p>
+                  )}
+                </div>
+              )}
+              <NutritionSection mealLogs={mealLogs} />
+            </>
+          </AsyncState>
         )}
       </div>
     </section>

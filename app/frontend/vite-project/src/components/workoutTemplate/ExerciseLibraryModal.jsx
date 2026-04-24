@@ -1,3 +1,7 @@
+import ModalShell from '../common/ModalShell';
+import AsyncState from '../common/AsyncState';
+import CategoryFilterBar from '../common/CategoryFilterBar';
+import ExerciseBadges from '../common/ExerciseBadges';
 import { BODY_PARTS } from '../../hooks/useCustomCreatorView';
 
 function ExerciseLibraryModal({
@@ -11,18 +15,14 @@ function ExerciseLibraryModal({
   onSelect,
 }) {
   return (
-    <div className="wt-library-overlay" onClick={onClose}>
-      <div className="wt-library-modal" onClick={(e) => e.stopPropagation()}>
+    <ModalShell
+      onClose={onClose}
+      ariaLabel="Add From Exercise Library"
+      className="wt-library-modal"
+      backdropClassName="wt-library-overlay"
+    >
         <div className="wt-library-header">
           <h3>Add From Exercise Library</h3>
-          <button
-            type="button"
-            className="wt-detail-close"
-            onClick={onClose}
-            aria-label="Close library"
-          >
-            ✕
-          </button>
         </div>
 
         <div className="wt-library-controls">
@@ -33,23 +33,23 @@ function ExerciseLibraryModal({
             value={librarySearch}
             onChange={(e) => onSearchChange(e.target.value)}
           />
-          <select
-            className="wt-library-filter"
-            value={libraryFilter}
-            onChange={(e) => onFilterChange(e.target.value)}
-          >
-            {BODY_PARTS.map((bp) => (
-              <option key={bp} value={bp}>{bp}</option>
-            ))}
-          </select>
+          <CategoryFilterBar
+            options={BODY_PARTS}
+            activeFilter={libraryFilter}
+            onFilterChange={onFilterChange}
+            className="wt-library-filter-bar"
+          />
         </div>
 
         <div className="wt-library-list">
-          {libraryLoading && <p className="wt-detail-loading">Loading exercises...</p>}
-          {!libraryLoading && filteredLibrary.length === 0 && (
-            <p className="wt-detail-loading">No exercises found.</p>
-          )}
-          {filteredLibrary.map((ex) => (
+          <AsyncState
+            loading={libraryLoading}
+            loadingText="Loading exercises..."
+            empty={!libraryLoading && filteredLibrary.length === 0}
+            emptyText="No exercises found."
+            className="wt-detail-loading"
+          >
+            {filteredLibrary.map((ex) => (
             <button
               key={ex.id || ex.name}
               type="button"
@@ -61,15 +61,18 @@ function ExerciseLibraryModal({
               )}
               <div className="wt-library-item-info">
                 <strong>{ex.name}</strong>
-                {(ex.muscle_group || ex.equipment) && (
-                  <span>{[ex.muscle_group, ex.equipment].filter(Boolean).join(' · ')}</span>
-                )}
+                <ExerciseBadges
+                  muscleGroup={ex.muscle_group}
+                  equipment={ex.equipment}
+                  badgeClass="el-badge"
+                  className="wt-library-item-badges"
+                />
               </div>
             </button>
-          ))}
+            ))}
+          </AsyncState>
         </div>
-      </div>
-    </div>
+    </ModalShell>
   );
 }
 

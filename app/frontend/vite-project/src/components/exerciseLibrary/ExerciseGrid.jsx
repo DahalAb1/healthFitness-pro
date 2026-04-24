@@ -1,31 +1,22 @@
+import AsyncState from '../common/AsyncState';
 import ExerciseCard from './ExerciseCard';
 
 function ExerciseGrid({ exercises, loading, onSelectExercise }) {
-  if (loading) {
-    return (
-      <div className="el-loading">
-        <div className="el-spinner" />
-        <p>Loading exercises...</p>
-      </div>
-    );
-  }
-
-  if (!exercises || exercises.length === 0) {
-    return (
-      <div className="el-empty">
-        <p>No exercises found. Try a different filter.</p>
-      </div>
-    );
-  }
-
   return (
-    <div className="el-grid-wrapper">
-      <div className="el-grid">
-        {exercises.map((ex) => (
-          <ExerciseCard key={ex.id} exercise={ex} onClick={onSelectExercise} />
-        ))}
+    <AsyncState
+      loading={loading}
+      loadingText="Loading exercises..."
+      empty={!loading && (!exercises || exercises.length === 0)}
+      emptyText="No exercises found. Try a different filter."
+    >
+      <div className="el-grid-wrapper">
+        <div className="el-grid">
+          {exercises && exercises.map((ex) => (
+            <ExerciseCard key={ex.id} exercise={ex} onClick={onSelectExercise} />
+          ))}
+        </div>
       </div>
-    </div>
+    </AsyncState>
   );
 }
 

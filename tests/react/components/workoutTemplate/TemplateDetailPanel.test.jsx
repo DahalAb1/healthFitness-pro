@@ -62,8 +62,10 @@ describe('TemplateDetailPanel', () => {
 
   it('renders exercise muscle group and equipment meta', () => {
     renderPanel();
-    expect(screen.getByText('chest · barbell')).toBeInTheDocument();
-    expect(screen.getByText('shoulders · dumbbell')).toBeInTheDocument();
+    expect(screen.getByText('chest')).toBeInTheDocument();
+    expect(screen.getByText('barbell')).toBeInTheDocument();
+    expect(screen.getByText('shoulders')).toBeInTheDocument();
+    expect(screen.getByText('dumbbell')).toBeInTheDocument();
   });
 
   it('shows a loading message when loading is true', () => {

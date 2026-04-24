@@ -1,0 +1,46 @@
+/* ===== COMMON PAGE HERO ===== */
+/*
+ * Base styles for all feature-page hero sections.
+ * Use the PageHero component and pass a page-specific className
+ * for any layout overrides (e.g. background-image, fixed height).
+ */
+
+.page-hero {
+  padding: 80px 10%;
+  text-align: center;
+  background: linear-gradient(rgba(15, 15, 15, 0.8), rgba(15, 15, 15, 1));
+  border-bottom: 1px solid var(--border);
+}
+
+.page-hero h1 {
+  font-size: 2.8rem;
+  font-weight: 900;
+  letter-spacing: -2px;
+  margin-bottom: 10px;
+}
+
+.page-hero-tagline {
+  color: var(--accent);
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+
+.page-hero-description {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .page-hero {
+    padding: 60px 6%;
+  }
+
+  .page-hero h1 {
+    font-size: 2rem;
+  }
+}
