@@ -12,7 +12,7 @@ class Exercise(SQLModel):
     name: str
     muscle_group: str
     equipment: str
-    description: list[str]
+    description: str
     image_url: str
 
 
