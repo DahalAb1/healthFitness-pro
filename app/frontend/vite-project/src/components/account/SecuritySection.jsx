@@ -1,3 +1,4 @@
+import AccountSection from './AccountSection';
 import EditableMenuItem from './EditableMenuItem';
 
 /**
@@ -6,9 +7,7 @@ import EditableMenuItem from './EditableMenuItem';
  */
 export default function SecuritySection({ onSignOut }) {
   return (
-    <div className="account-section">
-      <span className="account-section-label">Security &amp; Billing</span>
-      <div className="account-menu">
+    <AccountSection label="Security &amp; Billing">
         <EditableMenuItem
           label="Change Password" value="••••••••" editable editType="password"
           onSave={() => {}}
@@ -23,7 +22,6 @@ export default function SecuritySection({ onSignOut }) {
           onClick={onSignOut}
           icon={<><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></>}
         />
-      </div>
-    </div>
+    </AccountSection>
   );
 }
