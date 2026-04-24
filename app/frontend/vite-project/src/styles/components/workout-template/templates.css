@@ -68,12 +68,8 @@
 /* ── Template Detail Panel ─────────────────────────────────────── */
 
 .wt-detail-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.6);
-  z-index: 1000;
-  display: flex;
   justify-content: flex-end;
+  background: rgba(0, 0, 0, 0.6);
 }
 
 .wt-detail-panel {
@@ -93,17 +89,18 @@
   to   { transform: translateX(0); }
 }
 
-.wt-detail-close {
-  align-self: flex-end;
+.wt-detail-panel .modal-close-btn {
   background: none;
-  border: none;
+  border-radius: 0;
+  width: auto;
+  height: auto;
   color: var(--text-secondary);
-  font-size: 20px;
-  cursor: pointer;
-  padding: 4px 8px;
 }
 
-.wt-detail-close:hover { color: var(--text-primary); }
+.wt-detail-panel .modal-close-btn:hover {
+  background: none;
+  color: var(--text-primary);
+}
 
 .wt-detail-title {
   font-size: 24px;

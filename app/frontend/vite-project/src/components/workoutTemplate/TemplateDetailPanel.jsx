@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import ModalShell from '../common/ModalShell';
 
 function TemplateDetailPanel({ template, exercises, loading, onClose }) {
   const navigate = useNavigate();
@@ -11,9 +12,12 @@ function TemplateDetailPanel({ template, exercises, loading, onClose }) {
   }
 
   return (
-    <div className="wt-detail-overlay" onClick={onClose}>
-      <div className="wt-detail-panel" onClick={(e) => e.stopPropagation()}>
-        <button className="wt-detail-close" onClick={onClose} aria-label="Close">✕</button>
+    <ModalShell
+      onClose={onClose}
+      ariaLabel={template.name}
+      className="wt-detail-panel"
+      backdropClassName="wt-detail-overlay"
+    >
 
         <h2 className="wt-detail-title">{template.name}</h2>
         {template.description && (
@@ -51,8 +55,7 @@ function TemplateDetailPanel({ template, exercises, loading, onClose }) {
         <button className="btn wt-btn-full" onClick={beginWorkout}>
           Begin Workout
         </button>
-      </div>
-    </div>
+    </ModalShell>
   );
 }
 
