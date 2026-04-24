@@ -34,5 +34,12 @@ export default defineConfig({
     css: false,
     include: ['../../../tests/react/**/*.test.{js,jsx,tsx}'],
     testTimeout: 30000,
+    coverage: {
+      provider: 'v8',
+      reporter: ['text', 'html'],
+      include: ['src/**/*.{js,jsx}'],
+      exclude: ['src/main.jsx', 'src/**/*.test.{js,jsx}'],
+      reportsDirectory: './coverage',
+    },
   },
 });
