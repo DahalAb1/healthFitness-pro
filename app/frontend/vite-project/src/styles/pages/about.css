@@ -25,6 +25,7 @@
   align-items: center;
   justify-content: center;
   z-index: 10;
+  background: var(--hero-image-overlay-gradient);
 }
 
 .about-page-section {
@@ -36,6 +37,11 @@
   font-size: 2.6rem;
   margin-bottom: 18px;
   letter-spacing: -1px;
+  color: var(--hero-title-color);
+}
+
+.about-page .about-header p {
+  color: var(--hero-subtitle-color);
 }
 
 .about-contact-section {

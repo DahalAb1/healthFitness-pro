@@ -488,11 +488,6 @@
   color: var(--text-primary);
 }
 
-[data-theme='light'] .feature-hero {
-  background: linear-gradient(rgba(245, 247, 251, 0.92), rgba(245, 247, 251, 1));
-  border-bottom-color: var(--border);
-}
-
 [data-theme='light'] .history-description,
 [data-theme='light'] .day-header,
 [data-theme='light'] .day-detail-section-header,
