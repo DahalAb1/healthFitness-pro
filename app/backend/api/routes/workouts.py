@@ -48,12 +48,17 @@ def log_exercises(
     current_user: User = Depends(get_current_user),
 ):
     """Add exercise entries to an existing workout session for the authenticated user."""
-    workout = workouts_crud.get_by_id(session, workout_id)
-    if not workout or workout.user_id != current_user.id:
+    workout = workouts_crud.get_by_id(session, workout_id, current_user.id)
+    if not workout:
         raise HTTPException(status_code=404, detail="Workout not found")
 
     try:
-        return workouts_crud.append_exercises(session, workout_id, payload.exercises)
+        return workouts_crud.append_exercises(
+            session,
+            workout_id,
+            current_user.id,
+            payload.exercises,
+        )
     except KeyError:
         raise HTTPException(status_code=404, detail="Workout not found")
 
@@ -96,7 +101,12 @@ def create_workout(
         workout_date=payload.workout_date,
         duration_minutes=payload.duration_minutes,
     )
-    workout = workouts_crud.append_exercises(session, workout.id, payload.exercises)
+    workout = workouts_crud.append_exercises(
+        session,
+        workout.id,
+        current_user.id,
+        payload.exercises,
+    )
     return workout
 
 
@@ -122,7 +132,7 @@ def get_workout_by_id(
     current_user: User = Depends(get_current_user),
 ):
     """Return a single workout by ID for the authenticated user."""
-    workout = workouts_crud.get_by_id(session, workout_id)
-    if not workout or workout.user_id != current_user.id:
+    workout = workouts_crud.get_by_id(session, workout_id, current_user.id)
+    if not workout:
         raise HTTPException(status_code=404, detail="Workout not found")
     return workout
