@@ -1,9 +1,13 @@
+import { useState } from 'react';
 import { useCustomCreatorView } from '../../hooks/useCustomCreatorView';
 import WorkoutBuilderForm from './WorkoutBuilderForm';
 import ExerciseLibraryModal from './ExerciseLibraryModal';
 import SavedWorkoutCard from './SavedWorkoutCard';
+import ErrorPopup from '../common/ErrorPopup';
 
 function CustomCreatorView() {
+  const [saveErrorMessage, setSaveErrorMessage] = useState('');
+
   const {
     workoutName,
     setWorkoutName,
@@ -29,6 +33,14 @@ function CustomCreatorView() {
     handleBegin,
     handleDelete,
   } = useCustomCreatorView();
+
+  async function handleSave() {
+    const result = await saveWorkout();
+    if (!result?.ok) {
+      setSaveErrorMessage(result?.error || 'Unable to save workout.');
+    }
+  }
+
   return (
     <section className="wt-view-content active">
       <WorkoutBuilderForm
@@ -39,7 +51,12 @@ function CustomCreatorView() {
         onRemoveRow={removeRow}
         onAddRowAfter={addRowAfter}
         onOpenLibraryForRow={openLibrary}
-        onSave={saveWorkout}
+        onSave={handleSave}
+      />
+
+      <ErrorPopup
+        message={saveErrorMessage}
+        onClose={() => setSaveErrorMessage('')}
       />
 
       {showLibrary && (

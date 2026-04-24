@@ -248,6 +248,41 @@
   font-size: 14px;
 }
 
+.wt-error-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 1100;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+}
+
+.wt-error-modal {
+  width: min(460px, 94vw);
+  background: #14171d;
+  border: 1px solid #3a465c;
+  border-radius: var(--radius);
+  padding: 22px;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45);
+}
+
+.wt-error-modal h3 {
+  margin: 0 0 10px;
+  font-size: 20px;
+}
+
+.wt-error-modal p {
+  margin: 0 0 18px;
+  color: #d9e2f2;
+}
+
+.wt-error-btn {
+  width: 100%;
+  margin-top: 0;
+  background: linear-gradient(135deg, #4a90ff, #2f6fce);
+}
+
 /* ── Library Modal ─────────────────────────────────────────────── */
 
 .wt-library-overlay {

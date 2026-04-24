@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { postUserWorkout, getUserWorkouts, deleteUserWorkout, getExercises } from '../utils/api';
 import { useAuth } from '../context/useAuth';
+import { validateWorkoutBeforeSave } from '../utils/workoutValidation';
 
 export const BODY_PARTS = ['ALL', 'CHEST', 'BACK', 'SHOULDERS', 'ARMS', 'LEGS', 'ABS', 'CARDIO'];
 
@@ -121,16 +122,19 @@ export function useCustomCreatorView() {
     );
   }
 
-  function saveWorkout() {
-    const trimmedName = workoutName.trim();
-    if (!trimmedName) {
-      window.alert('Please enter a workout name before saving.');
-      return;
+  async function saveWorkout() {
+    const validationError = validateWorkoutBeforeSave({ workoutName, rows });
+    if (validationError) {
+      return { ok: false, error: validationError };
     }
-    postUserWorkout(
+
+    const trimmedName = workoutName.trim();
+    const exercisesToSave = rows.filter((row) => (row.exercise || '').trim());
+
+    const saved = await postUserWorkout(
       {
         name: trimmedName,
-        exercises: rows.map((row) => ({
+        exercises: exercisesToSave.map((row) => ({
           exercise_id: row.exerciseId || null,
           exercise_name: row.exercise,
           sets: row.sets,
@@ -138,11 +142,12 @@ export function useCustomCreatorView() {
         })),
       },
       token
-    ).then((saved) => {
-      setSavedWorkouts((prev) => [...prev, saved]);
-    });
+    );
+
+    setSavedWorkouts((prev) => [...prev, saved]);
     setWorkoutName('');
     setRows([createEmptyRow()]);
+    return { ok: true, saved };
   }
 
   useEffect(() => {
