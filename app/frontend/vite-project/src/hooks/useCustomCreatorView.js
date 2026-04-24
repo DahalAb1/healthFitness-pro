@@ -16,10 +16,6 @@ function createEmptyRow() {
   };
 }
 
-function rowHasExercise(row) {
-  return Boolean((row.exercise || '').trim());
-}
-
 export function useCustomCreatorView() {
   const navigate = useNavigate();
   const { token, user } = useAuth();
@@ -82,36 +78,37 @@ export function useCustomCreatorView() {
   }
 
   function addExerciseFromLibrary(exercise) {
-    setRows((prev) => {
-      if (libraryTargetRowId) {
-        const updatedRows = prev.map((row) =>
-          row.id === libraryTargetRowId
-            ? {
-                ...row,
-                exerciseId: exercise.id || null,
-                exercise: exercise.name || '',
-              }
-            : row
-        );
+    if (!libraryTargetRowId) {
+      setShowLibrary(false);
+      return;
+    }
 
-        const hasEmptyRow = updatedRows.some((row) => !rowHasExercise(row));
-        return hasEmptyRow ? updatedRows : [...updatedRows, createEmptyRow()];
-      }
-
-      return [
-        ...prev,
-        {
-          id: crypto.randomUUID(),
-          exerciseId: exercise.id || null,
-          exercise: exercise.name || '',
-          sets: 3,
-          reps: 10,
-          rest: '60s',
-        },
-      ];
-    });
+    setRows((prev) =>
+      prev.map((row) =>
+        row.id === libraryTargetRowId
+          ? {
+              ...row,
+              exerciseId: exercise.id || null,
+              exercise: exercise.name || '',
+            }
+          : row
+      )
+    );
     setLibraryTargetRowId(null);
     setShowLibrary(false);
+  }
+
+  function addRowAfter(rowId) {
+    setRows((prev) => {
+      const index = prev.findIndex((row) => row.id === rowId);
+      const next = [...prev];
+      if (index === -1) {
+        next.push(createEmptyRow());
+        return next;
+      }
+      next.splice(index + 1, 0, createEmptyRow());
+      return next;
+    });
   }
 
   function removeRow(id) {
@@ -168,6 +165,7 @@ export function useCustomCreatorView() {
     rows,
     updateRow,
     removeRow,
+    addRowAfter,
     saveWorkout,
     savedWorkouts,
     expandedIds,

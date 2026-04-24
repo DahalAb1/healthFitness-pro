@@ -10,6 +10,7 @@ function CustomCreatorView() {
     rows,
     updateRow,
     removeRow,
+    addRowAfter,
     saveWorkout,
     savedWorkouts,
     expandedIds,
@@ -36,6 +37,7 @@ function CustomCreatorView() {
         rows={rows}
         onUpdateRow={updateRow}
         onRemoveRow={removeRow}
+        onAddRowAfter={addRowAfter}
         onOpenLibraryForRow={openLibrary}
         onSave={saveWorkout}
       />

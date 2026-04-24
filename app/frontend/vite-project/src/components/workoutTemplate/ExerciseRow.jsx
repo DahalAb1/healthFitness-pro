@@ -1,14 +1,24 @@
-function ExerciseRow({ row, onUpdate, onRemove, onOpenLibraryForRow }) {
+function ExerciseRow({ row, onUpdate, onRemove, onAddRowAfter, onOpenLibraryForRow }) {
   return (
     <tr>
+      <td className="wt-col-action-cell">
+        <button
+          type="button"
+          className="wt-add-row-btn"
+          onClick={() => onAddRowAfter(row.id)}
+          aria-label="Add exercise row"
+        >
+          +
+        </button>
+      </td>
       <td>
         <button
           type="button"
           className="wt-row-library-btn"
           onClick={() => onOpenLibraryForRow(row.id)}
-          aria-label={row.exercise ? `Change exercise for row` : `Add exercise from library for row`}
+          aria-label={row.exercise ? `Change exercise for row` : `Add exercise `}
         >
-          {row.exercise || ' Add Exercise From Library'}
+          {row.exercise || 'Add Exercise '}
         </button>
       </td>
       <td>
