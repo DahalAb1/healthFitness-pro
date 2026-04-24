@@ -23,6 +23,18 @@
   font-weight: 700;
 }
 
+.wt-label-optional {
+  font-weight: 400;
+  opacity: 0.6;
+  text-transform: none;
+  font-size: 11px;
+}
+
+.wt-notes-textarea:focus {
+  outline: none;
+  border-color: var(--accent, #4a90ff);
+}
+
 .wt-table-container {
   overflow-x: auto;
 }

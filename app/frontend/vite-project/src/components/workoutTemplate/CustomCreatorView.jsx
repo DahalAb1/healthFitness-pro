@@ -12,6 +12,8 @@ function CustomCreatorView() {
   const {
     workoutName,
     setWorkoutName,
+    workoutNotes,
+    setWorkoutNotes,
     rows,
     updateRow,
     moveRow,
@@ -55,6 +57,8 @@ function CustomCreatorView() {
       <WorkoutBuilderForm
         workoutName={workoutName}
         onNameChange={setWorkoutName}
+        workoutNotes={workoutNotes}
+        onNotesChange={setWorkoutNotes}
         rows={rows}
         onUpdateRow={updateRow}
         onMoveRow={moveRow}

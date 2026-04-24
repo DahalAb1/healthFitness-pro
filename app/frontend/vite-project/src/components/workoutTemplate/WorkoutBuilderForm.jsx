@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import ExerciseRow from './ExerciseRow';
 
-function WorkoutBuilderForm({ workoutName, onNameChange, rows, onUpdateRow, onMoveRow, onRemoveRow, onAddRowAfter, onOpenLibraryForRow, onSave }) {
+function WorkoutBuilderForm({ workoutName, onNameChange, workoutNotes, onNotesChange, rows, onUpdateRow, onMoveRow, onRemoveRow, onAddRowAfter, onOpenLibraryForRow, onSave }) {
   const [draggingRowId, setDraggingRowId] = useState(null);
   const [dropTargetRowId, setDropTargetRowId] = useState(null);
 
@@ -32,7 +32,7 @@ function WorkoutBuilderForm({ workoutName, onNameChange, rows, onUpdateRow, onMo
 
   return (
     <div className="wt-card">
-      <h2>Create New Routine</h2>
+      <h2>Create a New Workout</h2>
 
       <div className="wt-input-group">
         <label htmlFor="workoutName">WORKOUT NAME</label>
@@ -42,6 +42,18 @@ function WorkoutBuilderForm({ workoutName, onNameChange, rows, onUpdateRow, onMo
           value={workoutName}
           placeholder="e.g. Hypertrophy Upper Body"
           onChange={(e) => onNameChange(e.target.value)}
+        />
+      </div>
+
+      <div className="wt-input-group">
+        <label htmlFor="workoutNotes">NOTES <span className="wt-label-optional">(optional)</span></label>
+        <textarea
+          id="workoutNotes"
+          className="wt-notes-textarea"
+          value={workoutNotes}
+          placeholder="e.g. Focus on slow negatives, rest 90s between sets…"
+          onChange={(e) => onNotesChange(e.target.value)}
+          rows={3}
         />
       </div>
 
