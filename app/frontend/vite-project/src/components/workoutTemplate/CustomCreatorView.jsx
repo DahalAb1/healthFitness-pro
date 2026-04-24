@@ -13,6 +13,7 @@ function CustomCreatorView() {
     setWorkoutName,
     rows,
     updateRow,
+    moveRow,
     removeRow,
     addRowAfter,
     saveWorkout,
@@ -48,6 +49,7 @@ function CustomCreatorView() {
         onNameChange={setWorkoutName}
         rows={rows}
         onUpdateRow={updateRow}
+        onMoveRow={moveRow}
         onRemoveRow={removeRow}
         onAddRowAfter={addRowAfter}
         onOpenLibraryForRow={openLibrary}
