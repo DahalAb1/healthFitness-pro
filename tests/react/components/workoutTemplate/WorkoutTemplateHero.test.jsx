@@ -8,8 +8,8 @@ describe('WorkoutTemplateHero', () => {
     expect(screen.getByRole('heading', { name: 'Workout Template' })).toBeInTheDocument();
   });
 
-  it('renders the "Training Hub" tagline', () => {
+  it('renders the description text', () => {
     render(<WorkoutTemplateHero />);
-    expect(screen.getByText('Training Hub')).toBeInTheDocument();
+    expect(screen.getByText(/Choose from our expertly crafted workout templates/i)).toBeInTheDocument();
   });
 });

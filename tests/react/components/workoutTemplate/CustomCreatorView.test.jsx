@@ -126,7 +126,7 @@ describe('CustomCreatorView', () => {
     await waitFor(() =>
       expect(screen.getByText('Add From Exercise Library')).toBeInTheDocument(),
     );
-    fireEvent.click(screen.getByRole('button', { name: 'Close library' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Close' }));
     expect(screen.queryByText('Add From Exercise Library')).not.toBeInTheDocument();
   });
 
@@ -151,7 +151,7 @@ describe('CustomCreatorView', () => {
     fireEvent.click(screen.getByRole('button', { name: '+ Add Exercise From Library' }));
     await waitFor(() => expect(screen.getByText('Add From Exercise Library')).toBeInTheDocument());
     // Close library without adding
-    fireEvent.click(screen.getByRole('button', { name: 'Close library' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Close' }));
     // The default row's remove button; since only 1 row exists it should not be removed
     // We can't remove the last row per the component logic
     const { container } = renderView();
