@@ -54,7 +54,15 @@ export async function postUserWorkout(data, token) {
     },
     body: JSON.stringify(data),
   });
-  return res.json();
+  const body = await res.json();
+  if (!res.ok) {
+    const detail = body?.detail;
+    const message = Array.isArray(detail)
+      ? detail.map((d) => d?.msg).filter(Boolean).join(', ')
+      : detail;
+    throw new Error(message || `Failed to save workout (${res.status})`);
+  }
+  return body;
 }
 
 export async function deleteUserWorkout(workoutId, token) {

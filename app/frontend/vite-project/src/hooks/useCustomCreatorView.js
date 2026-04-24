@@ -19,7 +19,7 @@ function createEmptyRow() {
 
 export function useCustomCreatorView() {
   const navigate = useNavigate();
-  const { token, user } = useAuth();
+  const { token } = useAuth();
 
   const [workoutName, setWorkoutName] = useState('');
   const [rows, setRows] = useState([createEmptyRow()]);
@@ -75,6 +75,8 @@ export function useCustomCreatorView() {
 
   function openLibrary(rowId = null) {
     setLibraryTargetRowId(rowId);
+    setLibraryLoading(true);
+    setLibraryItems([]);
     setShowLibrary(true);
   }
 
@@ -146,23 +148,33 @@ export function useCustomCreatorView() {
     const trimmedName = workoutName.trim();
     const exercisesToSave = rows.filter((row) => (row.exercise || '').trim());
 
-    const saved = await postUserWorkout(
-      {
-        name: trimmedName,
-        exercises: exercisesToSave.map((row) => ({
-          exercise_id: row.exerciseId || null,
-          exercise_name: row.exercise,
-          sets: row.sets,
-          reps: row.reps,
-        })),
-      },
-      token
-    );
+    try {
+      const saved = await postUserWorkout(
+        {
+          name: trimmedName,
+          exercises: exercisesToSave.map((row) => ({
+            exercise_id: row.exerciseId || null,
+            exercise_name: row.exercise,
+            sets: row.sets,
+            reps: row.reps,
+          })),
+        },
+        token
+      );
 
-    setSavedWorkouts((prev) => [...prev, saved]);
-    setWorkoutName('');
-    setRows([createEmptyRow()]);
-    return { ok: true, saved };
+      // Re-sync from backend so the saved workout section always reflects server truth.
+      const data = await getUserWorkouts(token);
+      setSavedWorkouts(Array.isArray(data) ? data : []);
+
+      setWorkoutName('');
+      setRows([createEmptyRow()]);
+      return { ok: true, saved };
+    } catch (error) {
+      return {
+        ok: false,
+        error: error instanceof Error ? error.message : 'Unable to save workout right now.',
+      };
+    }
   }
 
   useEffect(() => {
@@ -172,8 +184,6 @@ export function useCustomCreatorView() {
 
   useEffect(() => {
     if (!showLibrary) return;
-    setLibraryLoading(true);
-    setLibraryItems([]);
     getExercises(libraryFilter)
       .then((data) => setLibraryItems(Array.isArray(data) ? data : []))
       .finally(() => setLibraryLoading(false));
