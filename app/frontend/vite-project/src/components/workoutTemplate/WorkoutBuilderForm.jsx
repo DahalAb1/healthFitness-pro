@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import ExerciseRow from './ExerciseRow';
+import { MAX_NAME_CHARS, MAX_NOTES_CHARS } from '../../utils/workoutValidation';
 
 function WorkoutBuilderForm({ workoutName, onNameChange, workoutNotes, onNotesChange, rows, onUpdateRow, onMoveRow, onRemoveRow, onAddRowAfter, onOpenLibraryForRow, onSave }) {
   const [draggingRowId, setDraggingRowId] = useState(null);
@@ -43,6 +44,9 @@ function WorkoutBuilderForm({ workoutName, onNameChange, workoutNotes, onNotesCh
           placeholder="e.g. Hypertrophy Upper Body"
           onChange={(e) => onNameChange(e.target.value)}
         />
+        <span className={`wt-char-counter${workoutName.length > MAX_NAME_CHARS ? ' wt-char-counter--over' : ''}`}>
+          {workoutName.length} / {MAX_NAME_CHARS}
+        </span>
       </div>
 
       <div className="wt-input-group">
@@ -55,6 +59,9 @@ function WorkoutBuilderForm({ workoutName, onNameChange, workoutNotes, onNotesCh
           onChange={(e) => onNotesChange(e.target.value)}
           rows={3}
         />
+        <span className={`wt-char-counter${workoutNotes.length > MAX_NOTES_CHARS ? ' wt-char-counter--over' : ''}`}>
+          {workoutNotes.length} / {MAX_NOTES_CHARS}
+        </span>
       </div>
 
       <div className="wt-table-container">
