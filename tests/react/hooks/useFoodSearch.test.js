@@ -69,8 +69,8 @@ describe('useFoodSearch', () => {
     await act(async () => { await vi.runAllTimersAsync(); });
     expect(result.current.isSearching).toBe(false);
     expect(result.current.searchResults).toEqual([
-      { name: 'Apple', kcal: 52, serving_description: '1 medium' },
-      { name: 'Banana', kcal: 89, serving_description: '1 medium' },
+      { name: 'Apple', kcal: 52, serving_description: '1 medium', protein_g: null, carbs_g: null, fat_g: null },
+      { name: 'Banana', kcal: 89, serving_description: '1 medium', protein_g: null, carbs_g: null, fat_g: null },
     ]);
   });
 

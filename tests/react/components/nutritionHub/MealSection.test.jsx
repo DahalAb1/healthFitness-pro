@@ -30,18 +30,19 @@ describe('MealSection', () => {
     expect(screen.getByRole('heading', { name: 'Misc' })).toBeInTheDocument();
   });
 
-  it('shows 0 kcal total when there are no items', () => {
+  it('shows no kcal total when there are no items', () => {
     renderSection({ mealType: 'lunch', items: [] });
-    expect(screen.getByText('0 kcal')).toBeInTheDocument();
+    expect(screen.queryByText(/^\d+ kcal$/)).not.toBeInTheDocument();
   });
 
-  it('shows the correct total kcal for logged items', () => {
+  it('shows kcal inline for each logged item', () => {
     const items = [
       { id: 1, name: 'Apple', kcal: 95 },
       { id: 2, name: 'Banana', kcal: 105 },
     ];
     renderSection({ mealType: 'lunch', items });
-    expect(screen.getByText('200 kcal')).toBeInTheDocument();
+    expect(screen.getByText('95 kcal')).toBeInTheDocument();
+    expect(screen.getByText('105 kcal')).toBeInTheDocument();
   });
 
   it('shows the drop placeholder when the section is empty', () => {
@@ -63,7 +64,7 @@ describe('MealSection', () => {
   it('renders item calories inline', () => {
     const items = [{ id: 1, name: 'Oats', kcal: 150 }];
     renderSection({ items });
-    expect(screen.getByText('150')).toBeInTheDocument();
+    expect(screen.getByText('150 kcal')).toBeInTheDocument();
   });
 
   it('renders a remove button for each item', () => {

@@ -18,6 +18,7 @@ vi.mock('@/hooks/useMeals', () => ({
     addToMeal: mockAddToMeal,
     removeFromMeal: mockRemoveFromMeal,
     totalCalories: 0,
+    totalMacros: { protein_g: 0, carbs_g: 0, fat_g: 0 },
   }),
 }));
 
@@ -99,14 +100,13 @@ describe('NutritionHub (NutritionPage)', () => {
 
   it('renders the daily goal label', () => {
     renderPage();
-    expect(screen.getByText('Set Daily Goal (kcal)')).toBeInTheDocument();
+    expect(screen.getByText('Goal (kcal)')).toBeInTheDocument();
   });
 
   it('renders 0 total calories in the gauge when no food is logged', () => {
     renderPage();
-    // goal defaults to 2500, total is 0 → remaining = 2500
-    expect(screen.getByText('2500')).toBeInTheDocument();
-    expect(screen.getByText('Remaining')).toBeInTheDocument();
+    // goal defaults to 2500, total is 0 → remaining = 2500, unit = kcal
+    expect(screen.getByText('2500kcal')).toBeInTheDocument();
   });
 
   it('calls addToMeal when a food item is dropped onto a meal section', () => {
