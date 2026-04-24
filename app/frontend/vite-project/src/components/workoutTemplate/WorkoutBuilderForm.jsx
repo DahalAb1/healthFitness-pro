@@ -1,6 +1,6 @@
 import ExerciseRow from './ExerciseRow';
 
-function WorkoutBuilderForm({ workoutName, onNameChange, rows, onUpdateRow, onRemoveRow, onOpenLibrary, onSave }) {
+function WorkoutBuilderForm({ workoutName, onNameChange, rows, onUpdateRow, onRemoveRow, onOpenLibraryForRow, onSave }) {
   return (
     <div className="wt-card">
       <h2>Create New Routine</h2>
@@ -34,15 +34,12 @@ function WorkoutBuilderForm({ workoutName, onNameChange, rows, onUpdateRow, onRe
                 row={row}
                 onUpdate={onUpdateRow}
                 onRemove={onRemoveRow}
+                onOpenLibraryForRow={onOpenLibraryForRow}
               />
             ))}
           </tbody>
         </table>
       </div>
-
-      <button type="button" className="btn wt-btn-full wt-btn-add" onClick={onOpenLibrary}>
-        + Add Exercise From Library
-      </button>
 
       <button type="button" className="btn wt-btn-full wt-btn-save" onClick={onSave}>
         Save Workout
