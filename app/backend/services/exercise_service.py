@@ -37,9 +37,14 @@ def resolve_exercise(client: ExerciseClient, exercise_ref: str) -> dict:
     """
     data = client.get_exercise_by_id(exercise_ref)
 
+    if isinstance(data, dict) and data.get("error") == "rate_limit":
+        return {"error": "rate_limit"}
+
     if isinstance(data, dict) and isinstance(data.get("error"), dict):
         if data["error"].get("code") == "NOT_FOUND":
             by_name = client.find_exercise_by_name(exercise_ref)
+            if isinstance(by_name, dict) and by_name.get("error") == "rate_limit":
+                return {"error": "rate_limit"}
             if by_name:
                 return normalize_exercise_payload(by_name, exercise_ref)
 
