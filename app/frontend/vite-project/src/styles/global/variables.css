@@ -2,9 +2,44 @@
 :root {
   --background: #0F0F0F;
   --surface: #1A1A1A;
+  --surface-alt: #111111;
+  --section-alt-bg: #080808;
   --border: #333333;
   --accent: #4A90FF;
+  --accent-blue: #4A90FF;
+  --accent-red: #ff6b6b;
+  --accent-green: #51cf66;
+  --accent-yellow: #ffd43b;
   --text-primary: #FFFFFF;
   --text-secondary: #A0A0A0;
+  --nav-background: rgba(15, 15, 15, 0.9);
+  --card-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+  --field-background: #0e0e0e;
+  --field-border: #2f2f2f;
+  --surface-gradient: linear-gradient(160deg, #121212 0%, #0f0f0f 100%);
+  --hero-image-dim: 0.5;
+  --hero-overlay-filter: brightness(0.4);
   --radius: 12px;
+}
+
+[data-theme='light'] {
+  --background: #fafbfc;
+  --surface: #ffffff;
+  --surface-alt: #f5f6f8;
+  --section-alt-bg: #f0f1f5;
+  --border: #dfe2e8;
+  --accent: #2d6eea;
+  --accent-blue: #2d6eea;
+  --accent-red: #e03131;
+  --accent-green: #2f9e44;
+  --accent-yellow: #f59f00;
+  --text-primary: #1a2332;
+  --text-secondary: #6b7a8e;
+  --nav-background: rgba(250, 251, 252, 0.95);
+  --card-shadow: 0 12px 24px rgba(26, 35, 50, 0.06);
+  --field-background: #ffffff;
+  --field-border: #d4d7df;
+  --surface-gradient: linear-gradient(160deg, #ffffff 0%, #f5f6f8 100%);
+  --hero-image-dim: 0.70;
+  --hero-overlay-filter: brightness(0.68);
 }
