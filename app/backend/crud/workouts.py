@@ -80,11 +80,13 @@ def get_by_id(
     ).first()
 
 
-def list_sessions(session: Session, user_id: int | None = None) -> list[WorkoutSession]:
-    """Return all workout sessions, optionally filtered by user ID."""
-    query = select(WorkoutSession).order_by(WorkoutSession.workout_date, WorkoutSession.id)
-    if user_id is not None:
-        query = query.where(WorkoutSession.user_id == user_id)
+def list_sessions(session: Session, user_id: int) -> list[WorkoutSession]:
+    """Return all workout sessions belonging to a specific user."""
+    query = (
+        select(WorkoutSession)
+        .where(WorkoutSession.user_id == user_id)
+        .order_by(WorkoutSession.workout_date, WorkoutSession.id)
+    )
     return session.exec(query).all()
 
 
