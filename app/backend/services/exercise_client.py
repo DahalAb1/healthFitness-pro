@@ -20,7 +20,7 @@ class ExerciseClient:
 
     def _get(self, url: str, params: dict = None):
         """HTTP GET with shared headers; surfaces 429 as a structured rate_limit error."""
-        response = httpx.get(url, headers=self.headers, params=params)
+        response = httpx.get(url, headers=self.headers, params=params,timeout=10.0)
         if response.status_code == 429:
             return {"error": "rate_limit"}
         return response.json()
