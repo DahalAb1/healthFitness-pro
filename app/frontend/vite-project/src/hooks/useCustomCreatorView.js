@@ -122,6 +122,21 @@ export function useCustomCreatorView() {
     );
   }
 
+  function moveRow(sourceId, targetId) {
+    if (!sourceId || !targetId || sourceId === targetId) return;
+
+    setRows((prev) => {
+      const sourceIndex = prev.findIndex((row) => row.id === sourceId);
+      const targetIndex = prev.findIndex((row) => row.id === targetId);
+      if (sourceIndex === -1 || targetIndex === -1) return prev;
+
+      const next = [...prev];
+      const [moved] = next.splice(sourceIndex, 1);
+      next.splice(targetIndex, 0, moved);
+      return next;
+    });
+  }
+
   async function saveWorkout() {
     const validationError = validateWorkoutBeforeSave({ workoutName, rows });
     if (validationError) {
@@ -169,6 +184,7 @@ export function useCustomCreatorView() {
     setWorkoutName,
     rows,
     updateRow,
+    moveRow,
     removeRow,
     addRowAfter,
     saveWorkout,

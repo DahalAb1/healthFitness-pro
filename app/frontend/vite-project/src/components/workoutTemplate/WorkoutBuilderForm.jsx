@@ -1,6 +1,35 @@
+import { useState } from 'react';
 import ExerciseRow from './ExerciseRow';
 
-function WorkoutBuilderForm({ workoutName, onNameChange, rows, onUpdateRow, onRemoveRow, onAddRowAfter, onOpenLibraryForRow, onSave }) {
+function WorkoutBuilderForm({ workoutName, onNameChange, rows, onUpdateRow, onMoveRow, onRemoveRow, onAddRowAfter, onOpenLibraryForRow, onSave }) {
+  const [draggingRowId, setDraggingRowId] = useState(null);
+  const [dropTargetRowId, setDropTargetRowId] = useState(null);
+
+  function handleRowDragStart(rowId, event) {
+    event.dataTransfer.effectAllowed = 'move';
+    setDraggingRowId(rowId);
+  }
+
+  function handleRowDragOver(rowId, event) {
+    event.preventDefault();
+    event.dataTransfer.dropEffect = 'move';
+    setDropTargetRowId(rowId);
+  }
+
+  function handleRowDrop(rowId, event) {
+    event.preventDefault();
+    if (draggingRowId && draggingRowId !== rowId) {
+      onMoveRow(draggingRowId, rowId);
+    }
+    setDropTargetRowId(null);
+    setDraggingRowId(null);
+  }
+
+  function handleRowDragEnd() {
+    setDropTargetRowId(null);
+    setDraggingRowId(null);
+  }
+
   return (
     <div className="wt-card">
       <h2>Create New Routine</h2>
@@ -34,6 +63,12 @@ function WorkoutBuilderForm({ workoutName, onNameChange, rows, onUpdateRow, onRe
                 key={row.id}
                 row={row}
                 onUpdate={onUpdateRow}
+                isDragging={draggingRowId === row.id}
+                isDropTarget={dropTargetRowId === row.id && draggingRowId !== row.id}
+                onDragStartRow={handleRowDragStart}
+                onDragOverRow={handleRowDragOver}
+                onDropRow={handleRowDrop}
+                onDragEndRow={handleRowDragEnd}
                 onRemove={onRemoveRow}
                 onAddRowAfter={onAddRowAfter}
                 onOpenLibraryForRow={onOpenLibraryForRow}
