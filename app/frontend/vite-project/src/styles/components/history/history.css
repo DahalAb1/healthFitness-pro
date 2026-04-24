@@ -1,17 +1,17 @@
 /* ===== WORKOUT HISTORY PAGE ===== */
 
 .history-main {
-  background: #0F0F0F;
+  background: var(--background);
   min-height: 100vh;
-  color: #FFFFFF;
+  color: var(--text-primary);
 }
 
 /* --- CALENDAR --- */
 .calendar-page {
   max-width: 1100px;
   margin: -40px auto 40px;
-  background: #1A1A1A;
-  border: 1px solid #333333;
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 12px;
   padding: 30px;
   position: relative;
@@ -34,9 +34,9 @@
 }
 
 .month-nav button {
-  background: #222;
-  border: 1px solid #333333;
-  color: white;
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
   width: 40px;
   height: 40px;
   border-radius: 8px;
@@ -58,7 +58,7 @@
 .day-header {
   font-size: 11px;
   font-weight: 800;
-  color: #A0A0A0;
+  color: var(--text-secondary);
   text-transform: uppercase;
   text-align: center;
   padding-bottom: 15px;
@@ -66,8 +66,8 @@
 
 .calendar-day {
   aspect-ratio: 1;
-  background: #111;
-  border: 1px solid #333333;
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
   border-radius: 8px;
   display: flex;
   align-items: center;
@@ -153,7 +153,7 @@
 .selected-day {
   margin-top: 30px;
   padding-top: 20px;
-  border-top: 1px solid #333333;
+  border-top: 1px solid var(--border);
 }
 
 /* Section blocks inside the detail (Workout / Nutrition) */
@@ -481,4 +481,63 @@
   border-radius: 50%;
   flex-shrink: 0;
   transition: background 0.2s;
+}
+
+[data-theme='light'] .history-main {
+  background: var(--background);
+  color: var(--text-primary);
+}
+
+[data-theme='light'] .feature-hero {
+  background: linear-gradient(rgba(245, 247, 251, 0.92), rgba(245, 247, 251, 1));
+  border-bottom-color: var(--border);
+}
+
+[data-theme='light'] .history-description,
+[data-theme='light'] .day-header,
+[data-theme='light'] .day-detail-section-header,
+[data-theme='light'] .trends-stats,
+[data-theme='light'] .exercise-table th {
+  color: var(--text-secondary);
+}
+
+[data-theme='light'] .calendar-page,
+[data-theme='light'] .progress-tracker {
+  background: var(--surface);
+  border-color: var(--border);
+  box-shadow: var(--card-shadow);
+}
+
+[data-theme='light'] .month-nav button,
+[data-theme='light'] .calendar-day,
+[data-theme='light'] .chart-container,
+[data-theme='light'] .trends-input {
+  background: var(--surface-alt);
+  border-color: var(--border);
+  color: var(--text-primary);
+}
+
+[data-theme='light'] .calendar-day:hover:not(.empty) {
+  background: #e4ebf8;
+}
+
+[data-theme='light'] .workout-duration,
+[data-theme='light'] .exercise-table td,
+[data-theme='light'] .trends-stats strong {
+  color: var(--text-primary);
+}
+
+[data-theme='light'] .workout-placeholder,
+[data-theme='light'] .trends-empty,
+[data-theme='light'] .macro-toggle-btn {
+  color: var(--text-secondary);
+}
+
+[data-theme='light'] .selected-day,
+[data-theme='light'] .day-detail-section-header,
+[data-theme='light'] .time-filters,
+[data-theme='light'] .exercise-table th,
+[data-theme='light'] .exercise-table td,
+[data-theme='light'] .macro-toggle-btn {
+  border-color: var(--border);
 }

@@ -30,7 +30,7 @@
 }
 
 .contact-card {
-  background: linear-gradient(160deg, #121212 0%, #0f0f0f 100%);
+  background: var(--surface-gradient);
   border: 1px solid var(--border);
   border-radius: 14px;
   padding: 22px;
@@ -67,7 +67,7 @@
 }
 
 .contact-form-panel {
-  background: #111;
+  background: var(--surface-alt);
   border: 1px solid var(--border);
   border-radius: 14px;
   padding: 24px;
@@ -110,8 +110,8 @@
 .contact-field input,
 .contact-field textarea {
   width: 100%;
-  border: 1px solid #2f2f2f;
-  background: #0e0e0e;
+  border: 1px solid var(--field-border);
+  background: var(--field-background);
   color: var(--text-primary);
   border-radius: 10px;
   padding: 12px 13px;

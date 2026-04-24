@@ -15,7 +15,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: brightness(0.4);
+  filter: var(--hero-overlay-filter);
 }
 
 .about-hero-overlay {
@@ -41,7 +41,7 @@
 .about-contact-section {
   padding: 80px 10% 110px;
   border-top: 1px solid var(--border);
-  background: linear-gradient(180deg, #090909 0%, #060606 100%);
+  background: var(--surface-gradient);
 }
 
 .about-contact-header {
@@ -67,7 +67,7 @@
 }
 
 .about-contact-card {
-  background: #111;
+  background: var(--surface-alt);
   border: 1px solid var(--border);
   border-radius: 14px;
   padding: 26px;
