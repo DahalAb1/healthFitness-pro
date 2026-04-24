@@ -8,21 +8,21 @@ from models.custom_workout import CustomWorkout, CustomWorkoutExercise, CustomWo
 MAX_PER_USER = 10
 
 
-def create(session: Session, data: CustomWorkoutCreate) -> CustomWorkout:
+def create(session: Session, data: CustomWorkoutCreate, user_id: int) -> CustomWorkout:
     """
     Create a custom workout. If the user already has MAX_PER_USER,
     the oldest one is deleted first.
     """
     # Count existing workouts for this user
     count = session.exec(
-        select(func.count()).where(CustomWorkout.user_id == data.user_id)
+        select(func.count()).where(CustomWorkout.user_id == user_id)
     ).one()
 
     if count >= MAX_PER_USER:
         # Delete the oldest workout for this user
         oldest = session.exec(
             select(CustomWorkout)
-            .where(CustomWorkout.user_id == data.user_id)
+            .where(CustomWorkout.user_id == user_id)
             .order_by(CustomWorkout.created_at)
             .limit(1)
         ).first()
@@ -30,7 +30,7 @@ def create(session: Session, data: CustomWorkoutCreate) -> CustomWorkout:
             session.delete(oldest)
 
     workout = CustomWorkout(
-        user_id=data.user_id,
+        user_id=user_id,
         name=data.name,
         main_muscle=data.main_muscle,
         difficulty=data.difficulty,

@@ -23,8 +23,7 @@ def create_user_workout(
     current_user: User = Depends(get_current_user),
 ):
     """Create a new custom workout for the authenticated user."""
-    workout.user_id = current_user.id
-    return custom_workouts_crud.create(session, workout)
+    return custom_workouts_crud.create(session, workout, current_user.id)
 
 
 @router.get(
