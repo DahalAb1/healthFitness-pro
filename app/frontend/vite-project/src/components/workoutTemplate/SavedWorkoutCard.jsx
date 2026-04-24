@@ -8,6 +8,9 @@ function SavedWorkoutCard({ workout, isExpanded, onToggle, onCustomize, onBegin,
     <article className="wt-template-card">
       <h2>{workout.name}</h2>
       <p>Custom routine</p>
+      {workout.notes && (
+        <p className="wt-card-notes">{workout.notes}</p>
+      )}
       <span>{exerciseCount} EXERCISES</span>
 
       <div className="wt-card-actions">
