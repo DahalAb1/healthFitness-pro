@@ -7,6 +7,7 @@ import ErrorPopup from '../common/ErrorPopup';
 
 function CustomCreatorView() {
   const [saveErrorMessage, setSaveErrorMessage] = useState('');
+  const [showSavedWorkouts, setShowSavedWorkouts] = useState(true);
 
   const {
     workoutName,
@@ -75,25 +76,36 @@ function CustomCreatorView() {
       )}
 
       <section className="wt-saved-workouts">
-        <h3>Your Saved Workouts</h3>
-
-        <div id="savedWorkoutsContainer" className="wt-templates-grid">
-          {savedWorkouts.length === 0 ? (
-            <p className="wt-empty-state">No saved workouts yet. Create one above!</p>
-          ) : (
-            savedWorkouts.map((workout) => (
-              <SavedWorkoutCard
-                key={workout.id}
-                workout={workout}
-                isExpanded={expandedIds.has(workout.id)}
-                onToggle={() => toggleExpanded(workout.id)}
-                onCustomize={() => handleCustomize(workout)}
-                onBegin={() => handleBegin(workout)}
-                onDelete={() => handleDelete(workout)}
-              />
-            ))
-          )}
+        <div className="wt-saved-header">
+          <h3>Your Saved Workouts</h3>
+          <button
+            type="button"
+            className="btn wt-saved-toggle"
+            onClick={() => setShowSavedWorkouts((prev) => !prev)}
+          >
+            {showSavedWorkouts ? 'Hide' : 'Show'}
+          </button>
         </div>
+
+        {showSavedWorkouts && (
+          <div id="savedWorkoutsContainer" className="wt-templates-grid">
+            {savedWorkouts.length === 0 ? (
+              <p className="wt-empty-state">No saved workouts yet. Create one above!</p>
+            ) : (
+              savedWorkouts.map((workout) => (
+                <SavedWorkoutCard
+                  key={workout.id}
+                  workout={workout}
+                  isExpanded={expandedIds.has(workout.id)}
+                  onToggle={() => toggleExpanded(workout.id)}
+                  onCustomize={() => handleCustomize(workout)}
+                  onBegin={() => handleBegin(workout)}
+                  onDelete={() => handleDelete(workout)}
+                />
+              ))
+            )}
+          </div>
+        )}
       </section>
     </section>
   );

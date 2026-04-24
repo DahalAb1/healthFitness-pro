@@ -254,10 +254,32 @@
   margin-top: 40px;
 }
 
+.wt-saved-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
 .wt-saved-workouts h3 {
+  margin: 0;
   margin-bottom: 20px;
   border-left: 4px solid var(--accent);
   padding-left: 15px;
+}
+
+.wt-saved-toggle {
+  margin-top: 0;
+  min-width: 90px;
+  padding: 8px 14px;
+  border-radius: 6px;
+  background: #1f1f1f;
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+}
+
+.wt-saved-toggle:hover {
+  border-color: var(--accent);
 }
 
 .wt-empty-state {
