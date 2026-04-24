@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import ModalShell from '../common/ModalShell';
+import ExerciseBadges from '../common/ExerciseBadges';
 
 function TemplateDetailPanel({ template, exercises, loading, onClose }) {
   const navigate = useNavigate();
@@ -37,11 +38,12 @@ function TemplateDetailPanel({ template, exercises, loading, onClose }) {
                   )}
                   <div className="wt-detail-exercise-info">
                     <h4>{d.name || ex.exercise_id}</h4>
-                    {(d.muscle_group || d.equipment) && (
-                      <p className="wt-detail-exercise-meta">
-                        {[d.muscle_group, d.equipment].filter(Boolean).join(' · ')}
-                      </p>
-                    )}
+                    <ExerciseBadges
+                      muscleGroup={d.muscle_group}
+                      equipment={d.equipment}
+                      badgeClass="el-badge"
+                      className="wt-detail-exercise-meta"
+                    />
                     <p className="wt-detail-exercise-sets">
                       {ex.target_sets} sets × {ex.target_reps} reps
                     </p>
