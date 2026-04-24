@@ -1,6 +1,7 @@
 ﻿import { Link } from 'react-router-dom';
 import AuthLayout from '../components/auth/AuthLayout';
 import AuthBrand from '../components/auth/AuthBrand';
+import AuthField from '../components/auth/AuthField';
 import PasswordField from '../components/auth/PasswordField';
 import ConfirmPasswordField from '../components/auth/ConfirmPasswordField';
 import { useSignUpForm } from '../hooks/useSignUpForm';
@@ -18,27 +19,20 @@ function SignUpPage() {
       {error && <div className="auth-error">{error}</div>}
 
       <form onSubmit={handleSubmit}>
-        <div className="auth-field">
-          <label>Full Name</label>
-          <input
-            type="text"
-            placeholder="Jane Doe"
-            value={form.name}
-            onChange={update('name')}
-            required
-          />
-        </div>
+        <AuthField
+          label="Full Name"
+          placeholder="Jane Doe"
+          value={form.name}
+          onChange={update('name')}
+        />
 
-        <div className="auth-field">
-          <label>Email</label>
-          <input
-            type="email"
-            placeholder="name@email.com"
-            value={form.email}
-            onChange={update('email')}
-            required
-          />
-        </div>
+        <AuthField
+          label="Email"
+          type="email"
+          placeholder="name@email.com"
+          value={form.email}
+          onChange={update('email')}
+        />
 
         <PasswordField
           value={form.password}

@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import AuthLayout from '../components/auth/AuthLayout';
 import AuthBrand from '../components/auth/AuthBrand';
+import AuthField from '../components/auth/AuthField';
 import PasswordInput from '../components/auth/PasswordInput';
 import { useLoginForm } from '../hooks/useLoginForm';
 
@@ -21,16 +22,13 @@ function LoginPage() {
       {error && <div className="auth-error">{error}</div>}
 
       <form onSubmit={handleSubmit}>
-        <div className="auth-field">
-          <label>Email</label>
-          <input
-            type="email"
-            placeholder="name@email.com"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
+        <AuthField
+          label="Email"
+          type="email"
+          placeholder="name@email.com"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
 
         <PasswordInput
           value={password}
