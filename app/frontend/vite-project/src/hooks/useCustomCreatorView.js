@@ -194,6 +194,7 @@ export function useCustomCreatorView() {
     if (!showLibrary) return;
     getExercises(libraryFilter)
       .then((data) => setLibraryItems(Array.isArray(data) ? data : []))
+      .catch(() => setLibraryItems([]))
       .finally(() => setLibraryLoading(false));
   }, [showLibrary, libraryFilter]);
 
