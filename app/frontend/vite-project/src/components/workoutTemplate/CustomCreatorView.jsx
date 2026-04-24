@@ -43,6 +43,13 @@ function CustomCreatorView() {
     }
   }
 
+  function handleAddRowAfter(rowId) {
+    const result = addRowAfter(rowId);
+    if (result?.limitReached) {
+      setSaveErrorMessage('A workout can have at most 16 exercises. Please remove one before adding more.');
+    }
+  }
+
   return (
     <section className="wt-view-content active">
       <WorkoutBuilderForm
@@ -52,7 +59,7 @@ function CustomCreatorView() {
         onUpdateRow={updateRow}
         onMoveRow={moveRow}
         onRemoveRow={removeRow}
-        onAddRowAfter={addRowAfter}
+        onAddRowAfter={handleAddRowAfter}
         onOpenLibraryForRow={openLibrary}
         onSave={handleSave}
       />

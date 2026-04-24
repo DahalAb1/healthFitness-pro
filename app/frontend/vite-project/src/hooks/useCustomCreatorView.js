@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { postUserWorkout, getUserWorkouts, deleteUserWorkout, getExercises } from '../utils/api';
 import { useAuth } from '../context/useAuth';
-import { validateWorkoutBeforeSave } from '../utils/workoutValidation';
+import { validateWorkoutBeforeSave, MAX_EXERCISES_PER_WORKOUT } from '../utils/workoutValidation';
 
 export const BODY_PARTS = ['ALL', 'CHEST', 'BACK', 'SHOULDERS', 'ARMS', 'LEGS', 'ABS', 'CARDIO'];
 
@@ -102,6 +102,9 @@ export function useCustomCreatorView() {
   }
 
   function addRowAfter(rowId) {
+    if (rows.length >= MAX_EXERCISES_PER_WORKOUT) {
+      return { limitReached: true };
+    }
     setRows((prev) => {
       const index = prev.findIndex((row) => row.id === rowId);
       const next = [...prev];
@@ -112,6 +115,7 @@ export function useCustomCreatorView() {
       next.splice(index + 1, 0, createEmptyRow());
       return next;
     });
+    return null;
   }
 
   function removeRow(id) {
