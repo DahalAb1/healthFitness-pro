@@ -140,7 +140,11 @@ export function useCustomCreatorView() {
   }
 
   async function saveWorkout() {
-    const validationError = validateWorkoutBeforeSave({ workoutName, rows });
+    const validationError = validateWorkoutBeforeSave({
+      workoutName,
+      rows,
+      savedWorkouts,
+    });
     if (validationError) {
       return { ok: false, error: validationError };
     }
