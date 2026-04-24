@@ -1,3 +1,4 @@
+import AccountSection from './AccountSection';
 import EditableMenuItem from './EditableMenuItem';
 import SegmentedMenuItem from './SegmentedMenuItem';
 
@@ -7,9 +8,7 @@ import SegmentedMenuItem from './SegmentedMenuItem';
  */
 export default function PersonalInfoSection({ profile, set }) {
   return (
-    <div className="account-section">
-      <span className="account-section-label">Personal Information</span>
-      <div className="account-menu">
+    <AccountSection label="Personal Information">
         <EditableMenuItem
           label="Email" value={profile.email} editable editType="email"
           onSave={set('email', 'email')}
@@ -24,7 +23,6 @@ export default function PersonalInfoSection({ profile, set }) {
           label="Units" options={['Imperial', 'Metric']} value={profile.units} onChange={set('units', 'units')}
           icon={<><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10A15.3 15.3 0 0 1 8 12a15.3 15.3 0 0 1 4-10z"/></>}
         />
-      </div>
-    </div>
+    </AccountSection>
   );
 }
