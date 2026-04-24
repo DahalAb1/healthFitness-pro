@@ -7,7 +7,7 @@
   padding: 0 5%;
   position: sticky;
   top: 0;
-  background: rgba(15, 15, 15, 0.9);
+  background: var(--nav-background);
   backdrop-filter: blur(12px);
   z-index: 1000;
 }
@@ -27,7 +27,7 @@
   font-weight: 800;
   font-size: 18px;
   letter-spacing: -0.5px;
-  color: white;
+  color: var(--text-primary);
   text-transform: uppercase;
 }
 .nav-links {

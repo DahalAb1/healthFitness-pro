@@ -1,12 +1,5 @@
 /* Nutrition Hub Styles */
 .nutrition-hub-container {
-  --background: #0F0F0F;
-  --surface: #1A1A1A;
-  --surface-alt: #222222;
-  --border: #333333;
-  --accent: #4A90FF;
-  --text-primary: #FFFFFF;
-  --text-secondary: #A0A0A0;
   --radius: 20px;
   --success: #4AFF8C;
   --danger: #FF4A4A;
@@ -193,9 +186,9 @@
 }
 
 .sidebar-card input {
-  background: #080808;
+  background: var(--field-background);
   border: 1px solid var(--border);
-  color: white;
+  color: var(--text-primary);
   padding: 12px;
   border-radius: 10px;
   width: 100%;
@@ -311,7 +304,7 @@
 }
 
 .drop-placeholder {
-  color: #444;
+  color: var(--text-secondary);
   font-size: 11px;
   text-transform: uppercase;
   text-align: center;
@@ -320,7 +313,7 @@
 }
 
 .logged-item {
-  background: #080808;
+  background: var(--field-background);
   padding: 8px 12px;
   border-radius: 10px;
   border: 1px solid var(--border);
@@ -559,9 +552,9 @@
 }
 
 .macro-gauge-input-row input {
-  background: #080808;
+  background: var(--field-background);
   border: 1px solid var(--border);
-  color: white;
+  color: var(--text-primary);
   padding: 6px 8px;
   border-radius: 8px;
   width: 100%;
@@ -599,7 +592,7 @@
 
 
 .results-area::-webkit-scrollbar-track {
-  background: #1A1A1A;
+  background: var(--surface);
   border-radius: 3px;
 }
 
