@@ -1,4 +1,5 @@
 import { Line } from 'react-chartjs-2';
+import AsyncState from './AsyncState';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -55,12 +56,15 @@ function TrendChartSection({
       {extraControls}
 
       <div className="chart-container">
-        {loading && <div className="trends-empty">Loading…</div>}
-        {!loading && error && <div className="trends-empty trends-error">{error}</div>}
-        {!loading && !error && !hasData && <div className="trends-empty">{emptyMessage}</div>}
-        {!loading && !error && hasData && (
+        <AsyncState
+          loading={loading}
+          error={error}
+          empty={!hasData}
+          emptyText={emptyMessage}
+          className="trends-empty"
+        >
           <Line data={chartData} options={chartOptions ?? SHARED_CHART_OPTIONS} />
-        )}
+        </AsyncState>
       </div>
     </section>
   );

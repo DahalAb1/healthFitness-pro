@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import AsyncState from '../common/AsyncState';
 import ModalShell from '../common/ModalShell';
 import ExerciseBadges from '../common/ExerciseBadges';
 
@@ -25,9 +26,7 @@ function TemplateDetailPanel({ template, exercises, loading, onClose }) {
           <p className="wt-detail-description">{template.description}</p>
         )}
 
-        {loading ? (
-          <p className="wt-detail-loading">Loading exercises...</p>
-        ) : (
+        <AsyncState loading={loading} loadingText="Loading exercises..." className="wt-detail-loading">
           <ul className="wt-detail-exercise-list">
             {exercises.map((ex, i) => {
               const d = ex.details || {};
@@ -52,7 +51,7 @@ function TemplateDetailPanel({ template, exercises, loading, onClose }) {
               );
             })}
           </ul>
-        )}
+        </AsyncState>
 
         <button className="btn wt-btn-full" onClick={beginWorkout}>
           Begin Workout

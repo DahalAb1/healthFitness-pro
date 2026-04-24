@@ -1,4 +1,5 @@
 import ModalShell from '../common/ModalShell';
+import AsyncState from '../common/AsyncState';
 import CategoryFilterBar from '../common/CategoryFilterBar';
 import ExerciseBadges from '../common/ExerciseBadges';
 import { BODY_PARTS } from '../../hooks/useCustomCreatorView';
@@ -41,11 +42,14 @@ function ExerciseLibraryModal({
         </div>
 
         <div className="wt-library-list">
-          {libraryLoading && <p className="wt-detail-loading">Loading exercises...</p>}
-          {!libraryLoading && filteredLibrary.length === 0 && (
-            <p className="wt-detail-loading">No exercises found.</p>
-          )}
-          {filteredLibrary.map((ex) => (
+          <AsyncState
+            loading={libraryLoading}
+            loadingText="Loading exercises..."
+            empty={!libraryLoading && filteredLibrary.length === 0}
+            emptyText="No exercises found."
+            className="wt-detail-loading"
+          >
+            {filteredLibrary.map((ex) => (
             <button
               key={ex.id || ex.name}
               type="button"
@@ -65,7 +69,8 @@ function ExerciseLibraryModal({
                 />
               </div>
             </button>
-          ))}
+            ))}
+          </AsyncState>
         </div>
     </ModalShell>
   );
