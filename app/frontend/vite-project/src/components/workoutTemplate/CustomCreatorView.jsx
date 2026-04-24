@@ -16,6 +16,7 @@ function CustomCreatorView() {
     toggleExpanded,
     showLibrary,
     setShowLibrary,
+    openLibrary,
     libraryFilter,
     setLibraryFilter,
     librarySearch,
@@ -35,7 +36,7 @@ function CustomCreatorView() {
         rows={rows}
         onUpdateRow={updateRow}
         onRemoveRow={removeRow}
-        onOpenLibrary={() => setShowLibrary(true)}
+        onOpenLibraryForRow={openLibrary}
         onSave={saveWorkout}
       />
 

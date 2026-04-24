@@ -1,13 +1,15 @@
-function ExerciseRow({ row, onUpdate, onRemove }) {
+function ExerciseRow({ row, onUpdate, onRemove, onOpenLibraryForRow }) {
   return (
     <tr>
       <td>
-        <input
-          type="text"
-          value={row.exercise}
-          placeholder="Type or add from library..."
-          onChange={(e) => onUpdate(row.id, 'exercise', e.target.value)}
-        />
+        <button
+          type="button"
+          className="wt-row-library-btn"
+          onClick={() => onOpenLibraryForRow(row.id)}
+          aria-label={row.exercise ? `Change exercise for row` : `Add exercise from library for row`}
+        >
+          {row.exercise || ' Add Exercise From Library'}
+        </button>
       </td>
       <td>
         <input

@@ -16,6 +16,10 @@ function createEmptyRow() {
   };
 }
 
+function rowHasExercise(row) {
+  return Boolean((row.exercise || '').trim());
+}
+
 export function useCustomCreatorView() {
   const navigate = useNavigate();
   const { token, user } = useAuth();
@@ -26,6 +30,7 @@ export function useCustomCreatorView() {
   const [expandedIds, setExpandedIds] = useState(new Set());
 
   const [showLibrary, setShowLibrary] = useState(false);
+  const [libraryTargetRowId, setLibraryTargetRowId] = useState(null);
   const [libraryFilter, setLibraryFilter] = useState('ALL');
   const [librarySearch, setLibrarySearch] = useState('');
   const [libraryItems, setLibraryItems] = useState([]);
@@ -71,18 +76,41 @@ export function useCustomCreatorView() {
     });
   }
 
+  function openLibrary(rowId = null) {
+    setLibraryTargetRowId(rowId);
+    setShowLibrary(true);
+  }
+
   function addExerciseFromLibrary(exercise) {
-    setRows((prev) => [
-      ...prev,
-      {
-        id: crypto.randomUUID(),
-        exerciseId: exercise.id || null,
-        exercise: exercise.name || '',
-        sets: 3,
-        reps: 10,
-        rest: '60s',
-      },
-    ]);
+    setRows((prev) => {
+      if (libraryTargetRowId) {
+        const updatedRows = prev.map((row) =>
+          row.id === libraryTargetRowId
+            ? {
+                ...row,
+                exerciseId: exercise.id || null,
+                exercise: exercise.name || '',
+              }
+            : row
+        );
+
+        const hasEmptyRow = updatedRows.some((row) => !rowHasExercise(row));
+        return hasEmptyRow ? updatedRows : [...updatedRows, createEmptyRow()];
+      }
+
+      return [
+        ...prev,
+        {
+          id: crypto.randomUUID(),
+          exerciseId: exercise.id || null,
+          exercise: exercise.name || '',
+          sets: 3,
+          reps: 10,
+          rest: '60s',
+        },
+      ];
+    });
+    setLibraryTargetRowId(null);
     setShowLibrary(false);
   }
 
@@ -146,6 +174,7 @@ export function useCustomCreatorView() {
     toggleExpanded,
     showLibrary,
     setShowLibrary,
+    openLibrary,
     libraryFilter,
     setLibraryFilter,
     librarySearch,
