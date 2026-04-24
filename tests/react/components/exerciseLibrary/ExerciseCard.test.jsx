@@ -14,9 +14,10 @@
  *  - Correct aria-label ("View details for <name>")
  *  - Element has role="button"
  *  - tabIndex is 0 (keyboard focusable)
+ *  - Image onError fallback: assert element background becomes '#222' when image fails to load
  *
  * TODO — Gaps to fill:
- *  - Image onError fallback: assert element background becomes '#222' when image fails to load
+ *  - No significant gaps identified
  */
 
 import { render, screen, fireEvent } from "@testing-library/react";
@@ -116,5 +117,12 @@ describe("ExerciseCard (Exercise Library)", () => {
     expect(
       screen.getByLabelText("View details for Bench Press"),
     ).toBeInTheDocument();
+  });
+
+  it("applies image fallback background when image fails to load", () => {
+    render(<ExerciseCard exercise={mockExercise} onClick={vi.fn()} />);
+    const img = screen.getByAltText("Bench Press");
+    fireEvent.error(img);
+    expect(img).toHaveStyle({ background: "#222" });
   });
 });

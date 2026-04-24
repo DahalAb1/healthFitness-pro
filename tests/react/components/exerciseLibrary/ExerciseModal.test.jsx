@@ -13,11 +13,12 @@
  *  - onClose NOT called for non-Escape keys
  *  - role="dialog" present on modal root
  *  - aria-modal="true" present on modal root
- *
- * TODO — Gaps to fill:
  *  - document.body.style.overflow is set to 'hidden' on mount
  *  - document.body.style.overflow is restored to '' on unmount
  *  - keydown event listener is removed from document on unmount (no memory leak)
+ *
+ * TODO — Gaps to fill:
+ *  - No significant gaps identified
  */
 
 import { render, screen, fireEvent } from "@testing-library/react";
@@ -29,7 +30,7 @@ const mockExercise = {
   muscle_group: "thighs",
   equipment: "barbell",
   description: "Stand with feet shoulder-width apart.",
-  image_url: "",
+  image_url: "http://test.com/squat.gif",
 };
 
 describe("ExerciseModal", () => {
@@ -115,5 +116,37 @@ describe("ExerciseModal", () => {
   it('has aria-modal="true"', () => {
     render(<ExerciseModal exercise={mockExercise} onClose={vi.fn()} />);
     expect(screen.getByRole("dialog")).toHaveAttribute("aria-modal", "true");
+  });
+
+  it("sets body overflow to hidden on mount and restores it on unmount", () => {
+    const { unmount } = render(
+      <ExerciseModal exercise={mockExercise} onClose={vi.fn()} />,
+    );
+    expect(document.body.style.overflow).toBe("hidden");
+
+    unmount();
+    expect(document.body.style.overflow).toBe("");
+  });
+
+  it("removes the keydown listener on unmount", () => {
+    const addSpy = vi.spyOn(document, "addEventListener");
+    const removeSpy = vi.spyOn(document, "removeEventListener");
+
+    const { unmount } = render(
+      <ExerciseModal exercise={mockExercise} onClose={vi.fn()} />,
+    );
+
+    const keydownHandler = addSpy.mock.calls.find(
+      ([eventName]) => eventName === "keydown",
+    )?.[1];
+
+    expect(typeof keydownHandler).toBe("function");
+
+    unmount();
+
+    expect(removeSpy).toHaveBeenCalledWith("keydown", keydownHandler);
+
+    addSpy.mockRestore();
+    removeSpy.mockRestore();
   });
 });

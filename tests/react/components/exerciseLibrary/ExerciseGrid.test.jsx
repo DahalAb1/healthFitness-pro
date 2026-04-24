@@ -9,13 +9,13 @@
  *  - Renders a card for each exercise in the list
  *  - Loading text absent when exercises are rendered
  *  - Empty-state message absent when exercises are rendered
+ *  - onSelectExercise is called with the selected exercise when a card is clicked
  *
  * TODO — Gaps to fill:
- *  - onSelectExercise is passed down but never asserted to fire when a card is clicked
- *    → add: click a card and assert onSelectExercise was called with that exercise
+ *  - No significant gaps identified
  */
 
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 
 import { describe, it, expect, vi } from "vitest";
 import ExerciseGrid from "@/components/exerciseLibrary/ExerciseGrid";
@@ -26,21 +26,21 @@ const mockExercises = [
     name: "Bench Press",
     muscle_group: "chest",
     equipment: "barbell",
-    image_url: "",
+    image_url: "http://test.com/bench.gif",
   },
   {
     id: "2",
     name: "Squat",
     muscle_group: "thighs",
     equipment: "barbell",
-    image_url: "",
+    image_url: "http://test.com/squat.gif",
   },
   {
     id: "3",
     name: "Pull Up",
     muscle_group: "back",
     equipment: "body weight",
-    image_url: "",
+    image_url: "http://test.com/pullup.gif",
   },
 ];
 
@@ -118,5 +118,22 @@ describe("ExerciseGrid", () => {
       />,
     );
     expect(screen.queryByText(/no exercises found/i)).not.toBeInTheDocument();
+  });
+
+  it("calls onSelectExercise with the clicked exercise", () => {
+    const onSelectExercise = vi.fn();
+    render(
+      <ExerciseGrid
+        exercises={mockExercises}
+        loading={false}
+        onSelectExercise={onSelectExercise}
+      />,
+    );
+
+    fireEvent.click(
+      screen.getByRole("button", { name: /view details for bench press/i }),
+    );
+    expect(onSelectExercise).toHaveBeenCalledWith(mockExercises[0]);
+    expect(onSelectExercise).toHaveBeenCalledTimes(1);
   });
 });
