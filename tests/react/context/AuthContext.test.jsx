@@ -225,3 +225,102 @@ describe('useAuth', () => {
     expect(screen.getByTestId('has-login').textContent).toBe('true');
   });
 });
+
+// ---------------------------------------------------------------------------
+// Branch coverage additions
+// ---------------------------------------------------------------------------
+describe('AuthProvider – branch coverage', () => {
+  beforeEach(() => {
+    mockFetch.mockReset();
+    localStorageMock.clear();
+    vi.clearAllMocks();
+    localStorageMock.getItem.mockReturnValue(null);
+  });
+
+  it('does not update state when component unmounts before /me resolves (cancelled)', async () => {
+    localStorageMock.getItem.mockImplementation((key) =>
+      key === 'hfp_token' ? 'valid-token' : null,
+    );
+    let resolveFetch;
+    mockFetch.mockImplementation(
+      () => new Promise((resolve) => { resolveFetch = resolve; }),
+    );
+    const { unmount } = renderProvider();
+    // Component is still loading — unmount it before fetch resolves
+    act(() => { unmount(); });
+    // Resolve the fetch AFTER unmount — cancelled=true, so no state update
+    await act(async () => {
+      resolveFetch({ ok: true, json: async () => ({ email: 'x@test.com' }) });
+    });
+    // No crash, no stale state update — test passes if no error is thrown
+  });
+
+  it('does not update state when component unmounts before /me rejects (cancelled catch)', async () => {
+    localStorageMock.getItem.mockImplementation((key) =>
+      key === 'hfp_token' ? 'bad-token' : null,
+    );
+    let rejectFetch;
+    mockFetch.mockImplementation(
+      () => new Promise((_, reject) => { rejectFetch = reject; }),
+    );
+    const { unmount } = renderProvider();
+    act(() => { unmount(); });
+    await act(async () => { rejectFetch(new Error('network error')); });
+    // No crash — cancelled guard prevents the catch branch from calling setState
+  });
+
+  describe('login – fallback error message', () => {
+    it('throws with "Login failed" when response has no detail field', async () => {
+      // Response is not ok but body has no 'detail' key
+      mockFetch.mockResolvedValue(makeResponse({}, false, 401));
+      let capturedLogin;
+      function LoginCapture() {
+        const ctx = useContext(AuthContext);
+        capturedLogin = ctx.login;
+        return null;
+      }
+      render(
+        <AuthProvider>
+          <LoginCapture />
+        </AuthProvider>,
+      );
+      await expect(capturedLogin('bad@test.com', 'wrong')).rejects.toThrow('Login failed');
+    });
+  });
+
+  describe('register – failure path', () => {
+    it('throws when /register returns a non-ok response', async () => {
+      mockFetch.mockResolvedValue(makeResponse({ detail: 'Email already exists' }, false, 400));
+      let capturedRegister;
+      function RegisterCapture() {
+        const ctx = useContext(AuthContext);
+        capturedRegister = ctx.register;
+        return null;
+      }
+      render(
+        <AuthProvider>
+          <RegisterCapture />
+        </AuthProvider>,
+      );
+      await expect(capturedRegister('exists@test.com', 'pass')).rejects.toThrow(
+        'Email already exists',
+      );
+    });
+
+    it('throws "Registration failed" when /register response has no detail', async () => {
+      mockFetch.mockResolvedValue(makeResponse({}, false, 400));
+      let capturedRegister;
+      function RegisterCapture() {
+        const ctx = useContext(AuthContext);
+        capturedRegister = ctx.register;
+        return null;
+      }
+      render(
+        <AuthProvider>
+          <RegisterCapture />
+        </AuthProvider>,
+      );
+      await expect(capturedRegister('new@test.com', 'pass')).rejects.toThrow('Registration failed');
+    });
+  });
+});
