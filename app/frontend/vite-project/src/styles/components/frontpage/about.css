@@ -1,6 +1,6 @@
 .about-section {
   padding: 110px 10%;
-  background: #0a0a0a;
+  background: var(--background);
   border-bottom: 1px solid var(--border);
 }
 
@@ -28,7 +28,7 @@
 }
 
 .about-card {
-  background: #111;
+  background: var(--surface-alt);
   border: 1px solid var(--border);
   border-radius: 14px;
   padding: 28px;

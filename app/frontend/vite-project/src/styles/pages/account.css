@@ -393,7 +393,12 @@
   letter-spacing: 2px;
   text-transform: uppercase;
   color: var(--text-secondary);
-  opacity: 0.3;
+  opacity: 0.45;
+}
+
+[data-theme='light'] .account-footer p {
+  color: #6b7a8e;
+  opacity: 0.72;
 }
 
 /* ---- EDITABLE MENU ENTRY WRAPPER ---- */

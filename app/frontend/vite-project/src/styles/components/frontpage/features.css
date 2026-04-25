@@ -7,7 +7,7 @@
 }
 .feature-row.reverse {
   flex-direction: row-reverse;
-  background-color: #080808;
+  background-color: var(--section-alt-bg);
 }
 .feature-content {
   flex: 1;
@@ -29,7 +29,7 @@
   border: 1px solid var(--border);
   border-radius: var(--radius);
   overflow: hidden;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+  box-shadow: var(--card-shadow);
   height: 450px;
 }
 .feature-image-container img {

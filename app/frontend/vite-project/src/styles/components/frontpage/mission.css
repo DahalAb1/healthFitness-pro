@@ -1,11 +1,11 @@
 .mission-intro {
   padding: 120px 10%;
   text-align: center;
-  background-color: #0c0c0c;
+  background-color: var(--background);
   border-bottom: 1px solid var(--border);
 }
 .mission-intro.alt-bg {
-  background-color: #080808;
+  background-color: var(--section-alt-bg);
   overflow: hidden;
 }
 .mission-container {
