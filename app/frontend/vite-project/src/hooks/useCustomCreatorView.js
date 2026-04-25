@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { postUserWorkout, getUserWorkouts, deleteUserWorkout, getExercises } from '../utils/api';
 import { useAuth } from '../context/useAuth';
+import { validateWorkoutBeforeSave, MAX_EXERCISES_PER_WORKOUT } from '../utils/workoutValidation';
 
 export const BODY_PARTS = ['ALL', 'CHEST', 'BACK', 'SHOULDERS', 'ARMS', 'LEGS', 'ABS', 'CARDIO'];
 
@@ -18,7 +19,7 @@ function createEmptyRow() {
 
 export function useCustomCreatorView() {
   const navigate = useNavigate();
-  const { token, user } = useAuth();
+  const { token } = useAuth();
 
   const [workoutName, setWorkoutName] = useState('');
   const [rows, setRows] = useState([createEmptyRow()]);
@@ -26,6 +27,7 @@ export function useCustomCreatorView() {
   const [expandedIds, setExpandedIds] = useState(new Set());
 
   const [showLibrary, setShowLibrary] = useState(false);
+  const [libraryTargetRowId, setLibraryTargetRowId] = useState(null);
   const [libraryFilter, setLibraryFilter] = useState('ALL');
   const [librarySearch, setLibrarySearch] = useState('');
   const [libraryItems, setLibraryItems] = useState([]);
@@ -71,19 +73,49 @@ export function useCustomCreatorView() {
     });
   }
 
+  function openLibrary(rowId = null) {
+    setLibraryTargetRowId(rowId);
+    setLibraryLoading(true);
+    setLibraryItems([]);
+    setShowLibrary(true);
+  }
+
   function addExerciseFromLibrary(exercise) {
-    setRows((prev) => [
-      ...prev,
-      {
-        id: crypto.randomUUID(),
-        exerciseId: exercise.id || null,
-        exercise: exercise.name || '',
-        sets: 3,
-        reps: 10,
-        rest: '60s',
-      },
-    ]);
+    if (!libraryTargetRowId) {
+      setShowLibrary(false);
+      return;
+    }
+
+    setRows((prev) =>
+      prev.map((row) =>
+        row.id === libraryTargetRowId
+          ? {
+              ...row,
+              exerciseId: exercise.id || null,
+              exercise: exercise.name || '',
+            }
+          : row
+      )
+    );
+    setLibraryTargetRowId(null);
     setShowLibrary(false);
+  }
+
+  function addRowAfter(rowId) {
+    if (rows.length >= MAX_EXERCISES_PER_WORKOUT) {
+      return { limitReached: true };
+    }
+    setRows((prev) => {
+      const index = prev.findIndex((row) => row.id === rowId);
+      const next = [...prev];
+      if (index === -1) {
+        next.push(createEmptyRow());
+        return next;
+      }
+      next.splice(index + 1, 0, createEmptyRow());
+      return next;
+    });
+    return null;
   }
 
   function removeRow(id) {
@@ -96,28 +128,61 @@ export function useCustomCreatorView() {
     );
   }
 
-  function saveWorkout() {
-    const trimmedName = workoutName.trim();
-    if (!trimmedName) {
-      window.alert('Please enter a workout name before saving.');
-      return;
-    }
-    postUserWorkout(
-      {
-        name: trimmedName,
-        exercises: rows.map((row) => ({
-          exercise_id: row.exerciseId || null,
-          exercise_name: row.exercise,
-          sets: row.sets,
-          reps: row.reps,
-        })),
-      },
-      token
-    ).then((saved) => {
-      setSavedWorkouts((prev) => [...prev, saved]);
+  function moveRow(sourceId, targetId) {
+    if (!sourceId || !targetId || sourceId === targetId) return;
+
+    setRows((prev) => {
+      const sourceIndex = prev.findIndex((row) => row.id === sourceId);
+      const targetIndex = prev.findIndex((row) => row.id === targetId);
+      if (sourceIndex === -1 || targetIndex === -1) return prev;
+
+      const next = [...prev];
+      const [moved] = next.splice(sourceIndex, 1);
+      next.splice(targetIndex, 0, moved);
+      return next;
     });
-    setWorkoutName('');
-    setRows([createEmptyRow()]);
+  }
+
+  async function saveWorkout() {
+    const validationError = validateWorkoutBeforeSave({
+      workoutName,
+      rows,
+      savedWorkouts,
+    });
+    if (validationError) {
+      return { ok: false, error: validationError };
+    }
+
+    const trimmedName = workoutName.trim();
+    const exercisesToSave = rows.filter((row) => (row.exercise || '').trim());
+
+    try {
+      const saved = await postUserWorkout(
+        {
+          name: trimmedName,
+          exercises: exercisesToSave.map((row) => ({
+            exercise_id: row.exerciseId || null,
+            exercise_name: row.exercise,
+            sets: row.sets,
+            reps: row.reps,
+          })),
+        },
+        token
+      );
+
+      // Re-sync from backend so the saved workout section always reflects server truth.
+      const data = await getUserWorkouts(token);
+      setSavedWorkouts(Array.isArray(data) ? data : []);
+
+      setWorkoutName('');
+      setRows([createEmptyRow()]);
+      return { ok: true, saved };
+    } catch (error) {
+      return {
+        ok: false,
+        error: error instanceof Error ? error.message : 'Unable to save workout right now.',
+      };
+    }
   }
 
   useEffect(() => {
@@ -127,8 +192,6 @@ export function useCustomCreatorView() {
 
   useEffect(() => {
     if (!showLibrary) return;
-    setLibraryLoading(true);
-    setLibraryItems([]);
     getExercises(libraryFilter)
       .then((data) => setLibraryItems(Array.isArray(data) ? data : []))
       .finally(() => setLibraryLoading(false));
@@ -139,13 +202,16 @@ export function useCustomCreatorView() {
     setWorkoutName,
     rows,
     updateRow,
+    moveRow,
     removeRow,
+    addRowAfter,
     saveWorkout,
     savedWorkouts,
     expandedIds,
     toggleExpanded,
     showLibrary,
     setShowLibrary,
+    openLibrary,
     libraryFilter,
     setLibraryFilter,
     librarySearch,

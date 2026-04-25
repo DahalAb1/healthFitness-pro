@@ -7,6 +7,7 @@
 }
 
 .wt-card h2 {
+  text-align: center;
   margin-bottom: 20px;
 }
 
@@ -20,6 +21,21 @@
   font-size: 12px;
   margin-bottom: 8px;
   font-weight: 700;
+}
+
+.wt-char-counter {
+  display: block;
+  text-align: right;
+  font-size: 11px;
+  color: var(--text-secondary);
+  margin-top: 4px;
+  opacity: 0.7;
+}
+
+.wt-char-counter--over {
+  color: #ff5a5a;
+  opacity: 1;
+  font-weight: 600;
 }
 
 .wt-table-container {
@@ -46,6 +62,58 @@
   border-bottom: 1px solid var(--border);
 }
 
+.wt-row-draggable {
+  cursor: grab;
+}
+
+.wt-row-draggable td {
+  transition: background 0.18s ease, border-color 0.18s ease;
+}
+
+.wt-row-dragging td {
+  background: rgba(74, 144, 255, 0.08);
+}
+
+.wt-row-drop-target td {
+  background: rgba(74, 144, 255, 0.14);
+  border-bottom-color: rgba(74, 144, 255, 0.65);
+}
+
+.wt-workout-table .wt-col-action {
+  width: 50px;
+  text-align: center;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.wt-workout-table .wt-col-action-cell {
+  width: 50px;
+  text-align: center;
+  vertical-align: middle;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.wt-workout-table .wt-col-exercise,
+.wt-workout-table .wt-cell-exercise {
+  min-width: 260px;
+}
+
+.wt-workout-table .wt-col-sets,
+.wt-workout-table .wt-cell-sets,
+.wt-workout-table .wt-col-reps,
+.wt-workout-table .wt-cell-reps {
+  min-width: 130px;
+}
+
+.wt-workout-table .wt-col-rest,
+.wt-workout-table .wt-cell-rest {
+  min-width: 105px;
+  max-width: 120px;
+}
+
 .wt-workout-table input[type='text'],
 .wt-workout-table input[type='number'],
 .wt-input-group input[type='text'] {
@@ -55,6 +123,30 @@
   color: white;
   border-radius: 6px;
   width: 100%;
+}
+
+.wt-row-library-btn {
+  background: #101318;
+  border: 1px solid #2a3444;
+  padding: 10px 12px;
+  color: #eef4ff;
+  border-radius: 6px;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  font-weight: 600;
+  transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.wt-row-library-btn:hover {
+  border-color: #4a90ff;
+  background: #131925;
+  box-shadow: 0 0 0 2px rgba(74, 144, 255, 0.14);
+  transform: translateY(-1px);
+}
+
+.wt-row-library-btn:active {
+  transform: translateY(0);
 }
 
 .wt-input-group textarea {
@@ -70,19 +162,94 @@
 }
 
 .wt-remove-btn {
-  background: none;
-  border: none;
-  color: #ff4a4a;
+  position: relative;
+  background: rgba(255, 74, 74, 0.08);
+  border: 2px solid rgba(255, 90, 90, 0.7);
+  color: transparent;
   cursor: pointer;
-  font-size: 18px;
-  line-height: 1;
+  font-size: 0;
+  line-height: 0;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  margin: 0 auto;
+  transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
 }
 
-.wt-btn-add {
-  margin-top: 20px;
-  background: #1f1f1f;
-  border: 1px dashed #4a90ff;
-  color: #dce9ff;
+.wt-remove-btn::before,
+.wt-remove-btn::after {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 2px;
+  border-radius: 2px;
+  background: #ff6a6a;
+  top: 50%;
+  left: 50%;
+  transform-origin: center;
+}
+
+.wt-remove-btn::before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.wt-remove-btn::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.wt-remove-btn:hover {
+  color: #ff6a6a;
+  border-color: rgba(255, 120, 120, 0.8);
+  background: rgba(255, 74, 74, 0.14);
+  transform: translateY(-1px);
+}
+
+.wt-add-row-btn {
+  position: relative;
+  background: rgba(255, 255, 255, 0.06);
+  border: 2px solid rgba(255, 255, 255, 0.58);
+  color: transparent;
+  cursor: pointer;
+  font-size: 0;
+  line-height: 0;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  margin: 0 auto;
+  transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+}
+
+.wt-add-row-btn::before,
+.wt-add-row-btn::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 2px;
+  background: #4a90ff;
+  transform: translate(-50%, -50%);
+}
+
+.wt-add-row-btn::before {
+  width: 16px;
+  height: 2px;
+}
+
+.wt-add-row-btn::after {
+  width: 2px;
+  height: 16px;
+}
+
+.wt-add-row-btn:hover {
+  border-color: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.12);
+  transform: translateY(-1px);
 }
 
 .wt-btn-save {
@@ -102,15 +269,123 @@
   margin-top: 40px;
 }
 
-.wt-saved-workouts h3 {
+.wt-saved-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
   margin-bottom: 20px;
+}
+
+.wt-saved-workouts h3 {
+  margin: 0;
   border-left: 4px solid var(--accent);
   padding-left: 15px;
+}
+
+.wt-saved-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.wt-saved-filter {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.wt-saved-filter select {
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  border-radius: 6px;
+  padding: 7px 10px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.wt-saved-filter select:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+/* Ensure native dropdown option text remains visible across OS/browser themes. */
+.wt-saved-filter select option {
+  background: #ffffff;
+  color: #1a2332;
+}
+
+[data-theme='dark'] .wt-saved-filter select option {
+  background: #111318;
+  color: #eef3ff;
+}
+
+.wt-saved-toggle {
+  margin-top: 0;
+  min-width: 90px;
+  padding: 8px 14px;
+  border-radius: 6px;
+  background: #1f1f1f;
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+}
+
+.wt-saved-toggle:hover {
+  border-color: var(--accent);
+}
+
+@media (max-width: 760px) {
+  .wt-saved-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
 }
 
 .wt-empty-state {
   color: var(--text-secondary);
   font-size: 14px;
+}
+
+.wt-error-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 1100;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+}
+
+.wt-error-modal {
+  width: min(460px, 94vw);
+  background: #14171d;
+  border: 1px solid #3a465c;
+  border-radius: var(--radius);
+  padding: 22px;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45);
+}
+
+.wt-error-modal h3 {
+  margin: 0 0 10px;
+  font-size: 20px;
+}
+
+.wt-error-modal p {
+  margin: 0 0 18px;
+  color: #d9e2f2;
+}
+
+.wt-error-btn {
+  width: 100%;
+  margin-top: 0;
+  background: linear-gradient(135deg, #4a90ff, #2f6fce);
 }
 
 /* ── Library Modal ─────────────────────────────────────────────── */
