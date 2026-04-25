@@ -1,0 +1,136 @@
+Custom Workout Backend Test Results (Detailed)
+================================================
+
+Execution Summary
+-----------------
+- Test module: tests/backend/test_custom_workouts.py
+- Total tests: 10
+- Passed: 10
+- Failed: 0
+- Skipped: 0
+- Overall result: PASS
+
+Execution Environment
+---------------------
+- Platform: win32
+- Python: 3.11.9
+- pytest: 9.0.2
+- pluggy: 1.6.0
+- Root directory: C:\Users\ange7\OneDrive - Texas State University\Documents\spring 2026\SWE lehr\main_application
+- Plugins: anyio-4.12.1
+- Command:
+  .\.venv\Scripts\python -m pytest tests/backend/test_custom_workouts.py -vv
+
+Raw Pytest Output
+-----------------
+============================= test session starts =============================
+platform win32 -- Python 3.11.9, pytest-9.0.2, pluggy-1.6.0 -- C:\Users\ange7\OneDrive - Texas State University\Documents\spring 2026\SWE lehr\main_application\.venv\Scripts\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\ange7\OneDrive - Texas State University\Documents\spring 2026\SWE lehr\main_application
+plugins: anyio-4.12.1
+collected 10 items
+
+tests/backend/test_custom_workouts.py::test_create_custom_workout_saves_user_owned_template PASSED [ 10%]
+tests/backend/test_custom_workouts.py::test_create_custom_workout_persists_nested_exercise_payload_correctly PASSED [ 20%]
+tests/backend/test_custom_workouts.py::test_get_custom_workouts_returns_only_current_users_workouts PASSED [ 30%]
+tests/backend/test_custom_workouts.py::test_get_custom_workouts_returns_empty_list_when_user_has_none PASSED [ 40%]
+tests/backend/test_custom_workouts.py::test_delete_custom_workout_succeeds_for_owner PASSED [ 50%]
+tests/backend/test_custom_workouts.py::test_delete_custom_workout_returns_404_when_workout_does_not_exist PASSED [ 60%]
+tests/backend/test_custom_workouts.py::test_delete_custom_workout_returns_404_when_workout_belongs_to_another_user PASSED [ 70%]
+tests/backend/test_custom_workouts.py::test_create_and_list_sequence_verifies_consistency PASSED [ 80%]
+tests/backend/test_custom_workouts.py::test_unauthorized_request_to_custom_workout_routes_is_rejected PASSED [ 90%]
+tests/backend/test_custom_workouts.py::test_create_custom_workout_validates_required_fields PASSED [100%]
+
+============================= 10 passed in 1.16s ==============================
+
+Per-Test Details
+----------------
+1) test_create_custom_workout_saves_user_owned_template
+   Endpoint:
+   - POST /user-workouts
+   Validates:
+   - status code 201
+   - response includes generated workout id
+   - user_id is assigned to authenticated user
+   - workout name persisted correctly
+
+2) test_create_custom_workout_persists_nested_exercise_payload_correctly
+   Endpoint:
+   - POST /user-workouts
+   Validates:
+   - nested exercises are saved and returned
+   - exercise_name, sets, and reps values match payload
+   - multiple exercises are preserved in order
+
+3) test_get_custom_workouts_returns_only_current_users_workouts
+   Endpoint:
+   - GET /user-workouts
+   Validates:
+   - listing is user-scoped
+   - workouts from other users are excluded
+   - authenticated user receives only own records
+
+4) test_get_custom_workouts_returns_empty_list_when_user_has_none
+   Endpoint:
+   - GET /user-workouts
+   Validates:
+   - status code 200
+   - empty array returned for user with no saved workouts
+
+5) test_delete_custom_workout_succeeds_for_owner
+   Endpoint:
+   - DELETE /user-workouts/{workout_id}
+   Validates:
+   - owner can delete own workout
+   - success response returns deleted=true and id
+   - workout no longer appears in subsequent list
+
+6) test_delete_custom_workout_returns_404_when_workout_does_not_exist
+   Endpoint:
+   - DELETE /user-workouts/{workout_id}
+   Validates:
+   - status code 404 for unknown id
+   - error message is Workout not found
+
+7) test_delete_custom_workout_returns_404_when_workout_belongs_to_another_user
+   Endpoint:
+   - DELETE /user-workouts/{workout_id}
+   Validates:
+   - non-owner cannot delete another user's workout
+   - status code 404 returned for ownership-protected resource
+   - original owner still sees workout in list
+
+8) test_create_and_list_sequence_verifies_consistency
+   Endpoints:
+   - POST /user-workouts
+   - GET /user-workouts
+   Validates:
+   - round-trip consistency after create
+   - list contains created id, name, and expected nested exercise fields
+
+9) test_unauthorized_request_to_custom_workout_routes_is_rejected
+   Endpoints:
+   - POST /user-workouts
+   - GET /user-workouts
+   - DELETE /user-workouts/{workout_id}
+   Validates:
+   - requests fail with 401 when authentication override is removed
+   - unauthenticated access cannot create, list, or delete
+
+10) test_create_custom_workout_validates_required_fields
+    Endpoint:
+    - POST /user-workouts
+    Validates:
+    - malformed payload missing required fields returns 422
+    - invalid create request does not persist any workout data
+
+Test Design Notes
+-----------------
+- Uses in-memory SQLite and StaticPool for fast isolated tests.
+- Resets schema before each test using drop_all/create_all.
+- Overrides FastAPI dependencies for session and current user.
+- Simulates multiple users by switching test user id during runtime.
+
+Conclusion
+----------
+Custom workout backend functionality is fully validated by 10 passing tests across create, list, delete, auth guard, validation, and ownership protection flows.
