@@ -102,4 +102,39 @@ describe('useRestTimer', () => {
     expect(result.current.remaining).toBeNull();
     expect(result.current.isRunning).toBe(false);
   });
+
+  // -----------------------------------------------------------------------
+  // Visibility-change re-sync tests (covers the handleVisibility function)
+  // -----------------------------------------------------------------------
+
+  it('handleVisibility updates remaining when tab becomes visible with time left', () => {
+    const { result } = renderHook(() => useRestTimer());
+    act(() => { result.current.start(30); });
+    // Advance the clock without firing the interval so endTimeRef stays set
+    vi.setSystemTime(new Date(Date.now() + 5000));
+    // document.visibilityState is 'visible' by default in jsdom
+    act(() => { document.dispatchEvent(new Event('visibilitychange')); });
+    expect(result.current.remaining).toBeLessThanOrEqual(25);
+    expect(result.current.remaining).toBeGreaterThan(0);
+  });
+
+  it('handleVisibility fires onComplete and marks isDone when timer has expired while hidden', () => {
+    const onComplete = vi.fn();
+    const { result } = renderHook(() => useRestTimer(onComplete));
+    act(() => { result.current.start(5); });
+    // Move time past expiry without firing the interval
+    vi.setSystemTime(new Date(Date.now() + 6000));
+    act(() => { document.dispatchEvent(new Event('visibilitychange')); });
+    expect(result.current.isDone).toBe(true);
+    expect(result.current.isRunning).toBe(false);
+    expect(onComplete).toHaveBeenCalledTimes(1);
+  });
+
+  it('handleVisibility does nothing when timer is not running (no endTimeRef)', () => {
+    const { result } = renderHook(() => useRestTimer());
+    // No timer started – endTimeRef.current is null
+    act(() => { document.dispatchEvent(new Event('visibilitychange')); });
+    expect(result.current.remaining).toBeNull();
+    expect(result.current.isRunning).toBe(false);
+  });
 });

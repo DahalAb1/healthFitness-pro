@@ -74,6 +74,13 @@ describe('api utilities', () => {
       const url = mockFetch.mock.calls[0][0];
       expect(url).toContain('bodyPart=shoulders');
     });
+
+    it('uses bodyPart.toLowerCase() fallback for body parts not in BODY_PART_MAP', async () => {
+      mockFetch.mockResolvedValue(makeResponse([]));
+      await getExercises('CALVES');
+      const url = mockFetch.mock.calls[0][0];
+      expect(url).toContain('bodyPart=calves');
+    });
   });
 
   // -------------------------------------------------------------------------
@@ -333,6 +340,11 @@ describe('api utilities', () => {
       await getNutritionTrends('tok', null);
       const url = mockFetch.mock.calls[0][0];
       expect(url).not.toContain('days=');
+    });
+
+    it('throws when getNutritionTrends response is not ok', async () => {
+      mockFetch.mockResolvedValue(makeResponse(null, false, 500));
+      await expect(getNutritionTrends('tok', 7)).rejects.toThrow('getNutritionTrends failed: 500');
     });
   });
 });

@@ -161,4 +161,13 @@ describe('useNutritionTrends', () => {
       days: 2,
     });
   });
+
+  it('summaryStats handles a zero kcal value via the || 0 fallback', async () => {
+    const points = [makePoint(1, { kcal: 0, protein_g: 50, carbs_g: 100, fat_g: 20 })];
+    mockGetNutritionTrends.mockResolvedValue(points);
+    const { result } = renderHook(() => useNutritionTrends());
+    await waitFor(() => expect(result.current.loading).toBe(false));
+    act(() => { result.current.setFilter('all'); });
+    expect(result.current.summaryStats.avgKcal).toBe(0);
+  });
 });
