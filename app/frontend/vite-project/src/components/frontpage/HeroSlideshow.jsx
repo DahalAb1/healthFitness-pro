@@ -1,5 +1,7 @@
 
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { useAuth } from '../../context/useAuth';
 import fitness1 from '../../assets/fitness1.jpg';
 import fitness2 from '../../assets/fitness2.webp';
 import fitness3 from '../../assets/fitness 3.jpg';
@@ -12,6 +14,7 @@ const slides = [
 
 function HeroSlideshow() {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const { token } = useAuth();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -40,7 +43,7 @@ function HeroSlideshow() {
           The most intuitive workout tracking experience for serious athletes.
           Precision data, zero distractions.
         </p>
-        <a href="#mission" className="btn">Get Started Today</a>
+        {!token && <Link to="/signup" className="btn">Get Started Today</Link>}
       </div>
     </header>
   );

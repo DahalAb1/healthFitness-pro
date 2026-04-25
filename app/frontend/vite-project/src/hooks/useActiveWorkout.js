@@ -4,6 +4,14 @@ import { getTemplateExercises, logWorkout, getExercises } from '../utils/api';
 import { useAuth } from '../context/useAuth';
 import { normalizeTemplateExercise, normalizeCustomExercise } from '../utils/exerciseNormalizers';
 
+function getLocalDateString() {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const day = String(now.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
 function buildSetLogs(exs) {
   return exs.map((ex) =>
     Array.from({ length: Math.max(1, ex.sets) }, () => ({
@@ -103,7 +111,8 @@ export function useActiveWorkout() {
     setFinishing(true);
 
     const durationMinutes = Math.max(1, Math.round((Date.now() - startedAt.current) / 60000));
-    const today = new Date().toISOString().split('T')[0];
+    // Use local calendar date (user timezone), not UTC date from toISOString().
+    const today = getLocalDateString();
 
     const exercisesToLog = exercises.map((ex, idx) => {
       const logs = setLogs[idx] || [];

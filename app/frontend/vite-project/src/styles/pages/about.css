@@ -1,0 +1,117 @@
+.about-page {
+  background: var(--background);
+}
+
+.about-hero {
+  position: relative;
+  width: 100%;
+  height: 500px;
+  overflow: hidden;
+}
+
+.about-hero-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: var(--hero-overlay-filter);
+}
+
+.about-hero-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  background: var(--hero-image-overlay-gradient);
+}
+
+.about-page-section {
+  border-top: 1px solid var(--border);
+  border-bottom: none;
+}
+
+.about-page .about-header h1 {
+  font-size: 2.6rem;
+  margin-bottom: 18px;
+  letter-spacing: -1px;
+  color: var(--hero-title-color);
+}
+
+.about-page .about-header p {
+  color: var(--hero-subtitle-color);
+}
+
+.about-contact-section {
+  padding: 80px 10% 110px;
+  border-top: 1px solid var(--border);
+  background: var(--surface-gradient);
+}
+
+.about-contact-header {
+  max-width: 720px;
+  margin: 0 auto 36px;
+  text-align: center;
+}
+
+.about-contact-header h2 {
+  font-size: 2.15rem;
+  margin-bottom: 14px;
+  letter-spacing: -0.8px;
+}
+
+.about-contact-header p {
+  color: var(--text-secondary);
+}
+
+.about-contact-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.about-contact-card {
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 26px;
+}
+
+.about-contact-card h3 {
+  color: var(--accent);
+  margin-bottom: 10px;
+  font-size: 1.05rem;
+}
+
+.about-contact-card a {
+  color: var(--text-primary);
+  text-decoration: none;
+  font-weight: 700;
+  display: inline-block;
+  margin-bottom: 12px;
+}
+
+.about-contact-card a:hover {
+  color: var(--accent);
+}
+
+.about-contact-card p {
+  color: var(--text-secondary);
+  line-height: 1.55;
+}
+
+@media (max-width: 1000px) {
+  .about-contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-page .about-header h1 {
+    font-size: 2.1rem;
+  }
+
+  .about-contact-header h2 {
+    font-size: 1.9rem;
+  }
+}
