@@ -2,8 +2,6 @@ import { useState, useEffect } from 'react';
 import { getWorkoutByDate, getWorkouts, getMealLogs, getNutritionActiveDates } from '../utils/api';
 import { useAuth } from '../context/useAuth';
 
-const TODAY = new Date();
-
 export function useCalendar() {
   const { token } = useAuth();
   const [viewDate, setViewDate] = useState(new Date());
@@ -16,9 +14,10 @@ export function useCalendar() {
 
   const month = viewDate.getMonth();
   const year = viewDate.getFullYear();
+  const today = new Date();
 
-  const isCurrentMonth = year === TODAY.getFullYear() && month === TODAY.getMonth();
-  const todayDay = isCurrentMonth ? TODAY.getDate() : null;
+  const isCurrentMonth = year === today.getFullYear() && month === today.getMonth();
+  const todayDay = isCurrentMonth ? today.getDate() : null;
 
   useEffect(() => {
     if (!token) return;
