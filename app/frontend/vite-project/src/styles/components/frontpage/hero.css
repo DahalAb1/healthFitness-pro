@@ -83,3 +83,32 @@
     letter-spacing: 2px;
   }
 }
+
+.hero-dots {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  display: flex;
+  gap: 10px;
+}
+.hero-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.35);
+  cursor: pointer;
+  padding: 0;
+  transition:
+    background 0.3s ease,
+    transform 0.2s ease;
+}
+.hero-dot.active {
+  background: var(--accent);
+  transform: scale(1.3);
+}
+.hero-dot:hover:not(.active) {
+  background: rgba(255, 255, 255, 0.65);
+}
