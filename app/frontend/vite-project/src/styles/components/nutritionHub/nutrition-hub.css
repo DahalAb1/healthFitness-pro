@@ -544,6 +544,9 @@
   font-size: 10px;
   color: var(--text-secondary);
   font-weight: 600;
+  text-align: center;
+  word-break: break-word;
+  width: 100%;
 }
 
 .macro-gauge-input-row {
@@ -570,6 +573,7 @@
   padding: 6px 8px;
   border-radius: 8px;
   width: 100%;
+  box-sizing: border-box;
   font-size: 12px;
   outline: none;
   transition: border-color 0.2s;
@@ -590,12 +594,23 @@
     grid-template-columns: 1fr 1fr;
     gap: 8px;
   }
+  .macro-gauge-card {
+    padding: 10px 8px;
+    overflow: hidden;
+  }
   .macro-gauge-container {
-    width: 90px;
-    height: 90px;
+    width: 80px;
+    height: 80px;
+  }
+  .macro-gauge-container svg {
+    width: 80px;
+    height: 80px;
   }
   .macro-gauge-value {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
+  }
+  .macro-gauge-consumed {
+    font-size: 9px;
   }
 }
 
