@@ -22,7 +22,6 @@ export function useCustomCreatorView() {
   const { token } = useAuth();
 
   const [workoutName, setWorkoutName] = useState('');
-  const [workoutNotes, setWorkoutNotes] = useState('');
   const [rows, setRows] = useState([createEmptyRow()]);
   const [savedWorkouts, setSavedWorkouts] = useState([]);
   const [expandedIds, setExpandedIds] = useState(new Set());
@@ -49,7 +48,6 @@ export function useCustomCreatorView() {
 
   function handleCustomize(workout) {
     setWorkoutName(workout.name || '');
-    setWorkoutNotes('');
     setRows(
       (workout.exercises || []).map((ex) => ({
         id: crypto.randomUUID(),
@@ -148,7 +146,6 @@ export function useCustomCreatorView() {
   async function saveWorkout() {
     const validationError = validateWorkoutBeforeSave({
       workoutName,
-      workoutNotes,
       rows,
       savedWorkouts,
     });
@@ -163,7 +160,6 @@ export function useCustomCreatorView() {
       const saved = await postUserWorkout(
         {
           name: trimmedName,
-          notes: workoutNotes.trim() || null,
           exercises: exercisesToSave.map((row) => ({
             exercise_id: row.exerciseId || null,
             exercise_name: row.exercise,
@@ -179,7 +175,6 @@ export function useCustomCreatorView() {
       setSavedWorkouts(Array.isArray(data) ? data : []);
 
       setWorkoutName('');
-      setWorkoutNotes('');
       setRows([createEmptyRow()]);
       return { ok: true, saved };
     } catch (error) {
@@ -205,8 +200,6 @@ export function useCustomCreatorView() {
   return {
     workoutName,
     setWorkoutName,
-    workoutNotes,
-    setWorkoutNotes,
     rows,
     updateRow,
     moveRow,

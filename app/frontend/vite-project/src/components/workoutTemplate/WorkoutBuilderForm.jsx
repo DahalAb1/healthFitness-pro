@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import ExerciseRow from './ExerciseRow';
-import { MAX_NAME_CHARS, MAX_NOTES_CHARS } from '../../utils/workoutValidation';
+import { MAX_NAME_CHARS } from '../../utils/workoutValidation';
 
-function WorkoutBuilderForm({ workoutName, onNameChange, workoutNotes, onNotesChange, rows, onUpdateRow, onMoveRow, onRemoveRow, onAddRowAfter, onOpenLibraryForRow, onSave }) {
+function WorkoutBuilderForm({ workoutName, onNameChange, rows, onUpdateRow, onMoveRow, onRemoveRow, onAddRowAfter, onOpenLibraryForRow, onSave }) {
   const [draggingRowId, setDraggingRowId] = useState(null);
   const [dropTargetRowId, setDropTargetRowId] = useState(null);
 
@@ -46,21 +46,6 @@ function WorkoutBuilderForm({ workoutName, onNameChange, workoutNotes, onNotesCh
         />
         <span className={`wt-char-counter${workoutName.length > MAX_NAME_CHARS ? ' wt-char-counter--over' : ''}`}>
           {workoutName.length} / {MAX_NAME_CHARS}
-        </span>
-      </div>
-
-      <div className="wt-input-group">
-        <label htmlFor="workoutNotes">NOTES <span className="wt-label-optional">(optional)</span></label>
-        <textarea
-          id="workoutNotes"
-          className="wt-notes-textarea"
-          value={workoutNotes}
-          placeholder="e.g. Focus on slow negatives, rest 90s between sets…"
-          onChange={(e) => onNotesChange(e.target.value)}
-          rows={3}
-        />
-        <span className={`wt-char-counter${workoutNotes.length > MAX_NOTES_CHARS ? ' wt-char-counter--over' : ''}`}>
-          {workoutNotes.length} / {MAX_NOTES_CHARS}
         </span>
       </div>
 

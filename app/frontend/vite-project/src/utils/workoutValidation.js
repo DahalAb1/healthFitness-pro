@@ -1,9 +1,8 @@
 export const MAX_SAVED_WORKOUTS = 16;
 export const MAX_EXERCISES_PER_WORKOUT = 16;
 export const MAX_NAME_CHARS = 50;
-export const MAX_NOTES_CHARS = 300;
 
-export function validateWorkoutBeforeSave({ workoutName, workoutNotes = '', rows, savedWorkouts = [] }) {
+export function validateWorkoutBeforeSave({ workoutName, rows, savedWorkouts = [] }) {
   const trimmedName = (workoutName || '').trim();
   if (!trimmedName) {
     return 'Please enter a workout name before saving.';
@@ -11,10 +10,6 @@ export function validateWorkoutBeforeSave({ workoutName, workoutNotes = '', rows
 
   if (trimmedName.length > MAX_NAME_CHARS) {
     return `Workout name must be ${MAX_NAME_CHARS} characters or fewer.`;
-  }
-
-  if ((workoutNotes || '').length > MAX_NOTES_CHARS) {
-    return `Notes must be ${MAX_NOTES_CHARS} characters or fewer.`;
   }
 
   if (Array.isArray(savedWorkouts) && savedWorkouts.length >= MAX_SAVED_WORKOUTS) {

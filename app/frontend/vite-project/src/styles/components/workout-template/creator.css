@@ -23,18 +23,6 @@
   font-weight: 700;
 }
 
-.wt-label-optional {
-  font-weight: 400;
-  opacity: 0.6;
-  text-transform: none;
-  font-size: 11px;
-}
-
-.wt-notes-textarea:focus {
-  outline: none;
-  border-color: var(--accent, #4a90ff);
-}
-
 .wt-char-counter {
   display: block;
   text-align: right;
@@ -48,15 +36,6 @@
   color: #ff5a5a;
   opacity: 1;
   font-weight: 600;
-}
-
-.wt-card-notes {
-  font-size: 13px;
-  color: var(--text-secondary);
-  margin: 4px 0 8px;
-  line-height: 1.5;
-  white-space: pre-wrap;
-  word-break: break-word;
 }
 
 .wt-table-container {
