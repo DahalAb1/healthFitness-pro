@@ -1,15 +1,15 @@
 /* Nutrition Hub Styles */
 .nutrition-hub-container {
-  --background: #0F0F0F;
-  --surface: #1A1A1A;
+  --background: #0f0f0f;
+  --surface: #1a1a1a;
   --surface-alt: #222222;
   --border: #333333;
-  --accent: #4A90FF;
-  --text-primary: #FFFFFF;
-  --text-secondary: #A0A0A0;
+  --accent: #4a90ff;
+  --text-primary: #ffffff;
+  --text-secondary: #a0a0a0;
   --radius: 20px;
-  --success: #4AFF8C;
-  --danger: #FF4A4A;
+  --success: #4aff8c;
+  --danger: #ff4a4a;
 }
 
 .nutrition-hub-container {
@@ -18,6 +18,7 @@
   padding: 40px 5%;
   max-width: 1200px;
   margin: 0 auto;
+  overflow-x: hidden;
 }
 
 /* --- HERO --- */
@@ -82,9 +83,11 @@
 }
 
 .stat-strip {
-  display: inline-flex;
-  gap: 12px;
-  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 10px 0;
+  overflow-x: hidden;
 }
 
 .stat-pill {
@@ -116,7 +119,7 @@
 /* --- LAYOUT --- */
 .log-grid {
   display: grid;
-  grid-template-columns: 460px 1fr;
+  grid-template-columns: min(460px, 100%) 1fr;
   gap: 30px;
   align-items: start;
 }
@@ -227,7 +230,9 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
-  transition: border-color 0.15s, background 0.15s;
+  transition:
+    border-color 0.15s,
+    background 0.15s;
 }
 
 .draggable-food:hover {
@@ -580,6 +585,19 @@
   }
 }
 
+@media (max-width: 480px) {
+  .macro-gauges-row {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .macro-gauge-container {
+    width: 90px;
+    height: 90px;
+  }
+  .macro-gauge-value {
+    font-size: 0.9rem;
+  }
+}
 
 /* Logged item layout with macros */
 .logged-item-info {
@@ -597,9 +615,8 @@
   text-overflow: ellipsis;
 }
 
-
 .results-area::-webkit-scrollbar-track {
-  background: #1A1A1A;
+  background: #1a1a1a;
   border-radius: 3px;
 }
 
@@ -624,7 +641,7 @@
   font-weight: 800;
   letter-spacing: -0.5px;
   margin-bottom: 24px;
-  color: #4A90FF;
+  color: #4a90ff;
   text-transform: uppercase;
 }
 
@@ -647,12 +664,11 @@
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 1px;
-  color: #A0A0A0;
+  color: #a0a0a0;
 }
 
 .nutrition-day-meal-kcal {
   font-size: 12px;
   font-weight: 700;
-  color: #4A90FF;
+  color: #4a90ff;
 }
-
