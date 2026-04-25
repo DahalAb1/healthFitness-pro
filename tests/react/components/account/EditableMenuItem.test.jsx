@@ -90,4 +90,27 @@ describe('EditableMenuItem', () => {
     const { container } = renderItem({ valueGreen: true, editable: false });
     expect(container.querySelector('.account-mi-value--green')).toBeInTheDocument();
   });
+
+  it('does nothing when row is clicked and neither editable nor onClick are provided', () => {
+    // Neither editable nor onClick — handleRowClick should be a no-op
+    renderItem({ editable: false, onClick: undefined, value: 'info' });
+    fireEvent.click(screen.getByRole('button'));
+    // no edit form should appear and no error thrown
+    expect(screen.queryByRole('textbox')).toBeNull();
+  });
+
+  it('closes the edit form when Save is clicked even if onSave is not provided', () => {
+    renderItem({ editable: true, onSave: undefined });
+    fireEvent.click(screen.getByRole('button'));
+    expect(screen.getByRole('textbox')).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: 'Save' }));
+    expect(screen.queryByRole('textbox')).toBeNull();
+  });
+
+  it('triggers handleRowClick via keyboard Enter on the row div', () => {
+    renderItem({ editable: true });
+    // Fire Enter on the role="button" element to trigger onKeyDown
+    fireEvent.keyDown(screen.getByRole('button'), { key: 'Enter' });
+    expect(screen.getByRole('textbox')).toBeInTheDocument();
+  });
 });

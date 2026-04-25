@@ -144,4 +144,15 @@ describe('TemplateDetailPanel', () => {
     renderPanel({ template: { id: 2, name: 'Leg Day', description: '' } });
     expect(screen.queryByText('Chest, shoulders, and triceps.')).not.toBeInTheDocument();
   });
-});
+  it('uses empty object fallback when exercise has no details property', () => {
+    const exercisesNoDetails = [
+      {
+        exercise_id: 'ex-99',
+        target_sets: 2,
+        target_reps: 12,
+      },
+    ];
+    renderPanel({ exercises: exercisesNoDetails });
+    expect(screen.getByText('ex-99')).toBeInTheDocument();
+    expect(screen.getByText('2 sets × 12 reps')).toBeInTheDocument();
+  });});

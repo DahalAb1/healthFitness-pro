@@ -127,4 +127,12 @@ describe('MealSection', () => {
     fireEvent.dragOver(container.querySelector('.meal-section'));
     expect(onDragOver).toHaveBeenCalled();
   });
+
+  it('renders macro pills when item has protein_g, carbs_g, and fat_g', () => {
+    const items = [{ id: 1, name: 'Chicken', kcal: 165, protein_g: 31, carbs_g: 0, fat_g: 3.6 }];
+    renderSection({ items });
+    expect(screen.getByText('P 31g')).toBeInTheDocument();
+    expect(screen.getByText('C 0g')).toBeInTheDocument();
+    expect(screen.getByText('F 4g')).toBeInTheDocument();
+  });
 });

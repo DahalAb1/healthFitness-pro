@@ -144,6 +144,17 @@ describe('SessionDetail', () => {
       const dashes = screen.getAllByText('—');
       expect(dashes.length).toBeGreaterThanOrEqual(3);
     });
+
+    it('silently ignores meal logs with an unrecognised meal_type', () => {
+      const logsWithUnknownType = [
+        { id: 10, meal_type: 'snack', food_name: 'Apple', kcal: 100, protein_g: 1, carbs_g: 20, fat_g: 0 },
+      ];
+      renderDetail({ selectedDay: 5, mealLogs: logsWithUnknownType });
+      // NutritionSection renders because mealLogs.length > 0 – totals are computed
+      expect(screen.getByText('Nutrition')).toBeInTheDocument();
+      // but 'snack' is not a known meal_type, so no meal-section heading for it appears
+      expect(screen.queryByText('Snack')).not.toBeInTheDocument();
+    });
   });
 
   // -------------------------------------------------------------------------

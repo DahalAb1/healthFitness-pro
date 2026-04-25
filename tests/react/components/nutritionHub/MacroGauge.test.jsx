@@ -72,4 +72,11 @@ describe('CalorieGauge', () => {
     expect(screen.getByText('1800kcal')).toBeInTheDocument();
     expect(screen.getByText('left')).toBeInTheDocument();
   });
+
+  it('renders with pct=0 when goal is 0 (avoids division by zero)', () => {
+    const { container } = render(
+      <MacroGauge {...defaultProps} total={0} goal={0} onGoalChange={vi.fn()} />,
+    );
+    expect(container.querySelector('.macro-gauge-card')).toBeInTheDocument();
+  });
 });

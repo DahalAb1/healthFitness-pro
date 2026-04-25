@@ -211,4 +211,12 @@ describe('FoodSearch', () => {
     fireEvent.change(screen.getByPlaceholderText('Fat (g)'), { target: { value: '15' } });
     expect(onCustomFatChange).toHaveBeenCalledWith('15');
   });
+
+  it('renders macro pills when food has protein_g, carbs_g, and fat_g', () => {
+    const results = [{ name: 'Salmon', kcal: 208, serving_description: '', protein_g: 20, carbs_g: 0, fat_g: 13 }];
+    renderSearch({ searchResults: results });
+    expect(screen.getByText('P 20g')).toBeInTheDocument();
+    expect(screen.getByText('C 0g')).toBeInTheDocument();
+    expect(screen.getByText('F 13g')).toBeInTheDocument();
+  });
 });

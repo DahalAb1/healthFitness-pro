@@ -185,4 +185,43 @@ describe('CustomCreatorView', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Hide' }));
     expect(screen.queryByText('Squat')).not.toBeInTheDocument();
   });
+
+  it('renders exercise image in the library modal when image_url is provided', async () => {
+    getExercises.mockResolvedValue([
+      { name: 'Deadlift', muscle_group: 'back', equipment: 'barbell', image_url: 'https://example.com/deadlift.gif' },
+    ]);
+    renderView();
+    fireEvent.click(screen.getByRole('button', { name: '+ Add Exercise From Library' }));
+    await waitFor(() => expect(screen.getByText('Deadlift')).toBeInTheDocument());
+    expect(screen.getByRole('img', { name: 'Deadlift' })).toBeInTheDocument();
+  });
+
+  it('uses exercise name as key when exercise has no id', async () => {
+    getExercises.mockResolvedValue([
+      { name: 'Pull Up', muscle_group: 'back', equipment: 'bodyweight' },
+    ]);
+    renderView();
+    fireEvent.click(screen.getByRole('button', { name: '+ Add Exercise From Library' }));
+    await waitFor(() => expect(screen.getByText('Pull Up')).toBeInTheDocument());
+  });
+
+  it('filters exercises when typing in the library search input', async () => {
+    getExercises.mockResolvedValue([
+      { id: 'e1', name: 'Bench Press', muscle_group: 'chest', equipment: 'barbell' },
+      { id: 'e2', name: 'Squat', muscle_group: 'legs', equipment: 'barbell' },
+    ]);
+    renderView();
+    fireEvent.click(screen.getByRole('button', { name: '+ Add Exercise From Library' }));
+    await waitFor(() => expect(screen.getByText('Bench Press')).toBeInTheDocument());
+    fireEvent.change(screen.getByPlaceholderText('Search exercises...'), { target: { value: 'bench' } });
+    expect(screen.getByText('Bench Press')).toBeInTheDocument();
+    expect(screen.queryByText('Squat')).not.toBeInTheDocument();
+  });
+
+  it('shows 0 EXERCISES for a saved workout that has no exercises property', async () => {
+    getUserWorkouts.mockResolvedValue([{ id: 10, name: 'No Exs Workout' }]);
+    renderView();
+    await waitFor(() => expect(screen.getByText('No Exs Workout')).toBeInTheDocument());
+    expect(screen.getByText('0 EXERCISES')).toBeInTheDocument();
+  });
 });

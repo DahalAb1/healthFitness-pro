@@ -39,4 +39,14 @@ describe('SecuritySection', () => {
     const { container } = render(<SecuritySection onSignOut={vi.fn()} />);
     expect(container.querySelector('.account-menu-item--danger')).toBeInTheDocument();
   });
+
+  it('invokes the Change Password no-op onSave when the edit panel is saved', () => {
+    render(<SecuritySection onSignOut={vi.fn()} />);
+    // Open the edit panel for Change Password
+    fireEvent.click(screen.getByText('Change Password').closest('[role="button"]'));
+    // Click Save to invoke the inline onSave={() => {}} callback
+    fireEvent.click(screen.getByRole('button', { name: 'Save' }));
+    // Component remains functional after the no-op save
+    expect(screen.getByText('Change Password')).toBeInTheDocument();
+  });
 });

@@ -146,4 +146,28 @@ describe('NutritionTrends component', () => {
     render(<NutritionTrends />);
     expect(screen.getByText(/avg protein/i)).toBeInTheDocument();
   });
+
+  it('shows avg carbs stat when activeMacro is "carbs"', () => {
+    hookState = {
+      ...DEFAULT_HOOK_STATE,
+      activeMacro: 'carbs',
+      filteredPoints: [{ date: '2026-04-01', kcal: 2000, protein_g: 150, carbs_g: 200, fat_g: 70 }],
+      chartData: { labels: ['2026-04-01'], datasets: [{ label: 'Carbs (g)', data: [200] }] },
+      summaryStats: { avgKcal: 2000, avgProtein: 150, avgCarbs: 200, avgFat: 70, days: 1 },
+    };
+    render(<NutritionTrends />);
+    expect(screen.getByText(/avg carbs/i)).toBeInTheDocument();
+  });
+
+  it('shows avg fat stat when activeMacro is "fat"', () => {
+    hookState = {
+      ...DEFAULT_HOOK_STATE,
+      activeMacro: 'fat',
+      filteredPoints: [{ date: '2026-04-01', kcal: 2000, protein_g: 150, carbs_g: 200, fat_g: 70 }],
+      chartData: { labels: ['2026-04-01'], datasets: [{ label: 'Fat (g)', data: [70] }] },
+      summaryStats: { avgKcal: 2000, avgProtein: 150, avgCarbs: 200, avgFat: 70, days: 1 },
+    };
+    render(<NutritionTrends />);
+    expect(screen.getByText(/avg fat/i)).toBeInTheDocument();
+  });
 });
