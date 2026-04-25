@@ -1,8 +1,8 @@
 /* Nutrition Hub Styles */
 .nutrition-hub-container {
   --radius: 20px;
-  --success: #4AFF8C;
-  --danger: #FF4A4A;
+  --success: var(--accent-green);
+  --danger: var(--accent-red);
 }
 
 .nutrition-hub-container {
@@ -225,7 +225,7 @@
 
 .draggable-food:hover {
   border-color: var(--accent);
-  background: #1e2a3a;
+  background: var(--section-alt-bg);
 }
 
 .draggable-food:active {
@@ -275,12 +275,12 @@
 
 .meal-section.drag-over {
   border-color: var(--accent);
-  background: rgba(74, 144, 255, 0.05);
+  background: var(--accent-soft-bg);
 }
 
 .meal-header {
   padding: 10px 14px;
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--surface-alt);
   border-bottom: 1px solid var(--border);
   display: flex;
   justify-content: space-between;
@@ -404,19 +404,19 @@
 }
 
 .macro-protein {
-  color: #4aff8c;
+  color: var(--accent-green);
   border-color: rgba(74, 255, 140, 0.35);
   background: rgba(74, 255, 140, 0.07);
 }
 
 .macro-carbs {
-  color: #ffc94a;
+  color: var(--accent-yellow);
   border-color: rgba(255, 201, 74, 0.35);
   background: rgba(255, 201, 74, 0.07);
 }
 
 .macro-fat {
-  color: #ff8c4a;
+  color: var(--accent-red);
   border-color: rgba(255, 140, 74, 0.35);
   background: rgba(255, 140, 74, 0.07);
 }
@@ -440,17 +440,17 @@
 /* Hero stat strip macro pills */
 .macro-stat-protein {
   border-color: rgba(74, 255, 140, 0.5) !important;
-  color: #4aff8c !important;
+  color: var(--accent-green) !important;
 }
 
 .macro-stat-carbs {
   border-color: rgba(255, 201, 74, 0.5) !important;
-  color: #ffc94a !important;
+  color: var(--accent-yellow) !important;
 }
 
 .macro-stat-fat {
   border-color: rgba(255, 140, 74, 0.5) !important;
-  color: #ff8c4a !important;
+  color: var(--accent-red) !important;
 }
 
 /* --- MACRO GAUGES --- */
@@ -597,12 +597,12 @@
 }
 
 .results-area::-webkit-scrollbar-thumb {
-  background: #444;
+  background: var(--field-border);
   border-radius: 3px;
 }
 
 .results-area::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  background: var(--border);
 }
 
 /* ===== NUTRITION CALENDAR ===== */
@@ -617,7 +617,7 @@
   font-weight: 800;
   letter-spacing: -0.5px;
   margin-bottom: 24px;
-  color: #4A90FF;
+  color: var(--accent);
   text-transform: uppercase;
 }
 
@@ -632,7 +632,7 @@
   align-items: center;
   padding: 8px 0;
   margin-bottom: 6px;
-  border-bottom: 1px solid #2a2a2a;
+  border-bottom: 1px solid var(--border);
 }
 
 .nutrition-day-meal-title {
@@ -640,12 +640,12 @@
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 1px;
-  color: #A0A0A0;
+  color: var(--text-secondary);
 }
 
 .nutrition-day-meal-kcal {
   font-size: 12px;
   font-weight: 700;
-  color: #4A90FF;
+  color: var(--accent);
 }
 

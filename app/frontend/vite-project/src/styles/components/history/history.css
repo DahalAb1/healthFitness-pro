@@ -28,7 +28,7 @@
 
 .month-nav h2 {
   font-size: 1.5rem;
-  color: #4A90FF;
+  color: var(--accent);
   text-transform: uppercase;
   letter-spacing: 1px;
 }
@@ -46,7 +46,7 @@
 }
 
 .month-nav button:hover {
-  border-color: #4A90FF;
+  border-color: var(--accent);
 }
 
 .month-grid {
@@ -78,14 +78,14 @@
 }
 
 .calendar-day:hover:not(.empty) {
-  border-color: #4A90FF;
-  background: #1a1a1a;
+  border-color: var(--accent);
+  background: var(--surface-hover);
 }
 
 .calendar-day.selected {
-  border-color: #4A90FF;
-  background: rgba(74, 144, 255, 0.1);
-  color: #4A90FF;
+  border-color: var(--accent);
+  background: var(--accent-soft-bg);
+  color: var(--accent);
   font-weight: 700;
 }
 
@@ -97,8 +97,8 @@
 
 /* Today highlight */
 .calendar-day.today {
-  border-color: #4A90FF;
-  color: #4A90FF;
+  border-color: var(--accent);
+  color: var(--accent);
   font-weight: 700;
 }
 
@@ -116,7 +116,7 @@
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  background: #4A90FF;
+  background: var(--accent);
 }
 
 .calendar-day.selected.has-workout::after {
@@ -136,7 +136,7 @@
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  background: #4AFF8C;
+  background: var(--accent-green);
 }
 
 .calendar-day.selected.has-nutrition::before {
@@ -169,19 +169,19 @@
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 1px;
-  color: #A0A0A0;
+  color: var(--text-secondary);
   padding-bottom: 8px;
   margin-bottom: 10px;
-  border-bottom: 1px solid #2a2a2a;
+  border-bottom: 1px solid var(--border);
 }
 
 .day-detail-section-total {
-  color: #4A90FF;
+  color: var(--accent);
   font-weight: 700;
 }
 
 .day-detail-macro-text {
-  color: lightgrey;
+  color: var(--text-secondary);
   font-size: 12px;
   font-weight: 500;
 }
@@ -219,49 +219,49 @@
 }
 
 .history-macro-summary .macro-protein {
-  color: #4aff8c;
+  color: var(--accent-green);
   border-color: rgba(74, 255, 140, 0.35);
   background: rgba(74, 255, 140, 0.07);
 }
 
 .history-macro-summary .macro-carbs {
-  color: #ffc94a;
+  color: var(--accent-yellow);
   border-color: rgba(255, 201, 74, 0.35);
   background: rgba(255, 201, 74, 0.07);
 }
 
 .history-macro-summary .macro-fat {
-  color: #ff8c4a;
+  color: var(--accent-red);
   border-color: rgba(255, 140, 74, 0.35);
   background: rgba(255, 140, 74, 0.07);
 }
 
 .history-macro-summary .macro-kcal {
-  color: #4A90FF;
+  color: var(--accent);
   border-color: rgba(74, 144, 255, 0.35);
   background: rgba(74, 144, 255, 0.07);
 }
 
 .day-detail-meal-kcal {
   font-size: 12px;
-  color: #4AFF8C;
+  color: var(--accent-green);
   font-weight: 700;
   margin-left: 10px;
 }
 
 .selected-date-header {
   font-size: 1.1rem;
-  color: #4A90FF;
+  color: var(--accent);
 }
 
 .workout-duration {
-  color: #ccc;
+  color: var(--text-primary);
   font-size: 14px;
   margin-bottom: 12px;
 }
 
 .workout-placeholder {
-  color: #666;
+  color: var(--text-secondary);
   font-size: 14px;
 }
 
@@ -291,17 +291,17 @@
 .exercise-table th {
   text-align: left;
   padding: 6px 12px;
-  color: #888;
+  color: var(--text-secondary);
   font-weight: 600;
   text-transform: uppercase;
   font-size: 11px;
-  border-bottom: 1px solid #333;
+  border-bottom: 1px solid var(--border);
 }
 
 .exercise-table td {
   padding: 8px 12px;
-  color: #ddd;
-  border-bottom: 1px solid #1f1f1f;
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--border);
 }
 
 .exercise-table tr:last-child td {
@@ -317,8 +317,8 @@
   max-width: 1100px;
   margin: 0 auto 100px;
   padding: 40px;
-  background: #1A1A1A;
-  border: 1px solid #333333;
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 12px;
 }
 
@@ -336,16 +336,16 @@
 .time-filters {
   display: flex;
   gap: 5px;
-  background: #0F0F0F;
+  background: var(--background);
   padding: 5px;
   border-radius: 10px;
-  border: 1px solid #333333;
+  border: 1px solid var(--border);
 }
 
 .filter-btn {
   background: transparent;
   border: none;
-  color: #A0A0A0;
+  color: var(--text-secondary);
   padding: 8px 16px;
   border-radius: 8px;
   font-size: 11px;
@@ -356,17 +356,17 @@
 }
 
 .filter-btn.active {
-  background: #4A90FF;
-  color: white;
+  background: var(--accent);
+  color: var(--on-accent-text);
 }
 
 .chart-container {
   width: 100%;
   height: 400px;
-  background: #0F0F0F;
+  background: var(--background);
   border-radius: 8px;
   padding: 20px;
-  border: 1px solid #333333;
+  border: 1px solid var(--border);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -381,10 +381,10 @@
 
 .trends-input {
   flex: 1;
-  background: #111;
-  border: 1px solid #333;
+  background: var(--field-background);
+  border: 1px solid var(--border);
   border-radius: 8px;
-  color: #fff;
+  color: var(--text-primary);
   padding: 10px 14px;
   font-size: 14px;
   outline: none;
@@ -392,12 +392,12 @@
 }
 
 .trends-input:focus {
-  border-color: #4A90FF;
+  border-color: var(--accent);
 }
 
 .trends-search-btn {
-  background: #4A90FF;
-  color: #fff;
+  background: var(--accent);
+  color: var(--on-accent-text);
   border: none;
   border-radius: 8px;
   padding: 10px 20px;
@@ -408,7 +408,7 @@
 }
 
 .trends-search-btn:hover {
-  background: #3a7fd5;
+  filter: brightness(0.94);
 }
 
 /* Stats row */
@@ -417,32 +417,32 @@
   gap: 24px;
   margin-bottom: 16px;
   font-size: 13px;
-  color: #888;
+  color: var(--text-secondary);
 }
 
 .trends-stats strong {
-  color: #ddd;
+  color: var(--text-primary);
 }
 
 .stat-up {
-  color: #4caf50;
+  color: var(--accent-green);
   font-weight: 700;
 }
 
 .stat-down {
-  color: #f44336;
+  color: var(--accent-red);
   font-weight: 700;
 }
 
 /* Empty / error state */
 .trends-empty {
-  color: #555;
+  color: var(--text-secondary);
   font-size: 14px;
   text-align: center;
 }
 
 .trends-error {
-  color: #f44336;
+  color: var(--accent-red);
 }
 
 /* Macro toggle buttons */
@@ -458,8 +458,8 @@
   align-items: center;
   gap: 6px;
   background: transparent;
-  border: 1px solid #333;
-  color: #666;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
   border-radius: 20px;
   padding: 5px 14px;
   font-size: 12px;
@@ -471,8 +471,8 @@
 }
 
 .macro-toggle-btn:hover {
-  border-color: #555;
-  color: #aaa;
+  border-color: var(--field-border);
+  color: var(--text-secondary);
 }
 
 .macro-toggle-dot {
@@ -513,7 +513,7 @@
 }
 
 [data-theme='light'] .calendar-day:hover:not(.empty) {
-  background: #e4ebf8;
+  background: var(--surface-hover);
 }
 
 [data-theme='light'] .workout-duration,

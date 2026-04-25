@@ -12,6 +12,10 @@
   --accent-yellow: #ffd43b;
   --text-primary: #FFFFFF;
   --text-secondary: #A0A0A0;
+  --text-muted: #7f8aa3;
+  --surface-hover: #232323;
+  --accent-soft-bg: rgba(74, 144, 255, 0.12);
+  --on-accent-text: #ffffff;
   --hero-title-color: #ffffff;
   --hero-subtitle-color: #d4dae6;
   --hero-section-gradient: linear-gradient(rgba(15, 15, 15, 0.82), rgba(15, 15, 15, 1));
@@ -39,6 +43,10 @@
   --accent-yellow: #f59f00;
   --text-primary: #1a2332;
   --text-secondary: #6b7a8e;
+  --text-muted: #7e8ea7;
+  --surface-hover: #e8edf6;
+  --accent-soft-bg: rgba(45, 110, 234, 0.12);
+  --on-accent-text: #ffffff;
   --hero-title-color: #1a2332;
   --hero-subtitle-color: #5d6f88;
   --hero-section-gradient: linear-gradient(rgba(250, 251, 252, 0.9), rgba(240, 241, 245, 0.98));
