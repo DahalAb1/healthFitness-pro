@@ -27,7 +27,7 @@ class ExerciseClient:
 
     def get_exercises(self, body_part: str = None, limit: int = 10):
         """Fetch exercises from the API, optionally filtered by body part."""
-        if body_part in ("biceps", "triceps"):
+        if body_part in self._target_muscles:
             url = f"{self.BASE_URL}/exercises/target/{body_part}"
         elif body_part:
             url = f"{self.BASE_URL}/exercises/bodyPart/{body_part}"
