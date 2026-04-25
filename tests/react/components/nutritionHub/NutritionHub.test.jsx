@@ -5,6 +5,7 @@ vi.mock('@/assets/food_pyramid.jpg', () => ({ default: 'food_pyramid.jpg' }));
 
 const mockAddToMeal = vi.fn();
 const mockRemoveFromMeal = vi.fn();
+const mockUseFoodSearch = vi.fn();
 
 vi.mock('@/hooks/useMeals', () => ({
   MEAL_TYPES: ['breakfast', 'lunch', 'dinner', 'misc'],
@@ -23,18 +24,26 @@ vi.mock('@/hooks/useMeals', () => ({
 }));
 
 vi.mock('@/hooks/useFoodSearch', () => ({
-  useFoodSearch: () => ({
-    searchQuery: '',
-    setSearchQuery: vi.fn(),
-    searchResults: [],
-    isSearching: false,
-    customName: '',
-    setCustomName: vi.fn(),
-    customKcal: '',
-    setCustomKcal: vi.fn(),
-    handleAddCustom: vi.fn(),
-  }),
+  useFoodSearch: () => mockUseFoodSearch(),
 }));
+
+const defaultFoodSearchReturn = {
+  searchQuery: '',
+  setSearchQuery: vi.fn(),
+  searchResults: [],
+  isSearching: false,
+  customName: '',
+  setCustomName: vi.fn(),
+  customKcal: '',
+  setCustomKcal: vi.fn(),
+  customProtein: '',
+  setCustomProtein: vi.fn(),
+  customCarbs: '',
+  setCustomCarbs: vi.fn(),
+  customFat: '',
+  setCustomFat: vi.fn(),
+  handleAddCustom: vi.fn(),
+};
 
 import NutritionPage from '@/components/nutritionHub/NutritionHub';
 
@@ -46,6 +55,7 @@ describe('NutritionHub (NutritionPage)', () => {
   beforeEach(() => {
     mockAddToMeal.mockReset();
     mockRemoveFromMeal.mockReset();
+    mockUseFoodSearch.mockReturnValue(defaultFoodSearchReturn);
   });
 
   it('renders the "Nutrition" page heading', () => {
@@ -124,5 +134,43 @@ describe('NutritionHub (NutritionPage)', () => {
     });
     fireEvent(section, dropEvent);
     expect(mockAddToMeal).toHaveBeenCalledWith('breakfast', food);
+  });
+
+  it('adds drag-over class when dragover fires on a meal section', () => {
+    const { container } = renderPage();
+    const section = container.querySelector('.meal-section');
+    fireEvent.dragOver(section);
+    expect(section).toHaveClass('drag-over');
+  });
+
+  it('removes drag-over class when dragleave fires on a meal section', () => {
+    const { container } = renderPage();
+    const section = container.querySelector('.meal-section');
+    // first add the class via dragover
+    fireEvent.dragOver(section);
+    expect(section).toHaveClass('drag-over');
+    // then remove via dragleave
+    fireEvent.dragLeave(section);
+    expect(section).not.toHaveClass('drag-over');
+  });
+
+  it('calls dataTransfer.setData when handleDragStart is invoked via a draggable food item', () => {
+    const food = { name: 'Chicken', kcal: 200, serving_description: '100g' };
+    mockUseFoodSearch.mockReturnValue({
+      ...defaultFoodSearchReturn,
+      searchResults: [food],
+    });
+    const { container } = renderPage();
+    const draggable = container.querySelector('.draggable-food');
+    expect(draggable).not.toBeNull();
+
+    const setData = vi.fn();
+    const dragStartEvent = new Event('dragstart', { bubbles: true });
+    Object.defineProperty(dragStartEvent, 'dataTransfer', {
+      value: { setData, effectAllowed: '' },
+      writable: false,
+    });
+    fireEvent(draggable, dragStartEvent);
+    expect(setData).toHaveBeenCalledWith('application/json', JSON.stringify(food));
   });
 });
