@@ -1,0 +1,12 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.13.12, pytest-9.0.3, pluggy-1.6.0 -- /Users/connorlopez/Desktop/Projects/Software Engineering 2026/main_application/venv/bin/python3.13
+cachedir: .pytest_cache
+rootdir: /Users/connorlopez/Desktop/Projects/Software Engineering 2026/main_application
+plugins: anyio-4.12.1
+collecting ... collected 3 items
+
+tests/backend/test_nutrition.py::test_search_foods_returns_nutrition_results PASSED [ 33%]
+tests/backend/test_nutrition.py::test_add_meal_log_creates_entry PASSED  [ 66%]
+tests/backend/test_nutrition.py::test_nutrition_trends_returns_daily_macro_totals PASSED [100%]
+
+============================== 3 passed in 0.48s ===============================
