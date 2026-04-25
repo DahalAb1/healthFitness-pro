@@ -274,13 +274,57 @@
   align-items: center;
   justify-content: space-between;
   gap: 12px;
+  margin-bottom: 20px;
 }
 
 .wt-saved-workouts h3 {
   margin: 0;
-  margin-bottom: 20px;
   border-left: 4px solid var(--accent);
   padding-left: 15px;
+}
+
+.wt-saved-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.wt-saved-filter {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.wt-saved-filter select {
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  border-radius: 6px;
+  padding: 7px 10px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.wt-saved-filter select:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+/* Ensure native dropdown option text remains visible across OS/browser themes. */
+.wt-saved-filter select option {
+  background: #ffffff;
+  color: #1a2332;
+}
+
+[data-theme='dark'] .wt-saved-filter select option {
+  background: #111318;
+  color: #eef3ff;
 }
 
 .wt-saved-toggle {
@@ -295,6 +339,13 @@
 
 .wt-saved-toggle:hover {
   border-color: var(--accent);
+}
+
+@media (max-width: 760px) {
+  .wt-saved-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
 }
 
 .wt-empty-state {
