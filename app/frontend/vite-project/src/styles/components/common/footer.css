@@ -51,11 +51,11 @@
 }
 
 [data-theme='light'] .footer {
-  background: linear-gradient(180deg, #ffffff 0%, #f5f6f8 100%);
+  background: linear-gradient(180deg, var(--surface-alt) 0%, var(--surface) 100%);
 }
 
 [data-theme='light'] .footer-col ul li a {
-  color: #5f6f87;
+  color: var(--text-secondary);
 }
 
 [data-theme='light'] .footer-col ul li a:hover {

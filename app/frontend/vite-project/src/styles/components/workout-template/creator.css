@@ -71,12 +71,12 @@
 }
 
 .wt-row-dragging td {
-  background: rgba(74, 144, 255, 0.08);
+  background: var(--accent-soft-bg);
 }
 
 .wt-row-drop-target td {
-  background: rgba(74, 144, 255, 0.14);
-  border-bottom-color: rgba(74, 144, 255, 0.65);
+  background: var(--accent-soft-bg);
+  border-bottom-color: var(--accent-border-strong);
 }
 
 .wt-workout-table .wt-col-action {
@@ -254,8 +254,9 @@
 
 .wt-btn-save {
   margin-top: 16px;
-  background: linear-gradient(135deg, var(--accent-blue), #2d5fc7);
-  box-shadow: 0 10px 28px rgba(74, 144, 255, 0.3);
+  background: linear-gradient(135deg, var(--accent-blue), var(--accent-blue-strong));
+  color: var(--on-accent-text);
+  box-shadow: 0 10px 28px var(--accent-shadow);
 }
 
 .wt-btn-save:disabled {
@@ -385,7 +386,8 @@
 .wt-error-btn {
   width: 100%;
   margin-top: 0;
-  background: linear-gradient(135deg, #4a90ff, #2f6fce);
+  background: linear-gradient(135deg, var(--accent-blue), var(--accent-blue-strong));
+  color: var(--on-accent-text);
 }
 
 /* ── Library Modal ─────────────────────────────────────────────── */
@@ -481,7 +483,7 @@
 
 .wt-library-item:hover {
   border-color: var(--accent);
-  background: rgba(74, 144, 255, 0.06);
+  background: var(--accent-soft-bg);
 }
 
 .wt-library-item-img {
@@ -537,17 +539,17 @@
 
 .wt-btn-customize {
   background: var(--surface-alt);
-  border: 1px solid rgba(45, 110, 234, 0.27);
+  border: 1px solid var(--accent-blue-border-soft);
   color: var(--accent);
 }
 
 .wt-btn-customize:hover { border-color: var(--accent); }
 
 .wt-btn-begin {
-  background: linear-gradient(135deg, var(--accent-blue), #2d5fc7);
+  background: linear-gradient(135deg, var(--accent-blue), var(--accent-blue-strong));
   border: none;
-  color: white;
-  box-shadow: 0 4px 12px rgba(74, 144, 255, 0.25);
+  color: var(--on-accent-text);
+  box-shadow: 0 4px 12px var(--accent-shadow-soft);
 }
 
 .wt-btn-delete {

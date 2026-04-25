@@ -7,6 +7,11 @@
   --border: #333333;
   --accent: #4A90FF;
   --accent-blue: #4A90FF;
+  --accent-blue-strong: #2f6fce;
+  --accent-blue-border-soft: rgba(74, 144, 255, 0.27);
+  --accent-shadow: rgba(74, 144, 255, 0.30);
+  --accent-shadow-soft: rgba(74, 144, 255, 0.25);
+  --accent-border-strong: rgba(74, 144, 255, 0.65);
   --accent-red: #ff6b6b;
   --accent-green: #51cf66;
   --accent-yellow: #ffd43b;
@@ -32,32 +37,37 @@
 }
 
 [data-theme='light'] {
-  --background: #fafbfc;
-  --surface: #ffffff;
-  --surface-alt: #f5f6f8;
-  --section-alt-bg: #f0f1f5;
+  --background: #f2efe9;
+  --surface: #ede9e1;
+  --surface-alt: #ffffff;
+  --section-alt-bg: #e6e1d8;
   --border: #dfe2e8;
-  --accent: #2d6eea;
-  --accent-blue: #2d6eea;
+  --accent: #89CFF0;
+  --accent-blue: #89CFF0;
+  --accent-blue-strong: #6fbfdf;
+  --accent-blue-border-soft: rgba(137, 207, 240, 0.45);
+  --accent-shadow: rgba(111, 191, 223, 0.34);
+  --accent-shadow-soft: rgba(111, 191, 223, 0.28);
+  --accent-border-strong: rgba(111, 191, 223, 0.68);
   --accent-red: #e03131;
   --accent-green: #2f9e44;
   --accent-yellow: #f59f00;
   --text-primary: #1a2332;
   --text-secondary: #6b7a8e;
   --text-muted: #7e8ea7;
-  --surface-hover: #e8edf6;
-  --accent-soft-bg: rgba(45, 110, 234, 0.12);
-  --on-accent-text: #ffffff;
+  --surface-hover: #e0dacf;
+  --accent-soft-bg: rgba(137, 207, 240, 0.2);
+  --on-accent-text: #103646;
   --gauge-track: #d8deea;
   --hero-title-color: #1a2332;
   --hero-subtitle-color: #5d6f88;
-  --hero-section-gradient: linear-gradient(rgba(250, 251, 252, 0.9), rgba(240, 241, 245, 0.98));
-  --hero-image-overlay-gradient: linear-gradient(rgba(255, 255, 255, 0.66), rgba(240, 241, 245, 0.95));
-  --nav-background: rgba(250, 251, 252, 0.95);
+  --hero-section-gradient: linear-gradient(rgba(242, 239, 233, 0.9), rgba(230, 225, 216, 0.98));
+  --hero-image-overlay-gradient: linear-gradient(rgba(255, 255, 255, 0.66), rgba(230, 225, 216, 0.95));
+  --nav-background: rgba(242, 239, 233, 0.95);
   --card-shadow: 0 12px 24px rgba(26, 35, 50, 0.06);
   --field-background: #ffffff;
   --field-border: #d4d7df;
-  --surface-gradient: linear-gradient(160deg, #ffffff 0%, #f5f6f8 100%);
+  --surface-gradient: linear-gradient(160deg, #ede9e1 0%, #ffffff 100%);
   --hero-image-dim: 0.70;
   --hero-overlay-filter: brightness(0.68);
 }
