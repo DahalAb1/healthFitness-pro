@@ -151,4 +151,28 @@ describe('SignUpPage', () => {
       expect(screen.getByRole('button', { name: 'Creating account...' })).toBeInTheDocument(),
     );
   });
+
+  it('toggles password visibility when the eye button is clicked', () => {
+    renderPage();
+    const pwInput = getPw();
+    expect(pwInput).toHaveAttribute('type', 'password');
+    const toggleBtns = screen.getAllByRole('button', { name: 'Toggle password visibility' });
+    fireEvent.click(toggleBtns[0]);
+    expect(getPw()).toHaveAttribute('type', 'text');
+    // toggle back
+    fireEvent.click(toggleBtns[0]);
+    expect(getPw()).toHaveAttribute('type', 'password');
+  });
+
+  it('toggles confirm-password visibility when the eye button is clicked', () => {
+    renderPage();
+    const confirmInput = getConfirm();
+    expect(confirmInput).toHaveAttribute('type', 'password');
+    const toggleBtns = screen.getAllByRole('button', { name: 'Toggle password visibility' });
+    fireEvent.click(toggleBtns[1]);
+    expect(getConfirm()).toHaveAttribute('type', 'text');
+    // toggle back
+    fireEvent.click(toggleBtns[1]);
+    expect(getConfirm()).toHaveAttribute('type', 'password');
+  });
 });
