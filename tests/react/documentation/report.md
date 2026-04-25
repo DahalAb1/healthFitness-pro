@@ -1,0 +1,1 @@
+The report for these unit tests is inside the index.html file in app/frontend/vite-project/coverage. 
