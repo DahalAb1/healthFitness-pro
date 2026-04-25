@@ -177,4 +177,12 @@ describe('ActiveWorkoutPage', () => {
       expect(screen.getByText(/no exercises found/i)).toBeInTheDocument(),
     );
   });
+
+  it('navigates to /workout-template when "Go back" is clicked in empty state', async () => {
+    getTemplateExercises.mockResolvedValue({ exercises: [] });
+    renderPage();
+    await waitFor(() => expect(screen.getByRole('button', { name: 'Go back' })).toBeInTheDocument());
+    fireEvent.click(screen.getByRole('button', { name: 'Go back' }));
+    expect(mockNavigate).toHaveBeenCalledWith('/workout-template');
+  });
 });

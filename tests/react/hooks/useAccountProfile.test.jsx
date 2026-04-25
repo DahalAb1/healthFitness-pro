@@ -166,4 +166,64 @@ describe('useAccountProfile', () => {
       expect(result.current.weightLbs).toBe(150);
     });
   });
+
+  // -----------------------------------------------------------------------
+  // Branch coverage additions
+  // -----------------------------------------------------------------------
+
+  it('profile.email defaults to "" and profile.displayName to "" when user has no email', () => {
+    mockUser = { display_name: null, units: 'Imperial', workout_sounds: 'On', notifications: 'On' };
+    const { result } = renderHook(() => useAccountProfile());
+    expect(result.current.profile.email).toBe('');
+    expect(result.current.profile.displayName).toBe('');
+  });
+
+  it('useEffect re-sync: email and displayName fall back to "" when user has no email or display_name', async () => {
+    const { result, rerender } = renderHook(() => useAccountProfile());
+    expect(result.current.profile.email).toBe('user@test.com');
+
+    mockUser = { units: 'Metric', workout_sounds: 'Off', notifications: 'Off' }; // no email, no display_name
+    rerender();
+
+    await waitFor(() => {
+      expect(result.current.profile.email).toBe('');
+      expect(result.current.profile.displayName).toBe('');
+    });
+  });
+
+  it('useEffect returns early when user becomes null', async () => {
+    const { result, rerender } = renderHook(() => useAccountProfile());
+    const originalEmail = result.current.profile.email;
+
+    mockUser = null;
+    rerender();
+    await act(async () => {});
+    // State is unchanged because useEffect returned early
+    expect(result.current.profile.email).toBe(originalEmail);
+  });
+
+  it('saveProfile handles a non-ok response without throwing', async () => {
+    mockFetch = vi.fn().mockResolvedValue({
+      ok: false,
+      text: vi.fn().mockResolvedValue('Bad Request'),
+    });
+    vi.stubGlobal('fetch', mockFetch);
+    const { result } = renderHook(() => useAccountProfile());
+    await act(async () => {
+      await result.current.saveProfile({ units: 'Metric' });
+    });
+    expect(mockFetch).toHaveBeenCalled();
+    // No throw means the !res.ok branch was handled correctly
+  });
+
+  it('saveProfile handles a fetch error without throwing (catch branch)', async () => {
+    mockFetch = vi.fn().mockRejectedValue(new Error('Network error'));
+    vi.stubGlobal('fetch', mockFetch);
+    const { result } = renderHook(() => useAccountProfile());
+    await act(async () => {
+      await result.current.saveProfile({ units: 'Metric' });
+    });
+    // catch block ran without crashing
+    expect(mockFetch).toHaveBeenCalled();
+  });
 });

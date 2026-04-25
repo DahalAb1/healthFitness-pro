@@ -69,4 +69,48 @@ describe('WeightStepper', () => {
     expect(onChange).not.toHaveBeenCalled();
     expect(screen.queryByRole('textbox')).toBeNull();
   });
+
+  it('calls onChange with kg+1 converted to lbs when Increase clicked (Metric)', () => {
+    const onChange = vi.fn();
+    // 154 lbs ≈ 70 kg; after +1 kg → 71 kg → ~157 lbs
+    renderStepper({ weightLbs: 154, units: 'Metric', onChange });
+    fireEvent.click(screen.getByRole('button', { name: 'Increase' }));
+    const kg = Math.round(154 * 0.453592);
+    expect(onChange).toHaveBeenCalledWith(Math.round((kg + 1) / 0.453592));
+  });
+
+  it('calls onChange with kg-1 converted to lbs when Decrease clicked (Metric)', () => {
+    const onChange = vi.fn();
+    renderStepper({ weightLbs: 154, units: 'Metric', onChange });
+    fireEvent.click(screen.getByRole('button', { name: 'Decrease' }));
+    const kg = Math.round(154 * 0.453592);
+    expect(onChange).toHaveBeenCalledWith(Math.max(1, Math.round((kg - 1) / 0.453592)));
+  });
+
+  it('enters edit mode showing kg value when Metric and value is clicked', () => {
+    // 154 lbs ≈ 70 kg
+    renderStepper({ weightLbs: 154, units: 'Metric' });
+    fireEvent.click(screen.getByText('70 kg'));
+    expect(screen.getByRole('textbox')).toHaveValue('70');
+  });
+
+  it('saves a Metric kg input and calls onChange with converted lbs', () => {
+    const onChange = vi.fn();
+    renderStepper({ weightLbs: 154, units: 'Metric', onChange });
+    fireEvent.click(screen.getByText('70 kg'));
+    const input = screen.getByRole('textbox');
+    fireEvent.change(input, { target: { value: '70' } });
+    fireEvent.keyDown(input, { key: 'Enter' });
+    expect(onChange).toHaveBeenCalledWith(Math.round(70 / 0.453592));
+  });
+
+  it('does not call onChange when saved value is invalid (zero)', () => {
+    const onChange = vi.fn();
+    renderStepper({ weightLbs: 160, units: 'Imperial', onChange });
+    fireEvent.click(screen.getByText('160 lbs'));
+    const input = screen.getByRole('textbox');
+    fireEvent.change(input, { target: { value: '0' } });
+    fireEvent.keyDown(input, { key: 'Enter' });
+    expect(onChange).not.toHaveBeenCalled();
+  });
 });

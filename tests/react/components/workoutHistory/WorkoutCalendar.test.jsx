@@ -126,4 +126,13 @@ describe('Calendar', () => {
     fireEvent.click(screen.getByRole('button', { name: '<' }));
     await waitFor(() => expect(screen.getByText('Select a date')).toBeInTheDocument());
   });
+
+  it('marks days that have nutrition logged with has-nutrition class', async () => {
+    getNutritionActiveDates.mockResolvedValue({ days: [5] });
+    const { container } = renderCalendar();
+    await waitFor(() => {
+      const days = container.querySelectorAll('.calendar-day.has-nutrition');
+      expect(days.length).toBeGreaterThan(0);
+    });
+  });
 });

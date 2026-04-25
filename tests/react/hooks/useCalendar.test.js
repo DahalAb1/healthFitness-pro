@@ -146,4 +146,23 @@ describe('useCalendar', () => {
     await waitFor(() => expect(result.current.loadingDetail).toBe(false));
     expect(result.current.mealLogs).toEqual([]);
   });
+
+  it('month-level effect catch does not throw when getWorkouts rejects', async () => {
+    mockGetWorkouts.mockRejectedValue(new Error('network error'));
+    mockGetNutritionActiveDates.mockResolvedValue({ days: [] });
+    const { result } = renderHook(() => useCalendar());
+    // Wait a tick for the effect to settle without crashing
+    await act(async () => {});
+    // workoutDays should remain empty (no update happened)
+    expect(result.current.workoutDays.size).toBe(0);
+  });
+
+  it('handleDayClick: getWorkoutByDate rejection is caught and returns null', async () => {
+    mockGetWorkoutByDate.mockRejectedValue(new Error('not found'));
+    mockGetMealLogs.mockResolvedValue([]);
+    const { result } = renderHook(() => useCalendar());
+    await act(async () => { result.current.handleDayClick(10); });
+    await waitFor(() => expect(result.current.loadingDetail).toBe(false));
+    expect(result.current.workout).toBeNull();
+  });
 });

@@ -1,5 +1,5 @@
-import { render, screen } from '@testing-library/react';
-import { describe, it, expect } from 'vitest';
+import { render, screen, fireEvent, act } from '@testing-library/react';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import TestimonialsSection from '@/components/frontpage/TestimonialsSection';
 
 describe('TestimonialsSection', () => {
@@ -44,5 +44,43 @@ describe('TestimonialsSection', () => {
   it('renders the carousel region with correct aria attributes', () => {
     render(<TestimonialsSection />);
     expect(screen.getByRole('region', { name: 'Testimonials carousel' })).toBeInTheDocument();
+  });
+
+  it('calls scrollTo on the carousel when a dot is clicked', () => {
+    const { container } = render(<TestimonialsSection />);
+    const carousel = container.querySelector('.testimonials-scroll');
+    // scrollTo is not defined in jsdom – stub it
+    const scrollToSpy = vi.fn();
+    Object.defineProperty(carousel, 'scrollTo', { value: scrollToSpy, writable: true });
+    // click the third dot (index 2)
+    const dots = container.querySelectorAll('.dot');
+    fireEvent.click(dots[2]);
+    expect(scrollToSpy).toHaveBeenCalledTimes(1);
+    const [callArg] = scrollToSpy.mock.calls[0];
+    expect(callArg).toMatchObject({ behavior: 'smooth' });
+  });
+
+  it('updates the active index when the carousel fires a scroll event', () => {
+    const { container } = render(<TestimonialsSection />);
+    const carousel = container.querySelector('.testimonials-scroll');
+    // Simulate scrollWidth and scrollLeft so handleScroll picks index 2
+    Object.defineProperty(carousel, 'scrollWidth', { value: 800, configurable: true });
+    Object.defineProperty(carousel, 'scrollLeft', { value: 400, configurable: true });
+    act(() => {
+      fireEvent.scroll(carousel);
+    });
+    const dots = container.querySelectorAll('.dot');
+    expect(dots[2]).toHaveClass('active');
+  });
+
+  it('adds and removes the scroll event listener on mount/unmount', () => {
+    const addSpy = vi.spyOn(HTMLElement.prototype, 'addEventListener');
+    const removeSpy = vi.spyOn(HTMLElement.prototype, 'removeEventListener');
+    const { unmount } = render(<TestimonialsSection />);
+    expect(addSpy).toHaveBeenCalledWith('scroll', expect.any(Function), { passive: true });
+    unmount();
+    expect(removeSpy).toHaveBeenCalledWith('scroll', expect.any(Function));
+    addSpy.mockRestore();
+    removeSpy.mockRestore();
   });
 });

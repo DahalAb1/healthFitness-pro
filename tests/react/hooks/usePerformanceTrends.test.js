@@ -141,4 +141,15 @@ describe('usePerformanceTrends', () => {
     });
     expect(mockGetProgressWeights).not.toHaveBeenCalled();
   });
+
+  it('falls back to empty array when API response has no points property', async () => {
+    mockGetProgressWeights.mockResolvedValue({ first_weight: null, latest_weight: null });
+    const { result } = renderHook(() => usePerformanceTrends());
+    act(() => { result.current.setInputValue('Deadlift'); });
+    await act(async () => {
+      result.current.handleSearch({ preventDefault: vi.fn() });
+    });
+    await waitFor(() => expect(result.current.loading).toBe(false));
+    expect(result.current.filteredPoints).toEqual([]);
+  });
 });

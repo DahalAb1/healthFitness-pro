@@ -70,4 +70,66 @@ describe('HeightStepper', () => {
     expect(onChange).not.toHaveBeenCalled();
     expect(screen.queryByRole('textbox')).toBeNull();
   });
+
+  it('calls onChange with heightInches + 1/2.54 when Increase clicked (Metric)', () => {
+    const onChange = vi.fn();
+    renderStepper({ heightInches: 70, units: 'Metric', onChange });
+    fireEvent.click(screen.getByRole('button', { name: 'Increase' }));
+    expect(onChange).toHaveBeenCalledWith(70 + 1 / 2.54);
+  });
+
+  it('calls onChange with heightInches - 1/2.54 when Decrease clicked (Metric)', () => {
+    const onChange = vi.fn();
+    renderStepper({ heightInches: 70, units: 'Metric', onChange });
+    fireEvent.click(screen.getByRole('button', { name: 'Decrease' }));
+    expect(onChange).toHaveBeenCalledWith(Math.max(12, 70 - 1 / 2.54));
+  });
+
+  it('enters edit mode showing cm value when Metric and value is clicked', () => {
+    renderStepper({ heightInches: 70, units: 'Metric' });
+    fireEvent.click(screen.getByText('178 cm'));
+    expect(screen.getByRole('textbox')).toHaveValue('178');
+  });
+
+  it('saves a Metric cm input and calls onChange with converted inches', () => {
+    const onChange = vi.fn();
+    renderStepper({ heightInches: 70, units: 'Metric', onChange });
+    fireEvent.click(screen.getByText('178 cm'));
+    const input = screen.getByRole('textbox');
+    fireEvent.change(input, { target: { value: '180' } });
+    fireEvent.keyDown(input, { key: 'Enter' });
+    expect(onChange).toHaveBeenCalledWith(Math.max(12, Math.round(180 / 2.54)));
+  });
+
+  it('saves an Imperial plain-number input (no ft\'in" format) and calls onChange', () => {
+    const onChange = vi.fn();
+    renderStepper({ heightInches: 70, units: 'Imperial', onChange });
+    fireEvent.click(screen.getByText("5'10\""));
+    const input = screen.getByRole('textbox');
+    fireEvent.change(input, { target: { value: '72' } });
+    fireEvent.keyDown(input, { key: 'Enter' });
+    expect(onChange).toHaveBeenCalledWith(Math.max(12, 72));
+  });
+
+  it('keeps current height when Metric input is not a valid number', () => {
+    const onChange = vi.fn();
+    renderStepper({ heightInches: 70, units: 'Metric', onChange });
+    fireEvent.click(screen.getByText('178 cm'));
+    const input = screen.getByRole('textbox');
+    fireEvent.change(input, { target: { value: 'abc' } });
+    fireEvent.keyDown(input, { key: 'Enter' });
+    // cm = NaN → else path → newInches stays 70 → onChange(Math.max(12, 70))
+    expect(onChange).toHaveBeenCalledWith(Math.max(12, 70));
+  });
+
+  it('keeps current height when Imperial plain-number input is not a valid positive integer', () => {
+    const onChange = vi.fn();
+    renderStepper({ heightInches: 70, units: 'Imperial', onChange });
+    fireEvent.click(screen.getByText("5'10\""));
+    const input = screen.getByRole('textbox');
+    fireEvent.change(input, { target: { value: 'xyz' } });
+    fireEvent.keyDown(input, { key: 'Enter' });
+    // parseInt('xyz') = NaN → else path → newInches stays 70 → onChange(Math.max(12, 70))
+    expect(onChange).toHaveBeenCalledWith(Math.max(12, 70));
+  });
 });

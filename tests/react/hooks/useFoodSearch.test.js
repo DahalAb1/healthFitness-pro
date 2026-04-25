@@ -69,8 +69,8 @@ describe('useFoodSearch', () => {
     await act(async () => { await vi.runAllTimersAsync(); });
     expect(result.current.isSearching).toBe(false);
     expect(result.current.searchResults).toEqual([
-      { name: 'Apple', kcal: 52, serving_description: '1 medium' },
-      { name: 'Banana', kcal: 89, serving_description: '1 medium' },
+      { name: 'Apple', kcal: 52, serving_description: '1 medium', protein_g: null, carbs_g: null, fat_g: null },
+      { name: 'Banana', kcal: 89, serving_description: '1 medium', protein_g: null, carbs_g: null, fat_g: null },
     ]);
   });
 
@@ -183,5 +183,54 @@ describe('useFoodSearch', () => {
     // Only one call for the final query
     expect(mockSearchFoods).toHaveBeenCalledTimes(1);
     expect(mockSearchFoods).toHaveBeenCalledWith('apple');
+  });
+
+  // -----------------------------------------------------------------------
+  // Branch coverage additions – nullish coalescing fallbacks
+  // -----------------------------------------------------------------------
+
+  it('uses [] when data.foods is undefined', async () => {
+    mockSearchFoods.mockResolvedValue({}); // no foods key
+    const { result } = renderHook(() => useFoodSearch());
+    act(() => { result.current.setSearchQuery('test'); });
+    await act(async () => { await vi.runAllTimersAsync(); });
+    expect(result.current.searchResults).toEqual([]);
+  });
+
+  it('uses 0 as kcal when f.calories is undefined', async () => {
+    mockSearchFoods.mockResolvedValue({
+      foods: [{ food_name: 'Mystery', serving_description: '1 unit' }], // no calories
+    });
+    const { result } = renderHook(() => useFoodSearch());
+    act(() => { result.current.setSearchQuery('mystery'); });
+    await act(async () => { await vi.runAllTimersAsync(); });
+    expect(result.current.searchResults[0].kcal).toBe(0);
+  });
+
+  it('uses empty string as serving_description when f.serving_description is undefined', async () => {
+    mockSearchFoods.mockResolvedValue({
+      foods: [{ food_name: 'Test', calories: 100 }], // no serving_description
+    });
+    const { result } = renderHook(() => useFoodSearch());
+    act(() => { result.current.setSearchQuery('test'); });
+    await act(async () => { await vi.runAllTimersAsync(); });
+    expect(result.current.searchResults[0].serving_description).toBe('');
+  });
+
+  it('handleAddCustom stores parsed floats when protein/carbs/fat are non-empty', () => {
+    const { result } = renderHook(() => useFoodSearch());
+    act(() => {
+      result.current.setCustomName('Chicken Breast');
+      result.current.setCustomKcal('165');
+      result.current.setCustomProtein('31');
+      result.current.setCustomCarbs('0');
+      result.current.setCustomFat('3.6');
+    });
+    act(() => { result.current.handleAddCustom(); });
+    const added = result.current.searchResults.find((f) => f.name === 'Chicken Breast');
+    expect(added).toBeDefined();
+    expect(added.protein_g).toBe(31);
+    expect(added.carbs_g).toBe(0);
+    expect(added.fat_g).toBe(3.6);
   });
 });

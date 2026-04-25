@@ -17,9 +17,9 @@ describe('FeaturesSection', () => {
     expect(screen.getByRole('heading', { name: 'Workout Templates' })).toBeInTheDocument();
   });
 
-  it('renders the Workout Tracking feature heading', () => {
+  it('renders the Calorie Dashboard feature heading', () => {
     renderSection();
-    expect(screen.getByRole('heading', { name: 'Workout Tracking' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Calorie Dashboard' })).toBeInTheDocument();
   });
 
   it('renders the Exercise Library feature heading', () => {
@@ -32,9 +32,9 @@ describe('FeaturesSection', () => {
     expect(screen.getByRole('heading', { name: 'History' })).toBeInTheDocument();
   });
 
-  it('renders 6 feature rows in total', () => {
+  it('renders 4 feature rows in total', () => {
     renderSection();
-    expect(screen.getAllByRole('heading', { level: 2 })).toHaveLength(5);
+    expect(screen.getAllByRole('heading', { level: 2 })).toHaveLength(4);
   });
 
   it('renders the "Browse Exercises" link pointing to /exercise-library', () => {
@@ -51,7 +51,7 @@ describe('FeaturesSection', () => {
   it('renders section elements with the expected ids', () => {
     renderSection();
     expect(document.querySelector('#workout-templates')).toBeInTheDocument();
-    expect(document.querySelector('#workout-tracking')).toBeInTheDocument();
+    expect(document.querySelector('#nutrition')).toBeInTheDocument();
     expect(document.querySelector('#library')).toBeInTheDocument();
     expect(document.querySelector('#history')).toBeInTheDocument();
   });

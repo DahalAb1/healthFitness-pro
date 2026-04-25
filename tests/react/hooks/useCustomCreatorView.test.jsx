@@ -235,4 +235,79 @@ describe('useCustomCreatorView', () => {
     await waitFor(() => expect(result.current.savedWorkouts).toHaveLength(1));
     expect(result.current.savedWorkouts[0]).toEqual(SAVED_WORKOUT);
   });
+
+  // -----------------------------------------------------------------------
+  // Branch coverage additions
+  // -----------------------------------------------------------------------
+
+  it('handleCustomize falls back to empty strings/defaults when exercise fields are missing', async () => {
+    const workout = { name: '', exercises: [{ exercise_id: undefined, exercise_name: undefined, sets: undefined, reps: undefined }] };
+    const { result } = renderHook(() => useCustomCreatorView(), { wrapper });
+    await waitFor(() => expect(mockGetUserWorkouts).toHaveBeenCalled());
+    act(() => { result.current.handleCustomize(workout); });
+    expect(result.current.workoutName).toBe('');
+    expect(result.current.rows[0].exerciseId).toBeNull();
+    expect(result.current.rows[0].exercise).toBe('');
+    expect(result.current.rows[0].sets).toBe(3);
+    expect(result.current.rows[0].reps).toBe(10);
+  });
+
+  it('handleCustomize falls back to empty array when workout.exercises is missing', async () => {
+    const workout = { name: 'No Exercises' };
+    const { result } = renderHook(() => useCustomCreatorView(), { wrapper });
+    await waitFor(() => expect(mockGetUserWorkouts).toHaveBeenCalled());
+    act(() => { result.current.handleCustomize(workout); });
+    expect(result.current.workoutName).toBe('No Exercises');
+    expect(result.current.rows).toEqual([]);
+  });
+
+  it('handleBegin falls back when workout has no name or exercises', async () => {
+    const { result } = renderHook(() => useCustomCreatorView(), { wrapper });
+    await waitFor(() => expect(mockGetUserWorkouts).toHaveBeenCalled());
+    act(() => { result.current.handleBegin({ id: 99 }); });
+    expect(sessionStorage.getItem('activeWorkoutName')).toBe('Custom Workout');
+    expect(sessionStorage.getItem('activeWorkoutExercises')).toBe('[]');
+    expect(mockNavigate).toHaveBeenCalledWith('/active-workout?source=custom&id=99');
+  });
+
+  it('addExerciseFromLibrary falls back when exercise has no id or name', async () => {
+    const { result } = renderHook(() => useCustomCreatorView(), { wrapper });
+    await waitFor(() => expect(mockGetUserWorkouts).toHaveBeenCalled());
+    act(() => { result.current.addExerciseFromLibrary({}); });
+    expect(result.current.rows).toHaveLength(2);
+    expect(result.current.rows[1].exerciseId).toBeNull();
+    expect(result.current.rows[1].exercise).toBe('');
+  });
+
+  it('updateRow returns unchanged row when id does not match', async () => {
+    const { result } = renderHook(() => useCustomCreatorView(), { wrapper });
+    await waitFor(() => expect(mockGetUserWorkouts).toHaveBeenCalled());
+    const originalRow = result.current.rows[0];
+    act(() => { result.current.updateRow('nonexistent-id', 'exercise', 'Squat'); });
+    expect(result.current.rows[0]).toEqual(originalRow);
+  });
+
+  it('does not call getUserWorkouts when token is null', async () => {
+    mockToken = null;
+    const { result } = renderHook(() => useCustomCreatorView(), { wrapper });
+    // Wait a tick for useEffect to run
+    await act(async () => {});
+    expect(mockGetUserWorkouts).not.toHaveBeenCalled();
+  });
+
+  it('falls back to empty array when getUserWorkouts returns non-array', async () => {
+    mockGetUserWorkouts.mockResolvedValue(null);
+    const { result } = renderHook(() => useCustomCreatorView(), { wrapper });
+    await waitFor(() => expect(mockGetUserWorkouts).toHaveBeenCalled());
+    await waitFor(() => expect(result.current.savedWorkouts).toEqual([]));
+  });
+
+  it('falls back to empty array when getExercises returns non-array', async () => {
+    mockGetExercises.mockResolvedValue(null);
+    const { result } = renderHook(() => useCustomCreatorView(), { wrapper });
+    await waitFor(() => expect(mockGetUserWorkouts).toHaveBeenCalled());
+    act(() => { result.current.setShowLibrary(true); });
+    await waitFor(() => expect(result.current.libraryLoading).toBe(false));
+    expect(result.current.filteredLibrary).toEqual([]);
+  });
 });

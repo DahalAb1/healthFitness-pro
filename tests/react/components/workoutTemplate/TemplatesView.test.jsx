@@ -76,4 +76,11 @@ describe('TemplatesView', () => {
     await waitFor(() => expect(getTemplates).toHaveBeenCalled());
     expect(container.querySelectorAll('.wt-template-card')).toHaveLength(0);
   });
+
+  it('shows 0 exercise count when template has no exercises array', async () => {
+    getTemplates.mockResolvedValue([{ id: 3, name: 'No Exercises Template', description: 'Test' }]);
+    render(<TemplatesView />);
+    await waitFor(() => expect(screen.getByText('No Exercises Template')).toBeInTheDocument());
+    expect(screen.getByText('0 EXERCISES')).toBeInTheDocument();
+  });
 });

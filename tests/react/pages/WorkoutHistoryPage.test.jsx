@@ -13,6 +13,9 @@ vi.mock('@/components/history/Calendar', () => ({
 vi.mock('@/components/history/PerformanceTrends', () => ({
   default: () => <div data-testid="performance-trends" />,
 }));
+vi.mock('@/components/history/NutritionTrends', () => ({
+  default: () => <div data-testid="nutrition-trends" />,
+}));
 
 import HistoryPage from '@/pages/HistoryPage';
 
