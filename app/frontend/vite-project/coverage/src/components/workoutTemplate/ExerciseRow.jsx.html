@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">16.66% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>1/6</span>
+                <span class='fraction'>6/6</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">16.66% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/6</span>
+                <span class='fraction'>6/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">16.66% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>1/6</span>
+                <span class='fraction'>6/6</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -111,42 +111,42 @@
 <a name='L46'></a><a href='#L46'>46</a>
 <a name='L47'></a><a href='#L47'>47</a>
 <a name='L48'></a><a href='#L48'>48</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">49x</span>
+<span class="cline-any cline-yes">59x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -165,35 +165,35 @@
           type="text"
           value={row.exercise}
           placeholder="Type or add from library..."
-<span class="fstat-no" title="function not covered" >          onChange={(e</span>) =&gt; <span class="cstat-no" title="statement not covered" >onUpdate(row.id, 'exercise', e.target.value)}</span>
+          onChange={(e) =&gt; onUpdate(row.id, 'exercise', e.target.value)}
         /&gt;
       &lt;/td&gt;
       &lt;td&gt;
         &lt;input
           type="number"
           value={row.sets}
-<span class="fstat-no" title="function not covered" >          onChange={(e</span>) =&gt; <span class="cstat-no" title="statement not covered" >onUpdate(row.id, 'sets', Number(e.target.value))}</span>
+          onChange={(e) =&gt; onUpdate(row.id, 'sets', Number(e.target.value))}
         /&gt;
       &lt;/td&gt;
       &lt;td&gt;
         &lt;input
           type="number"
           value={row.reps}
-<span class="fstat-no" title="function not covered" >          onChange={(e</span>) =&gt; <span class="cstat-no" title="statement not covered" >onUpdate(row.id, 'reps', Number(e.target.value))}</span>
+          onChange={(e) =&gt; onUpdate(row.id, 'reps', Number(e.target.value))}
         /&gt;
       &lt;/td&gt;
       &lt;td&gt;
         &lt;input
           type="text"
           value={row.rest}
-<span class="fstat-no" title="function not covered" >          onChange={(e</span>) =&gt; <span class="cstat-no" title="statement not covered" >onUpdate(row.id, 'rest', e.target.value)}</span>
+          onChange={(e) =&gt; onUpdate(row.id, 'rest', e.target.value)}
         /&gt;
       &lt;/td&gt;
       &lt;td&gt;
         &lt;button
           type="button"
           className="wt-remove-btn"
-<span class="fstat-no" title="function not covered" >          onClick={() =&gt; <span class="cstat-no" title="statement not covered" >o</span>nRemove(row.id)}</span>
+          onClick={() =&gt; onRemove(row.id)}
           aria-label="Remove exercise row"
         &gt;
           ×
@@ -211,7 +211,7 @@ export default ExerciseRow;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-04-25T00:14:58.560Z
+                at 2026-04-25T00:44:18.907Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

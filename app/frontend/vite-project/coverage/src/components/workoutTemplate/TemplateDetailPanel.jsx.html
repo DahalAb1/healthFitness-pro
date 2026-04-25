@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>4/8</span>
+                <span class='fraction'>8/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">62.5% </span>
+                <span class="strong">87.5% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>5/8</span>
+                <span class='fraction'>7/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.66% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/3</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>4/8</span>
+                <span class='fraction'>8/8</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -132,19 +132,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -157,8 +154,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">20x</span>
-<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">28x</span>
+<span class="cline-any cline-yes">28x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -197,11 +197,11 @@ import ExerciseBadges from '../common/ExerciseBadges';
 function TemplateDetailPanel({ template, exercises, loading, onClose }) {
   const navigate = useNavigate();
 &nbsp;
-  function <span class="fstat-no" title="function not covered" >beginWorkout() {</span>
-<span class="cstat-no" title="statement not covered" >    sessionStorage.setItem('activeWorkoutSource', 'template');</span>
-<span class="cstat-no" title="statement not covered" >    sessionStorage.setItem('activeWorkoutId', String(template.id));</span>
-<span class="cstat-no" title="statement not covered" >    sessionStorage.setItem('activeWorkoutName', template.name);</span>
-<span class="cstat-no" title="statement not covered" >    navigate(`/active-workout?source=template&amp;id=${template.id}`);</span>
+  function beginWorkout() {
+    sessionStorage.setItem('activeWorkoutSource', 'template');
+    sessionStorage.setItem('activeWorkoutId', String(template.id));
+    sessionStorage.setItem('activeWorkoutName', template.name);
+    navigate(`/active-workout?source=template&amp;id=${template.id}`);
   }
 &nbsp;
   return (
@@ -224,10 +224,10 @@ function TemplateDetailPanel({ template, exercises, loading, onClose }) {
               return (
                 &lt;li key={i} className="wt-detail-exercise-item"&gt;
                   {d.image_url &amp;&amp; (
-<span class="branch-1 cbranch-no" title="branch not covered" >                    &lt;img src={d.image_url} alt={d.name} className="wt-detail-exercise-img" /&gt;</span>
+                    &lt;img src={d.image_url} alt={d.name} className="wt-detail-exercise-img" /&gt;
                   )}
                   &lt;div className="wt-detail-exercise-info"&gt;
-                    &lt;h4&gt;{d.name || <span class="branch-1 cbranch-no" title="branch not covered" >ex.exercise_id}&lt;/h4&gt;</span>
+                    &lt;h4&gt;{d.name || ex.exercise_id}&lt;/h4&gt;
                     &lt;ExerciseBadges
                       muscleGroup={d.muscle_group}
                       equipment={d.equipment}
@@ -259,7 +259,7 @@ export default TemplateDetailPanel;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-04-25T00:14:58.560Z
+                at 2026-04-25T00:44:18.907Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
