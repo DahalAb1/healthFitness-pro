@@ -117,19 +117,19 @@
 .wt-workout-table input[type='text'],
 .wt-workout-table input[type='number'],
 .wt-input-group input[type='text'] {
-  background: #0f0f0f;
+  background: var(--field-background);
   border: 1px solid var(--border);
   padding: 10px;
-  color: white;
+  color: var(--text-primary);
   border-radius: 6px;
   width: 100%;
 }
 
 .wt-row-library-btn {
-  background: #101318;
-  border: 1px solid #2a3444;
+  background: var(--field-background);
+  border: 1px solid var(--border);
   padding: 10px 12px;
-  color: #eef4ff;
+  color: var(--text-primary);
   border-radius: 6px;
   width: 100%;
   text-align: left;
@@ -139,9 +139,9 @@
 }
 
 .wt-row-library-btn:hover {
-  border-color: #4a90ff;
-  background: #131925;
-  box-shadow: 0 0 0 2px rgba(74, 144, 255, 0.14);
+  border-color: var(--accent);
+  background: var(--surface-hover);
+  box-shadow: 0 0 0 2px var(--accent-soft-bg);
   transform: translateY(-1px);
 }
 
@@ -150,10 +150,10 @@
 }
 
 .wt-input-group textarea {
-  background: #0f0f0f;
+  background: var(--field-background);
   border: 1px solid var(--border);
   padding: 10px;
-  color: white;
+  color: var(--text-primary);
   border-radius: 6px;
   width: 100%;
   min-height: 96px;
@@ -332,7 +332,7 @@
   min-width: 90px;
   padding: 8px 14px;
   border-radius: 6px;
-  background: #1f1f1f;
+  background: var(--surface-alt);
   border: 1px solid var(--border);
   color: var(--text-primary);
 }
