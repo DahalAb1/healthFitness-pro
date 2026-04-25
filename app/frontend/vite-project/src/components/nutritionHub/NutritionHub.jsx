@@ -98,28 +98,28 @@ function NutritionPage() {
           total={totalCalories}
           goal={goal}
           onGoalChange={setGoal}
-          accentColor="var(--accent)"
+          accentColor="var(--accent-blue)"
         />
         <MacroGauge
           label="Protein"
           total={totalMacros.protein_g}
           goal={proteinGoal}
           onGoalChange={setProteinGoal}
-          accentColor="#4aff8c"
+          accentColor="var(--accent-green)"
         />
         <MacroGauge
           label="Carbs"
           total={totalMacros.carbs_g}
           goal={carbsGoal}
           onGoalChange={setCarbsGoal}
-          accentColor="#ffc94a"
+          accentColor="var(--accent-yellow)"
         />
         <MacroGauge
           label="Fat"
           total={totalMacros.fat_g}
           goal={fatGoal}
           onGoalChange={setFatGoal}
-          accentColor="#ff8c4a"
+          accentColor="var(--accent-red)"
         />
       </div>
     </div>

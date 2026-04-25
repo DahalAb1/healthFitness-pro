@@ -16,6 +16,7 @@
   --surface-hover: #232323;
   --accent-soft-bg: rgba(74, 144, 255, 0.12);
   --on-accent-text: #ffffff;
+  --gauge-track: #2a2a2a;
   --hero-title-color: #ffffff;
   --hero-subtitle-color: #d4dae6;
   --hero-section-gradient: linear-gradient(rgba(15, 15, 15, 0.82), rgba(15, 15, 15, 1));
@@ -47,6 +48,7 @@
   --surface-hover: #e8edf6;
   --accent-soft-bg: rgba(45, 110, 234, 0.12);
   --on-accent-text: #ffffff;
+  --gauge-track: #d8deea;
   --hero-title-color: #1a2332;
   --hero-subtitle-color: #5d6f88;
   --hero-section-gradient: linear-gradient(rgba(250, 251, 252, 0.9), rgba(240, 241, 245, 0.98));

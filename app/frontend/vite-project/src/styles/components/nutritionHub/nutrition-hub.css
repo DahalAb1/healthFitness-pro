@@ -142,7 +142,7 @@
 
 .circle-bg {
   fill: none;
-  stroke: #252525;
+  stroke: var(--gauge-track);
   stroke-width: 10;
 }
 
@@ -492,7 +492,7 @@
 
 .macro-circle-bg {
   fill: none;
-  stroke: #252525;
+  stroke: var(--gauge-track);
   stroke-width: 9;
 }
 
