@@ -26,6 +26,7 @@ export function AuthProvider({ children }) {
         if (!cancelled) {
           localStorage.removeItem("hfp_token");
           setToken(null);
+          setUser(null);
         }
       })
       .finally(() => {

@@ -81,13 +81,20 @@ export function useMeals() {
 
   const removeFromMeal = async (mealType, index) => {
     if (!token) return;
-    const item = meals[mealType][index];
-    // Optimistically remove from UI, then delete from DB.
-    setMeals(prev => ({
-      ...prev,
-      [mealType]: prev[mealType].filter((_, i) => i !== index),
-    }));
-    await deleteMealLog(token, item.id);
+  
+    const item = meals[mealType]?.[index];
+    if (!item?.id) return;
+  
+    try {
+      await deleteMealLog(token, item.id);
+  
+      setMeals(prev => ({
+        ...prev,
+        [mealType]: prev[mealType].filter((_, i) => i !== index),
+      }));
+    } catch (err) {
+      console.error('Failed to delete meal log:', err);
+    }
   };
 
   const totalCalories = useMemo(() => {

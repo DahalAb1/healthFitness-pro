@@ -27,10 +27,16 @@ def create_session(
 def append_exercises(
     session: Session,
     workout_id: int,
+    user_id: int,
     exercises: list[ExerciseLogEntry],
 ) -> WorkoutSession:
     """Add exercises to an existing session."""
-    workout = session.get(WorkoutSession, workout_id)
+    workout = session.exec(
+        select(WorkoutSession).where(
+            WorkoutSession.id == workout_id,
+            WorkoutSession.user_id == user_id,
+        )
+    ).first()
     if not workout:
         raise KeyError("Workout not found")
 
@@ -48,23 +54,39 @@ def append_exercises(
     # (session.refresh only reloads scalar columns, not relationships)
     query = (
         select(WorkoutSession)
-        .where(WorkoutSession.id == workout_id)
+        .where(
+            WorkoutSession.id == workout_id,
+            WorkoutSession.user_id == user_id,
+        )
         .options(selectinload(WorkoutSession.exercises))
     )
     refreshed = session.exec(query).first()
     return refreshed
 
 
-def get_by_id(session: Session, workout_id: int) -> WorkoutSession | None:
-    """Fetch a single workout session by primary key."""
-    return session.get(WorkoutSession, workout_id)
+def get_by_id(
+    session: Session,
+    workout_id: int,
+    user_id: int,
+) -> WorkoutSession | None:
+    """Fetch a single workout session belonging to a specific user."""
+    return session.exec(
+        select(WorkoutSession)
+        .where(
+            WorkoutSession.id == workout_id,
+            WorkoutSession.user_id == user_id,
+        )
+        .options(selectinload(WorkoutSession.exercises))
+    ).first()
 
 
-def list_sessions(session: Session, user_id: int | None = None) -> list[WorkoutSession]:
-    """Return all workout sessions, optionally filtered by user ID."""
-    query = select(WorkoutSession).order_by(WorkoutSession.workout_date, WorkoutSession.id)
-    if user_id is not None:
-        query = query.where(WorkoutSession.user_id == user_id)
+def list_sessions(session: Session, user_id: int) -> list[WorkoutSession]:
+    """Return all workout sessions belonging to a specific user."""
+    query = (
+        select(WorkoutSession)
+        .where(WorkoutSession.user_id == user_id)
+        .order_by(WorkoutSession.workout_date, WorkoutSession.id)
+    )
     return session.exec(query).all()
 
 

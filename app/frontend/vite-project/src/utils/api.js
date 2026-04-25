@@ -70,6 +70,7 @@ export async function deleteUserWorkout(workoutId, token) {
     method: "DELETE",
     headers: { Authorization: `Bearer ${token}` },
   });
+  if (!res.ok) throw new Error(`deleteUserWorkout failed: ${res.status}`);
   return res.json();
 }
 

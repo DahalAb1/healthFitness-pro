@@ -20,7 +20,7 @@ class Settings(BaseSettings):
     FATSECRET_CLIENT_SECRET: str = ""       # OAuth 2.0 client secret
     FATSECRET_CONSUMER_SECRET: str = ""    # OAuth 1.0a consumer secret (different!)
 
-    SECRET_KEY: str = "change-this-before-production"
+    SECRET_KEY: str
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
 

@@ -1,24 +1,29 @@
 """Progress routes – weight tracking trends over time."""
 
 from datetime import date
+
 from fastapi import APIRouter, Depends, HTTPException
 from sqlmodel import Session
+
 from api.deps import get_session, get_current_user
 from crud import workouts as workouts_crud
 from models.exercise import ProgressPoint, WeightProgressResponse
 from models.user import User
 
-router = APIRouter()
+router = APIRouter(tags=["progress"])
 
 
-@router.get("/progress/weights", response_model=WeightProgressResponse)
+@router.get(
+    "/progress/weights",
+    response_model=WeightProgressResponse,
+    summary="Get weight progress for an exercise",
+)
 def get_weight_progress(
     exercise_name: str,
     session: Session = Depends(get_session),
     current_user: User = Depends(get_current_user),
 ):
-    """Return the logged-in user's max-weight-per-date trend for a given exercise,
-    along with overall change and percent change."""
+    """Return the authenticated user's weight trend for a given exercise."""
     ex_name = exercise_name.strip()
     if not ex_name:
         raise HTTPException(status_code=400, detail="exercise_name cannot be empty")
