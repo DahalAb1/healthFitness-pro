@@ -61,7 +61,7 @@
 }
 
 .wt-btn-template {
-  background: linear-gradient(135deg, #4a90ff, #2f6fce);
+  background: linear-gradient(135deg, var(--accent-blue), #2d5fc7);
   box-shadow: 0 8px 24px rgba(74, 144, 255, 0.25);
 }
 

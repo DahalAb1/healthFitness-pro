@@ -232,7 +232,7 @@
   top: 50%;
   left: 50%;
   border-radius: 2px;
-  background: #4a90ff;
+  background: var(--accent);
   transform: translate(-50%, -50%);
 }
 
@@ -254,7 +254,7 @@
 
 .wt-btn-save {
   margin-top: 16px;
-  background: linear-gradient(135deg, #4a90ff, #2f6fce);
+  background: linear-gradient(135deg, var(--accent-blue), #2d5fc7);
   box-shadow: 0 10px 28px rgba(74, 144, 255, 0.3);
 }
 
@@ -528,7 +528,7 @@
 }
 
 .wt-btn-view {
-  background: #1f1f1f;
+  background: var(--surface-alt);
   border: 1px solid var(--border);
   color: var(--text-primary);
 }
@@ -536,15 +536,15 @@
 .wt-btn-view:hover { border-color: var(--accent); }
 
 .wt-btn-customize {
-  background: #1f1f1f;
-  border: 1px solid #4a90ff44;
-  color: #4a90ff;
+  background: var(--surface-alt);
+  border: 1px solid rgba(45, 110, 234, 0.27);
+  color: var(--accent);
 }
 
-.wt-btn-customize:hover { border-color: #4a90ff; }
+.wt-btn-customize:hover { border-color: var(--accent); }
 
 .wt-btn-begin {
-  background: linear-gradient(135deg, #4a90ff, #2f6fce);
+  background: linear-gradient(135deg, var(--accent-blue), #2d5fc7);
   border: none;
   color: white;
   box-shadow: 0 4px 12px rgba(74, 144, 255, 0.25);
@@ -552,11 +552,11 @@
 
 .wt-btn-delete {
   background: transparent;
-  border: 1px solid #ff4a4a44;
-  color: #ff4a4a;
+  border: 1px solid rgba(255, 74, 74, 0.27);
+  color: var(--accent-red);
 }
 
-.wt-btn-delete:hover { border-color: #ff4a4a; background: rgba(255, 74, 74, 0.08); }
+.wt-btn-delete:hover { border-color: var(--accent-red); background: rgba(255, 74, 74, 0.08); }
 
 /* ── Expanded Exercise List ────────────────────────────────────── */
 
