@@ -109,4 +109,14 @@ describe('useTemplatesView', () => {
     act(() => { result.current.closeTemplate(); });
     expect(result.current.selectedTemplate).toBeNull();
   });
+
+  it('openTemplate falls back to [] when response has no exercises key', async () => {
+    mockGetTemplates.mockResolvedValue(SAMPLE_TEMPLATES);
+    mockGetTemplateExercises.mockResolvedValue({}); // no .exercises key
+    const { result } = renderHook(() => useTemplatesView());
+    await waitFor(() => expect(result.current.templates).toHaveLength(2));
+    await act(async () => { result.current.openTemplate(SAMPLE_TEMPLATES[0]); });
+    await waitFor(() => expect(result.current.loadingExercises).toBe(false));
+    expect(result.current.exercises).toEqual([]);
+  });
 });

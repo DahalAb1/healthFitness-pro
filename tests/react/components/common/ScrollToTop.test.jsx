@@ -29,4 +29,19 @@ describe('ScrollToTop', () => {
     render(<Host path="/" />);
     expect(scrollToSpy).toHaveBeenCalledWith(0, 0);
   });
+
+  it('calls scrollIntoView on the element when hash matches an existing element', () => {
+    const scrollIntoViewMock = vi.fn();
+    Element.prototype.scrollIntoView = scrollIntoViewMock;
+    scrollToSpy.mockClear();
+    render(<Host path="/#section-a" />);
+    expect(scrollIntoViewMock).toHaveBeenCalledWith({ behavior: 'smooth' });
+    expect(scrollToSpy).not.toHaveBeenCalled();
+  });
+
+  it('falls back to window.scrollTo when hash is present but no matching element', () => {
+    scrollToSpy.mockClear();
+    render(<Host path="/#nonexistent-element-xyz" />);
+    expect(scrollToSpy).toHaveBeenCalledWith(0, 0);
+  });
 });

@@ -10,8 +10,14 @@ const defaultProps = {
   onDragStart: vi.fn(),
   customName: '',
   customKcal: '',
+  customProtein: '',
+  customCarbs: '',
+  customFat: '',
   onCustomNameChange: vi.fn(),
   onCustomKcalChange: vi.fn(),
+  onCustomProteinChange: vi.fn(),
+  onCustomCarbsChange: vi.fn(),
+  onCustomFatChange: vi.fn(),
   onAddCustom: vi.fn(),
 };
 
@@ -153,5 +159,64 @@ describe('FoodSearch', () => {
   it('renders the "Quick Custom Log" label', () => {
     renderSearch();
     expect(screen.getByText('Quick Custom Log')).toBeInTheDocument();
+  });
+
+  it('renders the Protein (g) input', () => {
+    renderSearch();
+    expect(screen.getByPlaceholderText('Protein (g)')).toBeInTheDocument();
+  });
+
+  it('renders the Carbs (g) input', () => {
+    renderSearch();
+    expect(screen.getByPlaceholderText('Carbs (g)')).toBeInTheDocument();
+  });
+
+  it('renders the Fat (g) input', () => {
+    renderSearch();
+    expect(screen.getByPlaceholderText('Fat (g)')).toBeInTheDocument();
+  });
+
+  it('reflects customProtein in the Protein input', () => {
+    renderSearch({ customProtein: '25' });
+    expect(screen.getByPlaceholderText('Protein (g)')).toHaveValue(25);
+  });
+
+  it('reflects customCarbs in the Carbs input', () => {
+    renderSearch({ customCarbs: '40' });
+    expect(screen.getByPlaceholderText('Carbs (g)')).toHaveValue(40);
+  });
+
+  it('reflects customFat in the Fat input', () => {
+    renderSearch({ customFat: '10' });
+    expect(screen.getByPlaceholderText('Fat (g)')).toHaveValue(10);
+  });
+
+  it('calls onCustomProteinChange when the Protein input changes', () => {
+    const onCustomProteinChange = vi.fn();
+    renderSearch({ onCustomProteinChange });
+    fireEvent.change(screen.getByPlaceholderText('Protein (g)'), { target: { value: '30' } });
+    expect(onCustomProteinChange).toHaveBeenCalledWith('30');
+  });
+
+  it('calls onCustomCarbsChange when the Carbs input changes', () => {
+    const onCustomCarbsChange = vi.fn();
+    renderSearch({ onCustomCarbsChange });
+    fireEvent.change(screen.getByPlaceholderText('Carbs (g)'), { target: { value: '50' } });
+    expect(onCustomCarbsChange).toHaveBeenCalledWith('50');
+  });
+
+  it('calls onCustomFatChange when the Fat input changes', () => {
+    const onCustomFatChange = vi.fn();
+    renderSearch({ onCustomFatChange });
+    fireEvent.change(screen.getByPlaceholderText('Fat (g)'), { target: { value: '15' } });
+    expect(onCustomFatChange).toHaveBeenCalledWith('15');
+  });
+
+  it('renders macro pills when food has protein_g, carbs_g, and fat_g', () => {
+    const results = [{ name: 'Salmon', kcal: 208, serving_description: '', protein_g: 20, carbs_g: 0, fat_g: 13 }];
+    renderSearch({ searchResults: results });
+    expect(screen.getByText('P 20g')).toBeInTheDocument();
+    expect(screen.getByText('C 0g')).toBeInTheDocument();
+    expect(screen.getByText('F 13g')).toBeInTheDocument();
   });
 });

@@ -1,8 +1,10 @@
 import { renderHook, act, waitFor } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
+let mockMealsToken = 'mock-token';
+
 vi.mock('@/context/useAuth', () => ({
-  useAuth: () => ({ token: 'mock-token' }),
+  useAuth: () => ({ token: mockMealsToken }),
 }));
 
 vi.mock('@/utils/api', () => ({
@@ -21,6 +23,7 @@ const TODAY_LOGS = [
 
 describe('useMeals', () => {
   beforeEach(() => {
+    mockMealsToken = 'mock-token';
     getMealLogs.mockResolvedValue([]);
     addMealLog.mockResolvedValue({ id: 99, food_name: 'Apple', kcal: 95, meal_type: 'breakfast' });
     deleteMealLog.mockResolvedValue({});
@@ -140,5 +143,62 @@ describe('useMeals', () => {
       await result.current.removeFromMeal('breakfast', 0);
     });
     expect(result.current.totalCalories).toBe(0);
+  });
+
+  // -----------------------------------------------------------------------
+  // Branch coverage additions
+  // -----------------------------------------------------------------------
+
+  it('resets to empty meals when token becomes null (useEffect if-branch)', async () => {
+    getMealLogs.mockResolvedValue(TODAY_LOGS);
+    const { result, rerender } = renderHook(() => useMeals());
+    await waitFor(() => expect(result.current.meals.breakfast).toHaveLength(1));
+
+    mockMealsToken = null;
+    rerender();
+    await waitFor(() => expect(result.current.meals).toEqual({
+      breakfast: [], lunch: [], dinner: [], misc: [],
+    }));
+  });
+
+  it('addToMeal is a no-op when token is null', async () => {
+    mockMealsToken = null;
+    addMealLog.mockClear();
+    const { result } = renderHook(() => useMeals());
+    await act(async () => {
+      await result.current.addToMeal('breakfast', { name: 'Toast', kcal: 80 });
+    });
+    expect(addMealLog).not.toHaveBeenCalled();
+    expect(result.current.meals.breakfast).toHaveLength(0);
+  });
+
+  it('removeFromMeal is a no-op when token is null', async () => {
+    getMealLogs.mockResolvedValue([
+      { id: 5, meal_type: 'dinner', food_name: 'Steak', kcal: 600 },
+    ]);
+    const { result, rerender } = renderHook(() => useMeals());
+    await waitFor(() => expect(result.current.meals.dinner).toHaveLength(1));
+
+    mockMealsToken = null;
+    deleteMealLog.mockClear();
+    rerender();
+    await waitFor(() => expect(result.current.meals.dinner).toHaveLength(0));
+
+    // now call removeFromMeal with null token — should be a no-op (no deleteMealLog call)
+    await act(async () => {
+      await result.current.removeFromMeal('dinner', 0);
+    });
+    expect(deleteMealLog).not.toHaveBeenCalled();
+  });
+
+  it('groupByMealType ignores logs with unknown meal_type (else branch)', async () => {
+    getMealLogs.mockResolvedValue([
+      { id: 1, meal_type: 'snack', food_name: 'Cookie', kcal: 100 },
+    ]);
+    const { result } = renderHook(() => useMeals());
+    await waitFor(() => expect(getMealLogs).toHaveBeenCalled());
+    // 'snack' is not in MEAL_TYPES so it should be dropped
+    const allItems = Object.values(result.current.meals).flat();
+    expect(allItems).toHaveLength(0);
   });
 });

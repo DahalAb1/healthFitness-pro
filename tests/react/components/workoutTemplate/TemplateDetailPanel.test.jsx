@@ -103,4 +103,56 @@ describe('TemplateDetailPanel', () => {
     fireEvent.click(document.querySelector('.wt-detail-panel'));
     expect(onClose).not.toHaveBeenCalled();
   });
-});
+
+  it('clicking Begin Workout sets sessionStorage and navigates', () => {
+    renderPanel();
+    sessionStorage.clear();
+    fireEvent.click(screen.getByRole('button', { name: 'Begin Workout' }));
+    expect(sessionStorage.getItem('activeWorkoutSource')).toBe('template');
+    expect(sessionStorage.getItem('activeWorkoutId')).toBe('1');
+    expect(sessionStorage.getItem('activeWorkoutName')).toBe('Push Day');
+  });
+
+  it('renders an <img> for an exercise that has image_url', () => {
+    const exercisesWithImg = [
+      {
+        details: { name: 'Pull-up', muscle_group: 'back', equipment: 'bodyweight', image_url: 'https://example.com/pullup.jpg' },
+        target_sets: 3,
+        target_reps: 8,
+      },
+    ];
+    renderPanel({ exercises: exercisesWithImg });
+    const img = screen.getByAltText('Pull-up');
+    expect(img).toBeInTheDocument();
+    expect(img).toHaveAttribute('src', 'https://example.com/pullup.jpg');
+  });
+
+  it('falls back to exercise_id when exercise details has no name', () => {
+    const exercisesNoName = [
+      {
+        exercise_id: 'ex-42',
+        details: { muscle_group: 'arms', equipment: 'cable', image_url: '' },
+        target_sets: 2,
+        target_reps: 15,
+      },
+    ];
+    renderPanel({ exercises: exercisesNoName });
+    expect(screen.getByText('ex-42')).toBeInTheDocument();
+  });
+
+  it('does not render description paragraph when template has no description', () => {
+    renderPanel({ template: { id: 2, name: 'Leg Day', description: '' } });
+    expect(screen.queryByText('Chest, shoulders, and triceps.')).not.toBeInTheDocument();
+  });
+  it('uses empty object fallback when exercise has no details property', () => {
+    const exercisesNoDetails = [
+      {
+        exercise_id: 'ex-99',
+        target_sets: 2,
+        target_reps: 12,
+      },
+    ];
+    renderPanel({ exercises: exercisesNoDetails });
+    expect(screen.getByText('ex-99')).toBeInTheDocument();
+    expect(screen.getByText('2 sets × 12 reps')).toBeInTheDocument();
+  });});

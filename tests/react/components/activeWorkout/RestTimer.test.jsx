@@ -230,4 +230,13 @@ describe('RestTimer', () => {
     fireEvent.click(screen.getByRole('button', { name: '30s' }));
     expect(screen.getByRole('button', { name: 'Save as default' })).toBeInTheDocument();
   });
+
+  // ── Zero-duration progress ─────────────────────────────────────────────────
+
+  it('renders with zero progress when default duration is 0', () => {
+    getDefaultRest.mockReturnValue(0);
+    render(<RestTimer onDismiss={onDismiss} />);
+    // duration=0 → progress = duration > 0 ? ... : 0  (the :0 branch)
+    expect(screen.getByText('0:00')).toBeInTheDocument();
+  });
 });

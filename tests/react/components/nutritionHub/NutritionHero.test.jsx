@@ -28,7 +28,7 @@ describe('NutritionHero', () => {
 
   it('renders the description paragraph', () => {
     render(<NutritionHero total={0} goal={2000} />);
-    expect(screen.getByText(/Track your daily calories/i)).toBeInTheDocument();
+    expect(screen.getByText(/Track your daily macronutrients/i)).toBeInTheDocument();
   });
 
   it('does not apply the "over" class when total is under the goal', () => {
@@ -49,9 +49,9 @@ describe('NutritionHero', () => {
     expect(pill).not.toHaveClass('over');
   });
 
-  it('shows the "TODAY:" label in the stat pill', () => {
+  it('shows the "CALORIES:" label in the stat pill', () => {
     render(<NutritionHero total={500} goal={2000} />);
-    expect(screen.getByText(/TODAY:/i)).toBeInTheDocument();
+    expect(screen.getByText(/CALORIES:/i)).toBeInTheDocument();
   });
 
   it('shows "KCAL" label in the stat strip', () => {

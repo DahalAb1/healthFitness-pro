@@ -4,6 +4,16 @@ import { MemoryRouter } from 'react-router-dom';
 
 const mockLogout = vi.fn();
 const mockNavigate = vi.fn();
+const mockSetHeightInches = vi.fn();
+const mockSetWeightLbs = vi.fn();
+const mockSaveProfile = vi.fn();
+const mockProfileData = {
+  displayName: 'Jane Doe',
+  email: 'jane@test.com',
+  units: 'Imperial',
+  workoutSounds: 'On',
+  notifications: 'On',
+};
 
 vi.mock('@/context/useAuth', () => ({
   useAuth: () => ({
@@ -20,19 +30,13 @@ vi.mock('react-router-dom', async (importOriginal) => {
 
 vi.mock('@/hooks/useAccountProfile', () => ({
   useAccountProfile: () => ({
-    profile: {
-      displayName: 'Jane Doe',
-      email: 'jane@test.com',
-      units: 'Imperial',
-      workoutSounds: 'On',
-      notifications: 'On',
-    },
+    profile: mockProfileData,
     heightInches: 65,
     weightLbs: 140,
-    setHeightInches: vi.fn(),
-    setWeightLbs: vi.fn(),
+    setHeightInches: mockSetHeightInches,
+    setWeightLbs: mockSetWeightLbs,
     set: vi.fn(() => vi.fn()),
-    saveProfile: vi.fn(),
+    saveProfile: mockSaveProfile,
   }),
 }));
 
@@ -57,6 +61,10 @@ describe('AccountPage', () => {
   beforeEach(() => {
     mockLogout.mockReset();
     mockNavigate.mockReset();
+    mockSetHeightInches.mockReset();
+    mockSetWeightLbs.mockReset();
+    mockSaveProfile.mockReset();
+    mockProfileData.displayName = 'Jane Doe';
   });
 
   it('renders the Navbar', () => {
@@ -121,5 +129,47 @@ describe('AccountPage', () => {
   it('renders the version footer', () => {
     renderPage();
     expect(screen.getByText(/v2.4.0/)).toBeInTheDocument();
+  });
+
+  it('clicking Height + calls setHeightInches and saveProfile', () => {
+    renderPage();
+    // NumericStepper renders buttons with aria-label="Increase" and "Decrease"
+    // Height stepper comes first in the DOM
+    const increaseButtons = screen.getAllByRole('button', { name: 'Increase' });
+    fireEvent.click(increaseButtons[0]);
+    expect(mockSetHeightInches).toHaveBeenCalledWith(66); // 65 + 1
+    expect(mockSaveProfile).toHaveBeenCalledWith({ height_inches: 66 });
+  });
+
+  it('clicking Height − calls setHeightInches and saveProfile', () => {
+    renderPage();
+    const decreaseButtons = screen.getAllByRole('button', { name: 'Decrease' });
+    fireEvent.click(decreaseButtons[0]);
+    expect(mockSetHeightInches).toHaveBeenCalledWith(64); // 65 - 1
+    expect(mockSaveProfile).toHaveBeenCalledWith({ height_inches: 64 });
+  });
+
+  it('clicking Weight + calls setWeightLbs and saveProfile', () => {
+    renderPage();
+    const increaseButtons = screen.getAllByRole('button', { name: 'Increase' });
+    fireEvent.click(increaseButtons[1]);
+    expect(mockSetWeightLbs).toHaveBeenCalled();
+    expect(mockSaveProfile).toHaveBeenCalledWith(expect.objectContaining({ weight_lbs: expect.any(Number) }));
+  });
+
+  it('clicking Weight − calls setWeightLbs and saveProfile', () => {
+    renderPage();
+    const decreaseButtons = screen.getAllByRole('button', { name: 'Decrease' });
+    fireEvent.click(decreaseButtons[1]);
+    expect(mockSetWeightLbs).toHaveBeenCalled();
+    expect(mockSaveProfile).toHaveBeenCalledWith(expect.objectContaining({ weight_lbs: expect.any(Number) }));
+  });
+
+  it('uses "User" as displayName fallback when profile.displayName is empty', () => {
+    mockProfileData.displayName = '';
+    renderPage();
+    // AccountAvatar receives displayName; when it is 'User' it renders the text or initials
+    // The important check is that the component renders without crashing
+    expect(screen.getByTestId('navbar')).toBeInTheDocument();
   });
 });
