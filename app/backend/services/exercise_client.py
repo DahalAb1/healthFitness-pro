@@ -5,83 +5,47 @@ from core.config import settings
 
 
 class ExerciseClient:
-    BASE_URL = "https://edb-with-videos-and-images-by-ascendapi.p.rapidapi.com/api/v1"
-    HOST = "edb-with-videos-and-images-by-ascendapi.p.rapidapi.com"
+    BASE_URL = "https://exercisedb.p.rapidapi.com"
+    HOST = "exercisedb.p.rapidapi.com"
 
     def __init__(self):
         self.headers = {
             "x-rapidapi-key": settings.XRAPID_API_KEY,
             "x-rapidapi-host": self.HOST,
         }
+        result = httpx.get(
+            f"{self.BASE_URL}/exercises/targetList", headers=self.headers
+        ).json()
+        self._target_muscles = set(result) if isinstance(result, list) else set()
 
-    def _extract_list(self, data):
-        """
-        The external API returns exercises in different shapes depending
-        on the endpoint. This normalizes all of them into a plain list.
-        """
-        if isinstance(data, dict):
-            for key in ("data", "exercises", "items", "results", "body"):
-                val = data.get(key)
-                if isinstance(val, list):
-                    return val
-                if isinstance(val, dict):
-                    for inner_key in ("exercises", "data", "items", "results"):
-                        inner = val.get(inner_key)
-                        if isinstance(inner, list):
-                            return inner
-        elif isinstance(data, list):
-            return data
-        return []
+    def _get(self, url: str, params: dict = None):
+        """HTTP GET with shared headers; surfaces 429 as a structured rate_limit error."""
+        response = httpx.get(url, headers=self.headers, params=params,timeout=10.0)
+        if response.status_code == 429:
+            return {"error": "rate_limit"}
+        return response.json()
 
     def get_exercises(self, body_part: str = None, limit: int = 10):
         """Fetch exercises from the API, optionally filtered by body part."""
-        url = f"{self.BASE_URL}/exercises"
-        params = {"limit": 50}
-        response = httpx.get(url, headers=self.headers, params=params)
-        all_exercises = self._extract_list(response.json())
-        if body_part:
-            target = body_part.upper()
-            return [
-                ex for ex in all_exercises
-                if (
-                    (isinstance(ex.get("bodyParts"), list) and target in [bp.upper() for bp in ex.get("bodyParts")])
-                    or (isinstance(ex.get("bodyPart"), str) and ex.get("bodyPart").upper() == target)
-                )
-            ][:limit]
-        return all_exercises[:limit]
+        if body_part in self._target_muscles:
+            url = f"{self.BASE_URL}/exercises/target/{body_part}"
+        elif body_part:
+            url = f"{self.BASE_URL}/exercises/bodyPart/{body_part}"
+        else:
+            url = f"{self.BASE_URL}/exercises"
+        return self._get(url, params={"limit": limit})
 
     def get_exercise_by_id(self, exercise_id: str):
         """Fetch a single exercise by its API ID."""
-        url = f"{self.BASE_URL}/exercises/{exercise_id}"
-        response = httpx.get(url, headers=self.headers)
-        return response.json()
+        url = f"{self.BASE_URL}/exercises/exercise/{exercise_id}"
+        return self._get(url)
 
     def find_exercise_by_name(self, exercise_name: str):
-        """Search for an exercise by name. Tries exact match first, then partial."""
-        normalized_name = exercise_name.strip().lower()
-        url = f"{self.BASE_URL}/exercises"
-
-        response = httpx.get(
-            url,
-            headers=self.headers,
-            params={"name": exercise_name, "limit": 50},
-        )
-        data = response.json()
-
-        if isinstance(data, dict) and isinstance(data.get("data"), list):
-            results = data.get("data", [])
-        elif isinstance(data, list):
-            results = data
-        else:
-            results = []
-
-        for exercise in results:
-            if str(exercise.get("name", "")).strip().lower() == normalized_name:
-                return exercise
-
-        for exercise in results:
-            candidate = str(exercise.get("name", "")).strip().lower()
-            if normalized_name in candidate or candidate in normalized_name:
-                return exercise
-
+        """Search for an exercise by name. Returns the first match, None, or a rate_limit error dict."""
+        url = f"{self.BASE_URL}/exercises/name/{exercise_name}"
+        results = self._get(url)
+        if isinstance(results, dict) and results.get("error") == "rate_limit":
+            return results
+        if isinstance(results, list) and results:
+            return results[0]
         return None
