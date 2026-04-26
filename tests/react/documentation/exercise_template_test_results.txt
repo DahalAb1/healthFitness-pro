@@ -1,0 +1,53 @@
+Exercise Template Frontend Test Results
+=======================================
+
+Execution Summary
+-----------------
+- Test files: tests/react/hooks/useTemplatesView.test.js
+              tests/react/components/workoutTemplate/ExerciseRow.test.jsx
+- Plan tests passed: 3 / 3
+- useTemplatesView total: 8 passed, 0 failed
+- ExerciseRow total: 11 passed, 0 failed
+- Overall result: PASS
+
+Execution Environment
+---------------------
+- Platform: darwin
+- Node: v20.17.0
+- Vitest: 4.1.5
+- Environment: happy-dom
+- Command: npm run test -- --reporter=verbose
+
+useTemplatesView.test.js Results
+---------------------------------
+✓ initialises with empty state (8ms)
+✓ loads templates on mount (54ms)                          ← Plan Test 1
+✓ handles non-array response from getTemplates gracefully (4ms)
+✓ openTemplate sets selectedTemplate and loads its exercises (56ms)  ← Plan Test 2
+✓ openTemplate sets loadingExercises to true then false (55ms)
+✓ openTemplate clears previous exercises before loading new ones (60ms)
+✓ closeTemplate clears selectedTemplate (57ms)
+✓ openTemplate falls back to [] when response has no exercises key (57ms)
+
+ExerciseRow.test.jsx Results
+-----------------------------
+✓ renders the exercise name as a button with the current value (27ms)
+✓ renders the sets input with the current value (3ms)
+✓ renders the reps input with the current value (2ms)
+✓ renders the rest input with the current value (2ms)
+✓ renders the remove button (19ms)
+✓ calls onOpenLibraryForRow with the row id when the exercise button is clicked (16ms)
+✓ calls onUpdate with sets field when the sets input changes (2ms)   ← Plan Test 3
+✓ calls onUpdate with reps field when the reps input changes (8ms)
+✓ calls onUpdate with rest field when the rest input changes (2ms)
+✓ calls onRemove with the row id when the remove button is clicked (12ms)
+✓ renders "Add Exercise" when exercise is empty (11ms)
+
+Notes
+-----
+- Test environment changed from jsdom to happy-dom to resolve an ESM
+  compatibility issue with html-encoding-sniffer / @exodus/bytes.
+- Plan Test 3 targets onUpdate for sets/reps/rest inputs. The exercise
+  field was refactored to a library button (onOpenLibraryForRow) after
+  the plan was written; that interaction is covered by the
+  onOpenLibraryForRow test above.

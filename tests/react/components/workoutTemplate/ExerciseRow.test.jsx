@@ -13,21 +13,37 @@ const defaultRow = {
 function renderRow(overrides = {}) {
   const onUpdate = vi.fn();
   const onRemove = vi.fn();
+  const onAddRowAfter = vi.fn();
+  const onOpenLibraryForRow = vi.fn();
+  const onDragStartRow = vi.fn();
+  const onDragOverRow = vi.fn();
+  const onDropRow = vi.fn();
+  const onDragEndRow = vi.fn();
   const row = { ...defaultRow, ...overrides };
   const utils = render(
     <table>
       <tbody>
-        <ExerciseRow row={row} onUpdate={onUpdate} onRemove={onRemove} />
+        <ExerciseRow
+          row={row}
+          onUpdate={onUpdate}
+          onRemove={onRemove}
+          onAddRowAfter={onAddRowAfter}
+          onOpenLibraryForRow={onOpenLibraryForRow}
+          onDragStartRow={onDragStartRow}
+          onDragOverRow={onDragOverRow}
+          onDropRow={onDropRow}
+          onDragEndRow={onDragEndRow}
+        />
       </tbody>
     </table>,
   );
-  return { ...utils, onUpdate, onRemove };
+  return { ...utils, onUpdate, onRemove, onOpenLibraryForRow };
 }
 
 describe('ExerciseRow', () => {
-  it('renders the exercise name input with the current value', () => {
+  it('renders the exercise name as a button with the current value', () => {
     renderRow();
-    expect(screen.getByDisplayValue('Bench Press')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Change exercise for row' })).toBeInTheDocument();
   });
 
   it('renders the sets input with the current value', () => {
@@ -50,12 +66,10 @@ describe('ExerciseRow', () => {
     expect(screen.getByRole('button', { name: 'Remove exercise row' })).toBeInTheDocument();
   });
 
-  it('calls onUpdate with exercise field when the exercise input changes', () => {
-    const { onUpdate } = renderRow();
-    fireEvent.change(screen.getByDisplayValue('Bench Press'), {
-      target: { value: 'Squat' },
-    });
-    expect(onUpdate).toHaveBeenCalledWith(1, 'exercise', 'Squat');
+  it('calls onOpenLibraryForRow with the row id when the exercise button is clicked', () => {
+    const { onOpenLibraryForRow } = renderRow();
+    fireEvent.click(screen.getByRole('button', { name: 'Change exercise for row' }));
+    expect(onOpenLibraryForRow).toHaveBeenCalledWith(1);
   });
 
   it('calls onUpdate with sets field when the sets input changes', () => {
@@ -88,10 +102,8 @@ describe('ExerciseRow', () => {
     expect(onRemove).toHaveBeenCalledWith(1);
   });
 
-  it('renders exercise input with placeholder text', () => {
+  it('renders "Add Exercise" when exercise is empty', () => {
     renderRow({ exercise: '' });
-    expect(
-      screen.getByPlaceholderText('Type or add from library...'),
-    ).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /Add exercise from library/i })).toBeInTheDocument();
   });
 });
