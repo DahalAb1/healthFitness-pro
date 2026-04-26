@@ -1,5 +1,4 @@
 import AuthCarousel from "./AuthCarousel";
-import Navbar from "../common/Navbar";
 import "../../styles/components/auth/auth.css";
 
 /**
@@ -8,15 +7,12 @@ import "../../styles/components/auth/auth.css";
  */
 function AuthLayout({ children }) {
   return (
-    <>
-      <Navbar />
-      <div className="auth-page">
-        <AuthCarousel />
-        <div className="auth-form-side">
-          <div className="auth-form-inner">{children}</div>
-        </div>
+    <div className="auth-page">
+      <AuthCarousel />
+      <div className="auth-form-side">
+        <div className="auth-form-inner">{children}</div>
       </div>
-    </>
+    </div>
   );
 }
 

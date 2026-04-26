@@ -6,6 +6,7 @@
 .auth-page {
   display: flex;
   height: 100vh;
+  min-height: 100svh;
   overflow: hidden;
   background: #080808;
   font-family: "Inter", sans-serif;
@@ -444,15 +445,23 @@
 
 /* ---- RESPONSIVE ---- */
 @media (max-width: 860px) {
+  .auth-page {
+    height: auto;
+    min-height: 100svh;
+    overflow-y: auto;
+  }
+
   .auth-carousel {
     display: none;
   }
 
-  .auth-brand-link {
-    display: none;
+  .auth-form-side {
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: max(24px, env(safe-area-inset-top)) 24px 32px;
   }
 
-  .auth-form-side {
-    padding: 40px 24px;
+  .auth-form-inner {
+    max-width: 420px;
   }
 }
