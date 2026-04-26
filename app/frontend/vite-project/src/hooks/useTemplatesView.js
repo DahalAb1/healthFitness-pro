@@ -17,6 +17,7 @@ export function useTemplatesView() {
     setLoadingExercises(true);
     getTemplateExercises(template.id)
       .then((data) => setExercises(data.exercises || []))
+      .catch(() => setExercises([]))
       .finally(() => setLoadingExercises(false));
   }
 
