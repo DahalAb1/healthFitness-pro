@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import NutritionHero from './NutritionHero';
-import MacroGauge from './MacroGauge';
-import FoodSearch from './FoodSearch';
-import MealSection from './MealSection';
-import { useFoodSearch } from '../../hooks/useFoodSearch';
-import { useMeals, MEAL_TYPES } from '../../hooks/useMeals';
+import React, { useState } from "react";
+import NutritionHero from "./NutritionHero";
+import MacroGauge from "./MacroGauge";
+import FoodSearch from "./FoodSearch";
+import MealSection from "./MealSection";
+import { useFoodSearch } from "../../hooks/useFoodSearch";
+import { useMeals, MEAL_TYPES } from "../../hooks/useMeals";
 
 /**
  * SRP: responsible only for layout and wiring together child components.
@@ -15,44 +15,73 @@ function NutritionPage() {
   const [proteinGoal, setProteinGoal] = useState(150);
   const [carbsGoal, setCarbsGoal] = useState(200);
   const [fatGoal, setFatGoal] = useState(65);
+  const [selectedFood, setSelectedFood] = useState(null);
 
   const {
-    searchQuery, setSearchQuery,
-    searchResults, isSearching,
-    customName, setCustomName,
-    customKcal, setCustomKcal,
-    customProtein, setCustomProtein,
-    customCarbs, setCustomCarbs,
-    customFat, setCustomFat,
+    searchQuery,
+    setSearchQuery,
+    searchResults,
+    isSearching,
+    customName,
+    setCustomName,
+    customKcal,
+    setCustomKcal,
+    customProtein,
+    setCustomProtein,
+    customCarbs,
+    setCustomCarbs,
+    customFat,
+    setCustomFat,
     handleAddCustom,
   } = useFoodSearch();
 
-  const { meals, addToMeal, removeFromMeal, totalCalories, totalMacros } = useMeals();
+  const { meals, addToMeal, removeFromMeal, totalCalories, totalMacros } =
+    useMeals();
 
   const handleDragStart = (e, food) => {
-    e.dataTransfer.effectAllowed = 'copy';
-    e.dataTransfer.setData('application/json', JSON.stringify(food));
+    const payload = JSON.stringify(food);
+    e.dataTransfer.effectAllowed = "copy";
+    e.dataTransfer.setData("application/json", payload);
+    e.dataTransfer.setData("text/plain", payload);
   };
 
   const handleDragOver = (e) => {
     e.preventDefault();
-    e.currentTarget.classList.add('drag-over');
+    e.currentTarget.classList.add("drag-over");
   };
 
   const handleDragLeave = (e) => {
-    e.currentTarget.classList.remove('drag-over');
+    e.currentTarget.classList.remove("drag-over");
   };
 
   const handleDrop = (e, mealType) => {
     e.preventDefault();
-    e.currentTarget.classList.remove('drag-over');
-    const food = JSON.parse(e.dataTransfer.getData('application/json'));
+    e.currentTarget.classList.remove("drag-over");
+    const raw =
+      e.dataTransfer.getData("application/json") ||
+      e.dataTransfer.getData("text/plain");
+    if (!raw) return;
+    const food = JSON.parse(raw);
     addToMeal(mealType, food);
+  };
+
+  const handleSelectFood = (food) => {
+    setSelectedFood(food);
+  };
+
+  const handleTapAdd = (mealType) => {
+    if (!selectedFood) return;
+    addToMeal(mealType, selectedFood);
+    setSelectedFood(null);
   };
 
   return (
     <div className="container nutrition-hub-container">
-      <NutritionHero total={totalCalories} goal={goal} totalMacros={totalMacros} />
+      <NutritionHero
+        total={totalCalories}
+        goal={goal}
+        totalMacros={totalMacros}
+      />
 
       <div className="log-grid">
         <div className="log-sidebar">
@@ -62,6 +91,8 @@ function NutritionPage() {
             searchResults={searchResults}
             isSearching={isSearching}
             onDragStart={handleDragStart}
+            onSelectFood={handleSelectFood}
+            selectedFood={selectedFood}
             customName={customName}
             customKcal={customKcal}
             customProtein={customProtein}
@@ -77,7 +108,7 @@ function NutritionPage() {
         </div>
 
         <div className="log-main">
-          {MEAL_TYPES.map(mealType => (
+          {MEAL_TYPES.map((mealType) => (
             <MealSection
               key={mealType}
               mealType={mealType}
@@ -85,6 +116,8 @@ function NutritionPage() {
               onDragOver={handleDragOver}
               onDragLeave={handleDragLeave}
               onDrop={handleDrop}
+              onTapAdd={handleTapAdd}
+              selectedFood={selectedFood}
               onRemove={removeFromMeal}
             />
           ))}
