@@ -1,16 +1,16 @@
-import { useEffect, useMemo, useState } from 'react';
-import { useAuth } from '../context/useAuth';
-import { getMealLogs, addMealLog, deleteMealLog } from '../utils/api';
+import { useEffect, useMemo, useState } from "react";
+import { useAuth } from "../context/useAuth";
+import { getMealLogs, addMealLog, deleteMealLog } from "../utils/api";
 
-export const MEAL_TYPES = ['breakfast', 'lunch', 'dinner', 'misc'];
+export const MEAL_TYPES = ["breakfast", "lunch", "dinner", "misc"];
 
-const emptyMeals = () => Object.fromEntries(MEAL_TYPES.map(t => [t, []]));
+const emptyMeals = () => Object.fromEntries(MEAL_TYPES.map((t) => [t, []]));
 
 const getTodayString = () => {
   const now = new Date();
   const year = now.getFullYear();
-  const month = String(now.getMonth() + 1).padStart(2, '0');
-  const day = String(now.getDate()).padStart(2, '0');
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const day = String(now.getDate()).padStart(2, "0");
   return `${year}-${month}-${day}`;
 };
 
@@ -51,42 +51,60 @@ export function useMeals() {
       return;
     }
     getMealLogs(token, getTodayString())
-      .then(logs => setMeals(groupByMealType(logs)))
+      .then((logs) => setMeals(groupByMealType(logs)))
       .catch(() => setMeals(emptyMeals()));
   }, [token]);
 
   const addToMeal = async (mealType, food) => {
-    if (!token) return;
-    const log = await addMealLog(token, {
-      log_date: getTodayString(),
-      meal_type: mealType,
-      food_name: food.name,
+    const item = {
+      name: food.name,
       kcal: food.kcal,
       protein_g: food.protein_g ?? null,
       carbs_g: food.carbs_g ?? null,
       fat_g: food.fat_g ?? null,
+    };
+
+    if (!token) {
+      setMeals((prev) => ({
+        ...prev,
+        [mealType]: [...prev[mealType], { id: `local-${Date.now()}`, ...item }],
+      }));
+      return;
+    }
+
+    const log = await addMealLog(token, {
+      log_date: getTodayString(),
+      meal_type: mealType,
+      food_name: item.name,
+      kcal: item.kcal,
+      protein_g: item.protein_g,
+      carbs_g: item.carbs_g,
+      fat_g: item.fat_g,
     });
-    setMeals(prev => ({
+    setMeals((prev) => ({
       ...prev,
-      [mealType]: [...prev[mealType], {
-        id: log.id,
-        name: log.food_name,
-        kcal: log.kcal,
-        protein_g: log.protein_g ?? null,
-        carbs_g: log.carbs_g ?? null,
-        fat_g: log.fat_g ?? null,
-      }],
+      [mealType]: [
+        ...prev[mealType],
+        {
+          id: log.id,
+          name: log.food_name,
+          kcal: log.kcal,
+          protein_g: log.protein_g ?? null,
+          carbs_g: log.carbs_g ?? null,
+          fat_g: log.fat_g ?? null,
+        },
+      ],
     }));
   };
 
   const removeFromMeal = async (mealType, index) => {
-    if (!token) return;
     const item = meals[mealType][index];
     // Optimistically remove from UI, then delete from DB.
-    setMeals(prev => ({
+    setMeals((prev) => ({
       ...prev,
       [mealType]: prev[mealType].filter((_, i) => i !== index),
     }));
+    if (!token || !item?.id || String(item.id).startsWith("local-")) return;
     await deleteMealLog(token, item.id);
   };
 
