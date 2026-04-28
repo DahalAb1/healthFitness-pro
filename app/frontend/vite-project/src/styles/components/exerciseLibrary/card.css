@@ -19,9 +19,14 @@
 .el-card-image {
   width: 100%;
   height: 180px;
-  object-fit: cover;
+  object-fit: contain;
   display: block;
-  background: var(--surface-alt);
+  /* Background is set to white so that after the invert filter it
+     becomes black, blending with the inverted GIF's now-black background
+     and removing the light frame that #111 produced post-invert. */
+  background: #fff;
+  padding: 12px;
+  filter: invert(1) hue-rotate(180deg);
 }
 
 .el-card-body {

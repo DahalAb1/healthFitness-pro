@@ -60,6 +60,9 @@ __pycache__
 # Environment variables - never commit API keys
 .env
 
+# Cached exercise GIFs fetched from RapidAPI (regenerated on demand)
+app/backend/.cache/
+
 
 .venv/
 # Virtual environment directories

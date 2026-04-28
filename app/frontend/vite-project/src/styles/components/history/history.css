@@ -269,21 +269,23 @@
   font-size: 14px;
 }
 
-/* Exercise breakdown table */
 .exercise-table {
   width: 100%;
   border-collapse: collapse;
   font-size: 13px;
   margin-top: 8px;
-}
-
-.exercise-table.nutrition-table {
   table-layout: fixed;
 }
 
-.exercise-table.nutrition-table th:first-child,
-.exercise-table.nutrition-table td:first-child {
+.exercise-table th:first-child,
+.exercise-table td:first-child {
   width: 40%;
+}
+
+.exercise-table th:not(:first-child),
+.exercise-table td:not(:first-child) {
+  width: 20%;
+  text-align: right;
 }
 
 .exercise-table.nutrition-table th:not(:first-child),
