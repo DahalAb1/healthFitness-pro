@@ -8,7 +8,26 @@
     text-align: center;
     padding: 60px 20px;
   }
-  .nav-links {
-    display: none;
+}
+
+@media (max-width: 600px) {
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Prevent any section from causing horizontal overflow */
+  section,
+  header,
+  main,
+  footer {
+    overflow-x: hidden;
+  }
+
+  /* Ensure buttons don't overflow their container */
+  .btn {
+    max-width: 100%;
+    word-break: break-word;
   }
 }

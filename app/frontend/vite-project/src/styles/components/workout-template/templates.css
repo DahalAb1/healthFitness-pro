@@ -86,8 +86,12 @@
 }
 
 @keyframes wtSlideIn {
-  from { transform: translateX(100%); }
-  to   { transform: translateX(0); }
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
 }
 
 .wt-detail-panel .modal-close-btn {
@@ -163,4 +167,19 @@
   font-size: 13px;
   color: var(--text-secondary);
   margin: 0;
+}
+
+@media (max-width: 600px) {
+  .wt-hub-container {
+    padding: 28px 16px 80px;
+  }
+
+  .wt-templates-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .wt-template-card {
+    padding: 20px;
+  }
 }

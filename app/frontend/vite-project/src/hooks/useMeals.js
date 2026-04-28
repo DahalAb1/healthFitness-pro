@@ -1,16 +1,16 @@
-import { useEffect, useMemo, useState } from 'react';
-import { useAuth } from '../context/useAuth';
-import { getMealLogs, addMealLog, deleteMealLog } from '../utils/api';
+import { useEffect, useMemo, useState } from "react";
+import { useAuth } from "../context/useAuth";
+import { getMealLogs, addMealLog, deleteMealLog } from "../utils/api";
 
-export const MEAL_TYPES = ['breakfast', 'lunch', 'dinner', 'misc'];
+export const MEAL_TYPES = ["breakfast", "lunch", "dinner", "misc"];
 
-const emptyMeals = () => Object.fromEntries(MEAL_TYPES.map(t => [t, []]));
+const emptyMeals = () => Object.fromEntries(MEAL_TYPES.map((t) => [t, []]));
 
 const getTodayString = () => {
   const now = new Date();
   const year = now.getFullYear();
-  const month = String(now.getMonth() + 1).padStart(2, '0');
-  const day = String(now.getDate()).padStart(2, '0');
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const day = String(now.getDate()).padStart(2, "0");
   return `${year}-${month}-${day}`;
 };
 
@@ -51,12 +51,27 @@ export function useMeals() {
       return;
     }
     getMealLogs(token, getTodayString())
-      .then(logs => setMeals(groupByMealType(logs)))
+      .then((logs) => setMeals(groupByMealType(logs)))
       .catch(() => setMeals(emptyMeals()));
   }, [token]);
 
   const addToMeal = async (mealType, food) => {
-    if (!token) return;
+    const item = {
+      name: food.name,
+      kcal: food.kcal,
+      protein_g: food.protein_g ?? null,
+      carbs_g: food.carbs_g ?? null,
+      fat_g: food.fat_g ?? null,
+    };
+
+    if (!token) {
+      setMeals((prev) => ({
+        ...prev,
+        [mealType]: [...prev[mealType], { id: `local-${Date.now()}`, ...item }],
+      }));
+      return;
+    }
+
     const log = await addMealLog(token, {
       log_date: getTodayString(),
       meal_type: mealType,
@@ -66,7 +81,7 @@ export function useMeals() {
       carbs_g: food.carbs_g ?? null,
       fat_g: food.fat_g ?? null,
     });
-    setMeals(prev => ({
+    setMeals((prev) => ({
       ...prev,
       [mealType]: [...prev[mealType], {
         id: log.id,

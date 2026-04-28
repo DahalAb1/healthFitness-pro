@@ -477,7 +477,9 @@
   text-align: left;
   cursor: pointer;
   color: var(--text-primary);
-  transition: border-color 0.2s, background 0.2s;
+  transition:
+    border-color 0.2s,
+    background 0.2s;
   width: 100%;
 }
 
@@ -535,7 +537,9 @@
   color: var(--text-primary);
 }
 
-.wt-btn-view:hover { border-color: var(--accent); }
+.wt-btn-view:hover {
+  border-color: var(--accent);
+}
 
 .wt-btn-customize {
   background: var(--surface-alt);
@@ -610,5 +614,39 @@
 
   .wt-templates-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .wt-card {
+    padding: 20px 16px;
+  }
+
+  .wt-workout-table th,
+  .wt-workout-table td {
+    padding: 10px 8px;
+  }
+
+  .wt-workout-table input[type="text"],
+  .wt-workout-table input[type="number"] {
+    min-width: 96px;
+  }
+
+  .wt-library-overlay {
+    padding-top: 16px;
+  }
+
+  .wt-library-modal {
+    width: calc(100% - 16px);
+    max-height: 92vh;
+  }
+
+  .wt-library-controls {
+    flex-direction: column;
+    padding: 12px 16px;
+  }
+
+  .wt-library-list {
+    padding: 10px 16px 16px;
   }
 }
