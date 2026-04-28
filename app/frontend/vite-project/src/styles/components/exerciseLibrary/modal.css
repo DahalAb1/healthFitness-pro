@@ -48,11 +48,13 @@
 
 .el-modal-image {
   width: 100%;
-  max-height: 280px;
-  object-fit: cover;
+  height: 320px;
+  object-fit: contain;
   border-radius: var(--radius) var(--radius) 0 0;
   display: block;
-  background: var(--surface-alt);
+  background: #fff;
+  padding: 16px;
+  filter: invert(1) hue-rotate(180deg);
 }
 
 .el-modal-body {
