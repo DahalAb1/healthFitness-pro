@@ -5,13 +5,6 @@ import fitness1 from "../../assets/fitness1.jpg";
 import fitness2 from "../../assets/fitness2.webp";
 import fitness3 from "../../assets/fitness 3.jpg";
 
-import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { useAuth } from '../../context/useAuth';
-import fitness1 from '../../assets/fitness1.jpg';
-import fitness2 from '../../assets/fitness2.webp';
-import fitness3 from '../../assets/fitness 3.jpg';
-
 const slides = [
   { src: fitness1, alt: "Hero 1" },
   { src: fitness2, alt: "Hero 2" },

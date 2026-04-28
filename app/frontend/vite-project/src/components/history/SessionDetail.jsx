@@ -71,41 +71,30 @@ function NutritionSection({ mealLogs }) {
                 </tr>
               </thead>
               <tbody>
-                {items.map(item => (
+                {items.map((item) => (
                   <tr key={item.id}>
                     <td>{item.food_name}</td>
                     <td>{Math.round(item.kcal)}</td>
-                    <td>{item.protein_g != null ? `${Math.round(item.protein_g)}g` : '—'}</td>
-                    <td>{item.carbs_g != null ? `${Math.round(item.carbs_g)}g` : '—'}</td>
-                    <td>{item.fat_g != null ? `${Math.round(item.fat_g)}g` : '—'}</td>
+                    <td>
+                      {item.protein_g != null
+                        ? `${Math.round(item.protein_g)}g`
+                        : "—"}
+                    </td>
+                    <td>
+                      {item.carbs_g != null
+                        ? `${Math.round(item.carbs_g)}g`
+                        : "—"}
+                    </td>
+                    <td>
+                      {item.fat_g != null
+                        ? `${Math.round(item.fat_g)}g`
+                        : "—"}
+                    </td>
                   </tr>
-                </thead>
-                <tbody>
-                  {items.map((item) => (
-                    <tr key={item.id}>
-                      <td>{item.food_name}</td>
-                      <td>{Math.round(item.kcal)}</td>
-                      <td>
-                        {item.protein_g != null
-                          ? `${Math.round(item.protein_g)}g`
-                          : "—"}
-                      </td>
-                      <td>
-                        {item.carbs_g != null
-                          ? `${Math.round(item.carbs_g)}g`
-                          : "—"}
-                      </td>
-                      <td>
-                        {item.fat_g != null
-                          ? `${Math.round(item.fat_g)}g`
-                          : "—"}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
+                ))}
+              </tbody>
               </table>
             </div>
-          </div>
         );
       })}
     </div>
