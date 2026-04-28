@@ -26,7 +26,7 @@ FROM node:20-alpine AS frontend-build
 
 WORKDIR /frontend
 COPY app/frontend/vite-project/package.json app/frontend/vite-project/package-lock.json ./
-RUN npm ci
+RUN npm ci || npm install
 COPY app/frontend/vite-project/ ./
 
 # Bake the API URL so the built JS points to /api (proxied by Nginx)

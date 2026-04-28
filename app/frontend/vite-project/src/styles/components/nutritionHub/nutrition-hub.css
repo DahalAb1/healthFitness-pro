@@ -11,6 +11,7 @@
   padding: 40px 5%;
   max-width: 1200px;
   margin: 0 auto;
+  overflow-x: hidden;
 }
 
 /* --- HERO --- */
@@ -75,9 +76,11 @@
 }
 
 .stat-strip {
-  display: inline-flex;
-  gap: 12px;
-  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 10px 0;
+  overflow-x: hidden;
 }
 
 .stat-pill {
@@ -210,6 +213,12 @@
   gap: 8px;
 }
 
+.touch-hint {
+  font-size: 11px;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
 .draggable-food {
   background: var(--surface-alt);
   padding: 10px 14px;
@@ -220,12 +229,19 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
-  transition: border-color 0.15s, background 0.15s;
+  transition:
+    border-color 0.15s,
+    background 0.15s;
 }
 
 .draggable-food:hover {
   border-color: var(--accent);
   background: var(--section-alt-bg);
+}
+
+.draggable-food.selected-food {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px rgba(74, 144, 255, 0.45) inset;
 }
 
 .draggable-food:active {
@@ -293,6 +309,24 @@
   letter-spacing: 1px;
   color: var(--text-secondary);
   margin: 0;
+}
+
+.tap-add-btn {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  border: 1px solid var(--border);
+  background: var(--surface-alt);
+  color: var(--text-primary);
+  border-radius: 8px;
+  padding: 5px 8px;
+  cursor: pointer;
+}
+
+.tap-add-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
 }
 
 .drop-zone {
@@ -648,4 +682,3 @@
   font-weight: 700;
   color: var(--accent);
 }
-

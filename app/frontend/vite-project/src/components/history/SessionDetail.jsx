@@ -1,17 +1,29 @@
 import AsyncState from '../common/AsyncState';
 
 const MONTH_NAMES = [
-  'January', 'February', 'March', 'April', 'May', 'June',
-  'July', 'August', 'September', 'October', 'November', 'December',
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
 ];
 
-const MEAL_TYPES = ['breakfast', 'lunch', 'dinner', 'misc'];
+const MEAL_TYPES = ["breakfast", "lunch", "dinner", "misc"];
 
 function NutritionSection({ mealLogs }) {
   if (!mealLogs || mealLogs.length === 0) return null;
 
-  const grouped = Object.fromEntries(MEAL_TYPES.map(t => [t, []]));
-  mealLogs.forEach(log => { if (grouped[log.meal_type]) grouped[log.meal_type].push(log); });
+  const grouped = Object.fromEntries(MEAL_TYPES.map((t) => [t, []]));
+  mealLogs.forEach((log) => {
+    if (grouped[log.meal_type]) grouped[log.meal_type].push(log);
+  });
   const totalKcal = mealLogs.reduce((sum, l) => sum + l.kcal, 0);
   const totalProtein = mealLogs.reduce((sum, l) => sum + (l.protein_g ?? 0), 0);
   const totalCarbs = mealLogs.reduce((sum, l) => sum + (l.carbs_g ?? 0), 0);
@@ -22,10 +34,11 @@ function NutritionSection({ mealLogs }) {
       <div className="day-detail-section-header">
         <span>Nutrition</span>
         <span className="day-detail-macro-text">
-          {Math.round(totalKcal)} Calories &nbsp;·&nbsp; Protein {Math.round(totalProtein)}g &nbsp;·&nbsp; Carbs {Math.round(totalCarbs)}g &nbsp;·&nbsp; Fat {Math.round(totalFat)}g
+          {Math.round(totalKcal)} Calories · Protein {Math.round(totalProtein)}g
+          · Carbs {Math.round(totalCarbs)}g · Fat {Math.round(totalFat)}g
         </span>
       </div>
-      {MEAL_TYPES.map(mealType => {
+      {MEAL_TYPES.map((mealType) => {
         const items = grouped[mealType];
         if (items.length === 0) return null;
         const mealKcal = items.reduce((s, i) => s + i.kcal, 0);
@@ -34,10 +47,17 @@ function NutritionSection({ mealLogs }) {
         const mealFat = items.reduce((s, i) => s + (i.fat_g ?? 0), 0);
         return (
           <div key={mealType} className="day-detail-meal">
-            <p className="workout-duration" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <span>{mealType.charAt(0).toUpperCase() + mealType.slice(1)}</span>
-              <span className="day-detail-macro-text" style={{ fontWeight: 700 }}>
-                {Math.round(mealKcal)} Calories &nbsp;·&nbsp; Protein {Math.round(mealProtein)}g &nbsp;·&nbsp; Carbs {Math.round(mealCarbs)}g &nbsp;·&nbsp; Fat {Math.round(mealFat)}g
+            <p className="workout-duration day-detail-meal-header">
+              <span>
+                {mealType.charAt(0).toUpperCase() + mealType.slice(1)}
+              </span>
+              <span
+                className="day-detail-macro-text"
+                style={{ fontWeight: 700 }}
+              >
+                {Math.round(mealKcal)} Calories · Protein{" "}
+                {Math.round(mealProtein)}g · Carbs {Math.round(mealCarbs)}g ·
+                Fat {Math.round(mealFat)}g
               </span>
             </p>
             <table className="exercise-table nutrition-table">
@@ -59,9 +79,32 @@ function NutritionSection({ mealLogs }) {
                     <td>{item.carbs_g != null ? `${Math.round(item.carbs_g)}g` : '—'}</td>
                     <td>{item.fat_g != null ? `${Math.round(item.fat_g)}g` : '—'}</td>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {items.map((item) => (
+                    <tr key={item.id}>
+                      <td>{item.food_name}</td>
+                      <td>{Math.round(item.kcal)}</td>
+                      <td>
+                        {item.protein_g != null
+                          ? `${Math.round(item.protein_g)}g`
+                          : "—"}
+                      </td>
+                      <td>
+                        {item.carbs_g != null
+                          ? `${Math.round(item.carbs_g)}g`
+                          : "—"}
+                      </td>
+                      <td>
+                        {item.fat_g != null
+                          ? `${Math.round(item.fat_g)}g`
+                          : "—"}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         );
       })}
@@ -69,7 +112,14 @@ function NutritionSection({ mealLogs }) {
   );
 }
 
-function SessionDetail({ month, year, selectedDay, loadingDetail, workout, mealLogs = [] }) {
+function SessionDetail({
+  month,
+  year,
+  selectedDay,
+  loadingDetail,
+  workout,
+  mealLogs = [],
+}) {
   const hasWorkout = !!workout;
   const hasNutrition = mealLogs.length > 0;
 
@@ -78,11 +128,13 @@ function SessionDetail({ month, year, selectedDay, loadingDetail, workout, mealL
       <h3 className="selected-date-header">
         {selectedDay
           ? `${MONTH_NAMES[month]} ${selectedDay}, ${year}`
-          : 'Select a date'}
+          : "Select a date"}
       </h3>
       <div className="workout-details">
         {!selectedDay && (
-          <p className="workout-placeholder">Click a day to view workout and nutrition details.</p>
+          <p className="workout-placeholder">
+            Click a day to view workout and nutrition details.
+          </p>
         )}
         {selectedDay && (
           <AsyncState

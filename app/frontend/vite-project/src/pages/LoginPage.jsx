@@ -10,7 +10,17 @@ import { useLoginForm } from '../hooks/useLoginForm';
  * Delegates form state/logic to useLoginForm, UI pieces to focused components.
  */
 function LoginPage() {
-  const { email, setEmail, password, setPassword, showPw, setShowPw, error, loading, handleSubmit } = useLoginForm();
+  const {
+    email,
+    setEmail,
+    password,
+    setPassword,
+    showPw,
+    setShowPw,
+    error,
+    loading,
+    handleSubmit,
+  } = useLoginForm();
 
   return (
     <AuthLayout>
@@ -37,10 +47,12 @@ function LoginPage() {
           onToggleShow={() => setShowPw((v) => !v)}
         />
 
-        <a href="#" className="auth-forgot-link">Forgot password?</a>
+        <a href="#" className="auth-forgot-link">
+          Forgot password?
+        </a>
 
         <button type="submit" className="auth-submit-btn" disabled={loading}>
-          {loading ? 'Logging in…' : 'Log In'}
+          {loading ? "Logging in…" : "Log In"}
         </button>
       </form>
 
@@ -52,4 +64,3 @@ function LoginPage() {
 }
 
 export default LoginPage;
-

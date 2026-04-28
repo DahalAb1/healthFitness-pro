@@ -50,3 +50,20 @@
 .dot.inactive {
   background: var(--border);
 }
+
+@media (max-width: 600px) {
+  .testimonial-card {
+    flex: 0 0 calc(100vw - 48px);
+    min-width: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .testimonial-card {
+    padding: 22px 18px;
+  }
+  .testimonials-scroll {
+    padding-right: 16px;
+    gap: 12px;
+  }
+}

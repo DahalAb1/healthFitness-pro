@@ -1,5 +1,5 @@
-import AuthCarousel from './AuthCarousel';
-import '../../styles/components/auth/auth.css';
+import AuthCarousel from "./AuthCarousel";
+import "../../styles/components/auth/auth.css";
 
 /**
  * Shared split-screen layout for Login and Sign Up pages.
@@ -10,9 +10,7 @@ function AuthLayout({ children }) {
     <div className="auth-page">
       <AuthCarousel />
       <div className="auth-form-side">
-        <div className="auth-form-inner">
-          {children}
-        </div>
+        <div className="auth-form-inner">{children}</div>
       </div>
     </div>
   );

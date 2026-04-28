@@ -38,3 +38,28 @@
   object-fit: cover;
   display: block;
 }
+
+@media (max-width: 900px) {
+  .feature-image-container {
+    height: 300px;
+    width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .feature-row {
+    padding: 50px 16px;
+    gap: 28px;
+  }
+  .feature-content h2 {
+    font-size: 1.7rem;
+  }
+  .feature-image-container {
+    height: 220px;
+  }
+  .feature-content .btn {
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+  }
+}

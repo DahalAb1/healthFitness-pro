@@ -20,7 +20,10 @@
   background: transparent;
   color: var(--text-secondary);
   cursor: pointer;
-  transition: border-color 0.2s, color 0.2s, background 0.2s;
+  transition:
+    border-color 0.2s,
+    color 0.2s,
+    background 0.2s;
 }
 
 .filter-btn:hover {
@@ -38,5 +41,20 @@
   .filter-bar {
     gap: 8px;
     padding: 20px 4%;
+  }
+}
+
+@media (max-width: 480px) {
+  .el-filter-bar {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding: 14px 12px;
+    scrollbar-width: thin;
+  }
+
+  .el-filter-btn {
+    flex: 0 0 auto;
+    white-space: nowrap;
   }
 }

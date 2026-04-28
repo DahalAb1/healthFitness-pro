@@ -1,4 +1,4 @@
-﻿import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import AuthLayout from '../components/auth/AuthLayout';
 import AuthBrand from '../components/auth/AuthBrand';
 import AuthField from '../components/auth/AuthField';
@@ -7,14 +7,29 @@ import ConfirmPasswordField from '../components/auth/ConfirmPasswordField';
 import { useSignUpForm } from '../hooks/useSignUpForm';
 
 function SignUpPage() {
-  const { form, update, showPw, setShowPw, showConfirm, setShowConfirm, strength, matches, canSubmit, error, loading, handleSubmit } = useSignUpForm();
+  const {
+    form,
+    update,
+    showPw,
+    setShowPw,
+    showConfirm,
+    setShowConfirm,
+    strength,
+    matches,
+    canSubmit,
+    error,
+    loading,
+    handleSubmit,
+  } = useSignUpForm();
 
   return (
     <AuthLayout>
       <AuthBrand />
 
       <h2 className="auth-heading">Create Account.</h2>
-      <p className="auth-subheading">Start tracking. Start growing. For free.</p>
+      <p className="auth-subheading">
+        Start tracking. Start growing. For free.
+      </p>
 
       {error && <div className="auth-error">{error}</div>}
 
@@ -36,7 +51,7 @@ function SignUpPage() {
 
         <PasswordField
           value={form.password}
-          onChange={update('password')}
+          onChange={update("password")}
           show={showPw}
           onToggleShow={() => setShowPw((v) => !v)}
           strength={strength}
@@ -44,14 +59,19 @@ function SignUpPage() {
 
         <ConfirmPasswordField
           value={form.confirm}
-          onChange={update('confirm')}
+          onChange={update("confirm")}
           show={showConfirm}
           onToggleShow={() => setShowConfirm((v) => !v)}
           matches={matches}
         />
 
-        <button type="submit" className="auth-submit-btn" disabled={!canSubmit || loading} style={{ marginTop: '8px' }}>
-          {loading ? 'Creating account...' : 'Create Account'}
+        <button
+          type="submit"
+          className="auth-submit-btn"
+          disabled={!canSubmit || loading}
+          style={{ marginTop: "8px" }}
+        >
+          {loading ? "Creating account..." : "Create Account"}
         </button>
       </form>
 
