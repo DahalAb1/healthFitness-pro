@@ -40,16 +40,15 @@ def resolve_exercise(client: ExerciseClient, exercise_ref: str) -> dict:
     if isinstance(data, dict) and data.get("error") == "rate_limit":
         return {"error": "rate_limit"}
 
-    if isinstance(data, dict) and isinstance(data.get("error"), dict):
-        if data["error"].get("code") == "NOT_FOUND":
-            by_name = client.find_exercise_by_name(exercise_ref)
-            if isinstance(by_name, dict) and by_name.get("error") == "rate_limit":
-                return {"error": "rate_limit"}
-            if by_name:
-                return normalize_exercise_payload(by_name, exercise_ref)
+    # Any error from the ID lookup means exercise_ref is a name, not a real ID.
+    # Fall back to name search to get the actual ExerciseDB entry and its numeric ID.
+    if isinstance(data, dict) and "error" in data:
+        by_name = client.find_exercise_by_name(exercise_ref)
+        if isinstance(by_name, dict) and by_name.get("error") == "rate_limit":
+            return {"error": "rate_limit"}
+        if by_name and isinstance(by_name, dict) and "error" not in by_name:
+            return normalize_exercise_payload(by_name, exercise_ref)
 
-            return {"error": "Exercise not found"}
-
-        return {"error": "External exercise service error"}
+        return {"error": "Exercise not found"}
 
     return normalize_exercise_payload(data, exercise_ref)
