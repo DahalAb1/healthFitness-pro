@@ -1,6 +1,6 @@
 """Template routes – CRUD for workout templates and their exercises."""
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Request
 from sqlmodel import Session
 
 from api.deps import get_session, get_current_user
@@ -53,12 +53,14 @@ def get_template(template_id: int, session: Session = Depends(get_session)):
     return _template_to_dict(t)
 
 
-@router.get(
-    "/templates/{template_id}/exercises",
-    summary="Get template exercises with details",
-)
-def get_template_exercises(template_id: int, session: Session = Depends(get_session)):
-    """Return detailed exercise data for a template, including external API data."""
+@router.get("/templates/{template_id}/exercises")
+def get_template_exercises(
+    template_id: int,
+    request: Request,
+    session: Session = Depends(get_session),
+):
+    """Get full exercise details for a template, pulling from the external API.
+    Falls back to resolving exercises individually if bulk lookup returns nothing."""
     t = templates_crud.get_by_id(session, template_id)
     if not t:
         raise HTTPException(status_code=404, detail="Template not found")
@@ -82,6 +84,17 @@ def get_template_exercises(template_id: int, session: Session = Depends(get_sess
                     "image_url": details.get("gifUrl", ""),
                 },
             })
+
+    # Upstream API stopped returning gifUrl, so neither code path above produces a
+    # working image URL on its own. Override details.image_url with our backend
+    # proxy route (mirrors how /exercises injects gifUrl). Single pass covers both
+    # the bulk and per-exercise fallback branches.
+    for ex in exercises:
+        details = ex.get("details") or {}
+        exercise_id = details.get("id") or ex.get("exercise_id")
+        if exercise_id:
+            details["image_url"] = str(request.url_for("get_exercise_image", exercise_id=exercise_id))
+            ex["details"] = details
 
     return {
         "template_id": t.id,
