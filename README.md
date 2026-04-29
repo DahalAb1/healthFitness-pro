@@ -217,7 +217,18 @@ If we were going to continue this project for the next Sprint our next steps wou
 
 ---
 
-#### Abhinesh — Backend API Client, Exercise Templates & Integration
+#### Abhinesh — Upgraded Exercise API, Exercise Templates & Testing
+
+> Migrated the exercise API to a new provider, normalizing data schemas and updating all related backend endpoints and tests. Designed and executed the frontend unit testing plan for the exercise templates feature, and shipped final bug fixes.
+
+- **SCRUM-92** Find New Exercise API and update Credentials [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-92) | [PR #81](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/81)
+- **SCRUM-95** Updating Schema of New API usage [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-95) | [PR #88](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/88)
+- **SCRUM-93** Normalization of new data from New API [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-93) | [PR #93](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/93)
+- **SCRUM-94** Updating API endpoints [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-94) | [PR #92](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/92)
+- **SCRUM-96** Updating tests that deal with new API [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-96) | [PR #118](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/118)
+- **SCRUM-128** Exercise Template — Testing plan [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-128) | [PR #126](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/126)
+- **SCRUM-132** Exercise Template — Test Execution and Results [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-132) | [PR #130](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/130)
+- **SCRUM-137** Final fixes [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-137) | [PR #133](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/133)
 
 ---
 
