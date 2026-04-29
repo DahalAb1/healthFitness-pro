@@ -177,7 +177,7 @@
 
 ### Next Steps
 
-If we were going to continue this project for the next Sprint our next steps would be:
+If we were going to continue this project for the next Sprint our next steps would be `<br>`
 
 - Reviewing our current exercise API and possibly swapping it out for a new one. We had a couple of issues with the API we are currently using and the information it provides us.
 - Reviewing some bugs which were found in the application during our demo by peers. This includes the Calorie Tracker storage not working when not signed in and when trying to zero the daily calories it resetting to 2000.
@@ -236,6 +236,7 @@ If we were going to continue this project for the next Sprint our next steps wou
 ---
 
 #### Angel — Database Schemas, Data Models & Custom Workout Creator
+
 > Developed and documented shared frontend architecture by analyzing component overlap, defining reusable patterns, and implementing frontend common components to improve consistency and maintainability.
 
 - **SCRUM-110:** Implement the links in the footer — [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-110) | [PR #79](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/79)
@@ -259,7 +260,11 @@ If we were going to continue this project for the next Sprint our next steps wou
 
 ---
 
-#### Saroj
+#### Saroj - Making website responsive
+
+- **SCRUM-104** Responsive Foundation + Navigation Overhaul [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-104) | [PR #85](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/85)
+- **SCRUM-105** Mobile-first fixes for highest-risk pages [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-105) | [PR #99](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/99)
+- **SCRUM-106** Review frontend for security flaws or logic which should not be there [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-106) | [PR #127](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/127)
 
 ---
 
@@ -314,6 +319,7 @@ User Stories:
    git clone <repository-url>
    cd main_application
    ```
+
 2. **Create a Python virtual environment and install dependencies**
 
    ```bash
@@ -321,6 +327,7 @@ User Stories:
    source venv/bin/activate   # On Windows: venv\Scripts\activate
    pip install -r requirements.txt
    ```
+
 3. **Set up environment variables**
 
    Create a `.env` file in the project root with your RapidAPI key:
@@ -328,6 +335,7 @@ User Stories:
    ```
    XRAPID_API_KEY=your_rapidapi_key_here
    ```
+
 4. **Install Node dependencies** (only needed for running frontend tests)
 
    ```bash
@@ -343,6 +351,7 @@ User Stories:
    ```
 
    The API will be available at `http://127.0.0.1:8000` and the interactive docs at `http://127.0.0.1:8000/docs`.
+
 2. **Open the frontend**
 
    Open `app/frontend/front_page/index.html` in your browser, or serve the `app/frontend/` directory with any static file server.
