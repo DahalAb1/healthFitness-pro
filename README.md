@@ -12,6 +12,7 @@
 - [Room for Improvement](#room-for-improvement)
 - [Acknowledgements](#acknowledgements)
 - [Contact](#contact)
+
 <!-- * [License](#license) -->
 
 ## General Information
@@ -21,6 +22,7 @@
 - We are creating this application to improve the fitness knowledge of the general public.
 - We undertook this project as we found fitness to be very closely correlated to health which has great importance. This app will hopefully lead people to have a more positive relationship with working out which will help their health.
   <!-- You don't have to answer all the questions - just the ones relevant to your project. -->
+
   ![App Cover](app/src/images/coverphoto.jpg)
 
 ## Technologies Used
@@ -139,21 +141,15 @@
 ---
 
 #### Angel —
+
 > Designed UI of Nutrition, Account, Front page, Workout history and Timer. Implemented frontend of Workout templates and account.
 
-
 - **SCRUM-57:** implementation – frontend authentication UI| [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-57) | [PR #53](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/63)
-
 - **SCRUM-46:** implement frontend calorie tracker| [Jira](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/62) | [PR #62](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/62)
-
 - **SCRUM-45:** design nutrition page | [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-45) | [PR #52](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/52)
-
 - **SCRUM-21:** design ui timer |[Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-21) | [PR #48](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/48)
-
 - **SCRUM-71:** migrate workout templates feature | [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-71) | [PR #40](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/40)
-
 - **SCRUM-69:** offical documentation for the frontend | [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-69) | [PR #38](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/38)
-
 
 ---
 
@@ -175,22 +171,23 @@
 - **SCRUM-78:** Post-Deployment Smoke Testing - [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-78) | [PR #77](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/77)
 
 ---
+
 ### Next Steps
 
-If we were going to continue this project for the next Sprint our next steps would be  <br>
-- Reviewing our current exercise API and possibly swapping it out for a new one. We had a couple of issues with the API we are currently using and the information it provides us. <br>
-- Reviewing some bugs which were found in the application during our demo by peers. This includes the Calorie Tracker storage not working when not signed in and when trying to zero the daily calories it resetting to 2000. <br>
-- Populating our current application with more data as it currently has a small amount of it. This means adding more exercise templates. This is tied into a new exercise API. <br>
-- Adding more information to view in the Calorie Tracker such as protein or sugars instead of just calories. <br>
+If we were going to continue this project for the next Sprint our next steps would be  `<br>`
 
+- Reviewing our current exercise API and possibly swapping it out for a new one. We had a couple of issues with the API we are currently using and the information it provides us. `<br>`
+- Reviewing some bugs which were found in the application during our demo by peers. This includes the Calorie Tracker storage not working when not signed in and when trying to zero the daily calories it resetting to 2000. `<br>`
+- Populating our current application with more data as it currently has a small amount of it. This means adding more exercise templates. This is tied into a new exercise API. `<br>`
+- Adding more information to view in the Calorie Tracker such as protein or sugars instead of just calories. `<br>`
 
 ---
+
 ### Burnup Chart
 
 ![Burnup Chart](app/src/images/sprintBurnUp2.png)
 
 ---
-
 
 ## Sprint 3
 
@@ -201,8 +198,6 @@ If we were going to continue this project for the next Sprint our next steps wou
 #### Diego — Upgrading Nutrition Tracker, Reuseability in Frontend Components
 
 > Upgraded the nutrition tracker so that instead of just tracking calories it now tracks calories,fats,proteins,carbs. Many components in the Frontend had similar code so I created common components to be used across the frontend for simplicity and flexibility in the future.
-
-
 
 - **SCRUM-97** Reading more data from API in backend [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-97) | [PR](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/78)
 - **SCRUM-98** Writing more data in frontend from backend [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-98) | [PR](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/80)
@@ -219,6 +214,7 @@ If we were going to continue this project for the next Sprint our next steps wou
 - **SCRUM-120** Account Section Wrapper [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/120) | [PR](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/105)
 - **SCRUM-121** Async State Display Common Component [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/121) | [PR](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/106)
 - **SCRUM-133** Frontend - Unit Test Execution and Results [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/133) | [PR](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/109)
+
 ---
 
 #### Abhinesh — Backend API Client, Exercise Templates & Integration
@@ -226,6 +222,16 @@ If we were going to continue this project for the next Sprint our next steps wou
 ---
 
 #### Angel — Database Schemas, Data Models & Custom Workout Creator
+> Developed and documented shared frontend architecture by analyzing component overlap, defining reusable patterns, and implementing frontend common components to improve consistency and maintainability.
+
+- **SCRUM-110:** Implement the links in the footer — [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-110) | [PR #79](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/79)
+- **SCRUM-112:** Implement about and contact pages — [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-112) | [PR #87](https://bitbucket.org/%7B1a7d2622-da3b-427b-94cf-594f66bc4a35%7D/%7B7374849d-2806-49f4-8457-a47dca12d17c%7D/pull-requests/87)
+- **SCRUM-91:** Document signed in/signed out bugs — [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-91) | [PR #90](https://bitbucket.org/%7B1a7d2622-da3b-427b-94cf-594f66bc4a35%7D/%7B7374849d-2806-49f4-8457-a47dca12d17c%7D/pull-requests/90)
+- **SCRUM-122:** Fix front page and authentication bugs — [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-122) | [PR #97](https://bitbucket.org/%7B1a7d2622-da3b-427b-94cf-594f66bc4a35%7D/%7B7374849d-2806-49f4-8457-a47dca12d17c%7D/pull-requests/97)
+- **SCRUM-123:** Fix workout template bugs — [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-123) | [PR #114](https://bitbucket.org/%7B1a7d2622-da3b-427b-94cf-594f66bc4a35%7D/%7B7374849d-2806-49f4-8457-a47dca12d17c%7D/pull-requests/114)
+- **SCRUM-109:** Create a dark/light mode component — [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-109) | [PR #115](https://bitbucket.org/%7B1a7d2622-da3b-427b-94cf-594f66bc4a35%7D/%7B7374849d-2806-49f4-8457-a47dca12d17c%7D/pull-requests/115)
+- **SCRUM-127:** Custom template testing plan — [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-127) | [PR #122](https://bitbucket.org/%7B1a7d2622-da3b-427b-94cf-594f66bc4a35%7D/%7B7374849d-2806-49f4-8457-a47dca12d17c%7D/pull-requests/122)
+- **SCRUM-131:** Added report, test files, and results for custom unit test — [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-131) | [PR #124](https://bitbucket.org/%7B1a7d2622-da3b-427b-94cf-594f66bc4a35%7D/%7B7374849d-2806-49f4-8457-a47dca12d17c%7D/pull-requests/124)
 
 ---
 
@@ -239,32 +245,23 @@ If we were going to continue this project for the next Sprint our next steps wou
 
 ### Next Steps
 
-- Our next steps will be largely towards breaking down our services into microservices. We have done steps towards this and we just need to come together as a team and do that final push. 
-- We will work towards improving our use of the database and how we communicate with that as we have had multiple issues with that. 
+- Our next steps will be largely towards breaking down our services into microservices. We have done steps towards this and we just need to come together as a team and do that final push.
+- We will work towards improving our use of the database and how we communicate with that as we have had multiple issues with that.
 
 ## Features
 
 User Stories:
 
-1.  As a health enthusiast I would like a library of exercises so that I can know what muscles to target per exercise.
-
-1.  As a gym enthusiast I would like some exercise templates so that I can thoroughly and consistently exercise every week.
-
-1.  As a gym enthusiast, I want to create my own custom workout routines from the exercise library so that I can follow a personalized plan that fits my specific goals.
-
-1.  As a dedicated athlete, I want to log my actual sets, reps, and weight during a workout so that I can see my progress over time.
-
-1.  As a health-conscious user, I want to log my daily food intake so that I can monitor my calorie balance against my activity levels.
-
-1.  As a runner, I want to track my distance, time, and route via GPS so that I can see a map of my run and analyze my pace.
-
-1.  As a disciplined lifter, I want a dedicated rest timer and clock within the app, so that I don't have to switch to my phone's clock app between sets.
-
-1.  As a mobile-first athlete, I want to access my workout library, track my runs via GPS, and receive haptic notifications, so that I can train anywhere—from the gym floor to outdoor trails—without needing a laptop.
-
-1.  As a customer, I would like a nice and easily interpretable front page so I can navigate and use the application.
-
-1.  As a customer, I would like to have a secure account to protect sensitive information so I can use my account across platforms.
+1. As a health enthusiast I would like a library of exercises so that I can know what muscles to target per exercise.
+2. As a gym enthusiast I would like some exercise templates so that I can thoroughly and consistently exercise every week.
+3. As a gym enthusiast, I want to create my own custom workout routines from the exercise library so that I can follow a personalized plan that fits my specific goals.
+4. As a dedicated athlete, I want to log my actual sets, reps, and weight during a workout so that I can see my progress over time.
+5. As a health-conscious user, I want to log my daily food intake so that I can monitor my calorie balance against my activity levels.
+6. As a runner, I want to track my distance, time, and route via GPS so that I can see a map of my run and analyze my pace.
+7. As a disciplined lifter, I want a dedicated rest timer and clock within the app, so that I don't have to switch to my phone's clock app between sets.
+8. As a mobile-first athlete, I want to access my workout library, track my runs via GPS, and receive haptic notifications, so that I can train anywhere—from the gym floor to outdoor trails—without needing a laptop.
+9. As a customer, I would like a nice and easily interpretable front page so I can navigate and use the application.
+10. As a customer, I would like to have a secure account to protect sensitive information so I can use my account across platforms.
 
 ## Screenshots
 
@@ -291,7 +288,6 @@ User Stories:
    git clone <repository-url>
    cd main_application
    ```
-
 2. **Create a Python virtual environment and install dependencies**
 
    ```bash
@@ -299,7 +295,6 @@ User Stories:
    source venv/bin/activate   # On Windows: venv\Scripts\activate
    pip install -r requirements.txt
    ```
-
 3. **Set up environment variables**
 
    Create a `.env` file in the project root with your RapidAPI key:
@@ -307,8 +302,8 @@ User Stories:
    ```
    XRAPID_API_KEY=your_rapidapi_key_here
    ```
-
 4. **Install Node dependencies** (only needed for running frontend tests)
+
    ```bash
    npm install
    ```
@@ -322,7 +317,6 @@ User Stories:
    ```
 
    The API will be available at `http://127.0.0.1:8000` and the interactive docs at `http://127.0.0.1:8000/docs`.
-
 2. **Open the frontend**
 
    Open `app/frontend/front_page/index.html` in your browser, or serve the `app/frontend/` directory with any static file server.
