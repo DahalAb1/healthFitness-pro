@@ -237,9 +237,10 @@ If we were going to continue this project for the next Sprint our next steps wou
 
 ---
 
-### Burnup Chart
+### Next Steps
 
-![Burnup Chart](app/src/images/image.png)
+- Our next steps will be largely towards breaking down our services into microservices. We have done steps towards this and we just need to come together as a team and do that final push. 
+- We will work towards improving our use of the database and how we communicate with that as we have had multiple issues with that. 
 
 ## Features
 
