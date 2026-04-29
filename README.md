@@ -235,7 +235,13 @@ If we were going to continue this project for the next Sprint our next steps wou
 
 ---
 
-#### Connor — Backend for Workout History, Custom Workouts & Progress Tracking
+#### Connor — Refactored API Endpoints by adding summaries, authentication and removing unnecessary code
+
+- **SCRUM-100** Clean up the definitions/wordings of each endpoint [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-100) | [PR #83](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/83)
+- **SCRUM-101** Add authentication of data to endpoints [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-101) | [PR #107](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/107)
+- **SCRUM-102** Review frontend for security flaws or logic which should not be there [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-102) | [PR #117](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/117)
+- **SCRUM-129** Calorie Tracker Backend - Test Execution and Results [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-129) | [PR #121](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/121)
+- **SCRUM-125** Calorie Tracker Backend - Testing plan [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-125) | [PR #120](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/120)
 
 ---
 
