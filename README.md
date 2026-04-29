@@ -198,8 +198,27 @@ If we were going to continue this project for the next Sprint our next steps wou
 
 ---
 
-#### Diego — Frontend UI, Wireframes & Unit Tests
+#### Diego — Upgrading Nutrition Tracker, Reuseability in Frontend Components
 
+> Upgraded the nutrition tracker so that instead of just tracking calories it now tracks calories,fats,proteins,carbs. Many components in the Frontend had similar code so I created common components to be used across the frontend for simplicity and flexibility in the future.
+
+
+
+- **SCRUM-97** Reading more data from API in backend [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-97) | [PR](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/78)
+- **SCRUM-98** Writing more data in frontend from backend [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-98) | [PR](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/80)
+- **SCRUM-99** Performance metrics for nutritions [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-99) | [PR](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/82)
+- **SCRUM-111** Document Similar Components across Pages and Create Tasks for Common Components [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/SCRUM-111) | [PR](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/89)
+- **SCRUM-108** Create common Hero Component across the pages [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/108) | [PR](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/94)
+- **SCRUM-113** Category / Filter Button Bars Common Component [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/113) | [PR](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/95)
+- **SCRUM-114** Numeric Stepper Common Component [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/114) | [PR](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/96)
+- **SCRUM-115** Exercise / Workout Cards Common Component [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/115) | [PR](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/100)
+- **SCRUM-116** Modal / Overlay Pattern Common Component [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/116) | [PR](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/101)
+- **SCRUM-117** Trend Chart Section Common Component [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/117) | [PR](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/102)
+- **SCRUM-118** Exercise Muscle/Equipment Badge Pair Commonality [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/118) | [PR](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/103)
+- **SCRUM-119** Auth Form Text Field Common Component [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/119) | [PR](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/104)
+- **SCRUM-120** Account Section Wrapper [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/120) | [PR](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/105)
+- **SCRUM-121** Async State Display Common Component [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/121) | [PR](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/106)
+- **SCRUM-133** Frontend - Unit Test Execution and Results [Jira](https://cs3398-zabraks-s26.atlassian.net/browse/133) | [PR](https://bitbucket.org/cs3398-zabraks-s26/main_application/pull-requests/109)
 ---
 
 #### Abhinesh — Backend API Client, Exercise Templates & Integration
