@@ -191,6 +191,37 @@ If we were going to continue this project for the next Sprint our next steps wou
 
 ---
 
+
+## Sprint 3
+
+### Contributions
+
+---
+
+#### Diego — Frontend UI, Wireframes & Unit Tests
+
+---
+
+#### Abhinesh — Backend API Client, Exercise Templates & Integration
+
+---
+
+#### Angel — Database Schemas, Data Models & Custom Workout Creator
+
+---
+
+#### Connor — Backend for Workout History, Custom Workouts & Progress Tracking
+
+---
+
+#### Saroj
+
+---
+
+### Burnup Chart
+
+![Burnup Chart](app/src/images/image.png)
+
 ## Features
 
 User Stories:
